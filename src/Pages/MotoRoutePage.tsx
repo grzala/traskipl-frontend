@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 
 import { useParams } from "react-router";
 import { getMotoRoute, MotoRouteType } from "../Actions/MotoRoutesActions";
-import Header from "./Layout/Header";
 
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
@@ -23,13 +22,15 @@ const MotoRoutePage = () => {
 
     useEffect(() => {
         setRoute(getMotoRoute(id))
-    })
+    }, [id])
     
+
+
 
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: "YOUR_API_KEY"
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""
       })
     
       const [map, setMap] = React.useState(null)

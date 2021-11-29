@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+// import { useEffect, useState, useCallback } from "react";
 //import axios from "axios";
 
 export type MotoRouteType = {
@@ -42,10 +42,10 @@ export function getMotoRoutes() {
 export function getMotoRoute(id: any) {
     let i = tempRoutes.findIndex(r => r._id === id)
     if (i > 0) {
+        return tempRoutes[i];
     }
 
-    return tempRoutes[i];
-    throw("nah, dude, no such ID")
+    throw(Error("nah, dude, no such ID"))
 }
 
 // function getMotoRoutes<T>(): Promise<T[]> {
