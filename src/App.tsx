@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import './App.scss';
 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+
 import Homepage from './Pages/Homepage';
 
 function App() {
@@ -16,9 +18,7 @@ function App() {
   return (
     <div className="App">
       <div className="container-fluid" >
-        <div className="row">
           <Homepage />
-        </div>
       </div>
     
     </div>
