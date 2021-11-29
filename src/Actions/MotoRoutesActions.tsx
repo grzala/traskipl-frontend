@@ -39,6 +39,15 @@ export function getMotoRoutes() {
     return tempRoutes;
 }
 
+export function getMotoRoute(id: any) {
+    let i = tempRoutes.findIndex(r => r._id === id)
+    if (i > 0) {
+    }
+
+    return tempRoutes[i];
+    throw("nah, dude, no such ID")
+}
+
 // function getMotoRoutes<T>(): Promise<T[]> {
 //     //return axios.get<ResourceType[]>('http://localhost:3000/api/resources').then((response) => response.data)
 //     return new Promise(() => tempRoutes);

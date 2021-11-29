@@ -4,6 +4,7 @@ import './App.scss';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import Homepage from './Pages/Homepage';
+import MotoRoutePage from './Pages/MotoRoutePage';
 
 function App() {
 
@@ -18,7 +19,14 @@ function App() {
   return (
     <div className="App">
       <div className="container-fluid" >
-          <Homepage />
+        <Router>
+          <Routes>
+
+
+            <Route path="/routes/:id" element={ <MotoRoutePage /> } />
+            <Route path="/" element={ <Homepage /> } />
+          </Routes>
+        </Router>
       </div>
     
     </div>
