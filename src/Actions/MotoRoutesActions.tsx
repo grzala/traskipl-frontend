@@ -41,7 +41,7 @@ export function getMotoRoutes() {
 
 export function getMotoRoute(id: any) {
     let i = tempRoutes.findIndex(r => r._id === id)
-    if (i > 0) {
+    if (i >= 0) {
         return tempRoutes[i];
     }
 
