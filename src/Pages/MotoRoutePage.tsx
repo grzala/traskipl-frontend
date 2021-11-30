@@ -3,10 +3,21 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMotoRoute, MotoRouteType } from "../Actions/MotoRoutesActions";
 
+
+import ExampleDirections from "./example-directions";
+
 import GoogleMapsTest from "./GoogleMapsTest";
 
 
-
+export const mapContainerStyle = {
+    height: '400px',
+    width: '100%',
+  }
+  
+  export const shapeExampleStyles = {
+    container: mapContainerStyle,
+  }
+  
 const MotoRoutePage = () => {
     const { id } = useParams()
 
@@ -29,7 +40,7 @@ const MotoRoutePage = () => {
                             height: "40em"
                         }}>
                     
-                        <GoogleMapsTest />
+                        <GoogleMapsTest />   
                     
                     </div>
                 </div>

@@ -67,7 +67,7 @@ const GoogleMapsTest = () => {
                     {/* <Marker position={{lat: 51.50, lng: 15.47}} />
                     <Marker position={{lat: 49.2, lng: 18.5}} /> */}
 
-                    {destination !== '' && origin !== '' && (
+                    {destination !== '' && origin !== '' && response == null && (
                         <DirectionsService
                             options={{...directionsServiceOptions, 
                                 travelMode: 'DRIVING'}}
