@@ -6,14 +6,14 @@ import { getMotoRoute, MotoRouteType } from "../Actions/MotoRoutesActions";
 import { GoogleMap, LoadScript, useJsApiLoader } from '@react-google-maps/api';
 
 const containerStyle = {
-    width: '400px',
-    height: '400px'
+    width: '800px',
+    height: '600px'
   };
   
 
   const center = {
     lat: 51.7478909,
-    lng: 16.3737659,
+    lng: 20.3737659,
   };
 
 const MotoRoutePage = () => {
@@ -54,7 +54,7 @@ const MotoRoutePage = () => {
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
-                    zoom={2}
+                    zoom={6}
                     >
                 { /* Child components, such as markers, info windows, etc. */ }
                 <></>
