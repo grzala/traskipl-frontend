@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { getMotoRoute, MotoRouteType } from "../Actions/MotoRoutesActions";
 
 import { GoogleMap, LoadScript, useJsApiLoader } from '@react-google-maps/api';
@@ -53,8 +53,8 @@ const MotoRoutePage = () => {
 
             
             <LoadScript
-                googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""}
-            >
+                googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} >
+
                 <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}
