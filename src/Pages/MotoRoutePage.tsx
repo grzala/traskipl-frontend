@@ -27,10 +27,6 @@ const MotoRoutePage = () => {
     
 
 
-    const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""
-    })
     
     const [map, setMap] = React.useState(null)
 
@@ -56,10 +52,10 @@ const MotoRoutePage = () => {
                 googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} >
 
                 <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={10}
-                >
+                    mapContainerStyle={containerStyle}
+                    center={center}
+                    zoom={2}
+                    >
                 { /* Child components, such as markers, info windows, etc. */ }
                 <></>
                 </GoogleMap>
