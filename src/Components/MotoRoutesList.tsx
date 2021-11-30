@@ -1,4 +1,3 @@
-import { Marker } from "@react-google-maps/api";
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { MotoRouteType } from "../Actions/MotoRoutesActions";
