@@ -10,9 +10,10 @@ const containerStyle = {
     height: '400px'
   };
   
+
   const center = {
-    lat: -3.745,
-    lng: -38.523
+    lat: 51.7478909,
+    lng: 16.3737659,
   };
 
 const MotoRoutePage = () => {
@@ -43,7 +44,7 @@ const MotoRoutePage = () => {
         setMap(null)
     }, [])
 
-    return isLoaded ? (
+    return true ? (
 
         <Fragment>
 
