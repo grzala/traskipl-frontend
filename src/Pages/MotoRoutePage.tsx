@@ -3,17 +3,17 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getMotoRoute, MotoRouteType } from "../Actions/MotoRoutesActions";
 
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, useJsApiLoader } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '400px',
-  height: '400px'
-};
-
-const center = {
-  lat: 16.3737659,
-  lng: 51.7478909,
-};
+    width: '400px',
+    height: '400px'
+  };
+  
+  const center = {
+    lat: -3.745,
+    lng: -38.523
+  };
 
 const MotoRoutePage = () => {
     const { id } = useParams()
@@ -50,19 +50,24 @@ const MotoRoutePage = () => {
             yayaya { id }
             {route?.title}
 
-            <GoogleMap
+            
+            <LoadScript
+                googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""}
+            >
+                <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}
-                zoom={8}
-                onLoad={onLoad}
-                onUnmount={onUnmount}
-            >
-            { /* Child components, such as markers, info windows, etc. */ }
-            
-            </GoogleMap>
+                zoom={10}
+                >
+                { /* Child components, such as markers, info windows, etc. */ }
+                <></>
+                </GoogleMap>
+            </LoadScript>
 
         </Fragment>
       ) : <></>
 }
 
 export default MotoRoutePage;
+
+
