@@ -3,7 +3,8 @@ export enum POIVariant {
     VISTA = "VISTA", 
     URBEX = "URBEX",
     DANGER = "DANGER",
-    FUEL = "FUEL"
+    FUEL = "FUEL",
+    OTHER = "OTHER"
 }
 
 export type POIType = {

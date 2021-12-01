@@ -16,11 +16,41 @@ const tempRoutes: MotoRouteType[] = [
         ],
         points_of_interest: [
             { 
+                name: "some FOOD",
+                description: "some point description",
+                coordinates: {lat: 49.394489, lng: 22.402796},
+                variant: POIVariant.FOOD
+            },
+            { 
+                name: "some VISTA",
+                description: "some point description",
+                coordinates: {lat: 49.394489, lng: 22.422796},
+                variant: POIVariant.VISTA
+            },
+            { 
+                name: "some URBEX",
+                description: "some point description",
+                coordinates: {lat: 49.394489, lng: 22.442796},
+                variant: POIVariant.URBEX
+            },
+            { 
+                name: "some DANGER",
+                description: "some point description",
+                coordinates: {lat: 49.394489, lng: 22.462796},
+                variant: POIVariant.DANGER
+            },
+            { 
+                name: "some FUEL",
+                description: "some point description",
+                coordinates: {lat: 49.394489, lng: 22.482796},
+                variant: POIVariant.FUEL
+            },
+            { 
                 name: "some point",
                 description: "some point description",
                 coordinates: {lat: 49.394489, lng: 22.502796},
-                variant: POIVariant.VISTA
-            }
+                variant: POIVariant.OTHER
+            },
         ]
     },
     {
