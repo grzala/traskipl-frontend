@@ -1,7 +1,11 @@
 import React from "react";
 
 import { DirectionsRenderer, DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
-import { MPETLA_RESPONSE } from "./CachedResponses";
+import { mapIconUrls } from "./MapConstants";
+
+
+
+
 
 const MotoRouteMap = (props) => {
 
@@ -78,7 +82,7 @@ const MotoRouteMap = (props) => {
 
                     {motoRoutePOIs && (
                         motoRoutePOIs.map((poi, index) => (
-                            <Marker key={`marker_${index}`} position={ poi.coordinates }  />
+                            <Marker key={`marker_${index}`} position={ poi.coordinates } icon={ mapIconUrls[poi.variant] } />
                         ))
                     )}
 

@@ -1,9 +1,9 @@
 // import { useEffect, useState, useCallback } from "react";
 //import axios from "axios";
 
-import { MotoRouteType, POIType, POIVariant} from "../Types/MotoRoutesTypes"
+import { MotoRouteType, POIVariant} from "../Types/MotoRoutesTypes"
 
-const tempRoutes = [
+const tempRoutes: MotoRouteType[] = [
     {  
         _id: '1',
         title: "Mała pętla Bieszczadzka",
