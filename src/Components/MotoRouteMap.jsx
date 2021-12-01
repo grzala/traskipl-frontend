@@ -6,7 +6,7 @@ const MotoRouteMap = (props) => {
 
     const defaultZoom = 6;
     
-    const {motoRouteCoords} = props;
+    const { motoRouteCoords, motoRoutePOIs} = props;
     const origin = motoRouteCoords[0];
     const destination = motoRouteCoords[motoRouteCoords.length-1]
     const waypoints = motoRouteCoords.slice(1, motoRouteCoords.length-1).map((coord) => ({location: coord, stopover: false}))
@@ -60,6 +60,12 @@ const MotoRouteMap = (props) => {
                         
                     {/* <Marker position={{lat: 51.50, lng: 15.47}} />
                     <Marker position={{lat: 49.2, lng: 18.5}} /> */}
+
+                    {motoRoutePOIs && (
+                        motoRoutePOIs.map((poi) => (
+                            <h1>yo</h1>
+                        ))
+                    )}
 
                     {/* This code gets directions from API
                         This is stupid to do this in rendering, but this is how the library wanted it done */}

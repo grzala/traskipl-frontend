@@ -3,7 +3,8 @@ import React, { Fragment, useEffect, useState } from "react";
 
 import "./Homepage.scss"
 import MotoRoutesList from "../Components/MotoRoutesList";
-import { getMotoRoutes, MotoRouteType } from "../Actions/MotoRoutesActions";
+import { MotoRouteType } from "../Types/MotoRoutesTypes";
+import { getMotoRoutes } from "../Actions/MotoRoutesActions";
 
 const Homepage = () => {
 

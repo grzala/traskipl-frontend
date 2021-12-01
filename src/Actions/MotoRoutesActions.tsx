@@ -1,12 +1,7 @@
 // import { useEffect, useState, useCallback } from "react";
 //import axios from "axios";
 
-export type MotoRouteType = {
-    _id: string,
-    title: string,
-    description: string,
-    coordinates: {lat: number, lng: number}[]
-}
+import { MotoRouteType, POIType, POIVariant} from "../Types/MotoRoutesTypes"
 
 const tempRoutes = [
     {  
@@ -18,6 +13,14 @@ const tempRoutes = [
             { lat: 49.321988, lng: 22.668264},
             { lat: 49.304531, lng: 22.416348},
             { lat: 49.467955, lng: 22.320365},
+        ],
+        points_of_interest: [
+            { 
+                name: "some point",
+                description: "some point description",
+                coordinates: {lat: 49.394489, lng: 22.502796},
+                variant: POIVariant.VISTA
+            }
         ]
     },
     {

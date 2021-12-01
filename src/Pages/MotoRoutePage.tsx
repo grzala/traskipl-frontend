@@ -1,7 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
-import { getMotoRoute, MotoRouteType } from "../Actions/MotoRoutesActions";
+
+
+import { MotoRouteType, POIType, POIVariant} from "../Types/MotoRoutesTypes"
+import { getMotoRoute } from "../Actions/MotoRoutesActions";
 
 
 import MotoRouteMap from "../Components/MotoRouteMap";
@@ -27,7 +30,7 @@ const MotoRoutePage = () => {
                     <div className="moto-route-map-container">
                     
                         {route && (
-                            <MotoRouteMap motoRouteCoords={route?.coordinates} />   
+                            <MotoRouteMap motoRouteCoords={route?.coordinates} motoRoutePOIs={route?.points_of_interest} />   
                         )}
                     
                     </div>
