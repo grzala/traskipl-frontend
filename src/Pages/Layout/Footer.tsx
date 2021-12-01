@@ -2,6 +2,7 @@ import React from "react";
 
 
 /*
+    also add findicons.com/
     Icons used:
     food: https://www.flaticon.com/premium-icon/restaurant_685301
 
