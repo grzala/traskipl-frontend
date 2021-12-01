@@ -1,4 +1,4 @@
-export MPETLA_RESPONSE = {
+export var MPETLA_RESPONSE = {
     "geocoded_waypoints": [
       {
         "geocoder_status": "OK",
@@ -10132,4 +10132,3 @@ export MPETLA_RESPONSE = {
 
 
 
-  
