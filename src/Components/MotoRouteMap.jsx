@@ -6,10 +6,15 @@ import { mapIconUrls } from "./MapConstants";
 
 
 
+const mapContainerStyle = {
+    display: "flex",
+    width: '100%',
+    height: '100%'
+};
 
 const MotoRouteMap = (props) => {
 
-    const defaultZoom = 6;
+    const defaultZoom = 10;
     
     const { motoRouteCoords, motoRoutePOIs} = props;
     const origin = motoRouteCoords[0];
@@ -17,16 +22,6 @@ const MotoRouteMap = (props) => {
     const waypoints = motoRouteCoords.slice(1, motoRouteCoords.length-1).map((coord) => ({location: coord, stopover: false}))
 
     const [directionsResponse, setDirectionsResponse] = React.useState(null)
-
-    // useEffect(() => {
-    //     setDirectionsResponse({directions: MPETLA_RESPONSE});
-    // }, [])
-
-    const mapContainerStyle = {
-        display: "flex",
-        width: '100%',
-        height: '100%'
-    };
 
     const directionsCallback = React.useCallback((res) => {
         console.log(res)
@@ -56,16 +51,6 @@ const MotoRouteMap = (props) => {
         return dirInfo;
     }, [origin, destination, waypoints])
 
-    const markerIcon = {
-        path: process.env.PUBLIC_URL + '/map_icons/magazines.png',
-        fillColor: "blue",
-        fillOpacity: 0.6,
-        strokeWeight: 0,
-        rotation: 0,
-        scale: 2,
-        anchor: {x: 15, y: 30}
-      };
-
     
     return (
         <LoadScript
@@ -77,29 +62,33 @@ const MotoRouteMap = (props) => {
                     zoom={defaultZoom}
                     >
                         
-                    {/* <Marker position={{lat: 51.50, lng: 15.47}} />
-                    <Marker position={{lat: 49.2, lng: 18.5}} /> */}
-
                     {motoRoutePOIs && (
                         motoRoutePOIs.map((poi, index) => (
-                            <Marker key={`marker_${index}`} position={ poi.coordinates } icon={ mapIconUrls[poi.variant] } />
+                            <Marker 
+                                key={`marker_${index}`} 
+                                position={ poi.coordinates } 
+                                icon={ mapIconUrls[poi.variant] }
+                                clickable={ true }
+                                title="yoyoyoyo" />
                         ))
                     )}
 
-                    {/* This code gets directions from API
-                        This is stupid to do this in rendering, but this is how the library wanted it done */}
-                    {destination !== '' && origin !== '' && directionsResponse === null && (
-                        <DirectionsService
-                            options={{...directionsServiceOptions, 
-                                travelMode: 'DRIVING'}}
-                            callback={directionsCallback}
-                        />
-                    )}
+                        {/* This code gets directions from API
+                            This is stupid to do this in rendering, but this is how the library wanted it done */}
+                        
+                        {/* REACT_APP_SKIP_MAP_RENDERING allows to save on requests when not working on directions feature */}
+                        {process.env.REACT_APP_SKIP_MAP_RENDERING !== "TRUE" && destination !== '' && origin !== '' && directionsResponse === null && (
+                            <DirectionsService
+                                options={{...directionsServiceOptions, 
+                                    travelMode: 'DRIVING'}}
+                                callback={directionsCallback}
+                            />
+                        )}
 
-                    {/* This code renders the directions after they were received from API */}
-                    {directionsResponse !== null && (
-                        <DirectionsRenderer options={directionsResponse} />
-                    )}
+                        {/* This code renders the directions after they were received from API */}
+                        {directionsResponse !== null && (
+                            <DirectionsRenderer options={directionsResponse} />
+                        )}
                 </GoogleMap>
         </LoadScript>
     )

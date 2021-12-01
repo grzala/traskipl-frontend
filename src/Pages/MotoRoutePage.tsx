@@ -10,6 +10,7 @@ import { getMotoRoute } from "../Actions/MotoRoutesActions";
 import MotoRouteMap from "../Components/MotoRouteMap";
 
 import "./MotoRoutePage.scss"
+import MotoRouteDetails from "../Components/MotoRouteDetails";
 
   
 const MotoRoutePage = () => {
@@ -30,15 +31,15 @@ const MotoRoutePage = () => {
                     <div className="moto-route-map-container">
                     
                         {route && (
-                            <MotoRouteMap motoRouteCoords={route?.coordinates} motoRoutePOIs={route?.points_of_interest} />   
+                            <MotoRouteMap motoRouteCoords={route.coordinates} motoRoutePOIs={route.points_of_interest} />   
                         )}
                     
                     </div>
                 </div>
                 <div className="col-md-4">
-
-                    <h2>{route?.title}</h2>
-                    <p>{route?.description}</p>
+                    { route && (
+                        <MotoRouteDetails route={route} />
+                    )}
                 </div>
             </div>
 
