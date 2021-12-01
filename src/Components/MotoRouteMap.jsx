@@ -1,6 +1,7 @@
 import React from "react";
 
 import { DirectionsRenderer, DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
+import { MPETLA_RESPONSE } from "./CachedResponses";
 
 const MotoRouteMap = (props) => {
 
@@ -12,6 +13,10 @@ const MotoRouteMap = (props) => {
     const waypoints = motoRouteCoords.slice(1, motoRouteCoords.length-1).map((coord) => ({location: coord, stopover: false}))
 
     const [directionsResponse, setDirectionsResponse] = React.useState(null)
+
+    // useEffect(() => {
+    //     setDirectionsResponse({directions: MPETLA_RESPONSE});
+    // }, [])
 
     const mapContainerStyle = {
         display: "flex",
