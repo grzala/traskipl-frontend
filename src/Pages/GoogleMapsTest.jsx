@@ -1,3 +1,4 @@
+/* global google */
 import React from "react";
 
 import { useEffect } from "react";
@@ -33,7 +34,7 @@ const GoogleMapsTest = () => {
     
         if (res !== null) {
           if (res.status === 'OK') {
-            setResponse(res)
+            setResponse({directions: res})
           } else {
             console.log('response: ', res)
           }
@@ -53,6 +54,7 @@ const GoogleMapsTest = () => {
             directions: response,
         }
     }, [])
+
     
     return (
         <LoadScript
@@ -67,7 +69,7 @@ const GoogleMapsTest = () => {
                     {/* <Marker position={{lat: 51.50, lng: 15.47}} />
                     <Marker position={{lat: 49.2, lng: 18.5}} /> */}
 
-                    {destination !== '' && origin !== '' && response == null && (
+                    {destination !== '' && origin !== '' && response === null && (
                         <DirectionsService
                             options={{...directionsServiceOptions, 
                                 travelMode: 'DRIVING'}}
@@ -76,7 +78,7 @@ const GoogleMapsTest = () => {
                     )}
 
                     {response !== null && (
-                      <DirectionsRenderer options={directionsRendererOptions} />
+                        <DirectionsRenderer options={response} />
                     )}
                 </GoogleMap>
         </LoadScript>
