@@ -4,6 +4,8 @@ import MotoRouteAccidentsCard from "./MotoRouteAccidentsCard";
 import MotoRouteDetailsCard from "./MotoRouteDetailsCard";
 import MotoRoutePOIsCard from "./MotoRoutePOIsCard";
 
+import "./MotoRouteDetails.scss"
+
 type MotoRouteProps = {
     route: MotoRouteType
 }
@@ -38,9 +40,7 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
 
     const handleNavlinkClick = (e: any, newCard: Card) => {
         e.preventDefault();
-
         setCurrentCard(newCard);
-
     }
 
     return (
