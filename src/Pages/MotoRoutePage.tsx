@@ -10,7 +10,7 @@ import { getMotoRoute } from "../Actions/MotoRoutesActions";
 import MotoRouteMap from "../Components/MotoRouteMap";
 
 import "./MotoRoutePage.scss"
-import MotoRouteDetails from "../Components/MotoRouteDetails";
+import MotoRouteDetails from "../Components/MotoRouteDetails/MotoRouteDetails";
 
   
 const MotoRoutePage = () => {
