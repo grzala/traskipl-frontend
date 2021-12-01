@@ -4,8 +4,6 @@ import { useParams } from "react-router-dom";
 import { getMotoRoute, MotoRouteType } from "../Actions/MotoRoutesActions";
 
 
-import ExampleDirections from "./example-directions";
-
 import GoogleMapsTest from "./GoogleMapsTest";
 
 
@@ -28,7 +26,6 @@ const MotoRoutePage = () => {
     }, [id])
 
 
-    
 
     return true ? (
 

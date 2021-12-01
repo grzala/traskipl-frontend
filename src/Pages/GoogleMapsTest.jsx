@@ -1,7 +1,4 @@
-/* global google */
 import React from "react";
-
-import { useEffect } from "react";
 
 import { DirectionsRenderer, DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
 
@@ -26,22 +23,6 @@ const GoogleMapsTest = (props) => {
         lng: 18.3737659,
     };
 
-    // const origin = { lat: 40.756795, lng: -73.954298 };
-    // const destination = { lat: 41.756795, lng: -78.954298 };
-    
-    // const origin = { lat: 53.150245, lng: 16.789432 };
-    // const destination = { lat: 53.008179, lng: 18.600308 };
-    // const waypoints = [
-    //     {
-    //         location: { lat: 51.785711, lng: 18.083513 },
-    //         stopover: false,
-    //     },
-    //     {
-    //         location: { lat: 51.747145, lng: 18.247205 },
-    //         stopover: false,
-    //     },
-    // ]
-    
 
     const directionsCallback = React.useCallback((res) => {
         console.log(res)
@@ -69,14 +50,7 @@ const GoogleMapsTest = (props) => {
         }
 
         return dirInfo;
-    }, [])
-
-
-    const directionsRendererOptions = React.useMemo(() => {
-        return {
-            directions: response,
-        }
-    }, [])
+    }, [origin, destination, waypoints])
 
     
     return (
@@ -92,6 +66,8 @@ const GoogleMapsTest = (props) => {
                     {/* <Marker position={{lat: 51.50, lng: 15.47}} />
                     <Marker position={{lat: 49.2, lng: 18.5}} /> */}
 
+                    {/* This code gets directions from API
+                        This is stupid to do this in rendering, but this is how the library wanted it done */}
                     {destination !== '' && origin !== '' && response === null && (
                         <DirectionsService
                             options={{...directionsServiceOptions, 
@@ -100,6 +76,7 @@ const GoogleMapsTest = (props) => {
                         />
                     )}
 
+                    {/* This code renders the directions after they were received from API */}
                     {response !== null && (
                         <DirectionsRenderer options={response} />
                     )}
