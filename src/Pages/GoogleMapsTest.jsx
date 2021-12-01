@@ -5,8 +5,12 @@ import { useEffect } from "react";
 
 import { DirectionsRenderer, DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
 
-const GoogleMapsTest = () => {
+const GoogleMapsTest = (props) => {
 
+    const {motoRouteCoords} = props;
+    const origin = motoRouteCoords[0];
+    const destination = motoRouteCoords[motoRouteCoords.length-1]
+    const waypoints = motoRouteCoords.slice(1, motoRouteCoords.length-1).map((coord) => ({location: coord, stopover: false}))
 
     const [response, setResponse] = React.useState(null)
 
@@ -25,8 +29,18 @@ const GoogleMapsTest = () => {
     // const origin = { lat: 40.756795, lng: -73.954298 };
     // const destination = { lat: 41.756795, lng: -78.954298 };
     
-    const origin = { lat: 53.150245, lng: 16.789432 };
-    const destination = { lat: 53.008179, lng: 18.600308 };
+    // const origin = { lat: 53.150245, lng: 16.789432 };
+    // const destination = { lat: 53.008179, lng: 18.600308 };
+    // const waypoints = [
+    //     {
+    //         location: { lat: 51.785711, lng: 18.083513 },
+    //         stopover: false,
+    //     },
+    //     {
+    //         location: { lat: 51.747145, lng: 18.247205 },
+    //         stopover: false,
+    //     },
+    // ]
     
 
     const directionsCallback = React.useCallback((res) => {
@@ -42,10 +56,19 @@ const GoogleMapsTest = () => {
       }, [])
 
     const directionsServiceOptions = React.useMemo(() => {
-        return {
+        var dirInfo = {
             destination: destination,
             origin: origin,
         }
+
+        if (waypoints.length > 0) {
+            dirInfo = {
+                ...dirInfo,
+                waypoints: waypoints,
+            }
+        }
+
+        return dirInfo;
     }, [])
 
 

@@ -40,7 +40,9 @@ const MotoRoutePage = () => {
                             height: "40em"
                         }}>
                     
-                        <GoogleMapsTest />   
+                        {route && (
+                            <GoogleMapsTest motoRouteCoords={route?.coordinates} />   
+                        )}
                     
                     </div>
                 </div>

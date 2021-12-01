@@ -5,7 +5,7 @@ export type MotoRouteType = {
     _id: string,
     title: string,
     description: string,
-    coordinates: {x: number, y: number}[]
+    coordinates: {lat: number, lng: number}[]
 }
 
 const tempRoutes = [
@@ -14,7 +14,10 @@ const tempRoutes = [
         title: "Mała pętla Bieszczadzka",
         description: "Małą pętla is a beautiful road everyone loves it very much this is the short variant",
         coordinates: [
-            {x: 51.2123, y: 53.12331}
+            { lat: 53.150245, lng: 16.789432 },
+            { lat: 51.785711, lng: 18.083513 },
+            { lat: 51.747145, lng: 18.247205 },
+            { lat: 53.008179, lng: 18.600308 }
         ]
     },
     {
@@ -22,7 +25,7 @@ const tempRoutes = [
         title: "Duża pętla Bieszczadzka",
         description: "Małą pętla is a beautiful road everyone loves it very much this is the short variant",
         coordinates: [
-            {x: 51.2123, y: 53.12331}
+            {lat: 51.2123, lng: 53.12331}
         ]
     },
     {
@@ -30,7 +33,7 @@ const tempRoutes = [
         title: "Jeziorsko",
         description: "Przejażdżka dookoła dziury z wodą",
         coordinates: [
-            {x: 51.2123, y: 53.12331}
+            {lat: 51.2123, lng: 53.12331}
         ]
     },
 ]
