@@ -2,36 +2,31 @@ import React from "react";
 
 import { DirectionsRenderer, DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
 
-const GoogleMapsTest = (props) => {
+const MotoRouteMap = (props) => {
 
+    const defaultZoom = 6;
+    
     const {motoRouteCoords} = props;
     const origin = motoRouteCoords[0];
     const destination = motoRouteCoords[motoRouteCoords.length-1]
     const waypoints = motoRouteCoords.slice(1, motoRouteCoords.length-1).map((coord) => ({location: coord, stopover: false}))
 
-    const [response, setResponse] = React.useState(null)
+    const [directionsResponse, setDirectionsResponse] = React.useState(null)
 
-    const containerStyle = {
+    const mapContainerStyle = {
         display: "flex",
         width: '100%',
         height: '100%'
     };
-      
-    
-    const center = {
-        lat: 52.7478909,
-        lng: 18.3737659,
-    };
-
 
     const directionsCallback = React.useCallback((res) => {
         console.log(res)
     
         if (res !== null) {
           if (res.status === 'OK') {
-            setResponse({directions: res})
+            setDirectionsResponse({directions: res})
           } else {
-            console.log('response: ', res)
+            console.log('Directions response error: ', res)
           }
         }
       }, [])
@@ -58,9 +53,9 @@ const GoogleMapsTest = (props) => {
             googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} >
 
                 <GoogleMap
-                    mapContainerStyle={containerStyle}
-                    center={center}
-                    zoom={6}
+                    mapContainerStyle={mapContainerStyle}
+                    center={origin}
+                    zoom={defaultZoom}
                     >
                         
                     {/* <Marker position={{lat: 51.50, lng: 15.47}} />
@@ -68,7 +63,7 @@ const GoogleMapsTest = (props) => {
 
                     {/* This code gets directions from API
                         This is stupid to do this in rendering, but this is how the library wanted it done */}
-                    {destination !== '' && origin !== '' && response === null && (
+                    {destination !== '' && origin !== '' && directionsResponse === null && (
                         <DirectionsService
                             options={{...directionsServiceOptions, 
                                 travelMode: 'DRIVING'}}
@@ -77,12 +72,12 @@ const GoogleMapsTest = (props) => {
                     )}
 
                     {/* This code renders the directions after they were received from API */}
-                    {response !== null && (
-                        <DirectionsRenderer options={response} />
+                    {directionsResponse !== null && (
+                        <DirectionsRenderer options={directionsResponse} />
                     )}
                 </GoogleMap>
         </LoadScript>
     )
 }
 
-export default GoogleMapsTest;
+export default MotoRouteMap;

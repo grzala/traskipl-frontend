@@ -4,17 +4,10 @@ import { useParams } from "react-router-dom";
 import { getMotoRoute, MotoRouteType } from "../Actions/MotoRoutesActions";
 
 
-import GoogleMapsTest from "./GoogleMapsTest";
+import MotoRouteMap from "../Components/MotoRouteMap";
 
+import "./MotoRoutePage.scss"
 
-export const mapContainerStyle = {
-    height: '400px',
-    width: '100%',
-  }
-  
-  export const shapeExampleStyles = {
-    container: mapContainerStyle,
-  }
   
 const MotoRoutePage = () => {
     const { id } = useParams()
@@ -27,18 +20,14 @@ const MotoRoutePage = () => {
 
 
 
-    return true ? (
-
+    return (
         <Fragment>
             <div className="row">
                 <div className="col-md-8">
-                    <div style={{
-                            //width: "60em",
-                            height: "40em"
-                        }}>
+                    <div className="moto-route-map-container">
                     
                         {route && (
-                            <GoogleMapsTest motoRouteCoords={route?.coordinates} />   
+                            <MotoRouteMap motoRouteCoords={route?.coordinates} />   
                         )}
                     
                     </div>
@@ -58,7 +47,7 @@ const MotoRoutePage = () => {
                             <a 
                                 href="/#" 
                                 className="list-group-item list-group-item-action flex-column align-items-start active">
-                                Komentarze
+                                Comments
                             </a>
                             <a href="/#" className="list-group-item list-group-item-action flex-column align-items-start">
                                 <div className="d-flex w-100 justify-content-between">
@@ -84,7 +73,7 @@ const MotoRoutePage = () => {
                 </div>
             </div>
         </Fragment>
-      ) : <></>
+      )
 }
 
 export default MotoRoutePage;
