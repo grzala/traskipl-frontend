@@ -47,6 +47,16 @@ const MotoRouteMap = (props) => {
         return dirInfo;
     }, [origin, destination, waypoints])
 
+    const markerIcon = {
+        path: process.env.PUBLIC_URL + '/map_icons/magazines.png',
+        fillColor: "blue",
+        fillOpacity: 0.6,
+        strokeWeight: 0,
+        rotation: 0,
+        scale: 2,
+        anchor: {x: 15, y: 30}
+      };
+
     
     return (
         <LoadScript
@@ -62,8 +72,8 @@ const MotoRouteMap = (props) => {
                     <Marker position={{lat: 49.2, lng: 18.5}} /> */}
 
                     {motoRoutePOIs && (
-                        motoRoutePOIs.map((poi) => (
-                            <h1>yo</h1>
+                        motoRoutePOIs.map((poi, index) => (
+                            <Marker key={`marker_${index}`} position={ poi.coordinates }  />
                         ))
                     )}
 
