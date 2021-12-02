@@ -1,12 +1,12 @@
-import React, { Fragment, useState } from "react";
-import { MotoRouteType } from "../../Types/MotoRoutesTypes";
+import React, { Fragment } from "react";
+import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
 import MotoRouteAccidentsCard from "./MotoRouteAccidentsCard";
 import MotoRouteDetailsCard from "./MotoRouteDetailsCard";
 import MotoRoutePOIsCard from "./MotoRoutePOIsCard";
 
 import "./MotoRouteDetails.scss"
 
-import { Link, NavLink, Route, Routes, useMatch } from "react-router-dom";
+import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 
 import { MapFill,GeoAltFill, ExclamationSquareFill, Star, StarFill, FlagFill } from 'react-bootstrap-icons';
 import StarRatings from 'react-star-ratings';

@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 
 
 import "./Homepage.scss"
-import MotoRoutesList from "../Components/MotoRoutesList";
+import MotoRoutesList from "../Components/MotoRoute/MotoRoutesList";
 import { MotoRouteType } from "../Types/MotoRoutesTypes";
 import { getMotoRoutes } from "../Actions/MotoRoutesActions";
 

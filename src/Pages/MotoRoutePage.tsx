@@ -7,10 +7,11 @@ import { MotoRouteType} from "../Types/MotoRoutesTypes"
 import { getMotoRoute } from "../Actions/MotoRoutesActions";
 
 
-import MotoRouteMap from "../Components/MotoRouteMap";
+import MotoRouteMap from "../Components/MotoRoute/MotoRouteMap";
 
 import "./MotoRoutePage.scss"
-import MotoRouteDetails from "../Components/MotoRouteDetails/MotoRouteDetails";
+import MotoRouteDetails from "../Components/MotoRoute/MotoRouteDetails/MotoRouteDetails";
+import MotoRouteComments from "../Components/MotoRoute/MotoRouteComments";
 
   
 const MotoRoutePage = () => {
@@ -44,32 +45,10 @@ const MotoRoutePage = () => {
 
             <div className="row">
                 <div className="moto-route-page-comments-wrapper mt-3 mb-3">
-                    <div className="col-md-6 comments">
-                        <div className="list-group">
-                            <a 
-                                href="/#" 
-                                className="list-group-item list-group-item-action flex-column align-items-start active">
-                                Comments
-                            </a>
-                            <a href="/#" className="list-group-item list-group-item-action flex-column align-items-start">
-                                <div className="d-flex w-100 justify-content-between">
-                                    <h5 className="mb-1">List group item heading</h5>
-                                    <small className="text-muted">3 d1ays ago</small>
-                                </div>
-                                <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small className="text-muted">Donec id elit non mi porta.</small>
-                            </a>
-                            <a href="/#" className="list-group-item list-group-item-action flex-column align-items-start">
-                                <div className="d-flex w-100 justify-content-between">
-                                    <h5 className="mb-1">List group item heading</h5>
-                                    <small className="text-muted">3 days ago</small>
-                                </div>
-                                <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small className="text-muted">Donec id elit non mi porta.</small>
-                            </a>
-                        </div>
+                    <div className="col-md-8 comments">
+                        <MotoRouteComments />
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-4">
 
                     </div>
                 </div>

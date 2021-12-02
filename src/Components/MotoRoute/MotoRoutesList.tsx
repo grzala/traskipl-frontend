@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { MotoRouteType } from "../Types/MotoRoutesTypes";
+import { MotoRouteType } from "../../Types/MotoRoutesTypes";
 
 import "./MotoRoutesList.scss"
 

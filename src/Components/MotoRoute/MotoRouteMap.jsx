@@ -1,7 +1,7 @@
 import React from "react";
 
 import { DirectionsRenderer, DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
-import { mapIconDropsUrls } from "./MapConstants";
+import { mapIconDropsUrls } from "../MapConstants";
 
 
 

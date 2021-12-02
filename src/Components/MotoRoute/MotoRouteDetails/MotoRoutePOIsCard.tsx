@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
-import { pipeline } from "stream";
-import { MotoRouteType } from "../../Types/MotoRoutesTypes";
-import { mapIconCirclesUrls } from "../MapConstants";
+import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
+import { mapIconCirclesUrls } from "../../MapConstants";
 
 import "./MotoRouteDetails.scss"
 

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { MotoRouteType } from "../../Types/MotoRoutesTypes";
+import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
 
 type MotoRouteDetailsCardProps = {
     route: MotoRouteType
