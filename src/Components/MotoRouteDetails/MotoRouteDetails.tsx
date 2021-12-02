@@ -11,92 +11,40 @@ type MotoRouteProps = {
     route: MotoRouteType
 }
 
-
-enum Card {
-    DETAILS,
-    POIS,
-    ACCIDENTS
-}
-
 const MotoRouteDetails = (props: MotoRouteProps) => {
     const { route } = props;
 
-    const [currentCard, setCurrentCard] = useState<Card>(Card.DETAILS);
-
     const urlMatch = useMatch('/routes/:id/*')
-    console.log(urlMatch)
-
-    const renderCard = () => {
-        switch (currentCard) {
-            case Card.DETAILS:
-                return <MotoRouteDetailsCard route={route} />
-            case Card.POIS:
-                return <MotoRoutePOIsCard route={route} />
-            case Card.ACCIDENTS:
-                return <MotoRouteAccidentsCard route={route} />
-            
-            default:
-                console.log("BEHAVIOR NOT IMPLEMENTED (MotoRouteDetails Card");
-        }
-    }
-
-    const handleNavlinkClick = (e: any, newCard: Card) => {
-        e.preventDefault();
-        setCurrentCard(newCard);
-    }
 
     return urlMatch !== null ? (
         <Fragment>
-            {/* <ul className="nav nav-tabs details-nav">
-                <li className="nav-item">
-                    <a 
-                        className={ "nav-link" + (currentCard === Card.DETAILS ? " active" : "") } 
-                        href="#?details" 
-                        onClick={ (e) => handleNavlinkClick(e, Card.DETAILS) }
-                        >
-                            Details
-                    </a>
-                </li>
-                <li className="nav-item">
-                    <a 
-                        className={ "nav-link" + (currentCard === Card.POIS ? " active" : "") } 
-                        href="#?details" 
-                        onClick={ (e) => handleNavlinkClick(e, Card.POIS) }
-                        >
-                            POI
-                    </a>
-                </li>
-                <li className="nav-item">
-                    <a 
-                        className={ "nav-link" + (currentCard === Card.ACCIDENTS ? " active" : "") } 
-                        href="#?details" 
-                        onClick={ (e) => handleNavlinkClick(e, Card.ACCIDENTS) }
-                        >
-                            Accidents
-                    </a>
-                </li>
-            </ul>
-            
-            <div className="details-content">
-                { renderCard() }
-            </div> */}
-
 
             <ul className="nav nav-tabs details-nav">
                 <NavLink
-                    to={`${urlMatch.pathnameBase}/a`}>
+                    className="nav-link"
+                    to={`${urlMatch.pathnameBase}/details`}>
                         Details
                 </NavLink>
                 <NavLink
-                    to={`${urlMatch.pathnameBase}/b`}>
+                    className="nav-link"
+                    to={`${urlMatch.pathnameBase}/poi`}>
                         POI
+                </NavLink>
+                <NavLink
+                    className="nav-link"
+                    to={`${urlMatch.pathnameBase}/accidents`}>
+                        ACCIDENTS
                 </NavLink>
 
             </ul>
-            <Routes>
-                <Route path="/a" element={<MotoRouteDetailsCard route={route} />} />
-                <Route path="/b" element={<MotoRoutePOIsCard route={route} />} />
-            </Routes>
+
+            <div className="details-content">
+                <Routes>
+                    <Route path="/details" element={<MotoRouteDetailsCard route={route} />} />
+                    <Route path="/poi" element={<MotoRoutePOIsCard route={route} />} />
+                    <Route path="/accidents" element={<MotoRouteAccidentsCard route={route} />} />
+                </Routes>
+            </div> 
         </Fragment>
     ) :
     <></>

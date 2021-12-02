@@ -19,7 +19,7 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
                 </a>
 
                 { motoRoutesList.map((route) => 
-                    <Link to={`/routes/${route._id}`} className="moto-routes-list-item list-group-item list-group-item-action">
+                    <Link to={`/routes/${route._id}/details`} className="moto-routes-list-item list-group-item list-group-item-action">
                         <div className="row">
                             <div className="col-sm-4">
                                 <img src={ process.env.PUBLIC_URL + '/samples/map1.png' } alt="map of the route" />
