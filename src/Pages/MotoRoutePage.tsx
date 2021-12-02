@@ -12,6 +12,7 @@ import MotoRouteMap from "../Components/MotoRoute/MotoRouteMap";
 import "./MotoRoutePage.scss"
 import MotoRouteDetails from "../Components/MotoRoute/MotoRouteDetails/MotoRouteDetails";
 import MotoRouteComments from "../Components/MotoRoute/MotoRouteComments";
+import MotoRouteAuthor from "../Components/MotoRoute/MotoRouteAuthor";
 
   
 const MotoRoutePage = () => {
@@ -43,13 +44,13 @@ const MotoRoutePage = () => {
             </div>
 
 
-            <div className="row">
-                <div className="moto-route-page-comments-wrapper mt-3 mb-3">
+            <div className="moto-route-page-comments-wrapper mt-3 mb-3">
+                <div className="row">
                     <div className="col-md-8 comments">
                         <MotoRouteComments />
                     </div>
                     <div className="col-md-4">
-
+                        <MotoRouteAuthor />
                     </div>
                 </div>
             </div>
