@@ -1,7 +1,7 @@
 import React from "react";
 
 import { DirectionsRenderer, DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
-import { mapIconUrls } from "./MapConstants";
+import { mapIconDropsUrls } from "./MapConstants";
 
 
 
@@ -67,7 +67,7 @@ const MotoRouteMap = (props) => {
                             <Marker 
                                 key={`marker_${index}`} 
                                 position={ poi.coordinates } 
-                                icon={ mapIconUrls[poi.variant] }
+                                icon={ mapIconDropsUrls[poi.variant] }
                                 clickable={ true }
                                 title="yoyoyoyo" />
                         ))

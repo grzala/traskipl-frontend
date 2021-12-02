@@ -17,7 +17,7 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-2">
-                                <img src={ process.env.PUBLIC_URL + '/maps_icons/food.png'} />
+                                <img src={ process.env.PUBLIC_URL + '/maps_icons/circles/food.png'} />
                             </div>
                             <div className="col-md-10">
 
