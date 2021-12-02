@@ -1,5 +1,9 @@
 import React, { Fragment } from "react";
+import { pipeline } from "stream";
 import { MotoRouteType } from "../../Types/MotoRoutesTypes";
+import { mapIconCirclesUrls } from "../MapConstants";
+
+import "./MotoRouteDetails.scss"
 
 type MotoRoutePOIsCardProps = {
     route: MotoRouteType
@@ -9,28 +13,34 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
     const { route } = props;
 
 
-    return (
+    return  route.points_of_interest && route.points_of_interest.length > 0 ? 
+    (
         <Fragment>
 
-            <div className="list-group">
-                <a href="#?poi" className="list-group-item list-group-item-action flex-column align-items-start">
-                    <div className="container">
+            <div className="list-group poi-list">
+                {route.points_of_interest.map((poi) => (
+                    <a href="#?poi" className="list-group-item list-group-item-action flex-column align-items-start">
                         <div className="row">
                             <div className="col-md-2">
-                                <img src={ process.env.PUBLIC_URL + '/maps_icons/circles/food.png'} />
+                                <img className="map-icon" alt="map-icon" src={ mapIconCirclesUrls[poi.variant] } />
                             </div>
                             <div className="col-md-10">
 
                                 <div className="d-flex w-100 justify-content-between">
-                                    <h5 className="mb-1">List group item bandit</h5>
+                                    <h5 className="">{poi.name}</h5>
                                 </div>
-                                <p className="mb-1">Donec id es2lit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                <p className="description">{poi.description}</p>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                ))}
             </div>
 
+        </Fragment>
+    ) : 
+    (
+        <Fragment>
+            <h3>There are no points of interest to display</h3>
         </Fragment>
     )
 }

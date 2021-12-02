@@ -1,12 +1,23 @@
 .details-content {
     background-color: white;
     
-    padding: 1em 0.5em;
+    padding: 1em 1em;
 }
 
 .details-nav {
 
     li:first-child {
         margin-left: -1px;
+    }
+}
+
+.poi-list {
+    
+    .map-icon {
+        width: 100%;
+    }
+
+    .description {
+        font-size: 0.85em;
     }
 }
