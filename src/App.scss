@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* override bootstrap styles */
+.list-group-item.active {
+  background-color: #bd3327 !important;
+  border-color: #bd3327 !important;
+}

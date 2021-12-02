@@ -7,6 +7,8 @@ import MotoRoutePOIsCard from "./MotoRoutePOIsCard";
 import "./MotoRouteDetails.scss"
 import { Link, NavLink, Route, Routes, useMatch } from "react-router-dom";
 
+import { MapFill,GeoAltFill, ExclamationSquareFill } from 'react-bootstrap-icons';
+
 type MotoRouteProps = {
     route: MotoRouteType
 }
@@ -25,17 +27,17 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                         <NavLink
                             className="nav-link"
                             to={`${urlMatch.pathnameBase}/details`}>
-                                Details
+                                <MapFill />
                         </NavLink>
                         <NavLink
                             className="nav-link"
                             to={`${urlMatch.pathnameBase}/poi`}>
-                                POI
+                                <GeoAltFill />
                         </NavLink>
                         <NavLink
                             className="nav-link"
                             to={`${urlMatch.pathnameBase}/accidents`}>
-                                ACCIDENTS
+                                <ExclamationSquareFill />
                         </NavLink>
 
                     </ul>
