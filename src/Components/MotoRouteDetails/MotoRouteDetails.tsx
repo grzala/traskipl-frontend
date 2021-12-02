@@ -26,17 +26,20 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                     <ul className="nav nav-tabs details-nav">
                         <NavLink
                             className="nav-link"
-                            to={`${urlMatch.pathnameBase}/details`}>
+                            to={`${urlMatch.pathnameBase}/details`}
+                            title="Route details">
                                 <MapFill />
                         </NavLink>
                         <NavLink
                             className="nav-link"
-                            to={`${urlMatch.pathnameBase}/poi`}>
+                            to={`${urlMatch.pathnameBase}/poi`}
+                            title="Points of interest">
                                 <GeoAltFill />
                         </NavLink>
                         <NavLink
                             className="nav-link"
-                            to={`${urlMatch.pathnameBase}/accidents`}>
+                            to={`${urlMatch.pathnameBase}/accidents`}
+                            title="Accidents">
                                 <ExclamationSquareFill />
                         </NavLink>
 
