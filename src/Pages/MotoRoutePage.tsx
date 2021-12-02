@@ -26,17 +26,15 @@ const MotoRoutePage = () => {
 
     return (
         <Fragment>
-            <div className="row">
-                <div className="col-md-8">
-                    <div className="moto-route-map-container">
+            <div className="row display-flex map-details-container">
+                <div className="col-md-8 moto-route-map-container">
                     
-                        {route && (
-                            <MotoRouteMap motoRouteCoords={route.coordinates} motoRoutePOIs={route.points_of_interest} />   
-                        )}
+                    {route && (
+                        <MotoRouteMap motoRouteCoords={route.coordinates} motoRoutePOIs={route.points_of_interest} />   
+                    )}
                     
-                    </div>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-4 moto-route-details-container">
                     { route && (
                         <MotoRouteDetails route={route} />
                     )}

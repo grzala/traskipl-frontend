@@ -1,23 +1,41 @@
-.details-content {
-    background-color: white;
-    
-    padding: 1em 1em;
-}
+.moto-route-details {
+    display: flex;
+    flex-direction: column;
+    height: inherit;
 
-.details-nav {
+    .details-nav {
+        background-color: #bd3327;
 
-    li:first-child {
-        margin-left: -1px;
+        border-radius: 5px 5px 0 0;
+
+        li:first-child {
+            margin-left: -1px;
+        }
     }
-}
 
-.poi-list {
-    
-    .map-icon {
+    .details-content {
+        flex: 1;
+        background-color: white;
+        
+        padding: 1em 1em;
+
+        overflow-y: scroll;
+
+        position: relative;
         width: 100%;
+        top: 0;
+        bottom: 0;
+
+
+        .poi-list {
+            .map-icon {
+                width: 100%;
+            }
+    
+            .description {
+                font-size: 0.85em;
+            }
+        }
     }
 
-    .description {
-        font-size: 0.85em;
-    }
 }

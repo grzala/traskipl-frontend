@@ -19,32 +19,36 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
     return urlMatch !== null ? (
         <Fragment>
 
-            <ul className="nav nav-tabs details-nav">
-                <NavLink
-                    className="nav-link"
-                    to={`${urlMatch.pathnameBase}/details`}>
-                        Details
-                </NavLink>
-                <NavLink
-                    className="nav-link"
-                    to={`${urlMatch.pathnameBase}/poi`}>
-                        POI
-                </NavLink>
-                <NavLink
-                    className="nav-link"
-                    to={`${urlMatch.pathnameBase}/accidents`}>
-                        ACCIDENTS
-                </NavLink>
+            <div className="moto-route-details">
+                <div className="details-navigation">
+                    <ul className="nav nav-tabs details-nav">
+                        <NavLink
+                            className="nav-link"
+                            to={`${urlMatch.pathnameBase}/details`}>
+                                Details
+                        </NavLink>
+                        <NavLink
+                            className="nav-link"
+                            to={`${urlMatch.pathnameBase}/poi`}>
+                                POI
+                        </NavLink>
+                        <NavLink
+                            className="nav-link"
+                            to={`${urlMatch.pathnameBase}/accidents`}>
+                                ACCIDENTS
+                        </NavLink>
 
-            </ul>
+                    </ul>
+                </div>
 
-            <div className="details-content">
-                <Routes>
-                    <Route path="/details" element={<MotoRouteDetailsCard route={route} />} />
-                    <Route path="/poi" element={<MotoRoutePOIsCard route={route} />} />
-                    <Route path="/accidents" element={<MotoRouteAccidentsCard route={route} />} />
-                </Routes>
-            </div> 
+                <div className="details-content">
+                    <Routes>
+                        <Route path="/details" element={<MotoRouteDetailsCard route={route} />} />
+                        <Route path="/poi" element={<MotoRoutePOIsCard route={route} />} />
+                        <Route path="/accidents" element={<MotoRouteAccidentsCard route={route} />} />
+                    </Routes>
+                </div> 
+            </div>
         </Fragment>
     ) :
     <></>
