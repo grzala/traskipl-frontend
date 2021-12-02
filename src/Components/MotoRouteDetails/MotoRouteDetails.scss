@@ -5,16 +5,32 @@
 
     .details-nav {
         background-color: #bd3327;
-
         border-radius: 5px 5px 0 0;
+        flex-direction: row;
 
-        a {
+        .nav-link {
             color: white;
             font-size: 1.2em;
         }
 
-        a:first-child {
+        .nav-link:first-child {
             margin-left: -1px;
+        }
+
+        .options-bar {
+            flex: 1;
+
+            .star-rating-container {
+                padding-top: 0.25em;
+            }
+
+            .nav-link { 
+                border: none
+            }
+            
+            .nav-link:hover {
+                border: none;
+            }
         }
     }
 
