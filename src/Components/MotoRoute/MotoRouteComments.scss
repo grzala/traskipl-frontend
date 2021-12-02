@@ -1,0 +1,38 @@
+
+
+.comments-list-main {
+    max-height: 30em;
+    overflow-y: scroll;
+
+    margin-bottom: 5px;
+}
+
+
+.comments-reply-wrapper {
+    display: flex;
+    flex-direction: row;
+
+
+    .profile-pic-wrapper {
+        width: 6em;
+        height: 6em;
+    }
+
+    .comments-reply {
+        flex: 1;
+        min-height: 6em;
+    }
+
+    .send-reply {
+        background-color: #bd3327;
+        color: white;
+
+        min-width: 5em;
+        margin-left: 0.2em;
+        margin-right: 0.6em;
+    }
+
+    .send-reply:hover {
+        background-color: #7a1108;
+    }
+}
