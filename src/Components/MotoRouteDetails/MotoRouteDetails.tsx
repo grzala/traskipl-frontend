@@ -5,6 +5,7 @@ import MotoRouteDetailsCard from "./MotoRouteDetailsCard";
 import MotoRoutePOIsCard from "./MotoRoutePOIsCard";
 
 import "./MotoRouteDetails.scss"
+import { Link, NavLink, Route, Routes, useMatch } from "react-router-dom";
 
 type MotoRouteProps = {
     route: MotoRouteType
@@ -20,9 +21,10 @@ enum Card {
 const MotoRouteDetails = (props: MotoRouteProps) => {
     const { route } = props;
 
-
     const [currentCard, setCurrentCard] = useState<Card>(Card.DETAILS);
 
+    const urlMatch = useMatch('/routes/:id/*')
+    console.log(urlMatch)
 
     const renderCard = () => {
         switch (currentCard) {
@@ -43,9 +45,9 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
         setCurrentCard(newCard);
     }
 
-    return (
+    return urlMatch !== null ? (
         <Fragment>
-            <ul className="nav nav-tabs details-nav">
+            {/* <ul className="nav nav-tabs details-nav">
                 <li className="nav-item">
                     <a 
                         className={ "nav-link" + (currentCard === Card.DETAILS ? " active" : "") } 
@@ -77,9 +79,27 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
             
             <div className="details-content">
                 { renderCard() }
-            </div>
+            </div> */}
+
+
+            <ul className="nav nav-tabs details-nav">
+                <NavLink
+                    to={`${urlMatch.pathnameBase}/a`}>
+                        Details
+                </NavLink>
+                <NavLink
+                    to={`${urlMatch.pathnameBase}/b`}>
+                        POI
+                </NavLink>
+
+            </ul>
+            <Routes>
+                <Route path="/a" element={<MotoRouteDetailsCard route={route} />} />
+                <Route path="/b" element={<MotoRoutePOIsCard route={route} />} />
+            </Routes>
         </Fragment>
-    )
+    ) :
+    <></>
 }
 
 export default MotoRouteDetails;

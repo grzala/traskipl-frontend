@@ -27,6 +27,7 @@ function App() {
             <Routes>
 
 
+              <Route path="/routes/:id/*" element={ <MotoRoutePage /> } />
               <Route path="/routes/:id" element={ <MotoRoutePage /> } />
               <Route path="/" element={ <Homepage /> } />
             </Routes>
