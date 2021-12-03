@@ -21,28 +21,28 @@ const tempRoutes: MotoRouteType[] = [
             { 
                 _id: '1',
                 name: "some FOOD",
-                description: loremIpsum({p: 1})[0],
+                description: loremIpsum({p: 1})[0] + loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.402796},
                 variant: POIVariant.FOOD
             },
             { 
                 _id: '2',
                 name: "some VISTA",
-                description: loremIpsum({p: 1})[0],
+                description: loremIpsum({p: 1})[0] + loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.422796},
                 variant: POIVariant.VISTA
             },
             { 
                 _id: '3',
                 name: "some URBEX",
-                description: loremIpsum({p: 1})[0],
+                description: loremIpsum({p: 1})[0] + loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.442796},
                 variant: POIVariant.URBEX
             },
             { 
                 _id: '4',
                 name: "some DANGER",
-                description: loremIpsum({p: 1})[0],
+                description: loremIpsum({p: 1})[0] + loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.462796},
                 variant: POIVariant.DANGER
             },

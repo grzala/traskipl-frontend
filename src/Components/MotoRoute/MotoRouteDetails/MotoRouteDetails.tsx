@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
 import MotoRouteAccidentsCard from "./MotoRouteAccidentsCard";
 import MotoRouteDetailsCard from "./MotoRouteDetailsCard";
@@ -40,8 +40,12 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
 
     const urlMatch = useMatch('/routes/:id/*')
 
+    const [selectedPOI, setselectedPOI] = useState<string>('1');
+
     return urlMatch !== null ? (
         <Fragment>
+
+            <p onClick={() => setselectedPOI('3')}>yo</p>
 
             <div className="moto-route-details">
                 <div className="details-navigation">
@@ -101,7 +105,9 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                 <div className="details-content">
                     <Routes>
                         <Route path="/details" element={<MotoRouteDetailsCard route={route} />} />
-                        <Route path="/poi" element={<MotoRoutePOIsCard route={route} onPOIHover={onPOIHover} />} />
+                        <Route path="/poi" element={
+                            <MotoRoutePOIsCard route={route} onPOIHover={onPOIHover} selectedPOI={selectedPOI} />
+                        } />
                         <Route path="/accidents" element={<MotoRouteAccidentsCard route={route} />} />
                     </Routes>
                 </div> 

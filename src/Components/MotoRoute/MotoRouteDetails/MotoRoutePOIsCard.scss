@@ -1,0 +1,67 @@
+
+.poi-list {
+
+    .description {
+        font-size: 0.85em;
+    }
+
+
+
+    .list-group-item {
+
+        padding-bottom: 10px;
+
+        color: black;
+        overflow: hidden !important;
+
+        transition: max-height 0.5s linear;
+
+
+        &:hover {
+            background-color: #F8F9FA;
+        }
+
+        .icon-container {
+            padding-top: 0.5em;
+            width: 12%;
+
+
+            .map-icon {
+                width: 100%;
+            }
+        }
+
+        .description-container {
+            flex: 1;
+            padding-left: 1em;
+
+            .description-collapsible {
+
+                p {
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden !important;
+                    text-overflow: ellipsis;
+
+                    &.collapsed {
+                        //-webkit-line-clamp: 3;
+                    }
+                }
+
+                
+            }
+        }
+
+        
+    }
+}
+
+/*
+
+display: -webkit-box;
+-webkit-line-clamp: 3;
+-webkit-box-orient: vertical;
+overflow: hidden;
+text-overflow: ellipsis;
+
+*/
