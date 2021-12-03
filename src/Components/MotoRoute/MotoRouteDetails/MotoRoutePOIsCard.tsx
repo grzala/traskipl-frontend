@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from "react";
+import React, { Fragment, useCallback } from "react";
 import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
 import { mapIconCirclesUrls } from "../../MapConstants";
 
@@ -17,12 +17,22 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
 
     const onClickListItem = (e: any, newPoiId: string) => {
         e.preventDefault();
+        
+        // when changing selected POI, make sure the scroll is reset on previously chosen element
+        if (selectedPOI) {
+            document.getElementById(`poi_${selectedPOI}`)?.scroll({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+              });
+        }
         onPOISelect(newPoiId)
     }
 
     const isSelectedPOI = useCallback((id: string) => {
-        return selectedPOI == id;
+        return selectedPOI === id;
     }, [selectedPOI])
+
 
     return  route.points_of_interest && route.points_of_interest.length > 0 ? 
     (
@@ -31,6 +41,7 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
                 {route.points_of_interest.map((poi) => (
                     <a 
                         key={`poi_${poi._id}`}
+                        id={`poi_${poi._id}`}
                         onMouseEnter={() => onPOIHover(true, poi._id)} 
                         onMouseLeave={() => onPOIHover(false, poi._id)} 
                         className={`list-group-item list-group-item-${isSelectedPOI(poi._id) ? "selected" : "collapsed"} flex-column align-items-start`}

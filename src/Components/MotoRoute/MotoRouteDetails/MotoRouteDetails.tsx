@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
 import MotoRouteAccidentsCard from "./MotoRouteAccidentsCard";
 import MotoRouteDetailsCard from "./MotoRouteDetailsCard";
