@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { MotoRouteType, POIType } from "../../../Types/MotoRoutesTypes";
 import MotoRouteAccidentsCard from "./MotoRouteAccidentsCard";
 import MotoRouteDetailsCard from "./MotoRouteDetailsCard";
@@ -35,12 +35,15 @@ type MotoRouteProps = {
     selectedPOI: POIType | null;
     onPOIHover: (enter: boolean, poi: POIType) => void;
     onPOISelect: (poi: POIType) => void;
+    poiMarkerFilter: boolean;
+    poiMarkerFilterChange: (newFilterVal: boolean) => void;
 }
 
 const MotoRouteDetails = (props: MotoRouteProps) => {
-    const { route, onPOIHover, onPOISelect, selectedPOI} = props;
+    const { route, onPOIHover, onPOISelect, selectedPOI, poiMarkerFilter, poiMarkerFilterChange} = props;
 
     const urlMatch = useMatch('/routes/:id/*')
+
 
     return urlMatch !== null ? (
         <Fragment>
@@ -54,7 +57,7 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                                 <MapFill />
                         </NavLink>
                         <NavLink
-                            className="nav-link"
+                            className={`nav-link ${poiMarkerFilter ? "" : "disabled"}`}
                             to={`${urlMatch.pathnameBase}/poi`}
                             title="Points of interest">
                                 <GeoAltFill />
@@ -101,7 +104,7 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
 
                 <div className="details-content">
                     <Routes>
-                        <Route path="/details" element={<MotoRouteDetailsCard route={route} />} />
+                        <Route path="/details" element={<MotoRouteDetailsCard route={route} poiMarkerFilter={poiMarkerFilter} poiMarkerFilterChange={poiMarkerFilterChange} />} />
                         <Route path="/poi" element={
                             <MotoRoutePOIsCard route={route} onPOIHover={onPOIHover} onPOISelect={onPOISelect} selectedPOI={selectedPOI} />
                         } />

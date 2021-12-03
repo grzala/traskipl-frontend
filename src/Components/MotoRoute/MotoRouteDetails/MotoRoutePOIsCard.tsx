@@ -42,6 +42,7 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
                     <a 
                         key={`poi_${poi._id}`}
                         id={`poi_${poi._id}`}
+                        href="/#"
                         onMouseEnter={() => onPOIHover(true, poi)} 
                         onMouseLeave={() => onPOIHover(false, poi)} 
                         className={`list-group-item list-group-item-${isSelectedPOI(poi._id) ? "selected" : "collapsed"} flex-column align-items-start`}

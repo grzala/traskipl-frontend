@@ -39,7 +39,10 @@ const MotoRoutePage = () => {
         setSelectedPOI(poi);
     }
 
-
+    const [poiMarkerFilter, setpoiMarkerFilter] = useState<boolean>(true);
+    const poiMarkerFilterChange = (newVal: boolean) => {
+        setpoiMarkerFilter(newVal)
+    }
 
     return (
         <Fragment>
@@ -53,13 +56,22 @@ const MotoRoutePage = () => {
                             hoveredPOI={hoverPOI}
                             selectedPOI={selectedPOI}
                             onPOISelect={onPOISelect}
+                            poiMarkerFilter={poiMarkerFilter}
                         />   
                     )}
                     
                 </div>
                 <div className="col-md-4 moto-route-details-container">
                     { route && (
-                        <MotoRouteDetails route={route} onPOIHover={onPOIHover} onPOISelect={onPOISelect} selectedPOI={selectedPOI}/>
+                        <MotoRouteDetails 
+                            route={route} 
+                            onPOIHover={onPOIHover} 
+                            onPOISelect={onPOISelect} 
+                            selectedPOI={selectedPOI}
+                            poiMarkerFilter={poiMarkerFilter}
+                            poiMarkerFilterChange={poiMarkerFilterChange}
+                            
+                        />
                     )}
                 </div>
             </div>

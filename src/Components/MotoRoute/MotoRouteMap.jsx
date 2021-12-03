@@ -15,7 +15,7 @@ const MotoRouteMap = (props) => {
 
     const defaultZoom = 10;
     
-    const { motoRouteCoords, motoRoutePOIs, hoveredPOI, selectedPOI, onPOISelect} = props;
+    const { motoRouteCoords, motoRoutePOIs, hoveredPOI, selectedPOI, onPOISelect, poiMarkerFilter } = props;
     const origin = motoRouteCoords[0];
     var mapPosition = origin;
     const destination = motoRouteCoords[motoRouteCoords.length-1]
@@ -76,7 +76,7 @@ const MotoRouteMap = (props) => {
                     zoom={defaultZoom}
                     >
 
-                    {motoRoutePOIs && (
+                    {poiMarkerFilter && motoRoutePOIs && (
                         motoRoutePOIs.map((poi, index) => {
                             return (<Marker 
                                         key={`marker_${index}`} 

@@ -1,16 +1,29 @@
 import React, { Fragment } from "react";
 import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
 
+import "./MotoRouteCardDetails.scss"
+
 type MotoRouteDetailsCardProps = {
-    route: MotoRouteType
+    route: MotoRouteType;
+    poiMarkerFilter: boolean;
+    poiMarkerFilterChange: (newFilterVal: boolean) => void;
 }
 
 const MotoRouteDetailsCard = (props: MotoRouteDetailsCardProps) => {
-    const { route } = props;
+    const { route, poiMarkerFilter, poiMarkerFilterChange} = props;
 
 
     return (
         <Fragment>
+            Markers: <input 
+                            key="PoIFilterCheck" 
+                            type="checkbox" 
+                            onChange={() => poiMarkerFilterChange(!poiMarkerFilter)} 
+                            checked={poiMarkerFilter} 
+                            className="filter-checkbox" 
+                        />
+            {/* Accidents: <input key="PoIFilterCheck" type="checkbox" onChange={onChange} checked={poiMarkerFilter} className="" /> */}
+            
 
             <h2>{route.title}</h2>
             <p>{route.description}</p>
