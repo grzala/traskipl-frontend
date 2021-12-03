@@ -15,7 +15,7 @@ const MotoRouteMap = (props) => {
 
     const defaultZoom = 10;
     
-    const { motoRouteCoords, motoRoutePOIs, hoveredPOI, selectedPOI} = props;
+    const { motoRouteCoords, motoRoutePOIs, hoveredPOI, selectedPOI, onPOISelect} = props;
     const origin = motoRouteCoords[0];
     const destination = motoRouteCoords[motoRouteCoords.length-1]
     const waypoints = motoRouteCoords.slice(1, motoRouteCoords.length-1).map((coord) => ({location: coord, stopover: false}))
@@ -75,6 +75,7 @@ const MotoRouteMap = (props) => {
                                         position={ poi.coordinates } 
                                         icon={ isFocusedMarker(poi._id) ? mapIconEnlargedDropsUrls[poi.variant] : mapIconDropsUrls[poi.variant] }
                                         clickable={ true }
+                                        onClick={() => onPOISelect(poi._id)}
                                         zIndex={ isFocusedMarker(poi._id) ? 100 : 1 } />)
                         })
                     )}
