@@ -15,6 +15,10 @@
         overflow: hidden !important;
 
         transition: max-height 0.5s linear;
+        max-height: 20em;
+        &-collapsed {
+            max-height: 6.5em;
+        }
 
 
         &:hover {
