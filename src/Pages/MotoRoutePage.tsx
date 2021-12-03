@@ -25,6 +25,16 @@ const MotoRoutePage = () => {
     }, [id])
 
 
+    const [hoverPOI, setHoverPOI] = useState<string | null>(null);
+    const onPOIHover = (enter: boolean, poi_id: string) => {
+        if (!enter && hoverPOI === poi_id) {
+            setHoverPOI(null);
+        } else if (enter) {
+            setHoverPOI(poi_id);
+        }
+    }
+
+
 
     return (
         <Fragment>
@@ -32,13 +42,16 @@ const MotoRoutePage = () => {
                 <div className="col-md-8 moto-route-map-container">
                     
                     {route && (
-                        <MotoRouteMap motoRouteCoords={route.coordinates} motoRoutePOIs={route.points_of_interest} />   
+                        <MotoRouteMap 
+                            motoRouteCoords={route.coordinates} 
+                            motoRoutePOIs={route.points_of_interest} 
+                            hoveredPOI={hoverPOI}/>   
                     )}
                     
                 </div>
                 <div className="col-md-4 moto-route-details-container">
                     { route && (
-                        <MotoRouteDetails route={route} />
+                        <MotoRouteDetails route={route} onPOIHover={onPOIHover}/>
                     )}
                 </div>
             </div>

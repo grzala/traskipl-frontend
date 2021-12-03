@@ -8,6 +8,7 @@ export enum POIVariant {
 }
 
 export type POIType = {
+    _id: string,
     name: string,
     description: string,
     coordinates: {lat: number, lng: number},

@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 
 import { DirectionsRenderer, DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
-import { mapIconDropsUrls } from "../MapConstants";
-
+import { mapIconDropsUrls, mapIconEnlargedDropsUrls } from "../MapConstants";
 
 
 
@@ -16,14 +15,14 @@ const MotoRouteMap = (props) => {
 
     const defaultZoom = 10;
     
-    const { motoRouteCoords, motoRoutePOIs} = props;
+    const { motoRouteCoords, motoRoutePOIs, hoveredPOI } = props;
     const origin = motoRouteCoords[0];
     const destination = motoRouteCoords[motoRouteCoords.length-1]
     const waypoints = motoRouteCoords.slice(1, motoRouteCoords.length-1).map((coord) => ({location: coord, stopover: false}))
 
     const [directionsResponse, setDirectionsResponse] = React.useState(null)
 
-    const directionsCallback = React.useCallback((res) => {
+    const directionsCallback = useCallback((res) => {
         console.log(res)
     
         if (res !== null) {
@@ -35,7 +34,7 @@ const MotoRouteMap = (props) => {
         }
       }, [])
 
-    const directionsServiceOptions = React.useMemo(() => {
+    const directionsServiceOptions = useMemo(() => {
         var dirInfo = {
             destination: destination,
             origin: origin,
@@ -51,26 +50,29 @@ const MotoRouteMap = (props) => {
         return dirInfo;
     }, [origin, destination, waypoints])
 
+
+    const isFocusedMarker = useCallback((poi_id) => {
+        return hoveredPOI !== null && hoveredPOI === poi_id;
+    }, [hoveredPOI])
     
     return (
         <LoadScript
             googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} >
-
                 <GoogleMap
                     mapContainerStyle={mapContainerStyle}
                     center={origin}
                     zoom={defaultZoom}
                     >
-                        
+
                     {motoRoutePOIs && (
-                        motoRoutePOIs.map((poi, index) => (
-                            <Marker 
-                                key={`marker_${index}`} 
-                                position={ poi.coordinates } 
-                                icon={ mapIconDropsUrls[poi.variant] }
-                                clickable={ true }
-                                title="yoyoyoyo" />
-                        ))
+                        motoRoutePOIs.map((poi, index) => {
+                            return (<Marker 
+                                        key={`marker_${index}`} 
+                                        position={ poi.coordinates } 
+                                        icon={ isFocusedMarker(poi._id) ? mapIconEnlargedDropsUrls[poi.variant] : mapIconDropsUrls[poi.variant] }
+                                        clickable={ true }
+                                        zIndex={ isFocusedMarker(poi._id) ? 100 : 1 } />)
+                        })
                     )}
 
                         {/* This code gets directions from API

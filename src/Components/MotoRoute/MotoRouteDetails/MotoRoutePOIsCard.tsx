@@ -5,12 +5,14 @@ import { mapIconCirclesUrls } from "../../MapConstants";
 import "./MotoRouteDetails.scss"
 
 type MotoRoutePOIsCardProps = {
-    route: MotoRouteType
+    route: MotoRouteType;
+    onPOIHover: (enter: boolean, route_id: string) => void;
 }
 
 const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
-    const { route } = props;
+    const { route, onPOIHover} = props;
 
+    
 
     return  route.points_of_interest && route.points_of_interest.length > 0 ? 
     (
@@ -18,7 +20,13 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
 
             <div className="list-group poi-list">
                 {route.points_of_interest.map((poi) => (
-                    <a href="#?poi" className="list-group-item list-group-item-action flex-column align-items-start">
+                    <a 
+                        key={`poi_${poi._id}`}
+                        onMouseEnter={() => onPOIHover(true, poi._id)} 
+                        onMouseLeave={() => onPOIHover(false, poi._id)} 
+                        href="#?poi" 
+                        className="list-group-item list-group-item-action flex-column align-items-start">
+
                         <div className="row">
                             <div className="col-md-2">
                                 <img className="map-icon" alt="map-icon" src={ mapIconCirclesUrls[poi.variant] } />

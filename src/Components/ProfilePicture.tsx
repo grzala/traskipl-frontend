@@ -16,7 +16,7 @@ const ProfilePicture = (props: ProfilePictureProps) => {
 
     return (
         <Fragment>
-            <img src={imgPath} style={style} />
+            <img src={imgPath} style={style} alt="avatar" />
         </Fragment>
     )
 }

@@ -19,78 +19,48 @@ const tempRoutes: MotoRouteType[] = [
         ],
         points_of_interest: [
             { 
+                _id: '1',
                 name: "some FOOD",
                 description: loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.402796},
                 variant: POIVariant.FOOD
             },
             { 
+                _id: '2',
                 name: "some VISTA",
                 description: loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.422796},
                 variant: POIVariant.VISTA
             },
             { 
+                _id: '3',
                 name: "some URBEX",
                 description: loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.442796},
                 variant: POIVariant.URBEX
             },
             { 
+                _id: '4',
                 name: "some DANGER",
                 description: loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.462796},
                 variant: POIVariant.DANGER
             },
             { 
+                _id: '5',
                 name: "some FUEL",
                 description: loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.482796},
                 variant: POIVariant.FUEL
             },
             { 
+                _id: '6',
                 name: "some point",
                 description: loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.502796},
                 variant: POIVariant.OTHER
             },
             
-            { 
-                name: "some FOOD",
-                description: loremIpsum({p: 1})[0],
-                coordinates: {lat: 49.394489, lng: 22.402796},
-                variant: POIVariant.FOOD
-            },
-            { 
-                name: "some VISTA",
-                description: loremIpsum({p: 1})[0],
-                coordinates: {lat: 49.394489, lng: 22.422796},
-                variant: POIVariant.VISTA
-            },
-            { 
-                name: "some URBEX",
-                description: loremIpsum({p: 1})[0],
-                coordinates: {lat: 49.394489, lng: 22.442796},
-                variant: POIVariant.URBEX
-            },
-            { 
-                name: "some DANGER",
-                description: loremIpsum({p: 1})[0],
-                coordinates: {lat: 49.394489, lng: 22.462796},
-                variant: POIVariant.DANGER
-            },
-            { 
-                name: "some FUEL",
-                description: loremIpsum({p: 1})[0],
-                coordinates: {lat: 49.394489, lng: 22.482796},
-                variant: POIVariant.FUEL
-            },
-            { 
-                name: "some point",
-                description: loremIpsum({p: 1})[0],
-                coordinates: {lat: 49.394489, lng: 22.502796},
-                variant: POIVariant.OTHER
-            },
             
         ]
     },

@@ -31,11 +31,12 @@ const hemletSvgPath =  `M294.396 52.127c-17.944.066-35.777 1.834-52.886 4.746-86
                         4.118-4.857 7.947-9.68 11.546-14.48z`
 
 type MotoRouteProps = {
-    route: MotoRouteType
+    route: MotoRouteType;
+    onPOIHover: (enter: boolean, route_id: string) => void;
 }
 
 const MotoRouteDetails = (props: MotoRouteProps) => {
-    const { route } = props;
+    const { route, onPOIHover} = props;
 
     const urlMatch = useMatch('/routes/:id/*')
 
@@ -100,7 +101,7 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                 <div className="details-content">
                     <Routes>
                         <Route path="/details" element={<MotoRouteDetailsCard route={route} />} />
-                        <Route path="/poi" element={<MotoRoutePOIsCard route={route} />} />
+                        <Route path="/poi" element={<MotoRoutePOIsCard route={route} onPOIHover={onPOIHover} />} />
                         <Route path="/accidents" element={<MotoRouteAccidentsCard route={route} />} />
                     </Routes>
                 </div> 
