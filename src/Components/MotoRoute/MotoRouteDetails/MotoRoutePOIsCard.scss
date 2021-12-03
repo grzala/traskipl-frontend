@@ -20,6 +20,11 @@
             max-height: 6.5em;
         }
 
+        &-selected {
+            background-color: #F8F9FA;
+            overflow-y: scroll !important;
+        }
+
 
         &:hover {
             background-color: #F8F9FA;
