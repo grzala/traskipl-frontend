@@ -26,12 +26,17 @@ const MotoRoutePage = () => {
 
 
     const [hoverPOI, setHoverPOI] = useState<string | null>(null);
+    const [selectedPOI, setSelectedPOI] = useState<string | null>(null);
     const onPOIHover = (enter: boolean, poi_id: string) => {
         if (!enter && hoverPOI === poi_id) {
             setHoverPOI(null);
         } else if (enter) {
             setHoverPOI(poi_id);
         }
+    }
+
+    const onPOISelect = (poi_id: string) => {
+        setSelectedPOI(poi_id);
     }
 
 
@@ -45,13 +50,15 @@ const MotoRoutePage = () => {
                         <MotoRouteMap 
                             motoRouteCoords={route.coordinates} 
                             motoRoutePOIs={route.points_of_interest} 
-                            hoveredPOI={hoverPOI}/>   
+                            hoveredPOI={hoverPOI}
+                            selectedPOI={selectedPOI}
+                        />   
                     )}
                     
                 </div>
                 <div className="col-md-4 moto-route-details-container">
                     { route && (
-                        <MotoRouteDetails route={route} onPOIHover={onPOIHover}/>
+                        <MotoRouteDetails route={route} onPOIHover={onPOIHover} onPOISelect={onPOISelect}/>
                     )}
                 </div>
             </div>

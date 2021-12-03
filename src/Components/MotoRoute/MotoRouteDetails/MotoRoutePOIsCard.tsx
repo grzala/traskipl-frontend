@@ -6,14 +6,21 @@ import "./MotoRoutePOIsCard.scss"
 
 type MotoRoutePOIsCardProps = {
     route: MotoRouteType;
-    onPOIHover: (enter: boolean, route_id: string) => void;
+    onPOIHover: (enter: boolean, poi_id: string) => void;
+    onPOISelect: (poi_id: string) => void;
 }
 
 
 const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
-    const { route, onPOIHover} = props;
+    const { route, onPOIHover, onPOISelect} = props;
 
     const [selectedPOI, setselectedPOI] = useState<string | null>(null);
+
+    const onClickListItem = (e: any, newPoiId: string) => {
+        e.preventDefault();
+        setselectedPOI(newPoiId)
+        onPOISelect(newPoiId)
+    }
 
     const isSelectedPOI = useCallback((id: string) => {
         return selectedPOI == id;
@@ -29,7 +36,7 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
                         onMouseEnter={() => onPOIHover(true, poi._id)} 
                         onMouseLeave={() => onPOIHover(false, poi._id)} 
                         className={`list-group-item list-group-item-${isSelectedPOI(poi._id) ? "selected" : "collapsed"} flex-column align-items-start`}
-                        onClick={() => setselectedPOI(poi._id)}>
+                        onClick={(e) => onClickListItem(e, poi._id)}>
 
 
 

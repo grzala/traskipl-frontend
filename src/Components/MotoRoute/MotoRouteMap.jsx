@@ -15,7 +15,7 @@ const MotoRouteMap = (props) => {
 
     const defaultZoom = 10;
     
-    const { motoRouteCoords, motoRoutePOIs, hoveredPOI } = props;
+    const { motoRouteCoords, motoRoutePOIs, hoveredPOI, selectedPOI} = props;
     const origin = motoRouteCoords[0];
     const destination = motoRouteCoords[motoRouteCoords.length-1]
     const waypoints = motoRouteCoords.slice(1, motoRouteCoords.length-1).map((coord) => ({location: coord, stopover: false}))
@@ -52,8 +52,12 @@ const MotoRouteMap = (props) => {
 
 
     const isFocusedMarker = useCallback((poi_id) => {
-        return hoveredPOI !== null && hoveredPOI === poi_id;
-    }, [hoveredPOI])
+        if (selectedPOI === poi_id)
+            return true;
+        if (hoveredPOI !== null && hoveredPOI === poi_id)
+            return true;
+        return false;
+    }, [hoveredPOI, selectedPOI])
     
     return (
         <LoadScript
