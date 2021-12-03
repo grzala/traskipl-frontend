@@ -4,7 +4,7 @@ import { useMatch, useNavigate, useParams } from "react-router-dom";
 
 
 import { MotoRouteType, POIType} from "../Types/MotoRoutesTypes"
-import { getMotoRoute } from "../Actions/MotoRoutesActions";
+import { getMotoRoute, getMotoRoutes } from "../Actions/MotoRoutesActions";
 
 
 import MotoRouteMap from "../Components/MotoRoute/MotoRouteMap";
@@ -13,10 +13,16 @@ import "./MotoRoutePage.scss"
 import MotoRouteDetails from "../Components/MotoRoute/MotoRouteDetails/MotoRouteDetails";
 import MotoRouteComments from "../Components/MotoRoute/MotoRouteComments";
 import MotoRouteAuthor from "../Components/MotoRoute/MotoRouteAuthor";
+import MotoRoutesList from "../Components/MotoRoute/MotoRoutesList";
 
   
 const MotoRoutePage = () => {
     const { id } = useParams()
+
+    const [motoRoutesList, setMotoRoutesList] = useState<MotoRouteType[]>([])
+    useEffect(() => {
+        setMotoRoutesList(getMotoRoutes())
+    }, [])
 
     const navigate = useNavigate()
     const urlMatch = useMatch('/routes/:id/*')
@@ -97,6 +103,7 @@ const MotoRoutePage = () => {
                     </div>
                     <div className="col-md-4">
                         <MotoRouteAuthor />
+                        <MotoRoutesList motoRoutesList={ motoRoutesList } />
                     </div>
                 </div>
             </div>

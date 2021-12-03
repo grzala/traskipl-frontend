@@ -18,20 +18,22 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
                     Recently added routes
                 </a>
 
-                { motoRoutesList.map((route) => 
-                    <Link to={`/routes/${route._id}/details`} className="moto-routes-list-item list-group-item list-group-item-action">
-                        <div className="row">
-                            <div className="col-sm-4">
-                                <img src={ process.env.PUBLIC_URL + '/samples/map1.png' } alt="map of the route" />
-                            </div>
+                <div className="moto-routes-list-main">
+                    { motoRoutesList.map((route) => 
+                        <Link to={`/routes/${route._id}/details`} className="moto-routes-list-item list-group-item list-group-item-action">
+                            <div className="row">
+                                <div className="col-sm-4">
+                                    <img src={ process.env.PUBLIC_URL + '/samples/map1.png' } alt="map of the route" />
+                                </div>
 
-                            <div className="col-sm-8">
-                                <p>{ route.title }</p>
-                                <p>{ route.description }</p>
+                                <div className="col-sm-8">
+                                    <p>{ route.title }</p>
+                                    <p className="moto-routes-list-item-description">{ route.description }</p>
+                                </div>
                             </div>
-                        </div>
-                    </Link>
-                )}
+                        </Link>
+                    )}
+                </div>
             </div>
         </Fragment>
     )
