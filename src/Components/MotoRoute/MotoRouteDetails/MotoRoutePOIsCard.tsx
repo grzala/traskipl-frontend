@@ -25,7 +25,7 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
                         onMouseEnter={() => onPOIHover(true, poi._id)} 
                         onMouseLeave={() => onPOIHover(false, poi._id)} 
                         className={`list-group-item flex-column align-items-start`}
-                        onClick={() => setselectedPOI('2')}
+                        onClick={() => setselectedPOI(poi._id)}
                         style={{
                             maxHeight: poi._id === selectedPOI ? '20em' : '6.7em',
                         }}>
