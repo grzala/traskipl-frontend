@@ -6,19 +6,17 @@ import "./MotoRoutePOIsCard.scss"
 
 type MotoRoutePOIsCardProps = {
     route: MotoRouteType;
+    selectedPOI: string | null;
     onPOIHover: (enter: boolean, poi_id: string) => void;
     onPOISelect: (poi_id: string) => void;
 }
 
 
 const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
-    const { route, onPOIHover, onPOISelect} = props;
-
-    const [selectedPOI, setselectedPOI] = useState<string | null>(null);
+    const { route, onPOIHover, onPOISelect, selectedPOI} = props;
 
     const onClickListItem = (e: any, newPoiId: string) => {
         e.preventDefault();
-        setselectedPOI(newPoiId)
         onPOISelect(newPoiId)
     }
 

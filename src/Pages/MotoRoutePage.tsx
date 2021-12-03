@@ -58,7 +58,7 @@ const MotoRoutePage = () => {
                 </div>
                 <div className="col-md-4 moto-route-details-container">
                     { route && (
-                        <MotoRouteDetails route={route} onPOIHover={onPOIHover} onPOISelect={onPOISelect}/>
+                        <MotoRouteDetails route={route} onPOIHover={onPOIHover} onPOISelect={onPOISelect} selectedPOI={selectedPOI}/>
                     )}
                 </div>
             </div>
