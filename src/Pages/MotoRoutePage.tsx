@@ -38,9 +38,9 @@ const MotoRoutePage = () => {
         }
     }
 
-    const onPOISelect = (poi: POIType) => {
+    const selectPOI = (poi: POIType | null) => {
         // Move to POI tabs when selected
-        if (urlMatch !== null) {
+        if (urlMatch !== null && poi !== null) {
             navigate(`${urlMatch?.pathnameBase}/poi`)
         } else {
             console.log("This should not be here")
@@ -50,6 +50,10 @@ const MotoRoutePage = () => {
 
     const [poiMarkerFilter, setpoiMarkerFilter] = useState<boolean>(true);
     const poiMarkerFilterChange = (newVal: boolean) => {
+        
+        if (!newVal) { // set Selected to null when filter turned off
+            selectPOI(null)
+        }
         setpoiMarkerFilter(newVal)
     }
 
@@ -64,7 +68,7 @@ const MotoRoutePage = () => {
                             motoRoutePOIs={route.points_of_interest} 
                             hoveredPOI={hoverPOI}
                             selectedPOI={selectedPOI}
-                            onPOISelect={onPOISelect}
+                            onPOISelect={selectPOI}
                             poiMarkerFilter={poiMarkerFilter}
                         />   
                     )}
@@ -75,7 +79,7 @@ const MotoRoutePage = () => {
                         <MotoRouteDetails 
                             route={route} 
                             onPOIHover={onPOIHover} 
-                            onPOISelect={onPOISelect} 
+                            onPOISelect={selectPOI} 
                             selectedPOI={selectedPOI}
                             poiMarkerFilter={poiMarkerFilter}
                             poiMarkerFilterChange={poiMarkerFilterChange}
