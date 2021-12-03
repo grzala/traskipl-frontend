@@ -43,7 +43,7 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
                                     <h5 className="">{poi.name}</h5>
                                 </div>
                                 <div className="description-collapsible">
-                                    <p className="description collapsed">{poi.description}</p>
+                                    <p className={`description ${isSelectedPOI(poi._id) ? "" : "collapsed"}`}>{poi.description}</p>
                                 </div>
                             </div>
                         </div>

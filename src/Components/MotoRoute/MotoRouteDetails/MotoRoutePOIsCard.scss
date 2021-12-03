@@ -47,9 +47,10 @@
                     overflow: hidden !important;
                     text-overflow: ellipsis;
 
-                    &.collapsed {
-                        //-webkit-line-clamp: 3;
-                    }
+                    /* this causes jerky animation */
+                    // &.collapsed {
+                    //     -webkit-line-clamp: 3;
+                    // }
                 }
 
                 
