@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useCallback, useState } from "react";
 import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
 import { mapIconCirclesUrls } from "../../MapConstants";
 
@@ -13,7 +13,11 @@ type MotoRoutePOIsCardProps = {
 const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
     const { route, onPOIHover} = props;
 
-    const [selectedPOI, setselectedPOI] = useState<string>('1');
+    const [selectedPOI, setselectedPOI] = useState<string | null>(null);
+
+    const isSelectedPOI = useCallback((id: string) => {
+        return selectedPOI == id;
+    }, [selectedPOI])
 
     return  route.points_of_interest && route.points_of_interest.length > 0 ? 
     (
@@ -27,7 +31,7 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
                         className={`list-group-item flex-column align-items-start`}
                         onClick={() => setselectedPOI(poi._id)}
                         style={{
-                            maxHeight: poi._id === selectedPOI ? '20em' : '6.7em',
+                            maxHeight: isSelectedPOI(poi._id) ? '20em' : '6.7em',
                         }}>
 
 
