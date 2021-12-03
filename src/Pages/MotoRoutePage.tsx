@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 
-import { useParams } from "react-router-dom";
+import { useMatch, useNavigate, useParams } from "react-router-dom";
 
 
 import { MotoRouteType, POIType} from "../Types/MotoRoutesTypes"
@@ -17,6 +17,9 @@ import MotoRouteAuthor from "../Components/MotoRoute/MotoRouteAuthor";
   
 const MotoRoutePage = () => {
     const { id } = useParams()
+
+    const navigate = useNavigate()
+    const urlMatch = useMatch('/routes/:id/*')
 
     const [route, setRoute] = useState<MotoRouteType>();
 
@@ -36,6 +39,12 @@ const MotoRoutePage = () => {
     }
 
     const onPOISelect = (poi: POIType) => {
+        // Move to POI tabs when selected
+        if (urlMatch !== null) {
+            navigate(`${urlMatch?.pathnameBase}/poi`)
+        } else {
+            console.log("This should not be here")
+        }
         setSelectedPOI(poi);
     }
 

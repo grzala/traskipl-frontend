@@ -83,7 +83,7 @@ const MotoRouteMap = (props) => {
                                         position={ poi.coordinates } 
                                         icon={ isFocusedMarker(poi._id) ? mapIconEnlargedDropsUrls[poi.variant] : mapIconDropsUrls[poi.variant] }
                                         clickable={ true }
-                                        onClick={() => onPOISelect(poi._id)}
+                                        onClick={() => onPOISelect(poi)}
                                         zIndex={ isFocusedMarker(poi._id) ? 100 : 1 } />)
                         })
                     )}
