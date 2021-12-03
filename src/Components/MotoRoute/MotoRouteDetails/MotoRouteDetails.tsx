@@ -40,13 +40,8 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
 
     const urlMatch = useMatch('/routes/:id/*')
 
-    const [selectedPOI, setselectedPOI] = useState<string>('1');
-
     return urlMatch !== null ? (
         <Fragment>
-
-            <p onClick={() => setselectedPOI('3')}>yo</p>
-
             <div className="moto-route-details">
                 <div className="details-navigation">
                     <ul className="nav nav-tabs details-nav">
@@ -106,7 +101,7 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                     <Routes>
                         <Route path="/details" element={<MotoRouteDetailsCard route={route} />} />
                         <Route path="/poi" element={
-                            <MotoRoutePOIsCard route={route} onPOIHover={onPOIHover} selectedPOI={selectedPOI} />
+                            <MotoRoutePOIsCard route={route} onPOIHover={onPOIHover} />
                         } />
                         <Route path="/accidents" element={<MotoRouteAccidentsCard route={route} />} />
                     </Routes>

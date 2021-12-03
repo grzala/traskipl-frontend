@@ -7,14 +7,13 @@ import "./MotoRoutePOIsCard.scss"
 type MotoRoutePOIsCardProps = {
     route: MotoRouteType;
     onPOIHover: (enter: boolean, route_id: string) => void;
-    selectedPOI: string;
 }
 
 
 const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
-    const { route, onPOIHover, selectedPOI} = props;
+    const { route, onPOIHover} = props;
 
-    
+    const [selectedPOI, setselectedPOI] = useState<string>('1');
 
     return  route.points_of_interest && route.points_of_interest.length > 0 ? 
     (
@@ -26,7 +25,7 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
                         onMouseEnter={() => onPOIHover(true, poi._id)} 
                         onMouseLeave={() => onPOIHover(false, poi._id)} 
                         className={`list-group-item flex-column align-items-start`}
-                        //onClick={() => setTestState(!testState)}
+                        onClick={() => setselectedPOI('2')}
                         style={{
                             maxHeight: poi._id === selectedPOI ? '20em' : '6.7em',
                         }}>
