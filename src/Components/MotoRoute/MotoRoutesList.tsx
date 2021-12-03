@@ -15,7 +15,7 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
         <Fragment>
             <div className="moto-routes-list list-group">
                 <a href="/#" className="list-group-item list-group-item-action active">
-                    Recently added routes
+                    Other routes in the area
                 </a>
 
                 <div className="moto-routes-list-main">
