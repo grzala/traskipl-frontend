@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useEffect } from "react";
 
 import { DirectionsRenderer, DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
 import { mapIconDropsUrls, mapIconEnlargedDropsUrls } from "../MapConstants";
@@ -17,6 +17,7 @@ const MotoRouteMap = (props) => {
     
     const { motoRouteCoords, motoRoutePOIs, hoveredPOI, selectedPOI, onPOISelect} = props;
     const origin = motoRouteCoords[0];
+    var mapPosition = origin;
     const destination = motoRouteCoords[motoRouteCoords.length-1]
     const waypoints = motoRouteCoords.slice(1, motoRouteCoords.length-1).map((coord) => ({location: coord, stopover: false}))
 
@@ -51,8 +52,15 @@ const MotoRouteMap = (props) => {
     }, [origin, destination, waypoints])
 
 
+    useEffect(() => {
+        // mapPosition = {
+        // }
+    }, [selectedPOI])
+
+
+
     const isFocusedMarker = useCallback((poi_id) => {
-        if (selectedPOI === poi_id)
+        if (selectedPOI?._id === poi_id)
             return true;
         if (hoveredPOI !== null && hoveredPOI === poi_id)
             return true;
@@ -64,7 +72,7 @@ const MotoRouteMap = (props) => {
             googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} >
                 <GoogleMap
                     mapContainerStyle={mapContainerStyle}
-                    center={origin}
+                    center={mapPosition}
                     zoom={defaultZoom}
                     >
 

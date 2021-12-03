@@ -1,36 +1,36 @@
 import React, { Fragment, useCallback } from "react";
-import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
+import { MotoRouteType, POIType } from "../../../Types/MotoRoutesTypes";
 import { mapIconCirclesUrls } from "../../MapConstants";
 
 import "./MotoRoutePOIsCard.scss"
 
 type MotoRoutePOIsCardProps = {
     route: MotoRouteType;
-    selectedPOI: string | null;
-    onPOIHover: (enter: boolean, poi_id: string) => void;
-    onPOISelect: (poi_id: string) => void;
+    selectedPOI: POIType | null;
+    onPOIHover: (enter: boolean, poi: POIType) => void;
+    onPOISelect: (poi: POIType) => void;
 }
 
 
 const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
     const { route, onPOIHover, onPOISelect, selectedPOI} = props;
 
-    const onClickListItem = (e: any, newPoiId: string) => {
+    const onClickListItem = (e: any, newPoi: POIType) => {
         e.preventDefault();
         
         // when changing selected POI, make sure the scroll is reset on previously chosen element
         if (selectedPOI) {
-            document.getElementById(`poi_${selectedPOI}`)?.scroll({
+            document.getElementById(`poi_${selectedPOI._id}`)?.scroll({
                 top: 0,
                 left: 0,
                 behavior: 'smooth'
               });
         }
-        onPOISelect(newPoiId)
+        onPOISelect(newPoi)
     }
 
     const isSelectedPOI = useCallback((id: string) => {
-        return selectedPOI === id;
+        return selectedPOI?._id === id;
     }, [selectedPOI])
 
 
@@ -42,10 +42,10 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
                     <a 
                         key={`poi_${poi._id}`}
                         id={`poi_${poi._id}`}
-                        onMouseEnter={() => onPOIHover(true, poi._id)} 
-                        onMouseLeave={() => onPOIHover(false, poi._id)} 
+                        onMouseEnter={() => onPOIHover(true, poi)} 
+                        onMouseLeave={() => onPOIHover(false, poi)} 
                         className={`list-group-item list-group-item-${isSelectedPOI(poi._id) ? "selected" : "collapsed"} flex-column align-items-start`}
-                        onClick={(e) => onClickListItem(e, poi._id)}>
+                        onClick={(e) => onClickListItem(e, poi)}>
 
 
 

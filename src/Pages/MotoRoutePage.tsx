@@ -3,7 +3,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 
-import { MotoRouteType} from "../Types/MotoRoutesTypes"
+import { MotoRouteType, POIType} from "../Types/MotoRoutesTypes"
 import { getMotoRoute } from "../Actions/MotoRoutesActions";
 
 
@@ -25,18 +25,18 @@ const MotoRoutePage = () => {
     }, [id])
 
 
-    const [hoverPOI, setHoverPOI] = useState<string | null>(null);
-    const [selectedPOI, setSelectedPOI] = useState<string | null>(null);
-    const onPOIHover = (enter: boolean, poi_id: string) => {
-        if (!enter && hoverPOI === poi_id) {
+    const [hoverPOI, setHoverPOI] = useState<POIType | null>(null);
+    const [selectedPOI, setSelectedPOI] = useState<POIType | null>(null);
+    const onPOIHover = (enter: boolean, poi: POIType) => {
+        if (!enter && hoverPOI === poi) {
             setHoverPOI(null);
         } else if (enter) {
-            setHoverPOI(poi_id);
+            setHoverPOI(poi);
         }
     }
 
-    const onPOISelect = (poi_id: string) => {
-        setSelectedPOI(poi_id);
+    const onPOISelect = (poi: POIType) => {
+        setSelectedPOI(poi);
     }
 
 

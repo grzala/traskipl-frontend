@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
+import { MotoRouteType, POIType } from "../../../Types/MotoRoutesTypes";
 import MotoRouteAccidentsCard from "./MotoRouteAccidentsCard";
 import MotoRouteDetailsCard from "./MotoRouteDetailsCard";
 import MotoRoutePOIsCard from "./MotoRoutePOIsCard";
@@ -32,9 +32,9 @@ const hemletSvgPath =  `M294.396 52.127c-17.944.066-35.777 1.834-52.886 4.746-86
 
 type MotoRouteProps = {
     route: MotoRouteType;
-    selectedPOI: string | null;
-    onPOIHover: (enter: boolean, route_id: string) => void;
-    onPOISelect: (route_id: string) => void;
+    selectedPOI: POIType | null;
+    onPOIHover: (enter: boolean, poi: POIType) => void;
+    onPOISelect: (poi: POIType) => void;
 }
 
 const MotoRouteDetails = (props: MotoRouteProps) => {
