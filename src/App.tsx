@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './App.scss';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
@@ -6,10 +6,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Homepage from './Pages/Homepage';
 import MotoRoutePage from './Pages/MotoRoutePage';
 import Header from './Pages/Layout/Header';
+import { userContext } from './Contexts/UserContext';
+import { User, currentUserType } from './Types/UserTypes';
+
+
 
 function App() {
 
-  useEffect(() => {
+
+  useEffect(() => { // apply css to body
     document.body.className = 'default-body';
 
     return () => {
@@ -17,24 +22,34 @@ function App() {
     }
   }, [])
 
+
+  const [currentUser, setCurrentUser] = useState<currentUserType>(null);
+
+
+
   return (
     <div className="App">
-      <div className="container-fluid" >
-        <Header />
-        <Router>
-
-          <div className="main-content-wrapper container">
-            <Routes>
 
 
-              <Route path="/routes/:id/*" element={ <MotoRoutePage /> } />
-              <Route path="/routes/:id" element={ <MotoRoutePage /> } />
-              <Route path="/" element={ <Homepage /> } />
-            </Routes>
-          </div>
-        </Router>
-      </div>
+      <userContext.Provider value={{user: currentUser}}>
+
+        <div className="container-fluid" >
+          <Header />
+          <Router>
+
+            <div className="main-content-wrapper container">
+              <Routes>
+
+
+                <Route path="/routes/:id/*" element={ <MotoRoutePage /> } />
+                <Route path="/routes/:id" element={ <MotoRoutePage /> } />
+                <Route path="/" element={ <Homepage /> } />
+              </Routes>
+            </div>
+          </Router>
+        </div>
     
+      </userContext.Provider>
     </div>
   );
 }
