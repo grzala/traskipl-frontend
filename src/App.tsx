@@ -30,6 +30,7 @@ function App() {
 
   const onLogin = () => {
     console.log("login")
+    console.log(process.env.REACT_APP_TEST_VAR)
   }
 
   const onLogout = () => {
