@@ -7,8 +7,14 @@ import Homepage from './Pages/Homepage';
 import MotoRoutePage from './Pages/MotoRoutePage';
 import Header from './Pages/Layout/Header';
 import { userContext } from './Contexts/UserContext';
-import { User, currentUserType } from './Types/UserTypes';
+import { UserType, userContextType } from './Types/UserTypes';
 
+
+const sampleUser: UserType = {
+  first_name: "bayo",
+  last_name: "yayo",
+  email: "bayoyayo@yayo.yo"
+}
 
 
 function App() {
@@ -22,8 +28,17 @@ function App() {
     }
   }, [])
 
+  const onLogin = () => {
+    console.log("login")
+  }
 
-  const [currentUser, setCurrentUser] = useState<currentUserType>(null);
+  const onLogout = () => {
+    console.log("loagout")
+  }
+
+  const [currentUser, setCurrentUser] = useState<UserType>(
+    sampleUser
+  );
 
 
 
@@ -31,7 +46,11 @@ function App() {
     <div className="App">
 
 
-      <userContext.Provider value={{user: currentUser}}>
+      <userContext.Provider value={{
+        user: currentUser,
+        login: onLogin,
+        logout: onLogout
+        }}>
 
         <div className="container-fluid" >
           <Header />

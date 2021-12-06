@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import Login from "../../Auth/Login";
 import { userContext } from "../../Contexts/UserContext";
 
 import "./Header.scss"
@@ -40,7 +41,7 @@ const Header = () => {
                                     </ul>
                                 </div>
                                 <div className="col-md-2">
-                                    Current user: { JSON.stringify(user) }
+                                    <Login />
                                 </div>
                             </Fragment>
                         )}

@@ -1,10 +1,17 @@
-type User = {
+type UserType = {
     first_name: string;
     last_name: string;
 
     email: string;
 }
 
-type currentUserType = User | null;
+type currentUserType = UserType | null;
 
-export type { User, currentUserType };
+
+type userContextType = {
+    user: currentUserType,
+    login: (email: string, password: string) => void,
+    logout: () => void
+}
+
+export type { UserType, userContextType };

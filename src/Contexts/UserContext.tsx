@@ -1,12 +1,11 @@
 import React from 'react';
-import { currentUserType, User } from '../Types/UserTypes';
+import { userContextType } from '../Types/UserTypes';
 
-const sampleUser: User = {
-    first_name: "bayo",
-    last_name: "yayo",
-    email: "bayoyayo@yayo.yo"
-  }
 
-const userContext = React.createContext<{user: currentUserType}>({user: sampleUser});
+const userContext = React.createContext<userContextType>({
+        user: null,
+        login: (email: string, password: string) => {},
+        logout: () => {}
+    }); 
 
-export { userContext };
+export { userContext }
