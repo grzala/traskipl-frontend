@@ -37,9 +37,25 @@
   }
 }
 
-
 /* override bootstrap styles */
 .list-group-item.active {
-  background-color: #bd3327 !important;
-  border-color: #bd3327 !important;
+  background-color: #bd3327 ;
+  border-color: #bd3327 ;
+}
+
+
+.btn {
+  $baseColor: #484545;
+  color: $baseColor;
+
+  transition: filter 0.4s;
+
+  &:hover {
+    color: $baseColor;
+    filter: brightness(85%);
+  }
+  // &:hover {
+  //   background-color: #56423e ;
+  //   border-color: #56423e ;
+  // }
 }

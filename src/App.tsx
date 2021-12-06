@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './App.scss';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
@@ -9,6 +8,8 @@ import Header from './Pages/Layout/Header';
 import { userContext } from './Contexts/UserContext';
 import { UserType, userContextType } from './Types/UserTypes';
 import { checkLoggedIn } from './Actions/AuthActions';
+
+import './App.scss';
 
 
 const sampleUser: UserType = {
@@ -55,8 +56,9 @@ function App() {
         }}>
 
         <div className="container-fluid" >
-          <Header />
           <Router>
+
+            <Header />
 
             <div className="main-content-wrapper container">
               <Routes>

@@ -23,3 +23,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+/* override bootstrap styles */
+$theme-colors: (
+  "primary": #54bac1,
+);
+
+@import '~bootstrap/scss/bootstrap.scss';

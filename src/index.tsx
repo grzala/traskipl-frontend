@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import './index.scss'; // must be like that in order to get bootstrap default theme overwritten. Bootstrap css is imported inside index.scss
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
+import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
