@@ -1,8 +1,11 @@
 import axios from 'axios'
 
-axios.get("http://localhost:3000/logged_in",
+
+export function checkLoggedIn() {
+    axios.get("/api/logged_in",
         {'withCredentials': true}
     ).then((response) => {
+        console.log(response)
         // if (response.data.logged_in && this.state.loggedInStatus === "NOT_LOGGED_IN") {
         //     this.setState( {
         //         loggedInStatus: "LOGGED_IN",
@@ -17,3 +20,4 @@ axios.get("http://localhost:3000/logged_in",
     }).catch((error) => {
         console.log("error", error) 
     })
+}

@@ -8,6 +8,7 @@ import MotoRoutePage from './Pages/MotoRoutePage';
 import Header from './Pages/Layout/Header';
 import { userContext } from './Contexts/UserContext';
 import { UserType, userContextType } from './Types/UserTypes';
+import { checkLoggedIn } from './Actions/AuthActions';
 
 
 const sampleUser: UserType = {
@@ -30,7 +31,7 @@ function App() {
 
   const onLogin = () => {
     console.log("login")
-    console.log(process.env.REACT_APP_TEST_VAR)
+    checkLoggedIn();
   }
 
   const onLogout = () => {
