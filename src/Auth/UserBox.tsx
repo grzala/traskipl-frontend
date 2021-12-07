@@ -18,11 +18,16 @@ const UserBox = () => {
     return (
         <div className="userbox">
             <userContext.Consumer>
-                {({user, login, logout}) => {
+                {({user, onLogin, onLogout}) => {
                     if (true || user === null) {
                         return (
                             <Fragment>
-                                <form onSubmit={handleSubmit}>
+                                <form onSubmit={
+                                    (e) => {
+                                        e.preventDefault()
+                                        onLogin('asdasd', 'asdsda')
+                                    }
+                                }>
                                     <div className="d-flex flex-column">
                                         <div className="login-header-wrapper">
                                             <h6>Currently not logged in.</h6>
@@ -36,7 +41,7 @@ const UserBox = () => {
                                                 placeholder="example@domain.com" 
                                                 // value={this.state.email} 
                                                 // onChange={this.handleChange} 
-                                                required 
+                                                 
                                             />
                                         </div>
                                         <div className="form-group mb-1">
@@ -45,10 +50,10 @@ const UserBox = () => {
                                                 className="userbox-form-control"
                                                 name="password" 
                                                 type="password" 
-                                                placeholder="" 
+                                                placeholder="*******" 
                                                 // value={this.state.password} 
                                                 // onChange={this.handleChange} 
-                                                required 
+                                                 
                                             />
                                         </div>
                     

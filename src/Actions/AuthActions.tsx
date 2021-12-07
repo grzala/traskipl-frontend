@@ -2,7 +2,8 @@ import axios from 'axios'
 
 
 export function checkLoggedIn() {
-    axios.get("/api/logged_in",
+    axios.post("/api/users/sign_in",
+        {},
         {'withCredentials': true}
     ).then((response) => {
         console.log(response)

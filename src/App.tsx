@@ -50,9 +50,9 @@ function App() {
 
 
       <userContext.Provider value={{
-        user: currentUser,
-        login: onLogin,
-        logout: onLogout
+          user: currentUser,
+          onLogin: onLogin,
+          onLogout: onLogout
         }}>
 
         <div className="container-fluid" >

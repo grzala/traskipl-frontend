@@ -4,8 +4,8 @@ import { userContextType } from '../Types/UserTypes';
 
 const userContext = React.createContext<userContextType>({
         user: null,
-        login: (email: string, password: string) => {},
-        logout: () => {}
+        onLogin: (email: string, password: string) => {},
+        onLogout: () => {}
     }); 
 
 export { userContext }
