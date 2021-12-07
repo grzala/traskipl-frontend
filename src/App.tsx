@@ -89,9 +89,6 @@ function App() {
         <div className="container-fluid" >
           <Router>
 
-            <button className="btn btn-primary" onClick={onLogout}>Logout</button>
-            <span>Logged in user: { JSON.stringify(currentUser) }</span>
-
             <Header />
 
             <div className="main-content-wrapper container">

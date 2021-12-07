@@ -36,7 +36,35 @@
 
 
     .profilebox {
-        
+        color: white;
+        text-align: right;
+
+        .profile-pic-wrapper {
+            width: 6em;
+            min-width: 6em;
+            height: 6em;
+        }
+
+        .profile-info-container {
+            margin-left: 1em;
+
+
+            .profile-other {
+                .btn {
+                    color: white;
+
+                    &:focus {
+                        outline: none;
+                        box-shadow: none;
+                    }
+                }
+
+                li a {
+                    color: black;
+                }
+                
+            }
+        }
     }
 
 }
