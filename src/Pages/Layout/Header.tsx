@@ -19,7 +19,7 @@ const Header = () => {
                     <userContext.Consumer>
                         {({user}) => (
                             <Fragment>
-                                <div className="col-md-4">
+                                <div className="col-md-3 d-flex align-items-baseline">
                                     <ul className="nav nav-tabs">
                                         <li className="nav-item">
                                             <a className="nav-link active" href="/#">Home</a>
@@ -40,7 +40,7 @@ const Header = () => {
                                         </li>
                                     </ul>
                                 </div>
-                                <div className="col-md-2">
+                                <div className="userbox-col col-md-3">
                                     <UserBox />
                                 </div>
                             </Fragment>

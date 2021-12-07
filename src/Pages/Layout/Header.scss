@@ -1,10 +1,10 @@
 .header-container {
-    min-height: 5.5em;
+    min-height: 7.2em;
 
     background-color: #bd3327;
 
     .nav-wrapper {
-        margin-top: 1.7em;
+        margin-top: 0.4em;
 
 
         a {
@@ -12,9 +12,17 @@
         }
 
         .nav {
+
+            align-self: flex-end;
+
             li {
                 line-height: 2.875em;
             }
         }
+    }
+
+    .userbox-col {
+        float: right;
+        margin: 0.4em 0;
     }
 }

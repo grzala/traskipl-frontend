@@ -1,4 +1,6 @@
 .userbox {
+    float: right;
+
     .loginbox {
         font-size: 0.8em;
 
@@ -20,7 +22,8 @@
         &-form-control {
             font-size: 1em;
             float: right;
-            clear: both
+            clear: both;
+            margin-left: 0.5em;
         }
 
         .btn {
