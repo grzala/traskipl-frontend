@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProfilePicture from "../Components/ProfilePicture";
 import { userContext } from "../Contexts/UserContext";
@@ -15,6 +15,7 @@ type ProfileBoxProps = {
 const ProfileBox = (props: ProfileBoxProps) => {
     const {user, onLogout, onLogin} = props
 
+
     return (
         <div className="profilebox d-flex flex-row">
             <div className="profile-pic-wrapper">
@@ -23,7 +24,7 @@ const ProfileBox = (props: ProfileBoxProps) => {
             
             <div className="profile-info-container d-flex flex-column flex-align-items-baseline">
                 <div className="profile-name">
-                    <h4>{user.first_name} {user.last_name}</h4>
+                    <h4>{user.full_name}</h4>
                 </div>
 
                 <div className="dropdown profile-other">

@@ -11,6 +11,9 @@ import { login, checkLoggedIn as checkedLoggedInAction, logout } from './Actions
 
 import './App.scss';
 
+import { toast, ToastContainer } from 'react-toastify';
+import ToasterStyles from "./ToasterStyles/ToasterStyles"
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -26,7 +29,7 @@ function App() {
       const { data } = response
 
       if (response.status != 200) {
-        console.log("error");
+        console.log("api error");
         console.log(data.error_msgs)
         return
       } 
@@ -50,13 +53,16 @@ function App() {
 
     const { data } = response
     if (response.status != 200) {
-      console.log("error");
+      console.log("api error");
       console.log(data.error_msgs)
+      toast.error(`Login unsuccessful: ${data.error_msgs.join(", ")}`, ToasterStyles);
       return
     } 
 
     const user = data.user
     setCurrentUser(user);
+    console.log(user)
+    toast.success(data.messages.join(", "), ToasterStyles);
   }
 
   const onLogout = async () => {
@@ -64,13 +70,15 @@ function App() {
     const { data } = response
 
     if (response.status != 200) {
-      console.log("error");
+      console.log("api error");
       console.log(data.error_msgs)
+      toast.error(`Logout unsuccessful: ${data.error_msgs.join(", ")}`, ToasterStyles);
       return
     } 
     
     // set user to null if successful logout
     setCurrentUser(null);
+    toast.success(data.messages.join(", "), ToasterStyles);
   }
 
 
@@ -78,7 +86,6 @@ function App() {
 
   return (
     <div className="App">
-
 
       <userContext.Provider value={{
           user: currentUser,
@@ -102,6 +109,8 @@ function App() {
             </div>
           </Router>
         </div>
+
+      <ToastContainer />
     
       </userContext.Provider>
     </div>
