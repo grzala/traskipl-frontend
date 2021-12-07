@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+import { stringify } from 'querystring';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { userContext } from '../Contexts/UserContext';
 
@@ -6,14 +7,17 @@ import './UserBox.scss'
 
 const UserBox = () => {
 
-    const handleSubmit = (e: any) => {
-        e.preventDefault()
+    const [userLoginData, setUserLoginData] = useState<{user: {email: string, password: string}}>({user: {email: "", password: ""}});
 
-        console.log('onsubmit')
-
-
+    const handleChange = (e: any) => {
+        setUserLoginData({ 
+            user: { 
+                ...userLoginData.user, 
+                [e.target.name]: e.target.value 
+            }
+            
+        })
     }
-
 
     return (
         <div className="userbox">
@@ -25,7 +29,7 @@ const UserBox = () => {
                                 <form onSubmit={
                                     (e) => {
                                         e.preventDefault()
-                                        onLogin('asdasd', 'asdsda')
+                                        onLogin(userLoginData)
                                     }
                                 }>
                                     <div className="d-flex flex-column">
@@ -39,8 +43,8 @@ const UserBox = () => {
                                                 name="email" 
                                                 type="email" 
                                                 placeholder="example@domain.com" 
-                                                // value={this.state.email} 
-                                                // onChange={this.handleChange} 
+                                                value={userLoginData.user.email} 
+                                                onChange={handleChange} 
                                                  
                                             />
                                         </div>
@@ -51,8 +55,8 @@ const UserBox = () => {
                                                 name="password" 
                                                 type="password" 
                                                 placeholder="*******" 
-                                                // value={this.state.password} 
-                                                // onChange={this.handleChange} 
+                                                value={userLoginData.user.password} 
+                                                onChange={handleChange} 
                                                  
                                             />
                                         </div>

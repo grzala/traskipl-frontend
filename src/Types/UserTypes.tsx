@@ -10,7 +10,7 @@ type currentUserType = UserType | null;
 
 type userContextType = {
     user: currentUserType,
-    onLogin: (email: string, password: string) => void,
+    onLogin: (userLoginData: {user: {email: string, password: string}}) => void,
     onLogout: () => void
 }
 

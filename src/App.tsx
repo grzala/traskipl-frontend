@@ -7,7 +7,7 @@ import MotoRoutePage from './Pages/MotoRoutePage';
 import Header from './Pages/Layout/Header';
 import { userContext } from './Contexts/UserContext';
 import { UserType, userContextType } from './Types/UserTypes';
-import { checkLoggedIn } from './Actions/AuthActions';
+import { login, checkLoggedIn as checkedLoggedInAction } from './Actions/AuthActions';
 
 import './App.scss';
 
@@ -30,9 +30,12 @@ function App() {
     }
   }, [])
 
-  const onLogin = () => {
-    console.log("login")
-    checkLoggedIn();
+  const onLogin = (userLoginData: {user: {email: string, password: string}}) => {
+    login(userLoginData);
+  }
+
+  const checkLoggedIn = () => {
+    checkedLoggedInAction();
   }
 
   const onLogout = () => {
@@ -57,6 +60,8 @@ function App() {
 
         <div className="container-fluid" >
           <Router>
+
+            <button className="btn btn-primary" onClick={checkLoggedIn}>Check logged in</button>
 
             <Header />
 
