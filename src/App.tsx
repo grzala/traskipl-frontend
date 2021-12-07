@@ -7,7 +7,7 @@ import MotoRoutePage from './Pages/MotoRoutePage';
 import Header from './Pages/Layout/Header';
 import { userContext } from './Contexts/UserContext';
 import { UserType, userContextType } from './Types/UserTypes';
-import { login, checkLoggedIn as checkedLoggedInAction } from './Actions/AuthActions';
+import { login, checkLoggedIn as checkedLoggedInAction, logout } from './Actions/AuthActions';
 
 import './App.scss';
 
@@ -39,7 +39,7 @@ function App() {
   }
 
   const onLogout = () => {
-    console.log("loagout")
+    logout()
   }
 
   const [currentUser, setCurrentUser] = useState<UserType>(
@@ -62,6 +62,7 @@ function App() {
           <Router>
 
             <button className="btn btn-primary" onClick={checkLoggedIn}>Check logged in</button>
+            <button className="btn btn-primary" onClick={onLogout}>Logout</button>
 
             <Header />
 
