@@ -1,68 +1,37 @@
 import axios from 'axios'
+import { ErrorType } from '../Types/ErrorTypes'
+import { UserType } from '../Types/UserTypes'
 
 
 export function login(userLoginData: {user: {email: string, password: string}}) {
-    axios.post("/api/sessions",
+    return axios.post("/api/sessions",
                 userLoginData,
                 {'withCredentials': true}
     ).then((response) => {
-        console.log(response)
-        // if (response.data.logged_in && this.state.loggedInStatus === "NOT_LOGGED_IN") {
-        //     this.setState( {
-        //         loggedInStatus: "LOGGED_IN",
-        //         user: response.data.user
-        //     })
-        // } else if (!response.data.logged_in &&this.state.loggedInStatus === "LOGGED_IN") {
-        //     this.setState({
-        //         loggedInStatus: "NOT_LOGGED_IN",
-        //         user: {}
-        //     })
-        // }
+        return response
     }).catch((error) => {
-        console.log("error", error) 
+        return error?.response
     })
 }
 
 
 export function checkLoggedIn() {
-    axios.get("/api/check_logged_in",
+    return axios.get("/api/check_logged_in",
         {'withCredentials': true}
     ).then((response) => {
-        console.log(response)
-        // if (response.data.logged_in && this.state.loggedInStatus === "NOT_LOGGED_IN") {
-        //     this.setState( {
-        //         loggedInStatus: "LOGGED_IN",
-        //         user: response.data.user
-        //     })
-        // } else if (!response.data.logged_in &&this.state.loggedInStatus === "LOGGED_IN") {
-        //     this.setState({
-        //         loggedInStatus: "NOT_LOGGED_IN",
-        //         user: {}
-        //     })
-        // }
+        return response
     }).catch((error) => {
-        console.log("error", error) 
+        return error?.response
     })
 }
 
 
 export function logout() {
-    axios.delete("/api/session",
+    return axios.delete("/api/session",
         {'withCredentials': true}
     ).then((response) => {
-        console.log(response)
-        // if (response.data.logged_in && this.state.loggedInStatus === "NOT_LOGGED_IN") {
-        //     this.setState( {
-        //         loggedInStatus: "LOGGED_IN",
-        //         user: response.data.user
-        //     })
-        // } else if (!response.data.logged_in &&this.state.loggedInStatus === "LOGGED_IN") {
-        //     this.setState({
-        //         loggedInStatus: "NOT_LOGGED_IN",
-        //         user: {}
-        //     })
-        // }
+        return response
     }).catch((error) => {
-        console.log("error", error) 
+        return error?.response
     })
 }

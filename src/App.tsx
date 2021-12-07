@@ -12,39 +12,67 @@ import { login, checkLoggedIn as checkedLoggedInAction, logout } from './Actions
 import './App.scss';
 
 
-const sampleUser: UserType = {
-  first_name: "bayo",
-  last_name: "yayo",
-  email: "bayoyayo@yayo.yo"
-}
-
-
 function App() {
 
+  const [currentUser, setCurrentUser] = useState<UserType | null>(
+    null
+  );
 
-  useEffect(() => { // apply css to body
-    document.body.className = 'default-body';
+  useEffect(() => { 
+    document.body.className = 'default-body'; // apply css to body
+
+    const fetchLoggedIn = async () => {
+      const response = await checkedLoggedInAction()
+      const { data } = response
+
+      if (response.status != 200) {
+        console.log("error");
+        console.log(data.error_msgs)
+        return
+      } 
+  
+      const user = data.user
+      setCurrentUser(user);
+
+    }
+
+    fetchLoggedIn();
 
     return () => {
       document.body.className = '';
     }
   }, [])
 
-  const onLogin = (userLoginData: {user: {email: string, password: string}}) => {
-    login(userLoginData);
+
+
+  const onLogin = async (userLoginData: {user: {email: string, password: string}}) => {
+    const response = await login(userLoginData);
+
+    const { data } = response
+    if (response.status != 200) {
+      console.log("error");
+      console.log(data.error_msgs)
+      return
+    } 
+
+    const user = data.user
+    setCurrentUser(user);
   }
 
-  const checkLoggedIn = () => {
-    checkedLoggedInAction();
+  const onLogout = async () => {
+    const response = await logout()
+    const { data } = response
+
+    if (response.status != 200) {
+      console.log("error");
+      console.log(data.error_msgs)
+      return
+    } 
+    
+    // set user to null if successful logout
+    setCurrentUser(null);
   }
 
-  const onLogout = () => {
-    logout()
-  }
-
-  const [currentUser, setCurrentUser] = useState<UserType>(
-    sampleUser
-  );
 
 
 
@@ -61,8 +89,8 @@ function App() {
         <div className="container-fluid" >
           <Router>
 
-            <button className="btn btn-primary" onClick={checkLoggedIn}>Check logged in</button>
             <button className="btn btn-primary" onClick={onLogout}>Logout</button>
+            <span>Logged in user: { JSON.stringify(currentUser) }</span>
 
             <Header />
 
