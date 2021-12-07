@@ -21,9 +21,9 @@ const ProfileBox = (props: ProfileBoxProps) => {
                 <ProfilePicture imgPath={ "https://thumbs.mugshots.com/gallery/images/47/82/Nicole-Marty-mugshot-11381227.400x800.jpg" }/>
             </div>
             
-            <div className="profile-info-container d-flex flex-column">
+            <div className="profile-info-container d-flex flex-column flex-align-items-baseline">
                 <div className="profile-name">
-                    <h3>{user.first_name} {user.last_name}</h3>
+                    <h4>{user.first_name} {user.last_name}</h4>
                 </div>
 
                 <div className="dropdown profile-other">

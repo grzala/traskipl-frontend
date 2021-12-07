@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 import UserBox from "../../Auth/UserBox";
 import { userContext } from "../../Contexts/UserContext";
 
@@ -10,9 +11,12 @@ const Header = () => {
             <div className="header-container container-fluid">
                 <div className="nav-wrapper row">
                     <div className="col-md-2"></div>
-                    <div className="col-md-2">
-                        <img src={ process.env.PUBLIC_URL + '/traski.png' } alt="traski logo" />
-
+                    <div className="col-md-2 d-flex align-items-end">
+                        <div className="logo-wrapper">
+                            <Link to="/">
+                                <img src={ process.env.PUBLIC_URL + '/traski.png' } alt="traski logo" />
+                            </Link>
+                        </div>
 
                     </div>
 
