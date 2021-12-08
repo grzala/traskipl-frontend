@@ -48,3 +48,53 @@ export function useGetMotoRoutes(): [ MotoRouteType[], boolean /*, (resource: Mo
 
     return [ motoRoutes, loading ]
 }
+
+
+function getMotoRoute(id: number) {
+    return axios.get(
+        `http://localhost:3000/api/moto_routes/${id}`,
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}
+
+export function useGetMotoRoute(id: number | null): [ MotoRouteType | null, boolean /*, (resource: MotoRouteType[]) => void*/ ]  {
+    const [motoRoute, setMotoRoute] = useState<MotoRouteType | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const _getMotoRoute = useCallback(async () => {
+        if (id === null) {
+            console.log("Requested moto route id is null")
+            setMotoRoute(null)
+            return;
+        }
+
+        setLoading(true);
+        var response = await getMotoRoute(id)
+
+        if (response.status !== 200) {
+            console.log("Something went wrong when getting moto Routes")
+            console.log(response)
+            setMotoRoute(null)
+            return
+        }
+        
+        const _motoRoutes = response.data.moto_route as MotoRouteType
+        
+        setMotoRoute(_motoRoutes)
+        setLoading(false);
+    }, [id])
+
+    useEffect(() => { _getMotoRoute() }, [_getMotoRoute])
+
+    return [ motoRoute, loading ]
+}

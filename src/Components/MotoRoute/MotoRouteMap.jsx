@@ -52,17 +52,11 @@ const MotoRouteMap = (props) => {
     }, [origin, destination, waypoints])
 
 
-    useEffect(() => {
-        // mapPosition = {
-        // }
-    }, [selectedPOI])
 
-
-
-    const isFocusedMarker = useCallback((poiid) => {
-        if (selectedPOI?.id === poiid)
+    const isFocusedMarker = useCallback((poi_id) => {
+        if (selectedPOI?._id === poi_id)
             return true;
-        if (hoveredPOI !== null && hoveredPOI === poiid)
+        if (hoveredPOI !== null && hoveredPOI === poi_id)
             return true;
         return false;
     }, [hoveredPOI, selectedPOI])
@@ -81,10 +75,10 @@ const MotoRouteMap = (props) => {
                             return (<Marker 
                                         key={`marker_${index}`} 
                                         position={ poi.coordinates } 
-                                        icon={ isFocusedMarker(poi.id) ? mapIconEnlargedDropsUrls[poi.variant] : mapIconDropsUrls[poi.variant] }
+                                        icon={ isFocusedMarker(poi._id) ? mapIconEnlargedDropsUrls[poi.variant] : mapIconDropsUrls[poi.variant] }
                                         clickable={ true }
                                         onClick={() => onPOISelect(poi)}
-                                        zIndex={ isFocusedMarker(poi.id) ? 100 : 1 } />)
+                                        zIndex={ isFocusedMarker(poi._id) ? 100 : 1 } />)
                         })
                     )}
 

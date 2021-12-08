@@ -34,11 +34,11 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
     }, [selectedPOI])
 
 
-    return  route.points_of_interest && route.points_of_interest.length > 0 ? 
+    return  route.point_of_interests && route.point_of_interests.length > 0 ? 
     (
         <Fragment>
             <div className="list-group poi-list">
-                {route.points_of_interest.map((poi) => (
+                {route.point_of_interests.map((poi) => (
                     <a 
                         key={`poi_${poi.id}`}
                         id={`poi_${poi.id}`}

@@ -14,7 +14,7 @@ import MotoRouteDetails from "../Components/MotoRoute/MotoRouteDetails/MotoRoute
 import MotoRouteComments from "../Components/MotoRoute/MotoRouteComments";
 import MotoRouteAuthor from "../Components/MotoRoute/MotoRouteAuthor";
 import MotoRoutesList from "../Components/MotoRoute/MotoRoutesList";
-import { useGetMotoRoutes } from "../Actions/MotoRoutesActions";
+import { useGetMotoRoute, useGetMotoRoutes } from "../Actions/MotoRoutesActions";
 
   
 const MotoRoutePage = () => {
@@ -25,7 +25,7 @@ const MotoRoutePage = () => {
     const navigate = useNavigate()
     const urlMatch = useMatch('/routes/:id/*')
 
-    const [route, setRoute] = useState<MotoRouteType>();
+    const [route, routeLoading] = useGetMotoRoute(id ? +id : null);
 
     useEffect(() => {
         if (id != null) {
@@ -71,7 +71,7 @@ const MotoRoutePage = () => {
                     {route && (
                         <MotoRouteMap 
                             motoRouteCoords={route.coordinates} 
-                            motoRoutePOIs={route.points_of_interest} 
+                            motoRoutePOIs={route.point_of_interests} 
                             hoveredPOI={hoverPOI}
                             selectedPOI={selectedPOI}
                             onPOISelect={selectPOI}
