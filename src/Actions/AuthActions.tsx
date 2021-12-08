@@ -17,7 +17,7 @@ export function login(userLoginData: {user: {email: string, password: string}}) 
 
         return response
     }).catch((error) => {
-        return error?.response
+        return handleAxiosErrors(error)
     })
 }
 
@@ -51,6 +51,6 @@ export function logout() {
         
         return response
     }).catch((error) => {
-        return error?.response
+        return handleAxiosErrors(error)
     })
 }

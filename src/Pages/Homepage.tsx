@@ -11,7 +11,8 @@ const Homepage = () => {
     const [motoRoutesList, setMotoRoutesList] = useState<MotoRouteType[]>([])
 
     useEffect(() => {
-        setMotoRoutesList(getMotoRoutes())
+        console.log(getMotoRoutes());
+        //setMotoRoutesList(getMotoRoutes())
     }, [])
 
     return (

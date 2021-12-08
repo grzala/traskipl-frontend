@@ -4,7 +4,7 @@ import { useMatch, useNavigate, useParams } from "react-router-dom";
 
 
 import { MotoRouteType, POIType} from "../Types/MotoRoutesTypes"
-import { getMotoRoute, getMotoRoutes } from "../Actions/MotoRoutesActions";
+// import { getMotoRoute, getMotoRoutes } from "../Actions/MotoRoutesActions";
 
 
 import MotoRouteMap from "../Components/MotoRoute/MotoRouteMap";
@@ -21,7 +21,7 @@ const MotoRoutePage = () => {
 
     const [motoRoutesList, setMotoRoutesList] = useState<MotoRouteType[]>([])
     useEffect(() => {
-        setMotoRoutesList(getMotoRoutes())
+        // setMotoRoutesList(getMotoRoutes())
     }, [])
 
     const navigate = useNavigate()
@@ -31,7 +31,7 @@ const MotoRoutePage = () => {
 
     useEffect(() => {
         if (id != null) {
-            setRoute(getMotoRoute(+id))
+            // setRoute(getMotoRoute(+id))
         }
     }, [id])
 
