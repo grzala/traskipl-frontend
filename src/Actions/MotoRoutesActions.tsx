@@ -1,11 +1,11 @@
 import axios from "axios"
 import { useCallback, useEffect, useState } from "react";
-// import { MotoRouteType } from "../Types/MotoRoutesTypes";
+import { MotoRouteType } from "../Types/MotoRoutesTypes";
 import { handleAxiosErrors } from "./ErrorHandling";
 
 
 
-export function getMotoRoutes() {
+function getMotoRoutes() {
     return axios.get(
         'http://localhost:3000/api/moto_routes',
         {'withCredentials': true}
@@ -22,18 +22,29 @@ export function getMotoRoutes() {
     })
 }
 
-// export function useGetResources(): [ MotoRouteType[], boolean, (resource: MotoRouteType[]) => void ]  {
-//     const [resources, setResources] = useState<MotoRouteType[]>([]);
-//     const [loading, setLoading] = useState<boolean>(false);
+export function useGetMotoRoutes(): [ MotoRouteType[], boolean /*, (resource: MotoRouteType[]) => void*/ ]  {
+    const [motoRoutes, setMotoRoutes] = useState<MotoRouteType[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
-//     const _getResources = useCallback(async () => {
-//         setLoading(true);
-//         const _resources = await getResources()
-//         setResources(_resources)
-//         setLoading(false);
-//     }, [])
+    const _getMotoRoutes = useCallback(async () => {
+        setLoading(true);
+        var response = await getMotoRoutes()
 
-//     useEffect(() => { _getResources() }, [_getResources])
 
-//     return [ resources, loading, setResources ]
-// }
+        if (response.status !== 200) {
+            console.log("Something went wrong when getting moto Routes")
+            console.log(response)
+            setMotoRoutes([])
+            return
+        }
+        
+        const _motoRoutes = response.data.moto_routes as MotoRouteType[]
+        
+        setMotoRoutes(_motoRoutes)
+        setLoading(false);
+    }, [])
+
+    useEffect(() => { _getMotoRoutes() }, [_getMotoRoutes])
+
+    return [ motoRoutes, loading ]
+}

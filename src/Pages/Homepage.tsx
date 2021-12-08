@@ -4,16 +4,11 @@ import React, { Fragment, useEffect, useState } from "react";
 import "./Homepage.scss"
 import MotoRoutesList from "../Components/MotoRoute/MotoRoutesList";
 import { MotoRouteType } from "../Types/MotoRoutesTypes";
-import { getMotoRoutes } from "../Actions/MotoRoutesActions";
+import { useGetMotoRoutes } from "../Actions/MotoRoutesActions";
 
 const Homepage = () => {
 
-    const [motoRoutesList, setMotoRoutesList] = useState<MotoRouteType[]>([])
-
-    useEffect(() => {
-        console.log(getMotoRoutes());
-        //setMotoRoutesList(getMotoRoutes())
-    }, [])
+    const [motoRoutesList, motoRoutesListLoading] = useGetMotoRoutes();
 
     return (
         <Fragment>

@@ -10,11 +10,14 @@ export function handleAxiosErrors (error: any) {
         case 504: // Connection timeout
             msg =  "Can't connect to backend services."
             break;
-        case 404:
+        case 404: // Page not found
             msg = `Required path "${error.response.responseURL}" does not exist.`
             break;
+        case 500: // Page not found
+            msg = `Problem with backend services.`
+            break;
         default:
-            alert(`Handling htto error ${error.response.status} not implemented!`)
+            alert(`Handling http error ${error.response.status} not implemented!`)
     }
 
     const to_return = {

@@ -14,15 +14,13 @@ import MotoRouteDetails from "../Components/MotoRoute/MotoRouteDetails/MotoRoute
 import MotoRouteComments from "../Components/MotoRoute/MotoRouteComments";
 import MotoRouteAuthor from "../Components/MotoRoute/MotoRouteAuthor";
 import MotoRoutesList from "../Components/MotoRoute/MotoRoutesList";
+import { useGetMotoRoutes } from "../Actions/MotoRoutesActions";
 
   
 const MotoRoutePage = () => {
     const { id } = useParams()
 
-    const [motoRoutesList, setMotoRoutesList] = useState<MotoRouteType[]>([])
-    useEffect(() => {
-        // setMotoRoutesList(getMotoRoutes())
-    }, [])
+    const [motoRoutesList, motoRoutesListLoading] = useGetMotoRoutes();
 
     const navigate = useNavigate()
     const urlMatch = useMatch('/routes/:id/*')
