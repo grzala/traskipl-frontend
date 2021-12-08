@@ -27,7 +27,7 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
                                 </div>
 
                                 <div className="col-sm-7">
-                                    <p>{ route.title }</p>
+                                    <p>{ route.name }</p>
                                     <p className="moto-routes-list-item-description">{ route.description }</p>
                                 </div>
                             </div>

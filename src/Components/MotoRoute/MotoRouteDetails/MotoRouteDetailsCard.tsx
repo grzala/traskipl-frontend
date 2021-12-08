@@ -25,7 +25,7 @@ const MotoRouteDetailsCard = (props: MotoRouteDetailsCardProps) => {
             {/* Accidents: <input key="PoIFilterCheck" type="checkbox" onChange={onChange} checked={poiMarkerFilter} className="" /> */}
             
 
-            <h2>{route.title}</h2>
+            <h2>{route.name}</h2>
             <p>{route.description}</p>
 
         </Fragment>

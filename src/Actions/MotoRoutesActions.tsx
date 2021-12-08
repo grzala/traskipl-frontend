@@ -9,7 +9,7 @@ import { MotoRouteType, POIVariant} from "../Types/MotoRoutesTypes"
 const tempRoutes: MotoRouteType[] = [
     {  
         id: 1,
-        title: "Mała pętla Bieszczadzka",
+        name: "Mała pętla Bieszczadzka",
         description: "Mała pętla Bieszczadzka is a shorter variant of the famous loop road in the Bieszczady mountains. The loop takes us around the Solina lake, giving us a good taste of mountainous terrain we can expect on the bigger loop.",
         coordinates: [
             { lat: 49.470003, lng: 22.328589},
@@ -66,7 +66,7 @@ const tempRoutes: MotoRouteType[] = [
     },
     {
         id: 2,
-        title: "Duża pętla Bieszczadzka",
+        name: "Duża pętla Bieszczadzka",
         description: "Duża pętla Bieszczadzka is a longer variant of the famous loop road in the Bieszczady mountains. Constant hikes and descends, fantastic turns and beautiful scenery place it in the 'must ride' category of Polish motorcycle routes. The bigger loop also takes us deeper into the mountains and forests of the Bieszczady national park.",
         coordinates: [
             { lat: 49.470003, lng: 22.328589},
@@ -77,7 +77,7 @@ const tempRoutes: MotoRouteType[] = [
     },
     {
         id: 3,
-        title: "Jeziorsko",
+        name: "Jeziorsko",
         description: "A ride around the Jeziorsko artificial lake. Not very overwhelming. It is very uniqie to go there after September ends, as the lake is being drained of water from the winter. If you own a dirt bike you can try riding on the lake bed.",
         coordinates: [
             { lat: 51.691263, lng: 18.974299 }, 
