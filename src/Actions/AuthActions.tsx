@@ -12,7 +12,7 @@ export function login(userLoginData: {user: {email: string, password: string}}) 
             console.log("Api error");
             console.log(response)
         }
-
+        
         return response
     }).catch((error) => {
         return handleAxiosErrors(error)

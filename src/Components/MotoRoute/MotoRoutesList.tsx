@@ -17,21 +17,29 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
                 <a href="/#" className="list-group-item list-group-item-action active">
                     Other routes in the area
                 </a>
-
+                
                 <div className="moto-routes-list-main">
-                    { motoRoutesList.map((route) => 
-                        <Link key={`moto-list-item-${route.id}`} to={`/routes/${route.id}/details`} className="moto-routes-list-item list-group-item list-group-item-action">
-                            <div className="row">
-                                <div className="map-thumbnail-col">
-                                    <img src={ process.env.PUBLIC_URL + '/samples/map1.png' } alt="map of the route" />
-                                </div>
+                    { motoRoutesList && motoRoutesList.length > 0 ? (
+                            <Fragment>
+                            { motoRoutesList.map((route) => 
+                                <Link key={`moto-list-item-${route.id}`} to={`/routes/${route.id}/details`} className="moto-routes-list-item list-group-item list-group-item-action">
+                                    <div className="row">
+                                        <div className="map-thumbnail-col">
+                                            <img src={ process.env.PUBLIC_URL + '/samples/map1.png' } alt="map of the route" />
+                                        </div>
 
-                                <div className="col-sm-7">
-                                    <p>{ route.name }</p>
-                                    <p className="moto-routes-list-item-description">{ route.description }</p>
-                                </div>
-                            </div>
-                        </Link>
+                                        <div className="col-sm-7">
+                                            <p>{ route.name }</p>
+                                            <p className="moto-routes-list-item-description">{ route.description }</p>
+                                        </div>
+                                    </div>
+                                </Link>
+                            )}
+                            </Fragment>
+                    ) : (
+                        <div className="moto-routes-list-item list-group-item text-center">
+                            <h3>No routes to show</h3>
+                        </div>
                     )}
                 </div>
             </div>

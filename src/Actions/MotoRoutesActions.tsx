@@ -16,7 +16,7 @@ export function getMotoRoutes() {
             console.log(response)
         }
 
-        return response.data
+        return response
     }).catch((error) => {
         return handleAxiosErrors(error)
     })
