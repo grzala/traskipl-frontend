@@ -24,19 +24,21 @@ function App() {
   useEffect(() => { 
     document.body.className = 'default-body'; // apply css to body
 
+
+    // Login, Logout and CheckIsLoggedIn 
     const fetchLoggedIn = async () => {
       const response = await checkedLoggedInAction()
       const { data } = response
 
       if (response.status != 200) {
-        console.log("api error");
-        console.log(data.error_msgs)
+        if (data?.messages) {
+          toast.error(`Login unsuccessful: ${data.messages.join(", ")}`, ToasterStyles);
+        }
         return
       } 
   
       const user = data.user
       setCurrentUser(user);
-
     }
 
     fetchLoggedIn();
@@ -46,17 +48,13 @@ function App() {
     }
   }, [])
 
-
-
   const onLogin = async (userLoginData: {user: {email: string, password: string}}) => {
     const response = await login(userLoginData);
 
     const { data } = response
     if (response.status != 200) {
-      console.log("api error");
-      if (data?.error_msgs) {
-        console.log(data.error_msgs)
-        toast.error(`Login unsuccessful: ${data.error_msgs.join(", ")}`, ToasterStyles);
+      if (data?.messages) {
+        toast.error(`Login unsuccessful: ${data.messages.join(", ")}`, ToasterStyles);
       }
       return
     } 
@@ -72,10 +70,8 @@ function App() {
     const { data } = response
 
     if (response.status != 200) {
-      console.log("api error");
-      if (data?.error_msgs) {
-        console.log(data.error_msgs)
-        toast.error(`Logout unsuccessful: ${data.error_msgs.join(", ")}`, ToasterStyles);
+      if (data?.messages) {
+        toast.error(`Logout unsuccessful: ${data.messages.join(", ")}`, ToasterStyles);
       }
       return
     } 
