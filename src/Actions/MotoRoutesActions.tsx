@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useCallback, useEffect, useState } from "react";
-import { MotoRouteType } from "../Types/MotoRoutesTypes";
+// import { MotoRouteType } from "../Types/MotoRoutesTypes";
 import { handleAxiosErrors } from "./ErrorHandling";
 
 
@@ -10,8 +10,8 @@ export function getMotoRoutes() {
         'http://localhost:3000/api/moto_routes',
         {'withCredentials': true}
     ).then((response) => {
-        
-        if (response.status != 200) {
+
+        if (response.status !== 200) {
             console.log("Api error");
             console.log(response)
         }

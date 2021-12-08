@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { ErrorType } from '../Types/ErrorTypes'
-import { UserType } from '../Types/UserTypes'
 import { handleAxiosErrors } from './ErrorHandling'
 
 
@@ -10,7 +8,7 @@ export function login(userLoginData: {user: {email: string, password: string}}) 
                 {'withCredentials': true}
     ).then((response) => {
 
-        if (response.status != 200) {
+        if (response.status !== 200) {
             console.log("Api error");
             console.log(response)
         }
@@ -27,7 +25,7 @@ export function checkLoggedIn() {
         {'withCredentials': true}
     ).then((response) => {
 
-        if (response.status != 200) {
+        if (response.status !== 200) {
             console.log("Api error");
             console.log(response)
         }
@@ -44,7 +42,7 @@ export function logout() {
         {'withCredentials': true}
     ).then((response) => {
 
-        if (response.status != 200) {
+        if (response.status !== 200) {
             console.log("Api error");
             console.log(response)
         }

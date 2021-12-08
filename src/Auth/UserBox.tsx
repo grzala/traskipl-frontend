@@ -1,6 +1,4 @@
-import { stringify } from 'querystring';
-import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { userContext } from '../Contexts/UserContext';
 import LoginBox from './LoginBox';
 import ProfileBox from './ProfileBox';

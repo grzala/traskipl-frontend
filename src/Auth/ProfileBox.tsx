@@ -1,7 +1,5 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import ProfilePicture from "../Components/ProfilePicture";
-import { userContext } from "../Contexts/UserContext";
 import { UserType } from "../Types/UserTypes";
 
 import './UserBox.scss'
@@ -13,7 +11,7 @@ type ProfileBoxProps = {
 }
 
 const ProfileBox = (props: ProfileBoxProps) => {
-    const {user, onLogout, onLogin} = props
+    const {user, onLogout} = props
 
 
     return (
@@ -32,9 +30,9 @@ const ProfileBox = (props: ProfileBoxProps) => {
                         More
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="profile-other-dropdown">
-                        <li><a className="dropdown-item" href="#">My routes</a></li>
-                        <li><a className="dropdown-item" href="#">My favourites</a></li>
-                        <li><a className="dropdown-item" href="#">Edit profile</a></li>
+                        <li><a className="dropdown-item" href="/#">My routes</a></li>
+                        <li><a className="dropdown-item" href="/#">My favourites</a></li>
+                        <li><a className="dropdown-item" href="/#">Edit profile</a></li>
                         <li><a className="dropdown-item" href="/#"
                                 onClick={(e) => {
                                     e.preventDefault()

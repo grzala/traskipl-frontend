@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import UserBox from "../../Auth/UserBox";
 import { userContext } from "../../Contexts/UserContext";
 

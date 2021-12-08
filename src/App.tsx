@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
@@ -6,7 +6,7 @@ import Homepage from './Pages/Homepage';
 import MotoRoutePage from './Pages/MotoRoutePage';
 import Header from './Pages/Layout/Header';
 import { userContext } from './Contexts/UserContext';
-import { UserType, userContextType } from './Types/UserTypes';
+import { UserType } from './Types/UserTypes';
 import { login, checkLoggedIn as checkedLoggedInAction, logout } from './Actions/AuthActions';
 
 import './App.scss';
@@ -30,7 +30,7 @@ function App() {
       const response = await checkedLoggedInAction()
       const { data } = response
 
-      if (response.status != 200) {
+      if (response.status !== 200) {
         if (data?.messages) {
           toast.error(`Login unsuccessful: ${data.messages.join(", ")}`, ToasterStyles);
         }
@@ -52,7 +52,7 @@ function App() {
     const response = await login(userLoginData);
 
     const { data } = response
-    if (response.status != 200) {
+    if (response.status !== 200) {
       if (data?.messages) {
         toast.error(`Login unsuccessful: ${data.messages.join(", ")}`, ToasterStyles);
       }
@@ -69,7 +69,7 @@ function App() {
     const response = await logout()
     const { data } = response
 
-    if (response.status != 200) {
+    if (response.status !== 200) {
       if (data?.messages) {
         toast.error(`Logout unsuccessful: ${data.messages.join(", ")}`, ToasterStyles);
       }

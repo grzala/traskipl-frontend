@@ -1,6 +1,5 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { userContext } from "../Contexts/UserContext";
 
 import './UserBox.scss'
 
