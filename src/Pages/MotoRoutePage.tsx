@@ -30,7 +30,9 @@ const MotoRoutePage = () => {
     const [route, setRoute] = useState<MotoRouteType>();
 
     useEffect(() => {
-        setRoute(getMotoRoute(id))
+        if (id != null) {
+            setRoute(getMotoRoute(+id))
+        }
     }, [id])
 
 

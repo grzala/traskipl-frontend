@@ -54,8 +54,10 @@ function App() {
     const { data } = response
     if (response.status != 200) {
       console.log("api error");
-      console.log(data.error_msgs)
-      toast.error(`Login unsuccessful: ${data.error_msgs.join(", ")}`, ToasterStyles);
+      if (data?.error_msgs) {
+        console.log(data.error_msgs)
+        toast.error(`Login unsuccessful: ${data.error_msgs.join(", ")}`, ToasterStyles);
+      }
       return
     } 
 
@@ -71,8 +73,10 @@ function App() {
 
     if (response.status != 200) {
       console.log("api error");
-      console.log(data.error_msgs)
-      toast.error(`Logout unsuccessful: ${data.error_msgs.join(", ")}`, ToasterStyles);
+      if (data?.error_msgs) {
+        console.log(data.error_msgs)
+        toast.error(`Logout unsuccessful: ${data.error_msgs.join(", ")}`, ToasterStyles);
+      }
       return
     } 
     

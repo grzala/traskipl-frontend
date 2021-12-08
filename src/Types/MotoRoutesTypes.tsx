@@ -8,7 +8,7 @@ export enum POIVariant {
 }
 
 export type POIType = {
-    _id: string,
+    id: number,
     name: string,
     description: string,
     coordinates: {lat: number, lng: number},
@@ -16,7 +16,7 @@ export type POIType = {
 }
 
 export type MotoRouteType = {
-    _id: string,
+    id: number,
     title: string,
     description: string,
     coordinates: {lat: number, lng: number}[],

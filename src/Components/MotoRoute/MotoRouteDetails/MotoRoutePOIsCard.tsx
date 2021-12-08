@@ -20,7 +20,7 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
         
         // when changing selected POI, make sure the scroll is reset on previously chosen element
         if (selectedPOI) {
-            document.getElementById(`poi_${selectedPOI._id}`)?.scroll({
+            document.getElementById(`poi_${selectedPOI.id}`)?.scroll({
                 top: 0,
                 left: 0,
                 behavior: 'smooth'
@@ -29,8 +29,8 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
         onPOISelect(newPoi)
     }
 
-    const isSelectedPOI = useCallback((id: string) => {
-        return selectedPOI?._id === id;
+    const isSelectedPOI = useCallback((id: number) => {
+        return selectedPOI?.id === id;
     }, [selectedPOI])
 
 
@@ -40,12 +40,12 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
             <div className="list-group poi-list">
                 {route.points_of_interest.map((poi) => (
                     <a 
-                        key={`poi_${poi._id}`}
-                        id={`poi_${poi._id}`}
+                        key={`poi_${poi.id}`}
+                        id={`poi_${poi.id}`}
                         href="/#"
                         onMouseEnter={() => onPOIHover(true, poi)} 
                         onMouseLeave={() => onPOIHover(false, poi)} 
-                        className={`list-group-item list-group-item-${isSelectedPOI(poi._id) ? "selected" : "collapsed"} flex-column align-items-start`}
+                        className={`list-group-item list-group-item-${isSelectedPOI(poi.id) ? "selected" : "collapsed"} flex-column align-items-start`}
                         onClick={(e) => onClickListItem(e, poi)}>
 
 
@@ -60,7 +60,7 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
                                     <h5 className="">{poi.name}</h5>
                                 </div>
                                 <div className="description-collapsible">
-                                    <p className={`description ${isSelectedPOI(poi._id) ? "" : "collapsed"}`}>{poi.description}</p>
+                                    <p className={`description ${isSelectedPOI(poi.id) ? "" : "collapsed"}`}>{poi.description}</p>
                                 </div>
                             </div>
                         </div>

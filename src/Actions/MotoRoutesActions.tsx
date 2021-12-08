@@ -8,7 +8,7 @@ import { MotoRouteType, POIVariant} from "../Types/MotoRoutesTypes"
 
 const tempRoutes: MotoRouteType[] = [
     {  
-        _id: '1',
+        id: 1,
         title: "Mała pętla Bieszczadzka",
         description: "Mała pętla Bieszczadzka is a shorter variant of the famous loop road in the Bieszczady mountains. The loop takes us around the Solina lake, giving us a good taste of mountainous terrain we can expect on the bigger loop.",
         coordinates: [
@@ -19,42 +19,42 @@ const tempRoutes: MotoRouteType[] = [
         ],
         points_of_interest: [
             { 
-                _id: '1',
+                id: 1,
                 name: "some FOOD",
                 description: loremIpsum({p: 1})[0] + loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.402796},
                 variant: POIVariant.FOOD
             },
             { 
-                _id: '2',
+                id: 2,
                 name: "some VISTA",
                 description: loremIpsum({p: 1})[0] + loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.422796},
                 variant: POIVariant.VISTA
             },
             { 
-                _id: '3',
+                id: 3,
                 name: "some URBEX",
                 description: loremIpsum({p: 1})[0] + loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.442796},
                 variant: POIVariant.URBEX
             },
             { 
-                _id: '4',
+                id: 4,
                 name: "some DANGER",
                 description: loremIpsum({p: 1})[0] + loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.462796},
                 variant: POIVariant.DANGER
             },
             { 
-                _id: '5',
+                id: 5,
                 name: "some FUEL",
                 description: loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.482796},
                 variant: POIVariant.FUEL
             },
             { 
-                _id: '6',
+                id: 6,
                 name: "some point",
                 description: loremIpsum({p: 1})[0],
                 coordinates: {lat: 49.394489, lng: 22.502796},
@@ -65,7 +65,7 @@ const tempRoutes: MotoRouteType[] = [
         ]
     },
     {
-        _id: '2',
+        id: 2,
         title: "Duża pętla Bieszczadzka",
         description: "Duża pętla Bieszczadzka is a longer variant of the famous loop road in the Bieszczady mountains. Constant hikes and descends, fantastic turns and beautiful scenery place it in the 'must ride' category of Polish motorcycle routes. The bigger loop also takes us deeper into the mountains and forests of the Bieszczady national park.",
         coordinates: [
@@ -76,7 +76,7 @@ const tempRoutes: MotoRouteType[] = [
         ]
     },
     {
-        _id: '3',
+        id: 3,
         title: "Jeziorsko",
         description: "A ride around the Jeziorsko artificial lake. Not very overwhelming. It is very uniqie to go there after September ends, as the lake is being drained of water from the winter. If you own a dirt bike you can try riding on the lake bed.",
         coordinates: [
@@ -92,8 +92,8 @@ export function getMotoRoutes() {
     return tempRoutes;
 }
 
-export function getMotoRoute(id: any) {
-    let i = tempRoutes.findIndex(r => r._id === id)
+export function getMotoRoute(id: number) {
+    let i = tempRoutes.findIndex(r => r.id === id)
     if (i >= 0) {
         return tempRoutes[i];
     }
