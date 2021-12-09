@@ -1,10 +1,12 @@
 import moment from "moment";
 import React, { Fragment, useState } from "react";
 import { ReplyFill } from "react-bootstrap-icons";
+import { toast } from "react-toastify";
 import { useGetComments } from "../../Actions/CommentsActions";
 import { CommentType } from "../../Types/MotoRoutesTypes";
 import { currentUserType } from "../../Types/UserTypes";
 import ProfilePicture from "../ProfilePicture";
+import ToasterStyles from "../../ToasterStyles/ToasterStyles"
 
 import "./MotoRouteComments.scss"
 
@@ -24,9 +26,18 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
         setNewCommentMessage(e.target.value)
     }
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault()
-        insertComment(newCommentMessage)
+        var result = await insertComment(moto_route_id, newCommentMessage)
+        
+        if (result) {
+            toast.success("Your comment has been posted.", ToasterStyles)
+            document.getElementById(`comments-list-main`)?.scroll({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+              });
+        }
     }
     
     return (
@@ -36,7 +47,7 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
                 Comments
             </div>
 
-            <div className="comments-list-main">
+            <div id="comments-list-main" className="comments-list-main">
 
                 { moto_route_id !== null && comments && comments.length > 0 ? (
                         <Fragment>
@@ -70,7 +81,11 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
                             />
                         </div>
                         
-                            <textarea className="form-control-inline comments-reply" onChange={handleChange}></textarea>
+                            <textarea 
+                                className="form-control-inline comments-reply" 
+                                onChange={handleChange}
+                                maxLength={400}>
+                                </textarea>
                             <button className="btn send-reply" type="submit"><ReplyFill /></button>
                     </div>
                 </form>

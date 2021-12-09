@@ -22,9 +22,9 @@ function getComments(id: number) {
     })
 }
 
-function insertComment(message: string) {
+function insertComment(moto_route_id: number, message: string) {
     return axios.post(
-        `http://localhost:3000/api/comments`,
+        `http://localhost:3000/api/moto_routes/${moto_route_id}/comments`,
         {
             message: message
         },
@@ -42,14 +42,14 @@ function insertComment(message: string) {
     })
 }
 
-export function useGetComments(id: number | null): [ CommentType[], boolean , (message: string) => void ]  {
+export function useGetComments(moto_route_id: number | null): [ CommentType[], boolean , (moto_route_id: number | null, message: string) => Promise<boolean>]  {
     const [comments, setComments] = useState<CommentType[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
     const _getComments = useCallback(async () => {
-        if (id !== null) {
+        if (moto_route_id !== null) {
             setLoading(true);
-            var response = await getComments(id)
+            var response = await getComments(moto_route_id)
 
 
             if (response.status !== 200) {
@@ -65,15 +65,25 @@ export function useGetComments(id: number | null): [ CommentType[], boolean , (m
         } else {
             setComments([])
         }
-    }, [id])
+    }, [moto_route_id])
 
-    const _insertComment = async (message: string) => {
-        var response = await insertComment(message)
+    const _insertComment = async (moto_route_id: number | null, message: string) => {
+        if (moto_route_id) {
+            var response = await insertComment(moto_route_id, message)
 
-        if (response.status !== 200) {
-            console.log("Something went wrong when inserting comment")
-            toast.error(response.data.messages.join(", "), ToasterStyles)
-            return
+            if (response.status !== 200) {
+                console.log("Something went wrong when inserting comment")
+                toast.error("Adding comment unsuccessful: " + response.data.messages.join(", "), ToasterStyles)
+                return false
+            }
+
+            var newComment = response.data as CommentType
+            setComments([newComment, ...comments])
+
+            return true;
+        } else {
+            alert("This should not happen in normal usage of the site")
+            return false;
         }
     }
 
