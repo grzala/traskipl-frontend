@@ -14,9 +14,9 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
     return(
         <Fragment>
             <div className="moto-routes-list list-group">
-                <a href="/#" className="list-group-item list-group-item-action active">
+                <div className="list-group-item list-group-item-action active">
                     Other routes in the area
-                </a>
+                </div>
                 
                 <div className="moto-routes-list-main">
                     { motoRoutesList && motoRoutesList.length > 0 ? (
