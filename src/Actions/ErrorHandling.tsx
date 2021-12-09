@@ -4,17 +4,24 @@ export function handleAxiosErrors (error: any) {
     console.log(error.response)
     console.log(error.message)
 
-    var msg = null
+    var msgs = []
 
     switch(error.response.status) {
         case 504: // Connection timeout
-            msg =  "Can't connect to backend services."
+            msgs.push("Can't connect to backend services.")
             break;
         case 404: // Page not found
-            msg = `Required path "${error.response.responseURL}" does not exist.`
+            msgs.push(`Required path "${error.response.responseURL}" does not exist.`)
             break;
-        case 500: // Page not found
-            msg = `Problem with backend services.`
+        case 500: // Server error
+            msgs.push(`Problem with backend services.`)
+            break;
+        case 401: // No access
+            if (error.response.data.messages) {
+                msgs  = error.response.data.messages
+            } else {
+                msgs.push(`You have no access to this resource.`)
+            }
             break;
         default:
             alert(`Handling http error ${error.response.status} not implemented!`)
@@ -23,9 +30,7 @@ export function handleAxiosErrors (error: any) {
     const to_return = {
         status: error.response.status,
         data: {
-            messages: [
-                msg
-            ]
+            messages: msgs
         }
     }
     return to_return

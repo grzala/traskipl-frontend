@@ -98,3 +98,23 @@ export function useGetMotoRoute(id: number | null): [ MotoRouteType | null, bool
 
     return [ motoRoute, loading ]
 }
+
+export function switchFavourite(route_id: number) {
+    return axios.post(
+        `http://localhost:3000/api/moto_routes/switch_favourite`,
+        {
+            id: route_id
+        },
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}

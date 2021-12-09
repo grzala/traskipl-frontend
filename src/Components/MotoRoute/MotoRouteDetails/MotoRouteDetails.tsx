@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { MotoRouteType, POIType } from "../../../Types/MotoRoutesTypes";
 import MotoRouteAccidentsCard from "./MotoRouteAccidentsCard";
 import MotoRouteDetailsCard from "./MotoRouteDetailsCard";
@@ -11,6 +11,9 @@ import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 import { MapFill,GeoAltFill, ExclamationSquareFill, Star, StarFill, FlagFill } from 'react-bootstrap-icons';
 import StarRatings from 'react-star-ratings';
 import { UserType } from "../../../Types/UserTypes";
+import { switchFavourite } from "../../../Actions/MotoRoutesActions";
+import { toast } from "react-toastify";
+import ToasterStyles from "../../../ToasterStyles/ToasterStyles"
 
 
 const helmetSvgViewbox = "0 0 512 512"
@@ -45,6 +48,28 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
 
     const urlMatch = useMatch('/routes/:id/*')
 
+    const [isRouteFav, setIsRouteFav] = useState<boolean>(route.is_favourite || false);
+
+    useEffect(() => {
+        setIsRouteFav(route.is_favourite || false)
+    }, [route])
+
+    const handleFavClick = async (e: any) => {
+        e.preventDefault()
+
+        const response = await switchFavourite(route.id)
+
+        const { data } = response
+        if (response.status !== 200) {
+            if (data?.messages) {
+                toast.error(`Action failed: ${data.messages.join(", ")}`, ToasterStyles);
+            }
+            return
+        } 
+
+        setIsRouteFav(data.fav_status)
+        toast.success(data.messages.join(", "), ToasterStyles);
+    }
 
     return urlMatch !== null ? (
         <Fragment>
@@ -88,8 +113,17 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                             <li className="nav-item">
                                 <a className="nav-link"
                                     title="Add to favourites"
-                                    href="/#">
-                                    <Star />
+                                    href="/add_route_to_favs"
+                                    onClick={handleFavClick}
+                                    style={{
+                                        color: isRouteFav ? "rgb(218, 232, 24)" : "white"
+                                    }}>
+                                    {isRouteFav ? (
+                                        <StarFill />
+                                    ) : (
+                                        <Star />
+                                    )}
+                                        
                                 </a>
                             </li>
                             <li className="nav-item">
