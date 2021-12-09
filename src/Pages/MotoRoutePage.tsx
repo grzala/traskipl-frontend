@@ -63,51 +63,56 @@ const MotoRoutePage = () => {
     }
 
     return (
-        <Fragment>
-            <div className="row display-flex map-details-container">
-                <div className="col-md-8 moto-route-map-container">
-                    
-                    {route && (
-                        <MotoRouteMap 
-                            motoRouteCoords={route.coordinates} 
-                            motoRoutePOIs={route.point_of_interests} 
-                            hoveredPOI={hoverPOI}
-                            selectedPOI={selectedPOI}
-                            onPOISelect={selectPOI}
-                            poiMarkerFilter={poiMarkerFilter}
-                        />   
-                    )}
-                    
-                </div>
-                <div className="col-md-4 moto-route-details-container">
-                    { route && (
-                        <MotoRouteDetails 
-                            route={route} 
-                            onPOIHover={onPOIHover} 
-                            onPOISelect={selectPOI} 
-                            selectedPOI={selectedPOI}
-                            poiMarkerFilter={poiMarkerFilter}
-                            poiMarkerFilterChange={poiMarkerFilterChange}
+        <userContext.Consumer>
+            {({user}) => (
+                <Fragment>
+                    <div className="row display-flex map-details-container">
+                        <div className="col-md-8 moto-route-map-container">
                             
-                        />
-                    )}
-                </div>
-            </div>
+                            {route && (
+                                <MotoRouteMap 
+                                    motoRouteCoords={route.coordinates} 
+                                    motoRoutePOIs={route.point_of_interests} 
+                                    hoveredPOI={hoverPOI}
+                                    selectedPOI={selectedPOI}
+                                    onPOISelect={selectPOI}
+                                    poiMarkerFilter={poiMarkerFilter}
+                                />   
+                            )}
+                            
+                        </div>
+                        <div className="col-md-4 moto-route-details-container">
+                            { route && (
+                                <MotoRouteDetails 
+                                    route={route} 
+                                    onPOIHover={onPOIHover} 
+                                    onPOISelect={selectPOI} 
+                                    selectedPOI={selectedPOI}
+                                    poiMarkerFilter={poiMarkerFilter}
+                                    poiMarkerFilterChange={poiMarkerFilterChange}
+                                    
+                                />
+                            )}
+                        </div>
+                    </div>
 
 
-            <div className="moto-route-page-comments-wrapper mt-3 mb-3">
-                <div className="row">
-                    <div className="col-md-8 comments">
-                        <MotoRouteComments />
+                    <div className="moto-route-page-comments-wrapper mt-3 mb-3">
+                        <div className="row">
+                            <div className="col-md-8 comments">
+                                <MotoRouteComments />
+                            </div>
+                            <div className="col-md-4">
+                                <MotoRouteAuthor author={route?.user || null}/>
+                                <MotoRoutesList motoRoutesList={ motoRoutesList } />
+                            </div>
+                        </div>
                     </div>
-                    <div className="col-md-4">
-                        <MotoRouteAuthor />
-                        <MotoRoutesList motoRoutesList={ motoRoutesList } />
-                    </div>
-                </div>
-            </div>
-        </Fragment>
-      )
+                </Fragment>
+            )
+        }
+    </userContext.Consumer>
+    )
 }
 
 export default MotoRoutePage;

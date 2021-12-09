@@ -1,3 +1,5 @@
+import { UserType } from "./UserTypes"
+
 export enum POIVariant {
     FOOD = "FOOD",
     VISTA = "VISTA", 
@@ -17,6 +19,8 @@ export type POIType = {
 
 export type MotoRouteType = {
     id: number,
+    created_at: Date,
+    user?: UserType,
     name: string,
     description: string,
     coordinates: {lat: number, lng: number}[],
