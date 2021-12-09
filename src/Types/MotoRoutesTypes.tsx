@@ -22,4 +22,6 @@ export type MotoRouteType = {
     coordinates: {lat: number, lng: number}[],
     point_of_interests?: POIType[],
     is_favourite?: boolean,
+    score: number,
+    your_vote?: number,
 }

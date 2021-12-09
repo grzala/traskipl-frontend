@@ -29,12 +29,7 @@ const MotoRoutePage = () => {
     const [route, routeLoading] = useGetMotoRoute(id ? +id : null);
 
     useEffect(() => {
-        if (route != null) {
-            console.log(route)
-            if (route.is_favourite) {
-                console.log("IS FAV!!!!")
-            }
-        }
+        
     }, [route])
 
 

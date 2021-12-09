@@ -118,3 +118,25 @@ export function switchFavourite(route_id: number) {
         return handleAxiosErrors(error)
     })
 }
+
+
+export function castVote(route_id: number, vote_score: number) {
+    return axios.post(
+        `http://localhost:3000/api/moto_routes/cast_rating_vote`,
+        {
+            id: route_id,
+            score: vote_score
+        },
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}

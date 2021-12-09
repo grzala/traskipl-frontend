@@ -11,7 +11,7 @@ import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 import { MapFill,GeoAltFill, ExclamationSquareFill, Star, StarFill, FlagFill } from 'react-bootstrap-icons';
 import StarRatings from 'react-star-ratings';
 import { UserType } from "../../../Types/UserTypes";
-import { switchFavourite } from "../../../Actions/MotoRoutesActions";
+import { castVote, switchFavourite } from "../../../Actions/MotoRoutesActions";
 import { toast } from "react-toastify";
 import ToasterStyles from "../../../ToasterStyles/ToasterStyles"
 
@@ -49,9 +49,14 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
     const urlMatch = useMatch('/routes/:id/*')
 
     const [isRouteFav, setIsRouteFav] = useState<boolean>(route.is_favourite || false);
+    const [routeScore, setRouteScore] = useState<number>(route.score);
+    const [yourRouteScore, setYourRouteScore] = useState<number | null>(route.your_vote || null);
 
     useEffect(() => {
         setIsRouteFav(route.is_favourite || false)
+        setRouteScore(route.score)
+        setYourRouteScore(route.your_vote || null)
+        console.log(route.your_vote)
     }, [route])
 
     const handleFavClick = async (e: any) => {
@@ -68,6 +73,22 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
         } 
 
         setIsRouteFav(data.fav_status)
+        toast.success(data.messages.join(", "), ToasterStyles);
+    }
+
+    const handleStarRatingClick = async (score: number) => {
+        const response = await castVote(route.id, score)
+
+        const { data } = response
+        if (response.status !== 200) {
+            if (data?.messages) {
+                toast.error(`Action failed: ${data.messages.join(", ")}`, ToasterStyles);
+            }
+            return
+        } 
+
+        setRouteScore(data.current_score)
+        setYourRouteScore(data.score_vote)
         toast.success(data.messages.join(", "), ToasterStyles);
     }
 
@@ -96,14 +117,15 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                         </NavLink>
 
                         <ul className="nav justify-content-end options-bar">
-                            <li className="nav-link star-rating-container" title="Route rating">
+                            <li className="nav-link star-rating-container" 
+                                title={yourRouteScore ? `You have voted: ${yourRouteScore}` : "You haven't voted yet"}>
                                 <StarRatings
-                                    rating={3.2}
-                                    starRatedColor='rgb(218, 232, 24)'
-                                    starHoverColor='rgb(218, 232, 24)'
+                                    rating={routeScore}
+                                    starRatedColor={yourRouteScore !== null ? '#54bac1' : 'rgb(218, 232, 24)'}
+                                    starHoverColor='#54bac1'
                                     svgIconViewBox={helmetSvgViewbox}
                                     svgIconPath={hemletSvgPath}
-                                    changeRating={() => {}}
+                                    changeRating={handleStarRatingClick}
                                     numberOfStars={5}
                                     starDimension="25px"
                                     starSpacing="2px"
@@ -116,7 +138,7 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                                     href="/add_route_to_favs"
                                     onClick={handleFavClick}
                                     style={{
-                                        color: isRouteFav ? "rgb(218, 232, 24)" : "white"
+                                        color: isRouteFav ? '#54bac1' : "white"
                                     }}>
                                     {isRouteFav ? (
                                         <StarFill />
