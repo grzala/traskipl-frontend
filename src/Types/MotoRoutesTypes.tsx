@@ -17,6 +17,12 @@ export type POIType = {
     variant: POIVariant,
 }
 
+export type CommentType = {
+    created_at: Date,
+    author: string,
+    message: string
+}
+
 export type MotoRouteType = {
     id: number,
     created_at: Date,
@@ -28,4 +34,5 @@ export type MotoRouteType = {
     is_favourite?: boolean,
     score: number,
     your_vote?: number,
+    comments?: CommentType[]
 }

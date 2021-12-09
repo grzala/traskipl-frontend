@@ -1,10 +1,21 @@
-import React from "react";
+import moment from "moment";
+import React, { Fragment } from "react";
 import { ReplyFill } from "react-bootstrap-icons";
+import { useGetComments } from "../../Actions/CommentsActions";
+import { CommentType } from "../../Types/MotoRoutesTypes";
 import ProfilePicture from "../ProfilePicture";
 
 import "./MotoRouteComments.scss"
 
-const MotoRouteComments = () => {
+type MotoRouteCommentsProps = {
+    moto_route_id: number | null
+}
+
+const MotoRouteComments = (props: MotoRouteCommentsProps) => {
+    const { moto_route_id } = props;
+
+    const [comments, loadingComments] = useGetComments(moto_route_id);
+
 
     
     return (
@@ -15,87 +26,29 @@ const MotoRouteComments = () => {
             </div>
 
             <div className="comments-list-main">
-                <a href="/#" className="list-group-item list-group-item-action flex-column align-items-start">
-                    <div className="d-flex w-100 justify-content-between">
-                        <h5 className="mb-1">List group item heading</h5>
-                        <small className="text-muted">3 d1ays ago</small>
-                    </div>
-                    <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small className="text-muted">Donec id elit non mi porta.</small>
-                </a>
-                <a href="/#" className="list-group-item list-group-item-action flex-column align-items-start">
-                    <div className="d-flex w-100 justify-content-between">
-                        <h5 className="mb-1">List group item heading</h5>
-                        <small className="text-muted">3 days ago</small>
-                    </div>
-                    <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small className="text-muted">Donec id elit non mi porta.</small>
-                </a>
-                <a href="/#" className="list-group-item list-group-item-action flex-column align-items-start">
-                    <div className="d-flex w-100 justify-content-between">
-                        <h5 className="mb-1">List group item heading</h5>
-                        <small className="text-muted">3 days ago</small>
-                    </div>
-                    <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small className="text-muted">Donec id elit non mi porta.</small>
-                </a>
-                <a href="/#" className="list-group-item list-group-item-action flex-column align-items-start">
-                    <div className="d-flex w-100 justify-content-between">
-                        <h5 className="mb-1">List group item heading</h5>
-                        <small className="text-muted">3 days ago</small>
-                    </div>
-                    <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small className="text-muted">Donec id elit non mi porta.</small>
-                </a>
-                <a href="/#" className="list-group-item list-group-item-action flex-column align-items-start">
-                    <div className="d-flex w-100 justify-content-between">
-                        <h5 className="mb-1">List group item heading</h5>
-                        <small className="text-muted">3 days ago</small>
-                    </div>
-                    <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small className="text-muted">Donec id elit non mi porta.</small>
-                </a>
-                <a href="/#" className="list-group-item list-group-item-action flex-column align-items-start">
-                    <div className="d-flex w-100 justify-content-between">
-                        <h5 className="mb-1">List group item heading</h5>
-                        <small className="text-muted">3 days ago</small>
-                    </div>
-                    <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small className="text-muted">Donec id elit non mi porta.</small>
-                </a>
-                <a href="/#" className="list-group-item list-group-item-action flex-column align-items-start">
-                    <div className="d-flex w-100 justify-content-between">
-                        <h5 className="mb-1">List group item heading</h5>
-                        <small className="text-muted">3 days ago</small>
-                    </div>
-                    <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small className="text-muted">Donec id elit non mi porta.</small>
-                </a>
-                <a href="/#" className="list-group-item list-group-item-action flex-column align-items-start">
-                    <div className="d-flex w-100 justify-content-between">
-                        <h5 className="mb-1">List group item heading</h5>
-                        <small className="text-muted">3 days ago</small>
-                    </div>
-                    <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small className="text-muted">Donec id elit non mi porta.</small>
-                </a>
-                <a href="/#" className="list-group-item list-group-item-action flex-column align-items-start">
-                    <div className="d-flex w-100 justify-content-between">
-                        <h5 className="mb-1">List group item heading</h5>
-                        <small className="text-muted">3 days ago</small>
-                    </div>
-                    <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small className="text-muted">Donec id elit non mi porta.</small>
-                </a>
-                <a href="/#" className="list-group-item list-group-item-action flex-column align-items-start">
-                    <div className="d-flex w-100 justify-content-between">
-                        <h5 className="mb-1">List group item heading</h5>
-                        <small className="text-muted">3 days ago</small>
-                    </div>
-                    <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small className="text-muted">Donec id elit non mi porta.</small>
-                </a>
+
+                { moto_route_id !== null && comments && comments.length > 0 ? (
+                        <Fragment>
+                            {comments.map((comment) => (
+                                <div className="list-group-item flex-column align-items-start comment">
+                                    <div className="d-flex w-100 justify-content-between">
+                                        <h5 className="mb-1">{ comment.author }</h5>
+                                        <small className="text-muted">{ moment(comment.created_at,).format('DD/MM/YYYY HH:mm') }</small>
+                                    </div>
+                                    <p className="mb-1">{ comment.message }</p>
+                                </div>
+                            ))}
+                        </Fragment>
+                    ) : (
+                        <div className="list-group-item flex-column align-items-start comment">
+                            <div className="d-flex w-100 justify-content-between">
+                                No comments to show
+                            </div>
+                        </div>
+                    )}
             </div>
+
+                
 
             <div className="comments-reply-wrapper">
 

@@ -5,6 +5,10 @@
     overflow-y: scroll;
 
     margin-bottom: 5px;
+
+    .comment {
+        min-height: 5em;
+    }
 }
 
 
@@ -17,6 +21,7 @@
         width: 6em;
         height: 6em;
     }
+    
 
     .comments-reply {
         flex: 1;

@@ -11,7 +11,7 @@ export function handleAxiosErrors (error: any) {
             msgs.push("Can't connect to backend services.")
             break;
         case 404: // Page not found
-            msgs.push(`Required path "${error.response.responseURL}" does not exist.`)
+            msgs.push(`Required path "${error.response.request.responseURL}" does not exist.`)
             break;
         case 500: // Server error
             msgs.push(`Problem with backend services.`)
@@ -32,6 +32,10 @@ export function handleAxiosErrors (error: any) {
         data: {
             messages: msgs
         }
+    }
+
+    if (process.env.REACT_APP_DEBUG_MODE) {
+        alert(`Error: ${error.response.status}: ${msgs.join(", ")}`)
     }
     return to_return
 }
