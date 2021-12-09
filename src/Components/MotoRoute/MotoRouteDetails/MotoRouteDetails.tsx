@@ -10,6 +10,7 @@ import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 
 import { MapFill,GeoAltFill, ExclamationSquareFill, Star, StarFill, FlagFill } from 'react-bootstrap-icons';
 import StarRatings from 'react-star-ratings';
+import { UserType } from "../../../Types/UserTypes";
 
 
 const helmetSvgViewbox = "0 0 512 512"

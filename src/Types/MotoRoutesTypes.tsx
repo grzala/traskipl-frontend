@@ -12,7 +12,7 @@ export type POIType = {
     name: string,
     description: string,
     coordinates: {lat: number, lng: number},
-    variant: POIVariant
+    variant: POIVariant,
 }
 
 export type MotoRouteType = {
@@ -21,4 +21,5 @@ export type MotoRouteType = {
     description: string,
     coordinates: {lat: number, lng: number}[],
     point_of_interests?: POIType[],
+    is_favourite?: boolean,
 }

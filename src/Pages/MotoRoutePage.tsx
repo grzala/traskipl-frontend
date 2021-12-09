@@ -15,6 +15,7 @@ import MotoRouteComments from "../Components/MotoRoute/MotoRouteComments";
 import MotoRouteAuthor from "../Components/MotoRoute/MotoRouteAuthor";
 import MotoRoutesList from "../Components/MotoRoute/MotoRoutesList";
 import { useGetMotoRoute, useGetMotoRoutes } from "../Actions/MotoRoutesActions";
+import { userContext } from "../Contexts/UserContext";
 
   
 const MotoRoutePage = () => {
@@ -28,10 +29,13 @@ const MotoRoutePage = () => {
     const [route, routeLoading] = useGetMotoRoute(id ? +id : null);
 
     useEffect(() => {
-        if (id != null) {
-            // setRoute(getMotoRoute(+id))
+        if (route != null) {
+            console.log(route)
+            if (route.is_favourite) {
+                console.log("IS FAV!!!!")
+            }
         }
-    }, [id])
+    }, [route])
 
 
     const [hoverPOI, setHoverPOI] = useState<POIType | null>(null);
