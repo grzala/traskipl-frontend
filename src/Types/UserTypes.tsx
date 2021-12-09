@@ -19,4 +19,4 @@ type userContextType = {
     onLogout: () => void
 }
 
-export type { UserType, userContextType };
+export type { UserType, userContextType, currentUserType };

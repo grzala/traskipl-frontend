@@ -100,7 +100,7 @@ const MotoRoutePage = () => {
                     <div className="moto-route-page-comments-wrapper mt-3 mb-3">
                         <div className="row">
                             <div className="col-md-8 comments">
-                                <MotoRouteComments moto_route_id={route?.id || null}/>
+                                <MotoRouteComments moto_route_id={route?.id || null} current_user={user} />
                             </div>
                             <div className="col-md-4">
                                 <MotoRouteAuthor author={route?.user || null} />

@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { CommentType } from "../Types/MotoRoutesTypes";
 import { handleAxiosErrors } from "./ErrorHandling";
+import ToasterStyles from "../ToasterStyles/ToasterStyles"
 
 function getComments(id: number) {
     return axios.get(
@@ -20,7 +22,27 @@ function getComments(id: number) {
     })
 }
 
-export function useGetComments(id: number | null): [ CommentType[], boolean /*, (resource: MotoRouteType[]) => void*/ ]  {
+function insertComment(message: string) {
+    return axios.post(
+        `http://localhost:3000/api/comments`,
+        {
+            message: message
+        },
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}
+
+export function useGetComments(id: number | null): [ CommentType[], boolean , (message: string) => void ]  {
     const [comments, setComments] = useState<CommentType[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -32,7 +54,6 @@ export function useGetComments(id: number | null): [ CommentType[], boolean /*, 
 
             if (response.status !== 200) {
                 console.log("Something went wrong when getting moto Routes")
-                console.log(response)
                 setComments([])
                 return
             }
@@ -46,7 +67,17 @@ export function useGetComments(id: number | null): [ CommentType[], boolean /*, 
         }
     }, [id])
 
+    const _insertComment = async (message: string) => {
+        var response = await insertComment(message)
+
+        if (response.status !== 200) {
+            console.log("Something went wrong when inserting comment")
+            toast.error(response.data.messages.join(", "), ToasterStyles)
+            return
+        }
+    }
+
     useEffect(() => { _getComments() }, [_getComments])
 
-    return [ comments, loading ]
+    return [ comments, loading, _insertComment ]
 }

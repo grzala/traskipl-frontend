@@ -18,6 +18,7 @@ export type POIType = {
 }
 
 export type CommentType = {
+    id: number,
     created_at: Date,
     author: string,
     message: string
