@@ -52,12 +52,19 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
                 { moto_route_id !== null && comments && comments.length > 0 ? (
                         <Fragment>
                             {comments.map((comment) => (
-                                <div key={ `comment_${comment.id}` }className="list-group-item flex-column align-items-start comment">
-                                    <div className="d-flex w-100 justify-content-between">
-                                        <h5 className="mb-1">{ comment.author }</h5>
-                                        <small className="text-muted">{ moment(comment.created_at,).format('DD/MM/YYYY HH:mm') }</small>
+                                <div key={ `comment_${comment.id}` }className="list-group-item align-items-start comment">
+                                    <div className="profile-pic-wrapper">
+                                        <ProfilePicture 
+                                            imgPath="https://thumbs.mugshots.com/gallery/images/84/5c/NOEL-DAWSON-JR-mugshot-43097934.jpeg.400x800.jpg"
+                                        />
                                     </div>
-                                    <p className="mb-1">{ comment.message }</p>
+                                    <div className="d-flex flex-column comment-content-wrapper">
+                                        <div className="d-flex justify-content-between">
+                                            <h5 className="mb-1">{ comment.author }</h5>
+                                            <small className="text-muted">{ moment(comment.created_at,).format('DD/MM/YYYY HH:mm') }</small>
+                                        </div>
+                                        <p className="mb-1">{ comment.message }</p>
+                                    </div>
                                 </div>
                             ))}
                         </Fragment>
