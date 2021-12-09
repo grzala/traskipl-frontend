@@ -42,7 +42,29 @@ function insertComment(moto_route_id: number, message: string) {
     })
 }
 
-export function useGetComments(moto_route_id: number | null): [ CommentType[], boolean , (moto_route_id: number | null, message: string) => Promise<boolean>]  {
+function deleteComment(id: number) {
+    return axios.delete(
+        `http://localhost:3000/api/comments/${id}`,
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}
+
+export function useGetComments(moto_route_id: number | null): [ 
+    CommentType[], 
+    boolean, 
+    (moto_route_id: number | null, message: string) => Promise<boolean>,
+    (comment_id: number) => Promise<boolean> ] {
+
     const [comments, setComments] = useState<CommentType[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -87,7 +109,23 @@ export function useGetComments(moto_route_id: number | null): [ CommentType[], b
         }
     }
 
+    const _deleteComment = async (id: number) => {
+        var response = await deleteComment(id)
+
+        if (response.status !== 200) {
+            console.log("Something went wrong when deleting comment")
+            toast.error("Deleting comment unsuccessful: " + response.data.messages.join(", "), ToasterStyles)
+            return false
+        }
+
+        toast.success(response.data.messages.join(", "), ToasterStyles)
+        var newComments = comments.filter((element) => element.id !== id )
+        setComments(newComments)
+
+        return true
+    }
+
     useEffect(() => { _getComments() }, [_getComments])
 
-    return [ comments, loading, _insertComment ]
+    return [ comments, loading, _insertComment, _deleteComment ]
 }

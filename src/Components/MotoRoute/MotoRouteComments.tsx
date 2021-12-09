@@ -1,6 +1,6 @@
 import moment from "moment";
 import React, { Fragment, useState } from "react";
-import { ReplyFill } from "react-bootstrap-icons";
+import { ReplyFill, TrashFill } from "react-bootstrap-icons";
 import { toast } from "react-toastify";
 import { useGetComments } from "../../Actions/CommentsActions";
 import { CommentType } from "../../Types/MotoRoutesTypes";
@@ -9,6 +9,7 @@ import ProfilePicture from "../ProfilePicture";
 import ToasterStyles from "../../ToasterStyles/ToasterStyles"
 
 import "./MotoRouteComments.scss"
+import { userContext } from "../../Contexts/UserContext";
 
 type MotoRouteCommentsProps = {
     moto_route_id: number | null;
@@ -18,7 +19,7 @@ type MotoRouteCommentsProps = {
 const MotoRouteComments = (props: MotoRouteCommentsProps) => {
     const { moto_route_id, current_user } = props;
 
-    const [comments, loadingComments, insertComment] = useGetComments(moto_route_id);
+    const [comments, loadingComments, insertComment, removeComment] = useGetComments(moto_route_id);
 
     const [newCommentMessage, setNewCommentMessage] = useState<string>("")
 
@@ -61,9 +62,23 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
                                     <div className="d-flex flex-column comment-content-wrapper">
                                         <div className="d-flex justify-content-between">
                                             <h5 className="mb-1">{ comment.author }</h5>
-                                            <small className="text-muted">{ moment(comment.created_at,).format('DD/MM/YYYY HH:mm') }</small>
+                                            <small className="text-muted">
+                                                { moment(comment.created_at,).format('DD/MM/YYYY HH:mm') }
+                                                {current_user && current_user.id === comment.user_id && (
+                                                    <Fragment>
+                                                        &nbsp;&nbsp;
+                                                        <TrashFill 
+                                                            style={{
+                                                                color: "#bd3327",
+                                                                cursor: "pointer"
+                                                            }}
+                                                            onClick={() => removeComment(comment.id)}
+                                                        />
+                                                    </Fragment>
+                                                )}
+                                            </small>
                                         </div>
-                                        <p className="mb-1">{ comment.message }</p>
+                                        <p className="comment-message">{ comment.message }</p>
                                     </div>
                                 </div>
                             ))}
