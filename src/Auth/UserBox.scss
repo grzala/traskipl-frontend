@@ -8,6 +8,8 @@
     color: white;
     text-align: center;
 
+    padding-bottom: 2.5em;
+
     h6 {
         font-size: 0.8em;   
     }
@@ -93,7 +95,7 @@
 /* MODAL BOX STYLES */
 
 
-.login-register-modal-overlay {
+.login-signup-modal-overlay {
     z-index: 1000;
 
     position: fixed;
@@ -104,8 +106,8 @@
     background-color: #000000D5; 
 
 
-    .login-register-modal {
-        height: 80%;
+    .login-signup-modal {
+        // height: 80%;
         width: 40%;
         min-height: 400px;
         min-width: 300px;
@@ -122,7 +124,7 @@
             cursor: pointer;
         }
 
-        .login-box-container {
+        .loginbox-container {
             overflow: auto;
         }
     }

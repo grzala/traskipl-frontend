@@ -6,7 +6,7 @@ import Homepage from './Pages/Homepage';
 import MotoRoutePage from './Pages/MotoRoutePage';
 import Header from './Pages/Layout/Header';
 import { userContext } from './Contexts/UserContext';
-import { UserType } from './Types/UserTypes';
+import { UserSignupType, UserType } from './Types/UserTypes';
 import { login, checkLoggedIn as checkedLoggedInAction, logout } from './Actions/AuthActions';
 
 import './App.scss';
@@ -82,6 +82,12 @@ function App() {
     toast.success(data.messages.join(", "), ToasterStyles);
   }
 
+  const onSignUp = async (newUserData: UserSignupType) => {
+
+    toast.success("yea")
+
+    return false;
+  }
 
 
 
@@ -91,7 +97,8 @@ function App() {
       <userContext.Provider value={{
           user: currentUser,
           onLogin: onLogin,
-          onLogout: onLogout
+          onLogout: onLogout,
+          onSignUp: onSignUp
         }}>
 
         <div className="container-fluid" >

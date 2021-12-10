@@ -37,7 +37,7 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
                     <XCircleFill />
                 </div>
             </div>
-            <div className="login-box-container">
+            <div className="loginbox-container">
 
                 <div className="loginbox d-flex justify-content-center">
 
@@ -81,9 +81,9 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
                             <div className="d-grid">
                                 <button type="submit" className="btn btn-block btn-primary">Login</button>
                             </div>
-                            <div className="signup-prompt">
+                            {/* <div className="signup-prompt">
                                 <h6>Need an account? <Link to="/#">Sign up.</Link></h6>
-                            </div>
+                            </div> */}
                         </div>
                     </form>
                 </div>

@@ -4,13 +4,14 @@ import ReactModal from 'react-modal';
 import { userContext } from '../Contexts/UserContext';
 import LoginBoxModal from './LoginBoxModal';
 import ProfileBox from './ProfileBox';
+import SignUpBoxModal from './SignUpBoxModal';
 
 import './UserBox.scss'
 
 const UserBox = () => {
 
-    const [showSignUpModal, setShowSignUpModal] = useState<boolean>(false);
     const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+    const [showSignUpModal, setShowSignUpModal] = useState<boolean>(false);
 
 
 
@@ -18,7 +19,7 @@ const UserBox = () => {
     return (
         <div className="userbox">
             <userContext.Consumer>
-                {({user, onLogin, onLogout}) => {
+                {({user, onLogin, onLogout, onSignUp}) => {
                     if (user === null) {
                         return (
                             <div className="d-flex align-items-end">
@@ -33,7 +34,13 @@ const UserBox = () => {
                                         <LoginBoxModal onLogin={ onLogin } show={showLoginModal} setShow={setShowLoginModal}/>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="/signup">Sign up</a>
+                                        <a 
+                                            className="nav-link" 
+                                            href="/sign_up"
+                                            onClick={(e) => {e.preventDefault(); setShowSignUpModal(true)}}>
+                                                Sign Up
+                                        </a>
+                                        <SignUpBoxModal onSignup={ onSignUp } show={showSignUpModal} setShow={setShowSignUpModal}/>
                                     </li>
                                 </ul>
                             </div>
