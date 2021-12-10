@@ -10,8 +10,8 @@ import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 
 import { MapFill,GeoAltFill, ExclamationSquareFill, Star, StarFill, FlagFill } from 'react-bootstrap-icons';
 import StarRatings from 'react-star-ratings';
-import { UserType } from "../../../Types/UserTypes";
-import { castVote, switchFavourite } from "../../../Actions/MotoRoutesActions";
+import { currentUserType, UserType } from "../../../Types/UserTypes";
+import { castVote, check_is_favourite, switchFavourite, useGetMotoRouteVoteAndFav } from "../../../Actions/MotoRoutesActions";
 import { toast } from "react-toastify";
 import ToasterStyles from "../../../ToasterStyles/ToasterStyles"
 
@@ -41,22 +41,22 @@ type MotoRouteProps = {
     onPOISelect: (poi: POIType) => void;
     poiMarkerFilter: boolean;
     poiMarkerFilterChange: (newFilterVal: boolean) => void;
+    currentUser: currentUserType;
 }
 
 const MotoRouteDetails = (props: MotoRouteProps) => {
-    const { route, onPOIHover, onPOISelect, selectedPOI, poiMarkerFilter, poiMarkerFilterChange} = props;
+    const { route, onPOIHover, onPOISelect, selectedPOI, poiMarkerFilter, poiMarkerFilterChange, currentUser} = props;
 
     const urlMatch = useMatch('/routes/:id/*')
 
-    const [isRouteFav, setIsRouteFav] = useState<boolean>(route.is_favourite || false);
     const [routeScore, setRouteScore] = useState<number>(route.score);
-    const [yourRouteScore, setYourRouteScore] = useState<number | null>(route.your_vote || null);
+    
+    // User needed for hook when user changes
+    const [ yourRouteScore, isRouteFav, setYourRouteScore, setIsRouteFav ] = useGetMotoRouteVoteAndFav(route.id, currentUser) 
 
     useEffect(() => {
-        setIsRouteFav(route.is_favourite || false)
+        check_is_favourite(route.id)
         setRouteScore(route.score)
-        setYourRouteScore(route.your_vote || null)
-        console.log(route.your_vote)
     }, [route])
 
     const handleFavClick = async (e: any) => {

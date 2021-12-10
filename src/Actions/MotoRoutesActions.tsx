@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useCallback, useEffect, useState } from "react";
 import { MotoRouteType } from "../Types/MotoRoutesTypes";
+import { currentUserType } from "../Types/UserTypes";
 import { handleAxiosErrors } from "./ErrorHandling";
 
 
@@ -139,4 +140,78 @@ export function castVote(route_id: number, vote_score: number) {
     }).catch((error) => {
         return handleAxiosErrors(error)
     })
+}
+
+export function get_users_vote(route_id: number) {
+    return axios.get(
+        `http://localhost:3000/api/moto_routes/${route_id}/get_user_vote`,
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}
+
+
+export function check_is_favourite(route_id: number) {
+    return axios.get(
+        `http://localhost:3000/api/moto_routes/${route_id}/is_favourite`,
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}
+
+export function useGetMotoRouteVoteAndFav(id: number | null, currentUser: currentUserType): [ number | null, boolean, any, any ]  {
+    const [userVote, setUserVote] = useState<number | null>(null);
+    const [isFavourite, setIsFavourite] = useState<boolean>(false);
+
+    const _getVoteAndFav = useCallback(async () => {
+        if (id === null) {
+            console.log("Requested moto route id is null")
+            return;
+        }
+
+        get_users_vote(id).then((response) => {
+            if (response.status !== 200) {
+                console.log("Something went wrong")
+                console.log(response)
+                setUserVote(null)
+                return
+            }
+            
+            setUserVote(response.data.user_score)
+        })
+
+        check_is_favourite(id).then((response) => {
+            if (response.status !== 200) {
+                console.log("Something went wrong")
+                console.log(response)
+                setIsFavourite(false)
+                return
+            }
+            
+            setIsFavourite(response.data.is_favourite)
+        })
+        
+    }, [id, currentUser]) // need to reload when user changes
+
+    useEffect(() => { _getVoteAndFav() }, [_getVoteAndFav])
+
+    return [ userVote, isFavourite, setUserVote, setIsFavourite ]
 }
