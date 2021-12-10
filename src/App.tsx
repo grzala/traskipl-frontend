@@ -48,7 +48,7 @@ function App() {
     }
   }, [])
 
-  const onLogin = async (userLoginData: {user: {email: string, password: string}}) => {
+  const onLogin = async (userLoginData: {user: {email: string, password: string}}): Promise<boolean> =>  {
     const response = await login(userLoginData);
 
     const { data } = response
@@ -56,13 +56,14 @@ function App() {
       if (data?.messages) {
         toast.error(`Login unsuccessful: ${data.messages.join(", ")}`, ToasterStyles);
       }
-      return
+      return false
     } 
 
     const user = data.user
     setCurrentUser(user);
     console.log(user)
     toast.success(data.messages.join(", "), ToasterStyles);
+    return true
   }
 
   const onLogout = async () => {

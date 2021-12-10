@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import './UserBox.scss'
 
 type LoginBoxProps = {
-    onLogin: (userLoginData: {user: {email: string, password: string}}) => void
+    onLogin: (userLoginData: {user: {email: string, password: string}}) => Promise<boolean>
 }
 
 const LoginBox = (props: LoginBoxProps) => {
@@ -22,7 +22,7 @@ const LoginBox = (props: LoginBoxProps) => {
         })
     }
     return (
-        <div className="loginbox">
+        <div className="loginbox d-flex justify-content-center">
 
             <form 
                 onSubmit={ (e) => {
@@ -31,10 +31,10 @@ const LoginBox = (props: LoginBoxProps) => {
                 }}>
                 <div className="d-flex flex-column">
                     <div className="login-header-wrapper">
-                        <h6>Currently not logged in.</h6>
+                        <h2>Log In</h2>
                     </div>
-                    <div className="form-group mb-1">
-                        <label htmlFor="email">email:&nbsp;&nbsp;&nbsp;</label>
+                    <div className="form-group">
+                        <label htmlFor="email">Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                         <input 
                             className="loginbox-form-control"
                             name="email" 
@@ -45,8 +45,8 @@ const LoginBox = (props: LoginBoxProps) => {
                                 
                         />
                     </div>
-                    <div className="form-group mb-1">
-                        <label htmlFor="password">password:</label>
+                    <div className="form-group">
+                        <label htmlFor="password">Password:</label>
                         <input 
                             className="loginbox-form-control"
                             name="password" 
@@ -58,7 +58,7 @@ const LoginBox = (props: LoginBoxProps) => {
                         />
                     </div>
 
-                    <div className="d-grid mb-1">
+                    <div className="d-grid">
                         <button type="submit" className="btn btn-block btn-primary">Login</button>
                     </div>
                     <div className="signup-prompt">

@@ -1,79 +1,135 @@
 .userbox {
     float: right;
+}
 
-    .loginbox {
-        font-size: 0.8em;
+.loginbox {
+    font-size: 1.2em;
 
-        color: white;
+    color: white;
+    text-align: center;
 
-        h6 {
-            font-size: 0.8em;   
+    h6 {
+        font-size: 0.8em;   
+    }
+
+
+    .login-header-wrapper {
+        text-align: center;
+        
+        h2 {
+            margin-bottom: 1.2em;
+        }
+    }
+
+    .form-group {
+        display: flex;
+        flex-wrap: wrap;
+        
+        margin-bottom: 1em;
+
+        label {
+            margin-right: 0.5em;
         }
 
-
-        .login-header-wrapper {
-            text-align: center;
-            
-            h6 {
-                font-size: 0.8em;   
-            }
-        }
-
-        &-form-control {
+        .loginbox-form-control {
+            flex-grow: 1;
             font-size: 1em;
             float: right;
             clear: both;
-            margin-left: 0.5em;
-        }
-
-        .btn {
-            font-size: 1.2em;
-            font-weight: 600;
-            padding: 0.05em 0;
-        }
-
-        .signup-prompt {
-            text-align: center;
-            margin-bottom: 0px;
         }
     }
 
-
-    .profilebox {
-        color: white;
-        text-align: right;
-
-        .profile-pic-wrapper {
-            width: 4.5em;
-            min-width: 4.5em;
-            height: 4.5em;
-            margin-top: 1em;
-        }
-
-        .profile-info-container {
-            margin-left: 1em;
-            margin-top: 0.8em;
-
-
-            .profile-other {
-                .btn {
-                    color: white;
-
-                    &:focus {
-                        outline: none;
-                        box-shadow: none;
-                    }
-                }
-
-                li a {
-                    color: black;
-                }
-                
-            }
-        }
+    .btn {
+        font-size: 1.2em;
+        font-weight: 600;
+        padding: 0.1em 0;
     }
 
+    .signup-prompt {
+        text-align: center;
+        margin-top: 1em;
+        margin-bottom: 0px;
+    }
 }
+
+
+.profilebox {
+    color: white;
+    text-align: right;
+
+    .profile-pic-wrapper {
+        width: 4.5em;
+        min-width: 4.5em;
+        height: 4.5em;
+        margin-top: 1em;
+    }
+
+    .profile-info-container {
+        margin-left: 1em;
+        margin-top: 0.8em;
+
+
+        .profile-other {
+            .btn {
+                color: white;
+
+                &:focus {
+                    outline: none;
+                    box-shadow: none;
+                }
+            }
+
+            li a {
+                color: black;
+            }
+            
+        }
+    }
+}
+
+
+
+
+/* MODAL BOX STYLES */
+
+
+.login-register-modal-overlay {
+    z-index: 1000;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000D5; 
+
+
+    .login-register-modal {
+        height: 80%;
+        width: 40%;
+        min-height: 400px;
+        min-width: 300px;
+
+        background-color: #bd3327;
+        color: white;
+    
+        border-radius: 2%;
+
+        padding: 0.25em 1.0em;
+        
+        .close-modal {
+            font-size: 2em;
+            cursor: pointer;
+        }
+
+        .login-box-container {
+            overflow: auto;
+        }
+    }
+}
+
+
+
 
 // .btn-primary {
 //     color: #56423e;
