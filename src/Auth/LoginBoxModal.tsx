@@ -27,10 +27,11 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
     }
     return (
         <ReactModal 
+        
             isOpen={show}
             contentLabel="Login Box Modal"
-            overlayClassName="login-register-modal-overlay d-flex align-items-center justify-content-center"
-            className="login-register-modal"
+            overlayClassName="login-signup-modal-overlay d-flex align-items-center justify-content-center"
+            className="login-signup-modal"
             >
             <div className="d-flex w-100 justify-content-end">
                 <div className="close-modal" onClick={() => setShow(false)}>
@@ -54,9 +55,9 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
                                 <h2>Log In</h2>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="email">Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <label htmlFor="email">Email</label>
                                 <input 
-                                    className="loginbox-form-control"
+                                    className="loginbox-form-control form-control"
                                     name="email" 
                                     type="email" 
                                     placeholder="example@domain.com" 
@@ -68,7 +69,7 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
                             <div className="form-group">
                                 <label htmlFor="password">Password:</label>
                                 <input 
-                                    className="loginbox-form-control"
+                                    className="loginbox-form-control form-control"
                                     name="password" 
                                     type="password" 
                                     placeholder="*******" 

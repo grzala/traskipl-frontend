@@ -48,45 +48,62 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                 <div className="loginbox d-flex justify-content-center">
 
                     <form 
+                        id="signup-form"
                         onSubmit={ async (e) => {
                             e.preventDefault()
-                            var result = await onSignup(userSignUpData)
-                            if (result) {
-                                setShow(false)
+
+                            var form = document.getElementById("signup-form") as HTMLFormElement
+                            if (form) {
+                                if (!form.checkValidity()) {
+                                    console.log("bruh")
+                                } else {
+                                    console.log("git")
+                                }
+                            } else {
+                                throw new Error("Signup form doesn't exist.");
                             }
-                        }}>
+                            // var result = await onSignup(userSignUpData)
+                            // if (result) {
+                            //     setShow(false)
+                            // }
+                        }}
+                        noValidate>
+
                         <div className="d-flex flex-column">
                             <div className="login-header-wrapper">
                                 <h2>Sign Up</h2>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="email">Email:<span dangerouslySetInnerHTML={{ __html: "&nbsp;".repeat(23) }} /></label>
+                                <label htmlFor="email">Email</label>
                                 <input 
-                                    className="loginbox-form-control"
+                                    className="loginbox-form-control form-control"
                                     name="email" 
                                     type="email" 
                                     placeholder="example@domain.com" 
                                     value={userSignUpData.email} 
                                     onChange={handleChange} 
-                                        
+                                    required
                                 />
+                                <div className="invalid-feedback">
+                                    Please choose a username.
+                                </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="first_name">First name:<span dangerouslySetInnerHTML={{ __html: "&nbsp;".repeat(13) + "&#8201;" }} /></label>
+                                <label htmlFor="first_name">First name:</label>
                                 <input 
-                                    className="loginbox-form-control"
+                                    className="loginbox-form-control form-control"
                                     name="first_name" 
                                     type="text" 
                                     placeholder="First name" 
                                     value={userSignUpData.first_name} 
                                     onChange={handleChange} 
-                                        
+                                    required
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="email">Last name:<span dangerouslySetInnerHTML={{ __html: "&nbsp;".repeat(14) + "" }} /></label>
+                                <label htmlFor="email">Last name:</label>
                                 <input 
-                                    className="loginbox-form-control"
+                                    className="loginbox-form-control form-control"
                                     name="last_name" 
                                     type="text" 
                                     placeholder="Last name" 
@@ -96,9 +113,9 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="password">Password:<span dangerouslySetInnerHTML={{ __html: "&nbsp;".repeat(15) + "&#8201;" }} /></label>
+                                <label htmlFor="password">Password:</label>
                                 <input 
-                                    className="loginbox-form-control"
+                                    className="loginbox-form-control form-control"
                                     name="password" 
                                     type="password" 
                                     placeholder="*******" 
@@ -111,7 +128,7 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                             <div className="form-group">
                                 <label htmlFor="password_confirmation">Confirm password:</label>
                                 <input 
-                                    className="loginbox-form-control"
+                                    className="loginbox-form-control form-control"
                                     name="password_confirmation" 
                                     type="password" 
                                     placeholder="*******" 
