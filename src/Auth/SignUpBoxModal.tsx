@@ -33,6 +33,7 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
     }
     return (
         <ReactModal 
+            ariaHideApp={false}
             isOpen={show}
             contentLabel="Sign Up Box Modal"
             overlayClassName="login-signup-modal-overlay d-flex align-items-center justify-content-center"
@@ -52,16 +53,17 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                         onSubmit={ async (e) => {
                             e.preventDefault()
 
-                            var form = document.getElementById("signup-form") as HTMLFormElement
-                            if (form) {
-                                if (!form.checkValidity()) {
-                                    console.log("bruh")
-                                } else {
-                                    console.log("git")
-                                }
-                            } else {
-                                throw new Error("Signup form doesn't exist.");
-                            }
+                            // var form = document.getElementById("signup-form") as HTMLFormElement
+                            // if (form) {
+                            //     if (!form.checkValidity()) {
+                            //         console.log("bruh")
+                            //     } else {
+                            //         console.log("git")
+                            //     }
+                            // } else {
+                            //     throw new Error("Signup form doesn't exist.");
+                            // }
+                            
                             // var result = await onSignup(userSignUpData)
                             // if (result) {
                             //     setShow(false)
@@ -82,7 +84,6 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                                     placeholder="example@domain.com" 
                                     value={userSignUpData.email} 
                                     onChange={handleChange} 
-                                    required
                                 />
                                 <div className="invalid-feedback">
                                     Please choose a username.
@@ -97,7 +98,7 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                                     placeholder="First name" 
                                     value={userSignUpData.first_name} 
                                     onChange={handleChange} 
-                                    required
+                                    
                                 />
                             </div>
                             <div className="form-group">

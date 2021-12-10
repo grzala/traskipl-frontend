@@ -27,7 +27,7 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
     }
     return (
         <ReactModal 
-        
+            ariaHideApp={false}
             isOpen={show}
             contentLabel="Login Box Modal"
             overlayClassName="login-signup-modal-overlay d-flex align-items-center justify-content-center"
