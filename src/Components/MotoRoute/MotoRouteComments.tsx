@@ -11,10 +11,14 @@ import ToasterStyles from "../../ToasterStyles/ToasterStyles"
 import "./MotoRouteComments.scss"
 import { userContext } from "../../Contexts/UserContext";
 
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
 type MotoRouteCommentsProps = {
     moto_route_id: number | null;
     current_user: currentUserType;
 }
+
 
 const MotoRouteComments = (props: MotoRouteCommentsProps) => {
     const { moto_route_id, current_user } = props;
@@ -39,6 +43,23 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
                 behavior: 'smooth'
               });
         }
+    }
+
+    const handleRemoveClick = (id: number) => {
+        confirmAlert({
+            title: 'Delete comment',
+            message: 'Are you sure you want to delete this comment?',
+            buttons: [
+              {
+                label: 'Yes',
+                onClick: () => removeComment(id)
+              },
+              {
+                label: 'No',
+                onClick: () => {}
+              }
+            ]
+          });
     }
     
     return (
@@ -72,7 +93,7 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
                                                                 color: "#bd3327",
                                                                 cursor: "pointer"
                                                             }}
-                                                            onClick={() => removeComment(comment.id)}
+                                                            onClick={() => handleRemoveClick(comment.id)}
                                                         />
                                                     </Fragment>
                                                 )}
