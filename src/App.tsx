@@ -7,7 +7,7 @@ import MotoRoutePage from './Pages/MotoRoutePage';
 import Header from './Pages/Layout/Header';
 import { userContext } from './Contexts/UserContext';
 import { UserSignupType, UserType } from './Types/UserTypes';
-import { login, checkLoggedIn as checkedLoggedInAction, logout } from './Actions/AuthActions';
+import { login, checkLoggedIn as checkedLoggedInAction, logout, register } from './Actions/AuthActions';
 
 import './App.scss';
 
@@ -83,10 +83,18 @@ function App() {
   }
 
   const onSignUp = async (newUserData: UserSignupType) => {
+    const response = await register(newUserData)
+    const { data } = response
 
-    toast.success("yea")
+    if (response.status !== 200) {
+      if (data?.messages) {
+        toast.error(`Registration unsuccessful: ${data.messages.join(", ")}`, ToasterStyles);
+      }
+      return false;
+    } 
 
-    return false;
+    toast.success("Registration successful. You can now login", ToasterStyles);
+    return true;
   }
 
 

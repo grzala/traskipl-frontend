@@ -64,10 +64,10 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                             //     throw new Error("Signup form doesn't exist.");
                             // }
                             
-                            // var result = await onSignup(userSignUpData)
-                            // if (result) {
-                            //     setShow(false)
-                            // }
+                            var result = await onSignup(userSignUpData)
+                            if (result) {
+                                setShow(false)
+                            }
                         }}
                         noValidate>
 
