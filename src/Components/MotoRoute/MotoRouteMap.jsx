@@ -61,9 +61,6 @@ const MotoRouteMap = (props) => {
         return false;
     }, [hoveredPOI, selectedPOI])
 
-
-    console.log("API KEY LENGTH" + process.env.REACT_APP_GOOGLE_MAPS_API_KEY.length)
-
     
     
     return (
