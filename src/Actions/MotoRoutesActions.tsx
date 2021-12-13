@@ -8,7 +8,7 @@ import { handleAxiosErrors } from "./ErrorHandling";
 
 function getMotoRoutes() {
     return axios.get(
-        'http://localhost:3000/api/moto_routes',
+        `${process.env.REACT_APP_API_SERVER}/moto_routes`,
         {'withCredentials': true}
     ).then((response) => {
 
@@ -53,7 +53,7 @@ export function useGetMotoRoutes(): [ MotoRouteType[], boolean /*, (resource: Mo
 
 function getMotoRoute(id: number) {
     return axios.get(
-        `http://localhost:3000/api/moto_routes/${id}`,
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/${id}`,
         {'withCredentials': true}
     ).then((response) => {
 
@@ -102,7 +102,7 @@ export function useGetMotoRoute(id: number | null): [ MotoRouteType | null, bool
 
 export function switchFavourite(route_id: number) {
     return axios.post(
-        `http://localhost:3000/api/moto_routes/switch_favourite`,
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/switch_favourite`,
         {
             id: route_id
         },
@@ -123,7 +123,7 @@ export function switchFavourite(route_id: number) {
 
 export function castVote(route_id: number, vote_score: number) {
     return axios.post(
-        `http://localhost:3000/api/moto_routes/cast_rating_vote`,
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/cast_rating_vote`,
         {
             id: route_id,
             score: vote_score
@@ -144,7 +144,7 @@ export function castVote(route_id: number, vote_score: number) {
 
 export function get_users_vote(route_id: number) {
     return axios.get(
-        `http://localhost:3000/api/moto_routes/${route_id}/get_user_vote`,
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/${route_id}/get_user_vote`,
         {'withCredentials': true}
     ).then((response) => {
 
@@ -162,7 +162,7 @@ export function get_users_vote(route_id: number) {
 
 export function check_is_favourite(route_id: number) {
     return axios.get(
-        `http://localhost:3000/api/moto_routes/${route_id}/is_favourite`,
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/${route_id}/is_favourite`,
         {'withCredentials': true}
     ).then((response) => {
 

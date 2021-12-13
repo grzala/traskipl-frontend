@@ -7,7 +7,7 @@ import ToasterStyles from "../ToasterStyles/ToasterStyles"
 
 function getComments(id: number) {
     return axios.get(
-        `http://localhost:3000/api/moto_routes/${id}/comments`,
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/${id}/comments`,
         {'withCredentials': true}
     ).then((response) => {
 
@@ -24,7 +24,7 @@ function getComments(id: number) {
 
 function insertComment(moto_route_id: number, message: string) {
     return axios.post(
-        `http://localhost:3000/api/moto_routes/${moto_route_id}/comments`,
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/${moto_route_id}/comments`,
         {
             message: message
         },
@@ -44,7 +44,7 @@ function insertComment(moto_route_id: number, message: string) {
 
 function deleteComment(id: number) {
     return axios.delete(
-        `http://localhost:3000/api/comments/${id}`,
+        `${process.env.REACT_APP_API_SERVER}/comments/${id}`,
         {'withCredentials': true}
     ).then((response) => {
 
