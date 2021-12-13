@@ -34,7 +34,7 @@ export function handleAxiosErrors (error: any) {
         }
     }
 
-    if (process.env.REACT_APP_DEBUG_MODE) {
+    if (process.env.REACT_APP_DEBUG_MODE === "TRUE") {
         alert(`Error: ${error.response.status}: ${msgs.join(", ")}`)
     }
     return to_return
