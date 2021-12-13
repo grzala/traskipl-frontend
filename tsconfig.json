@@ -21,9 +21,7 @@
     "jsx": "react-jsx",
 
     "baseUrl": "./",
-    "paths": {
-      "*": [ "src/@custom_types/*"]
-    }
+    "typeRoots": [ "src/@custom_types/*"]
   },
   "include": [
     "src",
