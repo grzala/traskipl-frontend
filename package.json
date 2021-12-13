@@ -40,7 +40,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run run-prod",
+  "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build:production",
 
   "eslintConfig": {
     "extends": [
