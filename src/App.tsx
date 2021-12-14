@@ -16,6 +16,7 @@ import ToasterStyles from "./ToasterStyles/ToasterStyles"
 import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
+import MotoRouteCreator from './Pages/MotoRouteCreator';
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -123,6 +124,8 @@ function App() {
 
                 <Route path="/routes/:id/*" element={ <MotoRoutePage /> } />
                 <Route path="/routes/:id" element={ <MotoRoutePage /> } />
+                <Route path="/routes/creator/*" element={ <MotoRouteCreator /> } />
+                <Route path="/routes/creator" element={ <MotoRouteCreator /> } />
                 <Route path="/" element={ <Homepage /> } />
               </Routes>
             </div>

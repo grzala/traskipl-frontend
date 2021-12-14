@@ -8,7 +8,7 @@ import "./MotoRouteDetails.scss"
 
 import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 
-import { MapFill,GeoAltFill, ExclamationSquareFill, Star, StarFill, FlagFill } from 'react-bootstrap-icons';
+import { MapFill,GeoAltFill, ExclamationSquareFill, Star, StarFill, FlagFill, InfoCircleFill } from 'react-bootstrap-icons';
 import StarRatings from 'react-star-ratings';
 import { currentUserType, UserType } from "../../../Types/UserTypes";
 import { castVote, check_is_favourite, switchFavourite, useGetMotoRouteVoteAndFav } from "../../../Actions/MotoRoutesActions";
@@ -101,7 +101,7 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                             className="nav-link"
                             to={`${urlMatch.pathnameBase}/details`}
                             title="Route details">
-                                <MapFill />
+                                <InfoCircleFill />
                         </NavLink>
                         <NavLink
                             className={`nav-link ${poiMarkerFilter ? "" : "disabled"}`}
