@@ -1,11 +1,10 @@
 import axios from 'axios'
 import { UserSignupType } from '../Types/UserTypes';
 import { handleAxiosErrors } from './ErrorHandling'
-import { axiosClient } from './initialise';
 
 
 export function login(userLoginData: {user: {email: string, password: string}}) {
-    return axiosClient.post(`${process.env.REACT_APP_API_SERVER}/sessions`,
+    return axios.post(`${process.env.REACT_APP_API_SERVER}/sessions`,
                 userLoginData,
                 {'withCredentials': true}
     ).then((response) => {
@@ -26,7 +25,7 @@ export function login(userLoginData: {user: {email: string, password: string}}) 
 
 
 export function checkLoggedIn() {
-    return axiosClient.get(`${process.env.REACT_APP_API_SERVER}/check_logged_in`,
+    return axios.get(`${process.env.REACT_APP_API_SERVER}/check_logged_in`,
         {'withCredentials': true}
     ).then((response) => {
 
@@ -43,7 +42,7 @@ export function checkLoggedIn() {
 
 
 export function logout() {
-    return axiosClient.delete(`${process.env.REACT_APP_API_SERVER}/session`,
+    return axios.delete(`${process.env.REACT_APP_API_SERVER}/session`,
         {'withCredentials': true}
     ).then((response) => {
 
@@ -60,7 +59,7 @@ export function logout() {
 
 
 export function register(newUserData: UserSignupType) {
-    return axiosClient.post(`${process.env.REACT_APP_API_SERVER}/users`,
+    return axios.post(`${process.env.REACT_APP_API_SERVER}/users`,
         {user: newUserData},
         {'withCredentials': true}
     ).then((response) => {

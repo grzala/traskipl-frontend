@@ -4,10 +4,9 @@ import { toast } from "react-toastify";
 import { CommentType } from "../Types/MotoRoutesTypes";
 import { handleAxiosErrors } from "./ErrorHandling";
 import ToasterStyles from "../ToasterStyles/ToasterStyles"
-import { axiosClient } from './initialise';
 
 function getComments(id: number) {
-    return axiosClient.get(
+    return axios.get(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/${id}/comments`,
         {'withCredentials': true}
     ).then((response) => {
@@ -24,7 +23,7 @@ function getComments(id: number) {
 }
 
 function insertComment(moto_route_id: number, message: string) {
-    return axiosClient.post(
+    return axios.post(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/${moto_route_id}/comments`,
         {
             message: message
@@ -44,7 +43,7 @@ function insertComment(moto_route_id: number, message: string) {
 }
 
 function deleteComment(id: number) {
-    return axiosClient.delete(
+    return axios.delete(
         `${process.env.REACT_APP_API_SERVER}/comments/${id}`,
         {'withCredentials': true}
     ).then((response) => {

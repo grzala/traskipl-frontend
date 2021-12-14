@@ -3,12 +3,11 @@ import { useCallback, useEffect, useState } from "react";
 import { MotoRouteType } from "../Types/MotoRoutesTypes";
 import { currentUserType } from "../Types/UserTypes";
 import { handleAxiosErrors } from "./ErrorHandling";
-import { axiosClient } from './initialise';
 
 
 
 function getMotoRoutes() {
-    return axiosClient.get(
+    return axios.get(
         `${process.env.REACT_APP_API_SERVER}/moto_routes`,
         {'withCredentials': true}
     ).then((response) => {
@@ -53,7 +52,7 @@ export function useGetMotoRoutes(): [ MotoRouteType[], boolean /*, (resource: Mo
 
 
 function getMotoRoute(id: number) {
-    return axiosClient.get(
+    return axios.get(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/${id}`,
         {'withCredentials': true}
     ).then((response) => {
@@ -102,7 +101,7 @@ export function useGetMotoRoute(id: number | null): [ MotoRouteType | null, bool
 }
 
 export function switchFavourite(route_id: number) {
-    return axiosClient.post(
+    return axios.post(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/switch_favourite`,
         {
             id: route_id
@@ -123,7 +122,7 @@ export function switchFavourite(route_id: number) {
 
 
 export function castVote(route_id: number, vote_score: number) {
-    return axiosClient.post(
+    return axios.post(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/cast_rating_vote`,
         {
             id: route_id,
@@ -144,7 +143,7 @@ export function castVote(route_id: number, vote_score: number) {
 }
 
 export function get_users_vote(route_id: number) {
-    return axiosClient.get(
+    return axios.get(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/${route_id}/get_user_vote`,
         {'withCredentials': true}
     ).then((response) => {
@@ -162,7 +161,7 @@ export function get_users_vote(route_id: number) {
 
 
 export function check_is_favourite(route_id: number) {
-    return axiosClient.get(
+    return axios.get(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/${route_id}/is_favourite`,
         {'withCredentials': true}
     ).then((response) => {
