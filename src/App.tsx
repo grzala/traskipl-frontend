@@ -16,7 +16,7 @@ import ToasterStyles from "./ToasterStyles/ToasterStyles"
 import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 
 function App() {
 

@@ -8,7 +8,7 @@ import ToasterStyles from "../ToasterStyles/ToasterStyles"
 function getComments(id: number) {
     return axios.get(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/${id}/comments`,
-        {'withCredentials': true}
+        {'withCredentials': false}
     ).then((response) => {
 
         if (response.status !== 200) {
@@ -28,7 +28,7 @@ function insertComment(moto_route_id: number, message: string) {
         {
             message: message
         },
-        {'withCredentials': true}
+        {'withCredentials': false}
     ).then((response) => {
 
         if (response.status !== 200) {
@@ -45,7 +45,7 @@ function insertComment(moto_route_id: number, message: string) {
 function deleteComment(id: number) {
     return axios.delete(
         `${process.env.REACT_APP_API_SERVER}/comments/${id}`,
-        {'withCredentials': true}
+        {'withCredentials': false}
     ).then((response) => {
 
         if (response.status !== 200) {

@@ -9,7 +9,7 @@ import { handleAxiosErrors } from "./ErrorHandling";
 function getMotoRoutes() {
     return axios.get(
         `${process.env.REACT_APP_API_SERVER}/moto_routes`,
-        {'withCredentials': true}
+        {'withCredentials': false}
     ).then((response) => {
 
         if (response.status !== 200) {
@@ -54,7 +54,7 @@ export function useGetMotoRoutes(): [ MotoRouteType[], boolean /*, (resource: Mo
 function getMotoRoute(id: number) {
     return axios.get(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/${id}`,
-        {'withCredentials': true}
+        {'withCredentials': false}
     ).then((response) => {
 
         if (response.status !== 200) {
@@ -106,7 +106,7 @@ export function switchFavourite(route_id: number) {
         {
             id: route_id
         },
-        {'withCredentials': true}
+        {'withCredentials': false}
     ).then((response) => {
 
         if (response.status !== 200) {
@@ -128,7 +128,7 @@ export function castVote(route_id: number, vote_score: number) {
             id: route_id,
             score: vote_score
         },
-        {'withCredentials': true}
+        {'withCredentials': false}
     ).then((response) => {
 
         if (response.status !== 200) {
@@ -145,7 +145,7 @@ export function castVote(route_id: number, vote_score: number) {
 export function get_users_vote(route_id: number) {
     return axios.get(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/${route_id}/get_user_vote`,
-        {'withCredentials': true}
+        {'withCredentials': false}
     ).then((response) => {
 
         if (response.status !== 200) {
@@ -163,7 +163,7 @@ export function get_users_vote(route_id: number) {
 export function check_is_favourite(route_id: number) {
     return axios.get(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/${route_id}/is_favourite`,
-        {'withCredentials': true}
+        {'withCredentials': false}
     ).then((response) => {
 
         if (response.status !== 200) {
