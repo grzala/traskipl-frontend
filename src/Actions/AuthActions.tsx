@@ -9,6 +9,9 @@ export function login(userLoginData: {user: {email: string, password: string}}) 
                 {'withCredentials': false}
     ).then((response) => {
 
+        console.log("LOGGED IN")
+        console.log(response)
+
         if (response.status !== 200) {
             console.log("Api error");
             console.log(response)
