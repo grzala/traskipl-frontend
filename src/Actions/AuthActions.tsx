@@ -6,7 +6,7 @@ import { handleAxiosErrors } from './ErrorHandling'
 export function login(userLoginData: {user: {email: string, password: string}}) {
     return axios.post(`${process.env.REACT_APP_API_SERVER}/sessions`,
                 userLoginData,
-                {'withCredentials': false}
+                {'withCredentials': true}
     ).then((response) => {
 
         console.log("LOGGED IN")
@@ -26,7 +26,7 @@ export function login(userLoginData: {user: {email: string, password: string}}) 
 
 export function checkLoggedIn() {
     return axios.get(`${process.env.REACT_APP_API_SERVER}/check_logged_in`,
-        {'withCredentials': false}
+        {'withCredentials': true}
     ).then((response) => {
 
         if (response.status !== 200) {
@@ -43,7 +43,7 @@ export function checkLoggedIn() {
 
 export function logout() {
     return axios.delete(`${process.env.REACT_APP_API_SERVER}/session`,
-        {'withCredentials': false}
+        {'withCredentials': true}
     ).then((response) => {
 
         if (response.status !== 200) {
@@ -62,7 +62,7 @@ export function register(newUserData: UserSignupType) {
     console.log("bruh")
     return axios.post(`${process.env.REACT_APP_API_SERVER}/users`,
         {user: newUserData},
-        {'withCredentials': false}
+        {'withCredentials': true}
     ).then((response) => {
 
         if (response.status !== 200) {
