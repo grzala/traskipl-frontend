@@ -20,11 +20,10 @@ const MotoRoutePOIsCard = (props: MotoRoutePOIsCardProps) => {
         
         // when changing selected POI, make sure the scroll is reset on previously chosen element
         if (selectedPOI) {
-            document.getElementById(`poi_${selectedPOI.id}`)?.scroll({
-                top: 0,
-                left: 0,
-                behavior: 'smooth'
-              });
+            var element = document.getElementById(`poi_${selectedPOI.id}`)
+            console.log("element");
+            console.log(element);
+            document.getElementById(`poi_${selectedPOI.id}`)?.scroll(0, 0);
         }
         onPOISelect(newPoi)
     }
