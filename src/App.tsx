@@ -15,6 +15,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import ToasterStyles from "./ToasterStyles/ToasterStyles"
 import 'react-toastify/dist/ReactToastify.css';
 
+import axios from 'axios';
+axios.defaults.withCredentials = true;
+
 function App() {
 
   const [currentUser, setCurrentUser] = useState<UserType | null>(
