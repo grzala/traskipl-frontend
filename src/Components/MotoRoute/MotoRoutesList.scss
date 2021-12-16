@@ -1,6 +1,5 @@
 .moto-routes-list {
-
-    overflow-y: scroll;
+    background-color: white;
     margin-top: 1.5em;
 
 
@@ -12,6 +11,9 @@
     }
 
     &-item {
+
+        border-left: none;
+        border-right: none;
 
         .map-thumbnail-col {
             width: 33%;

@@ -1,6 +1,7 @@
 
 
 .comments-list-main {
+    background-color: white;
     max-height: 30em;
     overflow-y: auto;
 
@@ -11,6 +12,9 @@
         
         display: flex;
         flex-direction: row;
+
+        border-left: none;
+        border-right: none;
 
         .profile-pic-wrapper {
             width: 5em;

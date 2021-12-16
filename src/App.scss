@@ -37,6 +37,28 @@
   }
 }
 
+/* Scrollbar styles */
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(107, 107, 116) rgba(255, 255, 255, 0);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgb(107, 107, 116);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 20px;
+  border: 3px solid rgb(107, 107, 116);
+}
+
 /* override bootstrap styles */
 .list-group-item.active {
   background-color: #bd3327 ;
