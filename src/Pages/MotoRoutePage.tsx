@@ -71,8 +71,7 @@ const MotoRoutePage = () => {
                             
                             {route && (
                                 <MotoRouteMap 
-                                    motoRouteCoords={route.coordinates} 
-                                    motoRoutePOIs={route.point_of_interests} 
+                                    route={route} 
                                     hoveredPOI={hoverPOI}
                                     selectedPOI={selectedPOI}
                                     onPOISelect={selectPOI}

@@ -15,13 +15,18 @@ const MotoRouteMap = (props) => {
 
     const defaultZoom = 10;
     
-    const { motoRouteCoords, motoRoutePOIs, hoveredPOI, selectedPOI, onPOISelect, poiMarkerFilter } = props;
-    const origin = motoRouteCoords[0];
+    const { route, hoveredPOI, selectedPOI, onPOISelect, poiMarkerFilter } = props;
+    const origin = route.coordinates[0];
     var mapPosition = origin;
-    const destination = motoRouteCoords[motoRouteCoords.length-1]
-    const waypoints = motoRouteCoords.slice(1, motoRouteCoords.length-1).map((coord) => ({location: coord, stopover: false}))
+    const destination = route.coordinates[route.coordinates.length-1]
+    const waypoints = route.coordinates.slice(1, route.coordinates.length-1).map((coord) => ({location: coord, stopover: false}))
 
     const [directionsResponse, setDirectionsResponse] = React.useState(null)
+
+    useEffect(() => {
+        // Setting directions response to null when route changes will force api to re-generate directions
+        setDirectionsResponse(null)
+    }, [route])
 
     const directionsCallback = useCallback((res) => {
         console.log(res)
@@ -72,8 +77,8 @@ const MotoRouteMap = (props) => {
                     zoom={defaultZoom}
                     >
 
-                    {poiMarkerFilter && motoRoutePOIs && (
-                        motoRoutePOIs.map((poi, index) => {
+                    {poiMarkerFilter && route.point_of_interests && (
+                        route.point_of_interests.map((poi, index) => {
                             return (<Marker 
                                         key={`marker_${poi.id}`} 
                                         position={ poi.coordinates } 
