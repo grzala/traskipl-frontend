@@ -16,7 +16,7 @@
         border-right: none;
 
         .map-thumbnail-rating-col {
-            width: 40%;
+            width: 10em;
             min-width: 10em;
 
             img {
@@ -42,12 +42,22 @@
             }
         }
         
+        .info-col {
+            flex-grow: 1;
+            padding: 0 0 0 0.5em;
 
-        &-description {  
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 3;
-            overflow: hidden;
+            hr {
+                margin: 0.5em 0;
+
+            }
+
+            .info {  
+                text-align: justify;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 6;
+                overflow: hidden;
+            }
         }
     }
 }
