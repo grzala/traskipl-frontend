@@ -16,7 +16,7 @@ const MotoRouteAuthor = (props: MotoRouteAuthorProps) => {
         <Fragment>
                 <div className="moto-route-author">
                     <div
-                        className="list-group-item list-group-item-action flex-column align-items-start active">
+                        className="list-group-item flex-column align-items-start active author-header">
                         Author
                     </div>
 

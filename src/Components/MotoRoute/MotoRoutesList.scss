@@ -1,10 +1,10 @@
 .moto-routes-list {
+    max-height: inherit; // Squeeze to fit parent
+
     background-color: white;
-    margin-top: 1.5em;
 
 
     &-main {
-        max-height: 25.2em;
         overflow-y: auto;
 
         margin-bottom: 5px;
@@ -48,7 +48,6 @@
 
             hr {
                 margin: 0.5em 0;
-
             }
 
             .info {  

@@ -63,7 +63,7 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
     }
     
     return (
-        <div className="list-group">
+        <div className="list-group comments-wrapper">
             <div
                 className="list-group-item list-group-item-action flex-column align-items-start active">
                 Comments

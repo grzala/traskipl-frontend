@@ -97,14 +97,16 @@ const MotoRoutePage = () => {
                     </div>
 
 
-                    <div className="moto-route-page-comments-wrapper mt-3 mb-3">
+                    <div className="moto-route-page-bottom-wrapper mt-3 mb-3">
                         <div className="row">
-                            <div className="col-md-8 comments">
+                            <div className="col-md-8 moto-route-page-comments-container">
                                 <MotoRouteComments moto_route_id={route?.id || null} current_user={user} />
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-4" style={{height: "100px"}}>
                                 <MotoRouteAuthor author={route?.user || null} />
-                                <MotoRoutesList motoRoutesList={ motoRoutesList } />
+                                <div className="moto-route-page-list-container">
+                                    <MotoRoutesList motoRoutesList={ motoRoutesList } />
+                                </div>
                             </div>
                         </div>
                     </div>

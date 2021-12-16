@@ -1,68 +1,69 @@
+.comments-wrapper {
+    height: 100%; // Squeeze to fit parent
+
+    .comments-list-main {
+        background-color: white;
+        overflow-y: auto;
+
+        margin-bottom: 5px;
+
+        .comment {
+            min-height: 5em;
+            
+            display: flex;
+            flex-direction: row;
+
+            border-left: none;
+            border-right: none;
+
+            .profile-pic-wrapper {
+                width: 5em;
+                height: 5em;
+            }
+
+            .comment-content-wrapper{
+                flex: 1 1;
+                margin-left: 0.8em;
+            }
+
+            p.comment-message {
+                text-align: justify;
+                margin-bottom: 0.5em;
+            }
+        }
+    }
 
 
-.comments-list-main {
-    background-color: white;
-    max-height: 30em;
-    overflow-y: auto;
-
-    margin-bottom: 5px;
-
-    .comment {
-        min-height: 5em;
-        
+    .comments-reply-wrapper {
         display: flex;
         flex-direction: row;
 
-        border-left: none;
-        border-right: none;
 
         .profile-pic-wrapper {
-            width: 5em;
-            height: 5em;
+            width: 6em;
+            height: 6em;
+        }
+        
+
+        .comments-reply {
+            flex: 1;
+            min-height: 6em;
+            min-width: 0;
+            margin-left: 0.5em;
+            padding: 0.4em 0.8em;
         }
 
-        .comment-content-wrapper{
-            flex: 1 1;
-            margin-left: 0.8em;
+        .send-reply {
+            background-color: #bd3327;
+            color: white;
+
+            min-width: 5em;
+            margin-left: 0.2em;
+            // margin-right: 0.6em;
         }
 
-        p.comment-message {
-            text-align: justify;
-            margin-bottom: 0.5em;
+        .send-reply:hover {
+            background-color: #7a1108;
         }
-    }
-}
-
-
-.comments-reply-wrapper {
-    display: flex;
-    flex-direction: row;
-
-
-    .profile-pic-wrapper {
-        width: 6em;
-        height: 6em;
-    }
-    
-
-    .comments-reply {
-        flex: 1;
-        min-height: 6em;
-        min-width: 0;
-        margin-left: 0.5em;
-        padding: 0.4em 0.8em;
-    }
-
-    .send-reply {
-        background-color: #bd3327;
-        color: white;
-
-        min-width: 5em;
-        margin-left: 0.2em;
-        margin-right: 0.6em;
-    }
-
-    .send-reply:hover {
-        background-color: #7a1108;
     }
 }

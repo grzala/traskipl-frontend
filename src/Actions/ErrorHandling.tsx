@@ -6,7 +6,10 @@ export function handleAxiosErrors (error: any) {
 
     var msgs = []
 
-    switch(error.response.status) {
+    if (!error.response)
+        throw "Error response is null"
+
+    switch(error?.response?.status) {
         case 504: // Connection timeout
             msgs.push("Can't connect to backend services.")
             break;
@@ -28,7 +31,7 @@ export function handleAxiosErrors (error: any) {
     }
 
     const to_return = {
-        status: error.response.status,
+        status: error?.response?.status,
         data: {
             messages: msgs
         }
