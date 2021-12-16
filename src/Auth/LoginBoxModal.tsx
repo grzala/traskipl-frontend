@@ -9,10 +9,11 @@ type LoginBoxModalProps = {
     onLogin: (userLoginData: {user: {email: string, password: string}}) => Promise<boolean>,
     show: boolean,
     setShow: (show: boolean) => void,
+    swapModals: () => void,
 }
 
 const LoginBoxModal = (props: LoginBoxModalProps) => {
-    const { onLogin, show, setShow} = props;
+    const { onLogin, show, setShow, swapModals } = props;
 
     const [userLoginData, setUserLoginData] = useState<{user: {email: string, password: string}}>({user: {email: "", password: ""}});
 
@@ -82,9 +83,10 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
                             <div className="d-grid">
                                 <button type="submit" className="btn btn-block btn-primary">Login</button>
                             </div>
-                            {/* <div className="signup-prompt">
-                                <h6>Need an account? <Link to="/#">Sign up.</Link></h6>
-                            </div> */}
+
+                            <div className="signup-prompt">
+                                <h6>Need an account? <Link to="/#" onClick={(e: any) => {e.preventDefault(); swapModals(); }}>Sign up</Link>.</h6>
+                            </div> 
                         </div>
                     </form>
                 </div>

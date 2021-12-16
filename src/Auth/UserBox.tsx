@@ -14,6 +14,10 @@ const UserBox = () => {
     const [showSignUpModal, setShowSignUpModal] = useState<boolean>(false);
 
 
+    const swapModals = () => {
+        setShowLoginModal(!showLoginModal)
+        setShowSignUpModal(!showSignUpModal)
+    }
 
 
     return (
@@ -31,7 +35,7 @@ const UserBox = () => {
                                             onClick={(e) => {e.preventDefault(); setShowLoginModal(true)}}>
                                                 Login
                                         </a>
-                                        <LoginBoxModal onLogin={ onLogin } show={showLoginModal} setShow={setShowLoginModal}/>
+                                        <LoginBoxModal onLogin={ onLogin } show={showLoginModal} setShow={setShowLoginModal} swapModals={ swapModals }/>
                                     </li>
                                     <li className="nav-item">
                                         <a 
@@ -40,14 +44,14 @@ const UserBox = () => {
                                             onClick={(e) => {e.preventDefault(); setShowSignUpModal(true)}}>
                                                 Sign Up
                                         </a>
-                                        <SignUpBoxModal onSignup={ onSignUp } show={showSignUpModal} setShow={setShowSignUpModal}/>
+                                        <SignUpBoxModal onSignup={ onSignUp } show={showSignUpModal} setShow={setShowSignUpModal} swapModals={ swapModals }/>
                                     </li>
                                 </ul>
                             </div>
                         )
                     } else {
                         return (
-                            <ProfileBox user={ user } onLogin={ onLogin } onLogout={ onLogout } />
+                            <ProfileBox user={ user } onLogin={ onLogin } onLogout={ onLogout }/>
                         )
                     }
                 }}

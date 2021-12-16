@@ -10,6 +10,7 @@ type SignUpBoxModalProps = {
     onSignup: (userData: UserSignupType) => Promise<boolean>,
     show: boolean,
     setShow: (show: boolean) => void,
+    swapModals: () => void,
 }
 
 const defaultNewUser: UserSignupType = {
@@ -21,7 +22,7 @@ const defaultNewUser: UserSignupType = {
 }
 
 const SignUpBoxModal = (props: SignUpBoxModalProps) => {
-    const { onSignup, show, setShow} = props;
+    const { onSignup, show, setShow, swapModals } = props;
 
     const [userSignUpData, setUserSignUpData] = useState<UserSignupType>(defaultNewUser);
 
@@ -142,6 +143,10 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                             <div className="d-grid">
                                 <button type="submit" className="btn btn-block btn-primary">Sign Up</button>
                             </div>
+
+                            <div className="signup-prompt">
+                                <h6>Already have an account? <Link to="/#" onClick={(e: any) => {e.preventDefault(); swapModals(); }}>Log in</Link>.</h6>
+                            </div> 
                         </div>
                     </form>
                 </div>
