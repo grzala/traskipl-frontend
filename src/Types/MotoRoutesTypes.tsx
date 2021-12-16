@@ -33,6 +33,7 @@ export type MotoRouteType = {
     description: string,
     coordinates: {lat: number, lng: number}[],
     point_of_interests?: POIType[],
+    poi_count?: {[variant in POIVariant]: number}
     score: number,
     comments?: CommentType[]
 }

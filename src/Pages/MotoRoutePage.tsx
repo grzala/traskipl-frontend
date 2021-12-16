@@ -69,7 +69,7 @@ const MotoRoutePage = () => {
                     <div className="row display-flex map-details-container">
                         <div className="col-md-8 moto-route-map-container">
                             
-                            {route && (
+                            { route && (
                                 <MotoRouteMap 
                                     route={route} 
                                     hoveredPOI={hoverPOI}

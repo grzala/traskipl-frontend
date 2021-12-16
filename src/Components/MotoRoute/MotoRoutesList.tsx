@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { MotoRouteType } from "../../Types/MotoRoutesTypes";
+import { MotoRouteType, POIVariant } from "../../Types/MotoRoutesTypes";
 import { mapIconCirclesUrls } from "../MapConstants";
 import HelmetRating from "./MotoRouteDetails/HelmetRating";
 
@@ -12,6 +12,30 @@ type MotoRoutesListProps = {
 
 const MotoRoutesList = (props: MotoRoutesListProps) => {
     const { motoRoutesList } = props
+
+    const poi_count_build_tsx = (poi_count: {[variant in POIVariant]: number}) => {
+        let toReturn = [];
+        if (poi_count != undefined) {
+
+            for (let variant in POIVariant) {
+                var count = 0
+                if (poi_count[variant as POIVariant]) 
+                    count = poi_count[variant as POIVariant]
+                toReturn.push(
+                    <Fragment>
+                        <img className="map-icon" alt="map-icon" src={ mapIconCirclesUrls[variant] } />&thinsp;{ count }&nbsp;
+                        { count < 10 ? <Fragment>&nbsp;&nbsp;</Fragment> : "" }
+                    </Fragment>
+                )
+            }
+            
+            return toReturn
+
+        } else {
+            throw "Error: poi_count is undefined"
+        }
+            
+    }
 
     return(
         <Fragment>
@@ -28,19 +52,22 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
                                     <div className="row">
                                         <div className="map-thumbnail-rating-col">
                                             <img src={ process.env.PUBLIC_URL + '/samples/map1.png' } alt="map of the route" />
-                                            <HelmetRating
-                                                score={ route.score }
-                                                size={ 1.4 }
-                                                spacing={ 0.15 }
-                                                overrideMainColor={ "#bd3327" }
-                                            />
 
-                                            <img className="map-icon" alt="map-icon" src={ mapIconCirclesUrls["FOOD"] } />: 1&nbsp;
-                                            <img className="map-icon" alt="map-icon" src={ mapIconCirclesUrls["VISTA"] } />: 2&nbsp;
-                                            <img className="map-icon" alt="map-icon" src={ mapIconCirclesUrls["URBEX"] } />: 1&nbsp;
-                                            <img className="map-icon" alt="map-icon" src={ mapIconCirclesUrls["DANGER"] } />: 2&nbsp;
-                                            <img className="map-icon" alt="map-icon" src={ mapIconCirclesUrls["FUEL"] } />: 1&nbsp;
-                                            <img className="map-icon" alt="map-icon" src={ mapIconCirclesUrls["OTHER"] } />: 2&nbsp;
+                                            <div className="helmet-rating-container">
+                                                <HelmetRating
+                                                    score={ route.score }
+                                                    size={ 1.5 }
+                                                    spacing={ 0.3 }
+                                                    overrideMainColor={ "#bd3327" }
+                                                />
+                                            </div>
+
+                                            <div className="poi-count-container">
+                                                {() => console.log(route.poi_count)}
+                                                { route.poi_count != undefined && (
+                                                   poi_count_build_tsx(route.poi_count)
+                                                )}
+                                            </div>
                                         </div>
 
                                         <div className="col-sm-7">

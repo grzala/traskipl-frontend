@@ -5,6 +5,22 @@
   ;
 }
 
+@font-face {
+  font-family: 'AnonymousPro';
+  src: local('AnonymousPro'), url(./Fonts/AnonymousPro/AnonymousPro-Regular.ttf) format('truetype'),
+        local('AnonymousPro'), url(./Fonts/AnonymousPro/AnonymousPro-Bold.ttf) format('truetype'),
+        local('AnonymousPro'), url(./Fonts/AnonymousPro/AnonymousPro-BoldItalic.ttf) format('truetype'),
+        local('AnonymousPro'), url(./Fonts/AnonymousPro/AnonymousPro-Italic.ttf) format('truetype'),
+  ;
+}
+
+@font-face {
+  font-family: 'Incosolata';
+  src: local('Incosolata'), url(./Fonts/Inconsolata/Inconsolata-Regular.ttf) format('truetype'),
+        local('AnonymousPro'), url(./Fonts/Inconsolata/Inconsolata-Bold.ttf) format('truetype'),
+  ;
+}
+
 
 .default-body {
   margin: 0;
