@@ -29,15 +29,16 @@ type HelmetRatingProps = {
     votedScore?: number | null;
     handleStarRatingClick?: (score: number) => Promise<void>;
     size: number;
-    spacing: number
+    spacing: number;
+    overrideMainColor?: string;
 }
 
 const HelmetRating = (props: HelmetRatingProps) => {
-    const { score, votedScore, handleStarRatingClick, size, spacing } = props;
+    const { score, votedScore, handleStarRatingClick, size, spacing, overrideMainColor } = props;
     return (
         <StarRatings
             rating={ score }
-            starRatedColor={ votedScore !== null ? '#54bac1' : 'rgb(218, 232, 24)' }
+            starRatedColor={ votedScore !== undefined && votedScore !== null ? '#54bac1' : (overrideMainColor ? overrideMainColor :'rgb(218, 232, 24)') }
             starHoverColor='#54bac1'
             svgIconViewBox={ helmetSvgViewbox }
             svgIconPath={ hemletSvgPath }

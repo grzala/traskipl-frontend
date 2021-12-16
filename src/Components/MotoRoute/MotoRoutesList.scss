@@ -15,7 +15,7 @@
         border-left: none;
         border-right: none;
 
-        .map-thumbnail-col {
+        .map-thumbnail-rating-col {
             width: 33%;
             min-width: 10em;
 
@@ -23,6 +23,10 @@
                 // width: 15em;
                 // height: 15em;
                 width: 100%;
+            }
+
+            .map-icon {
+                width: 1.3em;
             }
         }
         
