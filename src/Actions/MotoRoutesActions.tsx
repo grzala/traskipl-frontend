@@ -71,7 +71,7 @@ function getMotoRoute(id: number) {
 
 export function useGetMotoRoute(id: number | null): [ MotoRouteType | null, boolean /*, (resource: MotoRouteType[]) => void*/ ]  {
     const [motoRoute, setMotoRoute] = useState<MotoRouteType | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
     const _getMotoRoute = useCallback(async () => {
         if (id === null) {
@@ -95,7 +95,7 @@ export function useGetMotoRoute(id: number | null): [ MotoRouteType | null, bool
         const _motoRoutes = response.data.moto_route as MotoRouteType
         
         setMotoRoute(_motoRoutes)
-        // setLoading(false);
+        setLoading(false);
     }, [id])
 
     useEffect(() => { _getMotoRoute() }, [_getMotoRoute])

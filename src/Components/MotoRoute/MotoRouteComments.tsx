@@ -6,6 +6,7 @@ import { useGetComments } from "../../Actions/CommentsActions";
 import { currentUserType } from "../../Types/UserTypes";
 import ProfilePicture from "../ProfilePicture";
 import ToasterStyles from "../../ToasterStyles/ToasterStyles"
+import ReactLoading from "react-loading";
 
 import "./MotoRouteComments.scss"
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -68,47 +69,56 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
             </div>
 
             <div id="comments-list-main" className="comments-list-main">
+                { loadingComments && (
+                    <div className="vertical-align-placeholder">
+                        <ReactLoading type={ 'spokes' } className="loading-placeholder" />
+                    </div>
+                )}
 
-                { !loadingComments && moto_route_id !== null && comments && comments.length > 0 ? (
-                        <Fragment>
-                            {comments.map((comment) => (
-                                <div key={ `comment_${comment.id}` }className="list-group-item align-items-start comment">
-                                    <div className="profile-pic-wrapper">
-                                        <ProfilePicture 
-                                            imgPath="https://thumbs.mugshots.com/gallery/images/84/5c/NOEL-DAWSON-JR-mugshot-43097934.jpeg.400x800.jpg"
-                                        />
-                                    </div>
-                                    <div className="d-flex flex-column comment-content-wrapper">
-                                        <div className="d-flex justify-content-between">
-                                            <h5 className="mb-1">{ comment.author }</h5>
-                                            <small className="text-muted">
-                                                { moment(comment.created_at,).format('DD/MM/YYYY HH:mm') }
-                                                {current_user && current_user.id === comment.user_id && (
-                                                    <Fragment>
-                                                        &nbsp;&nbsp;
-                                                        <TrashFill 
-                                                            style={{
-                                                                color: "#bd3327",
-                                                                cursor: "pointer"
-                                                            }}
-                                                            onClick={() => handleRemoveClick(comment.id)}
-                                                        />
-                                                    </Fragment>
-                                                )}
-                                            </small>
+                { !loadingComments && (
+                    <Fragment>
+                        { moto_route_id !== null && comments && comments.length > 0 ? (
+                            <Fragment>
+                                {comments.map((comment) => (
+                                    <div key={ `comment_${comment.id}` }className="list-group-item align-items-start comment">
+                                        <div className="profile-pic-wrapper">
+                                            <ProfilePicture 
+                                                imgPath="https://thumbs.mugshots.com/gallery/images/84/5c/NOEL-DAWSON-JR-mugshot-43097934.jpeg.400x800.jpg"
+                                            />
                                         </div>
-                                        <p className="comment-message">{ comment.message }</p>
+                                        <div className="d-flex flex-column comment-content-wrapper">
+                                            <div className="d-flex justify-content-between">
+                                                <h5 className="mb-1">{ comment.author }</h5>
+                                                <small className="text-muted">
+                                                    { moment(comment.created_at,).format('DD/MM/YYYY HH:mm') }
+                                                    {current_user && current_user.id === comment.user_id && (
+                                                        <Fragment>
+                                                            &nbsp;&nbsp;
+                                                            <TrashFill 
+                                                                style={{
+                                                                    color: "#bd3327",
+                                                                    cursor: "pointer"
+                                                                }}
+                                                                onClick={() => handleRemoveClick(comment.id)}
+                                                            />
+                                                        </Fragment>
+                                                    )}
+                                                </small>
+                                            </div>
+                                            <p className="comment-message">{ comment.message }</p>
+                                        </div>
                                     </div>
+                                ))}
+                            </Fragment>
+                        ) : (
+                            <div className="list-group-item flex-column align-items-start comment">
+                                <div className="d-flex w-100 justify-content-between">
+                                    No comments to show
                                 </div>
-                            ))}
-                        </Fragment>
-                    ) : (
-                        <div className="list-group-item flex-column align-items-start comment">
-                            <div className="d-flex w-100 justify-content-between">
-                                No comments to show
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </Fragment>
+                )}
             </div>
 
                 

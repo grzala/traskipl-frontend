@@ -66,7 +66,7 @@ export function useGetComments(moto_route_id: number | null): [
     (comment_id: number) => Promise<boolean> ] {
 
     const [comments, setComments] = useState<CommentType[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
     const _getComments = useCallback(async () => {
         if (moto_route_id !== null) {
@@ -77,6 +77,7 @@ export function useGetComments(moto_route_id: number | null): [
             if (response.status !== 200) {
                 console.log("Something went wrong when getting moto Routes")
                 setComments([])
+                setLoading(false);
                 return
             }
             

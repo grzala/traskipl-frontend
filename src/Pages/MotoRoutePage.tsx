@@ -121,12 +121,10 @@ const MotoRoutePage = () => {
                                     </div>
                                     <div className="col-md-4" style={{height: "100px"}}>
 
-                                        <MotoRouteAuthor author={route?.user || null} />
+                                        <MotoRouteAuthor author={route?.user || null} isLoading={routeLoading} />
 
                                         <div className="moto-route-page-list-container">
-                                            { !motoRoutesListLoading && (
-                                                <MotoRoutesList motoRoutesList={ motoRoutesList } isLoading={ motoRoutesListLoading } />
-                                            )}
+                                            <MotoRoutesList motoRoutesList={ motoRoutesList } isLoading={ motoRoutesListLoading } />
                                         </div>
                                     </div>
                                 </div>
