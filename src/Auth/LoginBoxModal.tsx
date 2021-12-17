@@ -13,6 +13,10 @@ type LoginBoxModalProps = {
     swapModals: () => void,
 }
 
+type FieldErrorType = {email: string | null, password: string | null}
+const blankError = {email: null, password: null};
+
+
 const LoginBoxModal = (props: LoginBoxModalProps) => {
     const { onLogin, show, setShow, swapModals } = props;
 
@@ -28,41 +32,42 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
         })
     }
 
-    const [fieldErrs, setFieldErrs] = useState<{email: string | null, password: string | null}>({email: null, password: null})
-
-    const resetErrors = () => {
-        setFieldErrs({email: null, password: null});
+    const getBlankError = (): FieldErrorType => {
+        return {email: null, password: null};
     }
+    const [fieldErrs, setFieldErrs] = useState<FieldErrorType>(blankError)
+
 
     useEffect(() => {
         // If modal closed, reset errors
         if (show === false) {
-            resetErrors()
+            setFieldErrs(blankError)
         }
     }, [show])
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
-        resetErrors()
 
+        var newErrs: FieldErrorType = blankError;
         var valid = true;
         
         if (userLoginData.user.email.length <= 0) {
+            console.log("ok my man")
             valid = false;
-            setFieldErrs({...fieldErrs, email: "Email address field cannot be empty"})
+            newErrs = {...newErrs, email: "Email address field cannot be empty"}
         }
 
-        console.log("validating user email")
         if (valid && !validateEmail(userLoginData.user.email)) {
-            console.log("bruh this no good")
             valid = false;
-            setFieldErrs({...fieldErrs, email: "Email must follow format: \"user@domain.com\""})
+            newErrs = {...newErrs, email: "Email must follow format: \"user@domain.com\""}
         }
 
         if (userLoginData.user.password.length <= 0) {
             valid = false;
-            setFieldErrs({...fieldErrs, password: "Password field cannot be empty"})
+            newErrs = {...newErrs, password: "Password field cannot be empty"}
         }
+
+        setFieldErrs(newErrs)
         
         if (valid) {
             var result = await onLogin(userLoginData)
