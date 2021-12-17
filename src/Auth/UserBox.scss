@@ -16,27 +16,63 @@
         text-align: center;
         
         h2 {
-            margin-bottom: 1.2em;
+            margin-bottom: 0.8em;
         }
     }
 
-    .form-group {
-        display: flex;
-        flex-wrap: wrap;
+
+
+
+    form {
+        overflow: hidden;
+        max-width: 25em;
+        width: 25em;
         
-        margin-bottom: 1em;
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 1em;
+            margin-top: 0.2em;
 
-        label {
-            margin-right: 0.5em;
+
+            label {
+                margin-right: 0.5em;
+            }
+
+            .loginbox-form-control {
+                flex-grow: 1;
+                font-size: 1em;
+                float: right;
+                clear: both;
+
+                border-width: 2px;
+            }
+
+            .loginbox-form-control.invalid {
+                border-color: rgb(255, 166, 0);
+            }
+
+            .invalid-prompt {
+                // display: none;
+                text-align: left;
+                max-width: 96%;
+                word-wrap: break-word;
+                font-size: 0.8em;
+                margin: 0.0em 0.5em -1.5em 0.5em;
+                padding: 0.5em;
+
+                border-radius: 0.25rem;
+
+                // background-color: rgba(0, 0, 0, 0.575);
+                color: rgb(255, 166, 0);
+            }
         }
 
-        .loginbox-form-control {
-            flex-grow: 1;
-            font-size: 1em;
-            float: right;
-            clear: both;
+        .submit-btn-wrapper {
+            margin-top: 0.2em;
         }
     }
+
 
     .btn {
         font-size: 1.2em;

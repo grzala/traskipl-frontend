@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { XCircleFill } from "react-bootstrap-icons";
 import ReactModal from "react-modal";
 import { Link } from "react-router-dom";
 
 import './UserBox.scss'
+import { validateEmail } from "./Validations";
 
 type LoginBoxModalProps = {
     onLogin: (userLoginData: {user: {email: string, password: string}}) => Promise<boolean>,
@@ -26,6 +27,53 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
             
         })
     }
+
+    const [fieldErrs, setFieldErrs] = useState<{email: string | null, password: string | null}>({email: null, password: null})
+
+    const resetErrors = () => {
+        setFieldErrs({email: null, password: null});
+    }
+
+    useEffect(() => {
+        // If modal closed, reset errors
+        if (show == false) {
+            resetErrors()
+        }
+    }, [show])
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault()
+        resetErrors()
+
+        var valid = true;
+        
+        if (userLoginData.user.email.length <= 0) {
+            valid = false;
+            setFieldErrs({...fieldErrs, email: "Email address field cannot be empty"})
+        }
+
+        console.log("validating user email")
+        if (valid && !validateEmail(userLoginData.user.email)) {
+            console.log("bruh this no good")
+            valid = false;
+            setFieldErrs({...fieldErrs, email: "Email must follow format: \"user@domain.com\""})
+        }
+
+        if (userLoginData.user.password.length <= 0) {
+            valid = false;
+            setFieldErrs({...fieldErrs, password: "Password field cannot be empty"})
+        }
+        
+        if (valid) {
+            var result = await onLogin(userLoginData)
+            if (result) {
+                setShow(false)
+            }
+        }
+    }
+
+
+
     return (
         <ReactModal 
             ariaHideApp={false}
@@ -44,13 +92,7 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
                 <div className="loginbox d-flex justify-content-center">
 
                     <form 
-                        onSubmit={ async (e) => {
-                            e.preventDefault()
-                            var result = await onLogin(userLoginData)
-                            if (result) {
-                                setShow(false)
-                            }
-                        }}>
+                        onSubmit={ handleSubmit }>
                         <div className="d-flex flex-column">
                             <div className="login-header-wrapper">
                                 <h2>Log In</h2>
@@ -58,19 +100,23 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
                             <div className="form-group">
                                 <label htmlFor="email">Email</label>
                                 <input 
-                                    className="loginbox-form-control form-control"
+                                    className={ `loginbox-form-control form-control ${ fieldErrs.email ? "invalid" : "" }` }
                                     name="email" 
-                                    type="email" 
+                                    type="text" 
                                     placeholder="example@domain.com" 
-                                    value={userLoginData.user.email} 
-                                    onChange={handleChange} 
+                                    value={ userLoginData.user.email } 
+                                    onChange={ handleChange } 
                                         
                                 />
+                                <div className="invalid-prompt" style={{display: fieldErrs.email ? "block" : "none"}}>
+                                    { fieldErrs.email }
+                                </div>
                             </div>
+
                             <div className="form-group">
                                 <label htmlFor="password">Password:</label>
                                 <input 
-                                    className="loginbox-form-control form-control"
+                                    className={ `loginbox-form-control form-control ${ fieldErrs.password ? "invalid" : "" }` }
                                     name="password" 
                                     type="password" 
                                     placeholder="*******" 
@@ -78,9 +124,12 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
                                     onChange={handleChange} 
                                         
                                 />
+                                <div className="invalid-prompt" style={{display: fieldErrs.password ? "block" : "none"}}>
+                                    { fieldErrs.password }
+                                </div>
                             </div>
 
-                            <div className="d-grid">
+                            <div className="d-grid submit-btn-wrapper">
                                 <button type="submit" className="btn btn-block btn-primary">Login</button>
                             </div>
 

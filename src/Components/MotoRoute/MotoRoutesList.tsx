@@ -17,16 +17,18 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
         let toReturn = [];
         if (poi_count != undefined) {
 
+            var total_iterations = 0
             for (let variant in POIVariant) {
                 var count = 0
                 if (poi_count[variant as POIVariant]) 
                     count = poi_count[variant as POIVariant]
                 toReturn.push(
-                    <Fragment>
-                        <img className="map-icon" alt="map-icon" src={ mapIconCirclesUrls[variant] } />&thinsp;{ count }&nbsp;
+                    <Fragment key={total_iterations}>
+                        <img  className="map-icon" alt="map-icon" src={ mapIconCirclesUrls[variant] } />&thinsp;{ count }&nbsp;
                         { count < 10 ? <Fragment>&nbsp;&nbsp;</Fragment> : "" }
                     </Fragment>
                 )
+                total_iterations += 1
             }
             
             return toReturn
