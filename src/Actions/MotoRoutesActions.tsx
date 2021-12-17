@@ -209,7 +209,7 @@ export function useGetMotoRouteVoteAndFav(id: number | null, currentUser: curren
             setIsFavourite(response.data.is_favourite)
         })
         
-    }, [id, currentUser]) // need to reload when user changes
+    }, [id])
 
     useEffect(() => { _getVoteAndFav() }, [_getVoteAndFav])
 

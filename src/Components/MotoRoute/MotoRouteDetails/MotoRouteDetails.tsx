@@ -8,9 +8,8 @@ import "./MotoRouteDetails.scss"
 
 import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 
-import { MapFill,GeoAltFill, ExclamationSquareFill, Star, StarFill, FlagFill, InfoCircleFill } from 'react-bootstrap-icons';
-import StarRatings from 'react-star-ratings';
-import { currentUserType, UserType } from "../../../Types/UserTypes";
+import { GeoAltFill, ExclamationSquareFill, Star, StarFill, FlagFill, InfoCircleFill } from 'react-bootstrap-icons';
+import { currentUserType } from "../../../Types/UserTypes";
 import { castVote, check_is_favourite, switchFavourite, useGetMotoRouteVoteAndFav } from "../../../Actions/MotoRoutesActions";
 import { toast } from "react-toastify";
 import ToasterStyles from "../../../ToasterStyles/ToasterStyles"

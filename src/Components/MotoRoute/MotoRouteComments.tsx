@@ -3,14 +3,11 @@ import React, { Fragment, useState } from "react";
 import { ReplyFill, TrashFill } from "react-bootstrap-icons";
 import { toast } from "react-toastify";
 import { useGetComments } from "../../Actions/CommentsActions";
-import { CommentType } from "../../Types/MotoRoutesTypes";
 import { currentUserType } from "../../Types/UserTypes";
 import ProfilePicture from "../ProfilePicture";
 import ToasterStyles from "../../ToasterStyles/ToasterStyles"
 
 import "./MotoRouteComments.scss"
-import { userContext } from "../../Contexts/UserContext";
-
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
@@ -71,7 +68,7 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
 
             <div id="comments-list-main" className="comments-list-main">
 
-                { moto_route_id !== null && comments && comments.length > 0 ? (
+                { !loadingComments && moto_route_id !== null && comments && comments.length > 0 ? (
                         <Fragment>
                             {comments.map((comment) => (
                                 <div key={ `comment_${comment.id}` }className="list-group-item align-items-start comment">

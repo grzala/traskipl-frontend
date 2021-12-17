@@ -15,7 +15,7 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
 
     const poi_count_build_tsx = (poi_count: {[variant in POIVariant]: number}) => {
         let toReturn = [];
-        if (poi_count != undefined) {
+        if (poi_count !== undefined) {
 
             var total_iterations = 0
             for (let variant in POIVariant) {
@@ -34,7 +34,7 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
             return toReturn
 
         } else {
-            throw "Error: poi_count is undefined"
+            throw new Error("Error: poi_count is undefined")
         }
             
     }
@@ -66,8 +66,8 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
 
                                                 <div className="poi-count-container">
                                                     {() => console.log(route.poi_count)}
-                                                    { route.poi_count != undefined && (
-                                                    poi_count_build_tsx(route.poi_count)
+                                                    { route.poi_count !== undefined && (
+                                                        poi_count_build_tsx(route.poi_count)
                                                     )}
                                                 </div>
                                             </div>

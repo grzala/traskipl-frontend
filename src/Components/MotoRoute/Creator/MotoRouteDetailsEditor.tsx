@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { ExclamationSquareFill, GeoAltFill, InfoCircleFill, MapFill } from "react-bootstrap-icons";
+import { GeoAltFill, InfoCircleFill, MapFill } from "react-bootstrap-icons";
 import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 
 const MotoRouteDetailsEditor = () => {

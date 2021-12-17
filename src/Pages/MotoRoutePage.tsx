@@ -3,7 +3,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useMatch, useNavigate, useParams } from "react-router-dom";
 
 
-import { MotoRouteType, POIType} from "../Types/MotoRoutesTypes"
+import { POIType} from "../Types/MotoRoutesTypes"
 // import { getMotoRoute, getMotoRoutes } from "../Actions/MotoRoutesActions";
 
 
@@ -69,7 +69,7 @@ const MotoRoutePage = () => {
                     <div className="row display-flex map-details-container">
                         <div className="col-md-8 moto-route-map-container">
                             
-                            { route && (
+                            { !routeLoading && route && (
                                 <MotoRouteMap 
                                     route={route} 
                                     hoveredPOI={hoverPOI}
@@ -81,7 +81,7 @@ const MotoRoutePage = () => {
                             
                         </div>
                         <div className="col-md-4 moto-route-details-container">
-                            { route && (
+                            { !routeLoading && route && (
                                 <MotoRouteDetails 
                                     currentUser={user}
                                     route={route} 
@@ -105,7 +105,9 @@ const MotoRoutePage = () => {
                             <div className="col-md-4" style={{height: "100px"}}>
                                 <MotoRouteAuthor author={route?.user || null} />
                                 <div className="moto-route-page-list-container">
-                                    <MotoRoutesList motoRoutesList={ motoRoutesList } />
+                                    { !motoRoutesListLoading && (
+                                        <MotoRoutesList motoRoutesList={ motoRoutesList } />
+                                    )}
                                 </div>
                             </div>
                         </div>

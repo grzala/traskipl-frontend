@@ -7,7 +7,7 @@ export function handleAxiosErrors (error: any) {
     var msgs = []
 
     if (!error.response)
-        throw "Error response is null"
+        throw new Error("Error response is null")
 
     switch(error?.response?.status) {
         case 504: // Connection timeout

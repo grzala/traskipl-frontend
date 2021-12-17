@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { XCircleFill } from 'react-bootstrap-icons';
-import ReactModal from 'react-modal';
 import { userContext } from '../Contexts/UserContext';
 import LoginBoxModal from './LoginBoxModal';
 import ProfileBox from './ProfileBox';

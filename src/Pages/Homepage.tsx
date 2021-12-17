@@ -3,7 +3,6 @@ import React, { Fragment } from "react";
 
 import "./Homepage.scss"
 import MotoRoutesList from "../Components/MotoRoute/MotoRoutesList";
-import { MotoRouteType } from "../Types/MotoRoutesTypes";
 import { useGetMotoRoutes } from "../Actions/MotoRoutesActions";
 
 const Homepage = () => {
@@ -25,7 +24,9 @@ const Homepage = () => {
                     </p>
                 </div>
                 <div className="col-md-5">
-                    <MotoRoutesList motoRoutesList={ motoRoutesList } />
+                    { !motoRoutesListLoading &&
+                        <MotoRoutesList motoRoutesList={ motoRoutesList } />
+                    }
                 </div>
             </div>
         </Fragment>

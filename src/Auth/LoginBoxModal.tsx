@@ -36,7 +36,7 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
 
     useEffect(() => {
         // If modal closed, reset errors
-        if (show == false) {
+        if (show === false) {
             resetErrors()
         }
     }, [show])
