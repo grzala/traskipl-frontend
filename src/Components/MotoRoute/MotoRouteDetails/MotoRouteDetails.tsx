@@ -14,6 +14,7 @@ import { castVote, check_is_favourite, switchFavourite, useGetMotoRouteVoteAndFa
 import { toast } from "react-toastify";
 import ToasterStyles from "../../../ToasterStyles/ToasterStyles"
 import HelmetRating from "./HelmetRating";
+import ReactLoading from "react-loading";
 
 type MotoRouteProps = {
     route: MotoRouteType;
@@ -23,10 +24,11 @@ type MotoRouteProps = {
     poiMarkerFilter: boolean;
     poiMarkerFilterChange: (newFilterVal: boolean) => void;
     currentUser: currentUserType;
+    isLoading: boolean;
 }
 
 const MotoRouteDetails = (props: MotoRouteProps) => {
-    const { route, onPOIHover, onPOISelect, selectedPOI, poiMarkerFilter, poiMarkerFilterChange, currentUser} = props;
+    const { route, onPOIHover, onPOISelect, selectedPOI, poiMarkerFilter, poiMarkerFilterChange, currentUser, isLoading} = props;
 
     const urlMatch = useMatch('/routes/:id/*')
 
@@ -136,13 +138,20 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                 </div>
 
                 <div className="details-content">
-                    <Routes>
-                        <Route path="/details" element={<MotoRouteDetailsCard route={route} poiMarkerFilter={poiMarkerFilter} poiMarkerFilterChange={poiMarkerFilterChange} />} />
-                        <Route path="/poi" element={
-                            <MotoRoutePOIsCard route={route} onPOIHover={onPOIHover} onPOISelect={onPOISelect} selectedPOI={selectedPOI} />
-                        } />
-                        <Route path="/accidents" element={<MotoRouteAccidentsCard route={route} />} />
-                    </Routes>
+                    { !isLoading && (
+                        <Routes>
+                            <Route path="/details" element={<MotoRouteDetailsCard route={route} poiMarkerFilter={poiMarkerFilter} poiMarkerFilterChange={poiMarkerFilterChange} />} />
+                            <Route path="/poi" element={
+                                <MotoRoutePOIsCard route={route} onPOIHover={onPOIHover} onPOISelect={onPOISelect} selectedPOI={selectedPOI} />
+                            } />
+                            <Route path="/accidents" element={<MotoRouteAccidentsCard route={route} />} />
+                        </Routes>
+                    )}
+                    { isLoading && (
+                        <div className="vertical-align-placeholder">
+                            <ReactLoading type={ 'spokes' } className="loading-placeholder" />
+                        </div>
+                    )}
                 </div> 
             </div>
         </Fragment>

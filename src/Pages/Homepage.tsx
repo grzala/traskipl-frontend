@@ -24,9 +24,7 @@ const Homepage = () => {
                     </p>
                 </div>
                 <div className="col-md-5">
-                    { !motoRoutesListLoading &&
-                        <MotoRoutesList motoRoutesList={ motoRoutesList } />
-                    }
+                    <MotoRoutesList motoRoutesList={ motoRoutesList } isLoading={motoRoutesListLoading} />
                 </div>
             </div>
         </Fragment>

@@ -36,6 +36,7 @@ export function useGetMotoRoutes(): [ MotoRouteType[], boolean /*, (resource: Mo
             console.log("Something went wrong when getting moto Routes")
             console.log(response)
             setMotoRoutes([])
+            setLoading(false);
             return
         }
         
@@ -76,6 +77,7 @@ export function useGetMotoRoute(id: number | null): [ MotoRouteType | null, bool
         if (id === null) {
             console.log("Requested moto route id is null")
             setMotoRoute(null)
+            setLoading(false);
             return;
         }
 
@@ -86,13 +88,14 @@ export function useGetMotoRoute(id: number | null): [ MotoRouteType | null, bool
             console.log("Something went wrong when getting moto Routes")
             console.log(response)
             setMotoRoute(null)
+            setLoading(false);
             return
         }
         
         const _motoRoutes = response.data.moto_route as MotoRouteType
         
         setMotoRoute(_motoRoutes)
-        setLoading(false);
+        // setLoading(false);
     }, [id])
 
     useEffect(() => { _getMotoRoute() }, [_getMotoRoute])

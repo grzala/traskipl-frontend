@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
+import ReactLoading from "react-loading";
+
 import { MotoRouteType, POIVariant } from "../../Types/MotoRoutesTypes";
 import { mapIconCirclesUrls } from "../MapConstants";
 import HelmetRating from "./MotoRouteDetails/HelmetRating";
@@ -8,10 +10,11 @@ import "./MotoRoutesList.scss"
 
 type MotoRoutesListProps = {
     motoRoutesList: MotoRouteType[];
+    isLoading: boolean;
 }
 
 const MotoRoutesList = (props: MotoRoutesListProps) => {
-    const { motoRoutesList } = props
+    const { motoRoutesList, isLoading } = props
 
     const poi_count_build_tsx = (poi_count: {[variant in POIVariant]: number}) => {
         let toReturn = [];
@@ -39,7 +42,7 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
             
     }
 
-    return(
+    return (
         <Fragment>
                 <div className="list-group moto-routes-list">
                     <div className="list-group-item active">
@@ -47,7 +50,11 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
                     </div>
                     
                     <div className="moto-routes-list-main">
-                        { motoRoutesList && motoRoutesList.length > 0 ? (
+                        { isLoading && (
+                            <ReactLoading type={ 'spokes' } className="loading-placeholder" />
+                        )}
+
+                        { !isLoading && motoRoutesList && motoRoutesList.length > 0 &&  (
                                 <Fragment>
                                 { motoRoutesList.map((route) => 
                                     <Link key={`moto-list-item-${route.id}`} to={`/routes/${route.id}/details`} className="moto-routes-list-item list-group-item list-group-item-action">
@@ -80,7 +87,8 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
                                     </Link>
                                 )}
                                 </Fragment>
-                        ) : (
+                        )}
+                        { !isLoading && (!motoRoutesList || motoRoutesList.length <= 0) && (
                             <div className="moto-routes-list-item list-group-item text-center">
                                 <h3>No routes to show</h3>
                             </div>
