@@ -27,7 +27,6 @@ type currentUserType = UserType | null;
 type userContextType = {
     user: currentUserType,
     onLogin: (userLoginData: {user: {email: string, password: string}}) => Promise<boolean>,
-    onSignUp: (userSignUpData: UserSignupType) => Promise<boolean>,
     onLogout: () => void
 }
 

@@ -21,7 +21,7 @@ const UserBox = () => {
     return (
         <div className="userbox">
             <userContext.Consumer>
-                {({user, onLogin, onLogout, onSignUp}) => {
+                {({user, onLogin, onLogout}) => {
                     if (user === null) {
                         return (
                             <div className="d-flex align-items-end">
@@ -42,7 +42,7 @@ const UserBox = () => {
                                             onClick={(e) => {e.preventDefault(); setShowSignUpModal(true)}}>
                                                 Sign Up
                                         </a>
-                                        <SignUpBoxModal onSignup={ onSignUp } show={showSignUpModal} setShow={setShowSignUpModal} swapModals={ swapModals }/>
+                                        <SignUpBoxModal show={showSignUpModal} setShow={setShowSignUpModal} swapModals={ swapModals }/>
                                     </li>
                                 </ul>
                             </div>

@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { XCircleFill } from "react-bootstrap-icons";
 import ReactModal from "react-modal";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import ToasterStyles from '../ToasterStyles/ToasterStyles'
+import { register } from "src/Actions/AuthActions";
 import { UserSignupType } from "../Types/UserTypes";
 
 import './UserBox.scss'
 
 type SignUpBoxModalProps = {
-    onSignup: (userData: UserSignupType) => Promise<boolean>,
     show: boolean,
     setShow: (show: boolean) => void,
     swapModals: () => void,
@@ -22,7 +24,7 @@ const defaultNewUser: UserSignupType = {
 }
 
 const SignUpBoxModal = (props: SignUpBoxModalProps) => {
-    const { onSignup, show, setShow, swapModals } = props;
+    const { show, setShow, swapModals } = props;
 
     const [userSignUpData, setUserSignUpData] = useState<UserSignupType>(defaultNewUser);
 
@@ -53,20 +55,24 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                         id="signup-form"
                         onSubmit={ async (e) => {
                             e.preventDefault()
-
-                            // var form = document.getElementById("signup-form") as HTMLFormElement
-                            // if (form) {
-                            //     if (!form.checkValidity()) {
-                            //         console.log("bruh")
-                            //     } else {
-                            //         console.log("git")
-                            //     }
-                            // } else {
-                            //     throw new Error("Signup form doesn't exist.");
-                            // }
                             
-                            var result = await onSignup(userSignUpData)
+                            var result = true;
+                            
+                            const response = await register(userSignUpData)
+                            const { data } = response
+
+                            if (response.status !== 200) {
+                                // if (data?.messages) {
+                                //     toast.error(`Registration unsuccessful: ${data.messages.join(", ")}`, ToasterStyles);
+                                // }
+
+                                console.log("bruh, we got some to do")
+
+                                result =  false;
+                            } 
+
                             if (result) {
+                                toast.success("user" + userSignUpData.email + " has been created. You can now login", ToasterStyles);
                                 setShow(false)
                             }
                         }}

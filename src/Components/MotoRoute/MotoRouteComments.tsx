@@ -33,6 +33,7 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
         var result = await insertComment(moto_route_id, newCommentMessage)
         
         if (result) {
+            setNewCommentMessage("")
             toast.success("Your comment has been posted.", ToasterStyles)
             document.getElementById(`comments-list-main`)?.scroll({
                 top: 0,

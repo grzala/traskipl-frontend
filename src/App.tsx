@@ -86,31 +86,13 @@ function App() {
     toast.success(data.messages.join(", "), ToasterStyles);
   }
 
-  const onSignUp = async (newUserData: UserSignupType) => {
-    const response = await register(newUserData)
-    const { data } = response
-
-    if (response.status !== 200) {
-      if (data?.messages) {
-        toast.error(`Registration unsuccessful: ${data.messages.join(", ")}`, ToasterStyles);
-      }
-      return false;
-    } 
-
-    toast.success("Registration successful. You can now login", ToasterStyles);
-    return true;
-  }
-
-
-
   return (
     <div className="App">
 
       <userContext.Provider value={{
           user: currentUser,
           onLogin: onLogin,
-          onLogout: onLogout,
-          onSignUp: onSignUp
+          onLogout: onLogout
         }}>
 
         <div className="container-fluid" >
