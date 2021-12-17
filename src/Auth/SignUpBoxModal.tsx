@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { XCircleFill } from "react-bootstrap-icons";
 import ReactModal from "react-modal";
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import { register } from "src/Actions/AuthActions";
 import { UserSignupType } from "../Types/UserTypes";
 
 import './UserBox.scss'
+import { validateEmail } from "./Validations";
 
 type SignUpBoxModalProps = {
     show: boolean,
@@ -23,6 +24,23 @@ const defaultNewUser: UserSignupType = {
     password_confirmation: "",
 }
 
+
+type FieldErrorType = {
+    email: string | null, 
+    password: string | null,
+    password_confirmation: string | null,
+    first_name: string | null,
+    last_name: string | null,
+}
+
+const blankError = {
+    email: null, 
+    password: null,
+    password_confirmation: null,
+    first_name: null,
+    last_name: null
+};
+
 const SignUpBoxModal = (props: SignUpBoxModalProps) => {
     const { show, setShow, swapModals } = props;
 
@@ -34,6 +52,82 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
             [e.target.name]: e.target.value 
         })
     }
+
+
+
+    const [fieldErrs, setFieldErrs] = useState<FieldErrorType>(blankError)
+
+    useEffect(() => {
+        // If modal closed, reset errors
+        if (show === false) {
+            setFieldErrs(blankError)
+            setUserSignUpData(defaultNewUser)
+        }
+    }, [show])
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault()
+        
+        // Local check
+
+        var newErrs: FieldErrorType = blankError;
+        var valid = true;
+        
+        if (userSignUpData.email.length <= 0) {
+            valid = false;
+            newErrs = {...newErrs, email: "Email address field cannot be empty"}
+        }
+
+        if (valid && !validateEmail(userSignUpData.email)) {
+            valid = false;
+            newErrs = {...newErrs, email: "Email must follow format: \"user@domain.com\""}
+        }
+
+        if (userSignUpData.first_name.length <= 0) {
+            valid = false;
+            newErrs = {...newErrs, first_name: "Please provide a first name"}
+        }
+
+        if (userSignUpData.last_name.length <= 0) {
+            valid = false;
+            newErrs = {...newErrs, last_name: "Please provide a last name"}
+        }
+
+        if (userSignUpData.password.length <= 0) {
+            valid = false;
+            newErrs = {...newErrs, password: "Password field cannot be empty"}
+        }
+
+        if (userSignUpData.password_confirmation.length <= 0) {
+            valid = false;
+            newErrs = {...newErrs, password_confirmation: "Password confirmation field cannot be empty"}
+        }
+
+        setFieldErrs(newErrs)
+
+        // Do not send API request if validation failed locally
+        if (!valid)
+            return;
+
+        // API request
+        var result = true;
+        const response = await register(userSignUpData)
+        const { data } = response
+
+        if (response.status !== 200) {
+            setFieldErrs(data.field_err_msg)
+            result =  false;
+        } 
+
+        if (result) {
+            toast.success("user" + userSignUpData.email + " has been created. You can now login", ToasterStyles);
+            setShow(false)
+        }
+        
+    }
+
+
+
     return (
         <ReactModal 
             ariaHideApp={false}
@@ -53,29 +147,7 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
 
                     <form 
                         id="signup-form"
-                        onSubmit={ async (e) => {
-                            e.preventDefault()
-                            
-                            var result = true;
-                            
-                            const response = await register(userSignUpData)
-                            const { data } = response
-
-                            if (response.status !== 200) {
-                                // if (data?.messages) {
-                                //     toast.error(`Registration unsuccessful: ${data.messages.join(", ")}`, ToasterStyles);
-                                // }
-
-                                console.log("bruh, we got some to do")
-
-                                result =  false;
-                            } 
-
-                            if (result) {
-                                toast.success("user" + userSignUpData.email + " has been created. You can now login", ToasterStyles);
-                                setShow(false)
-                            }
-                        }}
+                        onSubmit={ handleSubmit }
                         noValidate>
 
                         <div className="d-flex flex-column">
@@ -92,9 +164,11 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                                     value={userSignUpData.email} 
                                     onChange={handleChange} 
                                 />
-                                <div className="invalid-feedback">
-                                    Please choose a username.
-                                </div>
+                                { fieldErrs.email && (
+                                    <div className="invalid-prompt">
+                                        { fieldErrs.email }
+                                    </div>
+                                )}
                             </div>
                             <div className="form-group">
                                 <label htmlFor="first_name">First name:</label>
@@ -107,9 +181,14 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                                     onChange={handleChange} 
                                     
                                 />
+                                { fieldErrs.first_name && (
+                                    <div className="invalid-prompt">
+                                        { fieldErrs.first_name }
+                                    </div>
+                                )}
                             </div>
                             <div className="form-group">
-                                <label htmlFor="email">Last name:</label>
+                                <label htmlFor="last_name">Last name:</label>
                                 <input 
                                     className="loginbox-form-control form-control"
                                     name="last_name" 
@@ -119,6 +198,11 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                                     onChange={handleChange} 
                                         
                                 />
+                                { fieldErrs.last_name && (
+                                    <div className="invalid-prompt">
+                                        { fieldErrs.last_name }
+                                    </div>
+                                )}
                             </div>
                             <div className="form-group">
                                 <label htmlFor="password">Password:</label>
@@ -131,6 +215,11 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                                     onChange={handleChange} 
                                         
                                 />
+                                { fieldErrs.password && (
+                                    <div className="invalid-prompt">
+                                        { fieldErrs.password }
+                                    </div>
+                                )}
                             </div>
 
                             <div className="form-group">
@@ -144,6 +233,11 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                                     onChange={handleChange} 
                                         
                                 />
+                                { fieldErrs.password_confirmation && (
+                                    <div className="invalid-prompt">
+                                        { fieldErrs.password_confirmation }
+                                    </div>
+                                )}
                             </div>
 
                             <div className="d-grid">

@@ -31,12 +31,9 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
             
         })
     }
+    
 
-    const getBlankError = (): FieldErrorType => {
-        return {email: null, password: null};
-    }
     const [fieldErrs, setFieldErrs] = useState<FieldErrorType>(blankError)
-
 
     useEffect(() => {
         // If modal closed, reset errors
@@ -52,7 +49,6 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
         var valid = true;
         
         if (userLoginData.user.email.length <= 0) {
-            console.log("ok my man")
             valid = false;
             newErrs = {...newErrs, email: "Email address field cannot be empty"}
         }
@@ -113,9 +109,11 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
                                     onChange={ handleChange } 
                                         
                                 />
-                                <div className="invalid-prompt" style={{display: fieldErrs.email ? "block" : "none"}}>
-                                    { fieldErrs.email }
-                                </div>
+                                { fieldErrs.email && (
+                                    <div className="invalid-prompt">
+                                        { fieldErrs.email }
+                                    </div>
+                                )}
                             </div>
 
                             <div className="form-group">
@@ -129,9 +127,11 @@ const LoginBoxModal = (props: LoginBoxModalProps) => {
                                     onChange={handleChange} 
                                         
                                 />
-                                <div className="invalid-prompt" style={{display: fieldErrs.password ? "block" : "none"}}>
-                                    { fieldErrs.password }
-                                </div>
+                                { fieldErrs.email && (
+                                    <div className="invalid-prompt">
+                                        { fieldErrs.password }
+                                    </div>
+                                )}
                             </div>
 
                             <div className="d-grid submit-btn-wrapper">

@@ -33,6 +33,7 @@ export function handleAxiosErrors (error: any) {
     const to_return = {
         status: error?.response?.status,
         data: {
+            ...error?.response?.data,
             messages: msgs
         }
     }
