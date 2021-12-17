@@ -65,7 +65,6 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
                                                 </div>
 
                                                 <div className="poi-count-container">
-                                                    {() => console.log(route.poi_count)}
                                                     { route.poi_count !== undefined && (
                                                         poi_count_build_tsx(route.poi_count)
                                                     )}
