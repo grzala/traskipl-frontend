@@ -27,7 +27,7 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
                     count = poi_count[variant as POIVariant]
                 toReturn.push(
                     <Fragment key={total_iterations}>
-                        <img  className="map-icon" alt="map-icon" src={ mapIconCirclesUrls[variant] } />&thinsp;{ count }&nbsp;
+                        <img title={`${variant.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase()})}`} className="map-icon" alt="map-icon" src={ mapIconCirclesUrls[variant] } />&thinsp;{ count }&nbsp;
                         { count < 10 ? <Fragment>&nbsp;&nbsp;</Fragment> : "" }
                     </Fragment>
                 )
