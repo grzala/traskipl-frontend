@@ -27,7 +27,7 @@ const MotoRouteAuthor = (props: MotoRouteAuthorProps) => {
                             <Fragment>
                                 {/* TODO: make this a link to authors page */}
                                 { author ? (
-                                    <div className="row">
+                                    <div className="d-flex flex-row">
                                         <div className="profile-pic-col">
                                             <div className="profile-pic-wrapper">
                                                 <ProfilePicture 
@@ -35,7 +35,7 @@ const MotoRouteAuthor = (props: MotoRouteAuthorProps) => {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="col-5 author-info">
+                                        <div className="flex-grow ms-1">
                                             <h1>{ author.full_name }</h1>
                                             <p>Joined: { moment(author.created_at,).format('MMMM YYYY')}</p>
                                             <p>Routes added: {author.total_routes_added}</p>

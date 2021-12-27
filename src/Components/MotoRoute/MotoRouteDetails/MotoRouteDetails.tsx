@@ -126,13 +126,13 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                                         
                                 </a>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <a className="nav-link"
                                     title="Report"
                                     href="/#">
                                     <FlagFill />
                                 </a>
-                            </li>
+                            </li> */}
                         </ul>
                     </ul>
                 </div>
