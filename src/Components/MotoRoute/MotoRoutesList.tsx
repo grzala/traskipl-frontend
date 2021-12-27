@@ -27,7 +27,14 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
                     count = poi_count[variant as POIVariant]
                 toReturn.push(
                     <Fragment key={total_iterations}>
-                        <img title={`${variant.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase()})}`} className="map-icon" alt="map-icon" src={ mapIconCirclesUrls[variant] } />&thinsp;{ count }&nbsp;
+                        {/* Capitalised enum as icon tooltip */}
+                        <img title={`${variant.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase()})}`} 
+                            className="map-icon" 
+                            alt="map-icon" 
+                            src={ mapIconCirclesUrls[variant] } 
+                            />
+                            &thinsp;{ count }&nbsp;
+                        {/* Add spaces if number is one digit */}
                         { count < 10 ? <Fragment>&nbsp;&nbsp;</Fragment> : "" }
                     </Fragment>
                 )
