@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import MotoRouteCreatorMap from "src/Components/MotoRoute/Creator/MotoRouteCreatorMap";
-import MotoRouteDetailsEditor from "src/Components/MotoRoute/Creator/MotoRouteDetailsEditor";
+import MotoRouteCreatorMap from "../Components/MotoRoute/Creator/MotoRouteCreatorMap";
+import MotoRouteDetailsEditor from "../Components/MotoRoute/Creator/MotoRouteDetailsEditor";
 
 const MotoRouteCreator = () => {
     return (

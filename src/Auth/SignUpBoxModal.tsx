@@ -4,7 +4,7 @@ import ReactModal from "react-modal";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import ToasterStyles from '../ToasterStyles/ToasterStyles'
-import { register } from "src/Actions/AuthActions";
+import { register } from "../Actions/AuthActions";
 import { UserSignupType } from "../Types/UserTypes";
 
 import './UserBox.scss'

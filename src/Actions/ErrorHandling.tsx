@@ -1,8 +1,8 @@
 
 export function handleAxiosErrors (error: any) {
-    console.log(`Error ${error?.response?.status} while connecting to API with AXIOS`)
-    console.log(error?.response)
-    console.log(error?.message)
+    // console.log(`Error ${error?.response?.status} while connecting to API with AXIOS`)
+    // console.log(error?.response)
+    // console.log(error?.message)
 
     var msgs = []
 
