@@ -21,12 +21,11 @@
     "jsx": "react-jsx",
 
     "baseUrl": "./",
-    "types": ["@types/jest"],
+    "types": ["jest", "node", "@types/jest"],
     "typeRoots": [ "src/@custom_types/*"]
   },
   "include": [
     "src",
     "src/Tests"
-  ],
-  "exclude": [ "node_modules", "src/@custom_types", "**/Tests/*.test.tsx"]
+  ]
 }
