@@ -11,3 +11,21 @@
         margin-bottom: 0.4em !important;
     }
 }
+
+.moto-route-editor-waypoints {
+
+
+    .description-container {
+        width: 100%;
+
+        .waypoint-title {
+            width: 100%;
+
+            .remove-waypoint {
+                float: right;
+                color: red;
+                cursor: pointer;
+            }
+        }
+    }
+}

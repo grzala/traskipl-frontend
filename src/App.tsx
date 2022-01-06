@@ -16,7 +16,7 @@ import ToasterStyles from "./ToasterStyles/ToasterStyles"
 import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
-import MotoRouteCreator from './Pages/MotoRouteCreator';
+import MotoRouteCreator from './Pages/MotoRouteEditor';
 axios.defaults.withCredentials = true;
 
 function App() {

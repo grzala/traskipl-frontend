@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
 
-import "./MotoRouteCardDetails.scss"
+import "./MotoRouteDetailsCard.scss"
 
 type MotoRouteDetailsCardProps = {
     route: MotoRouteType;
