@@ -81,6 +81,7 @@ const selectNoBorderStyles = {
 }
 
 const MAX_DESCRIPTION_LENGTH = 400;
+const DEFAULT_DESCRIPTION_ROWS = 4;
 
 const MotoRouteEditorDetails = () => {
 
@@ -189,6 +190,7 @@ const MotoRouteEditorDetails = () => {
                         value={ motoRouteDetailsData.description } 
                         onChange={ handleChange } 
                         maxLength={ MAX_DESCRIPTION_LENGTH }
+                        rows={ DEFAULT_DESCRIPTION_ROWS }
                     />
                     <small>Characters left: {descriptionCharactersLeft}</small>
                 </div>
