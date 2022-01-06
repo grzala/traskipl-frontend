@@ -49,6 +49,11 @@ const initialData: MotoRouteDetailsDataType = {
     date_closed: null,
 }
 
+type dateSelectFieldType = {
+    month: {value: number, label: string},
+    day: {value: number, label: string}
+}
+
 const MAX_DESCRIPTION_LENGTH = 400;
 
 const MotoRouteEditorDetails = () => {
@@ -121,20 +126,18 @@ const MotoRouteEditorDetails = () => {
         ))
     }
 
-    const [openFrom, setOpenFrom] = useState<{
-            month: {value: number, label: string},
-            day: {value: number, label: string}
-        }>({month: allMonths[0], day: {value: 1, label: "1"}})
+    const [openFrom, setOpenFrom] = useState<dateSelectFieldType>({month: allMonths[0], day: {value: 1, label: "1"}})
+    const [openTo, setOpenTo] = useState<dateSelectFieldType>({month: allMonths[0], day: {value: 1, label: "1"}})
 
-    const handleMonthChange = (newOption: any) => {
-        var newDay = openFrom.day
+    const handleMonthChange = (newOption: any, stateVar: dateSelectFieldType, changeStateVar: (arg: dateSelectFieldType) => void) => {
+        var newDay = stateVar.day
         var maxDay = getMaxDayInMonth(newOption.value)
 
         if (newDay.value > maxDay) {
             newDay = {value: maxDay, label: maxDay.toString()}
         }
 
-        setOpenFrom({day: newDay, month: newOption})
+        changeStateVar({day: newDay, month: newOption})
     }
 
     return (
@@ -179,25 +182,47 @@ const MotoRouteEditorDetails = () => {
                     </div>
 
                     { openAllYear && (
-                        <div className="input-group">
-                            <label className="input-group-text" htmlFor="date-open">Open from:</label>
-                            <Select
-                                className="form-control"
-                                value={ openFrom.day }
-                                options={ getDaysInMonth(openFrom.month.value) }
-                                styles={ selectNoBorderStyles }
-                                onChange={ (newOption: any) => 
-                                    setOpenFrom({...openFrom, day: newOption})}
-                            />
+                        <Fragment>
+                            <div className="input-group">
+                                <label className="input-group-text" htmlFor="date-open">Open from:</label>
+                                <Select
+                                    className="form-control"
+                                    value={ openFrom.day }
+                                    options={ getDaysInMonth(openFrom.month.value) }
+                                    styles={ selectNoBorderStyles }
+                                    onChange={ (newOption: any) => 
+                                        setOpenFrom({...openFrom, day: newOption})}
+                                />
 
-                            <Select
-                                className="form-control"
-                                value={ openFrom.month }
-                                options={ allMonths }
-                                styles={ selectNoBorderStyles }
-                                onChange={ handleMonthChange }
-                            />
-                        </div>
+                                <Select
+                                    className="form-control"
+                                    value={ openFrom.month }
+                                    options={ allMonths }
+                                    styles={ selectNoBorderStyles }
+                                    onChange={ (newOption) => handleMonthChange(newOption, openFrom, setOpenFrom) }
+                                />
+                            </div>
+
+                            <div className="input-group">
+                                <label className="input-group-text" htmlFor="date-open">Open to:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <Select
+                                    className="form-control"
+                                    value={ openTo.day }
+                                    options={ getDaysInMonth(openTo.month.value) }
+                                    styles={ selectNoBorderStyles }
+                                    onChange={ (newOption: any) => 
+                                        setOpenTo({...openTo, day: newOption})}
+                                />
+
+                                <Select
+                                    className="form-control"
+                                    value={ openTo.month }
+                                    options={ allMonths }
+                                    styles={ selectNoBorderStyles }
+                                    onChange={ (newOption) => handleMonthChange(newOption, openTo, setOpenTo) }
+                                />
+                            </div>
+                        </Fragment>
                     )}
                 </div>
             </div>
