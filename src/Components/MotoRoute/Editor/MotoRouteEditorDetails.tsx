@@ -19,6 +19,24 @@ import { BorderWidth } from "react-bootstrap-icons";
 // t.integer "time_to_complete_m"
 // t.integer "difficulty"
 
+
+const range = (from: number, to: number, step: number = 1) => {
+    if (step == 0) {
+        throw new Error("Step cannot be 0")
+    }
+
+    if (from === to || (from < to && step < 0) || (from > to && step > 0)) {
+        return []
+    }
+
+    let result: number[] = []
+    for (let i = from; i < to; i += step) {
+        result.push(i)
+    }
+
+    return result;
+}
+
 type FieldErrorType = {
     name: string | null, 
     description: string | null,
@@ -54,6 +72,14 @@ type dateSelectFieldType = {
     day: {value: number, label: string}
 }
 
+const selectNoBorderStyles = {
+    control: (styles: any, state: any) => ({ 
+        ...styles, 
+        border: 'none',
+        boxShadow: 'none' // disable blue outline on focus
+    }),
+}
+
 const MAX_DESCRIPTION_LENGTH = 400;
 
 const MotoRouteEditorDetails = () => {
@@ -75,27 +101,10 @@ const MotoRouteEditorDetails = () => {
 
 
 
-    const dateSelectionRange = {
-        startDate: new Date(),
-        endDate: new Date(),
-        key: 'selection',
-    }
 
-    const handleSelectDates = (ranges: DateRangePickerProps) => {
-        console.log(ranges);
-    }
+    // ================== Date start and end date ===============================
 
-
-    // Date start and date and
-    const selectNoBorderStyles = {
-        control: (styles: any, state: any) => ({ 
-            ...styles, 
-            border: 'none',
-            boxShadow: 'none' // disable blue outline on focus
-        }),
-    }
-
-    const [openAllYear, setOpenAllYear] = useState<boolean>(true)
+    const [openAllYear, setOpenAllYear] = useState<boolean>(false)
 
     const allMonths = moment.months().map((month, index) => (
         {
@@ -140,11 +149,24 @@ const MotoRouteEditorDetails = () => {
         changeStateVar({day: newDay, month: newOption})
     }
 
+    // =======================================================================================
+
+
+    const [difficulty, setDifficulty] = useState<number>(1)
+    const [timeToComplete_h, setTimeToComplete_h] = useState<number>(0)
+    const [timeToComplete_m, setTimeToComplete_m] = useState<number>(10)
+
+    const MAX_DIFFICULTY = 10
+    const MAX_HOURS_TO_COMPLETE = 23
+    const MAX_MINUTES_TO_COMPLETE = 60
+    
+
     return (
         <Fragment>
             <div className="moto-route-editor-details-container">
                 <h3>Route Details</h3>
 
+                {/* name */}
                 <div className="form-group">
                     <label htmlFor="name">Name:</label>
                     <input 
@@ -157,6 +179,7 @@ const MotoRouteEditorDetails = () => {
                     />
                 </div>
 
+                {/* description*/}
                 <div className="form-group">
                     <label htmlFor="name">Description:</label>
                     <textarea 
@@ -170,8 +193,8 @@ const MotoRouteEditorDetails = () => {
                     <small>Characters left: {descriptionCharactersLeft}</small>
                 </div>
 
+                {/* date open / closed */}
                 <div className="time-data-container">
-
                     <div className="open-all-year-container input-group">
                         <input 
                             type="checkbox" 
@@ -187,18 +210,18 @@ const MotoRouteEditorDetails = () => {
                                 <label className="input-group-text" htmlFor="date-open">Open from:</label>
                                 <Select
                                     className="form-control"
+                                    styles={ selectNoBorderStyles }
                                     value={ openFrom.day }
                                     options={ getDaysInMonth(openFrom.month.value) }
-                                    styles={ selectNoBorderStyles }
                                     onChange={ (newOption: any) => 
                                         setOpenFrom({...openFrom, day: newOption})}
                                 />
 
                                 <Select
                                     className="form-control"
+                                    styles={ selectNoBorderStyles }
                                     value={ openFrom.month }
                                     options={ allMonths }
-                                    styles={ selectNoBorderStyles }
                                     onChange={ (newOption) => handleMonthChange(newOption, openFrom, setOpenFrom) }
                                 />
                             </div>
@@ -207,27 +230,67 @@ const MotoRouteEditorDetails = () => {
                                 <label className="input-group-text" htmlFor="date-open">Open to:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                                 <Select
                                     className="form-control"
+                                    styles={ selectNoBorderStyles }
                                     value={ openTo.day }
                                     options={ getDaysInMonth(openTo.month.value) }
-                                    styles={ selectNoBorderStyles }
                                     onChange={ (newOption: any) => 
                                         setOpenTo({...openTo, day: newOption})}
                                 />
 
                                 <Select
                                     className="form-control"
+                                    styles={ selectNoBorderStyles }
                                     value={ openTo.month }
                                     options={ allMonths }
-                                    styles={ selectNoBorderStyles }
                                     onChange={ (newOption) => handleMonthChange(newOption, openTo, setOpenTo) }
                                 />
                             </div>
                         </Fragment>
                     )}
                 </div>
+
+                {/* difficulty */}
+                <div className="input-group">
+                    <label className="input-group-text" htmlFor="date-open">Difficulty:&nbsp;&nbsp;&nbsp;</label>
+                    <Select
+                        className="form-control"
+                        styles={ selectNoBorderStyles }
+                        value={ {value: difficulty, label: difficulty.toString() }  }
+                        options={ range(1, MAX_DIFFICULTY+1).map((i) => ({value: i, label: (i).toString()})) }
+                        onChange={ (newOption: any) => 
+                            setDifficulty(newOption.value)}
+                    />
+                    <label className="input-group-text" >out of 10</label>
+                </div>
+
+                {/* time to complete */}
+                <div className="input-group">
+                    <label className="input-group-text" htmlFor="date-open">Time to complete:</label>
+                    <Select
+                        components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
+                        className="form-control"
+                        styles={ selectNoBorderStyles }
+                        value={ {value: timeToComplete_h, label: timeToComplete_h.toString() }  }
+                        options={ range(0, MAX_HOURS_TO_COMPLETE+1).map((i) => ({value: i, label: (i).toString()})) }
+                        onChange={ (newOption: any) => 
+                            setTimeToComplete_h(newOption.value)}
+                    />
+                    <label className="input-group-text" >hours</label>
+
+                    <Select
+                        components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
+                        className="form-control"
+                        styles={ selectNoBorderStyles }
+                        value={ {value: timeToComplete_m, label: timeToComplete_m.toString() }  }
+                        options={ range(0, MAX_MINUTES_TO_COMPLETE+1, 10).map((i) => ({value: i, label: (i).toString()})) }
+                        onChange={ (newOption: any) => 
+                            setTimeToComplete_m(newOption.value)}
+                    />
+                    <label className="input-group-text" >minutes</label>
+                </div>
+
+
             </div>
-
-
         </Fragment>
     )
 }
