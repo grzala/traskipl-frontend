@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { GeoAltFill, InfoCircleFill, MapFill } from "react-bootstrap-icons";
 import { NavLink, Route, Routes, useMatch } from "react-router-dom";
+import MotoRouteEditorDetails from "./MotoRouteEditorDetails";
 
 const MotoRouteDetailsEditor = () => {
 
@@ -38,7 +39,7 @@ const MotoRouteDetailsEditor = () => {
 
                     <div className="details-content">
                     <Routes>
-                        <Route path="/details" element={<h1>details</h1>} />
+                        <Route path="/details" element={<MotoRouteEditorDetails />} />
                         <Route path="/route" element={
                             <h1>pois</h1>
                         } />
