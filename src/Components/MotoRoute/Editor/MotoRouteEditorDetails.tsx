@@ -7,11 +7,12 @@ import MotoRouteEditorRouteTab from "./MotoRouteEditorRouteTab";
 
 type MotoRouteDetailsEditorProps = {
     route: {lat: number, lng: number}[];
+    setRoute: (_: {lat: number, lng: number}[]) => void;
     removeWaypoint: (index: number) => void;
 }
 
 const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
-    const { route, removeWaypoint } = props
+    const { route, setRoute, removeWaypoint } = props
 
 
     const urlMatch = useMatch('/routes/:id/*')
@@ -48,7 +49,7 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
                     <div className="details-content">
                     <Routes>
                         <Route path="/details" element={<MotoRouteEditorDetailsTab />} />
-                        <Route path="/route" element={<MotoRouteEditorRouteTab route={route} removeWaypoint={ removeWaypoint } />} />
+                        <Route path="/route" element={<MotoRouteEditorRouteTab route={route} setRoute={setRoute} removeWaypoint={ removeWaypoint } />} />
                         <Route path="/poi" element={<h1>pois</h1>} />
                     </Routes>
                 </div> 

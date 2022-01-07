@@ -10,7 +10,13 @@ const MotoRouteCreator = () => {
         var lat = e.latLng.lat()
         var lng = e.latLng.lng()
 
-        setRoute([...route, {lat: lat, lng: lng}])
+        // Prevent adding two waypoints in same place. This isn't really possible if done manually
+        let newWaypoint = {lat: lat, lng: lng}
+        if (!route.includes(newWaypoint)) {
+            setRoute([...route, newWaypoint])
+        } else {
+            console.log("Cannot add two waypoints in the same location")
+        }
     }
 
     const removeWaypoint = (index: number) => {
@@ -37,8 +43,8 @@ const MotoRouteCreator = () => {
 
                 <div className="col-md-4 moto-route-details-container">
                     <MotoRouteDetailsEditor 
-                    
                         route={ route }
+                        setRoute={ setRoute }
                         removeWaypoint={ removeWaypoint }
                     />
                 </div>

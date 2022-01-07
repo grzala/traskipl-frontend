@@ -15,6 +15,7 @@ export interface CardProps {
   moveCard: (id: string, to: number) => void
   findCard: (id: string) => { index: number }
   removeWaypoint: (id: number) => void;
+  waypoint: {lat: number, lng: number}
 }
 
 interface Item {
@@ -32,7 +33,8 @@ export const MotoRouteEditorWaypointDraggable: FC<CardProps> = memo(function Car
   index,
   moveCard,
   findCard,
-  removeWaypoint
+  removeWaypoint,
+  waypoint
 }) {
   const originalIndex = findCard(id).index
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -78,11 +80,10 @@ export const MotoRouteEditorWaypointDraggable: FC<CardProps> = memo(function Car
                   </h5>
               </div>
               <div className="description-collapsible">
-                  {/* <p>Latitude: {waypoint.lat.toFixed(2)} Longitude: {waypoint.lng.toFixed(2)}</p> */}
+                  <p>Latitude: {waypoint.lat.toFixed(2)} Longitude: {waypoint.lng.toFixed(2)}</p>
               </div>
           </div>
       </div>
-      <span className="noselect">{id}asdasd</span>
     </div>
   )
 })
