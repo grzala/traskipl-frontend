@@ -1,4 +1,5 @@
 import { CSSProperties, FC, memo } from 'react'
+import { TrashFill } from 'react-bootstrap-icons'
 import { useDrag, useDrop } from 'react-dnd'
   
 
@@ -9,9 +10,11 @@ const style: CSSProperties = {
 
 export interface CardProps {
   id: string
+  index: number
   title: string
   moveCard: (id: string, to: number) => void
   findCard: (id: string) => { index: number }
+  removeWaypoint: (id: number) => void;
 }
 
 interface Item {
@@ -19,11 +22,17 @@ interface Item {
   originalIndex: number
 }
 
+export const getWaypointDraggableId = (waypoint: {lat: number, lng: number}): string => {
+  return waypoint.lat.toString() + ";" + waypoint.lng.toString()
+}
+
 export const MotoRouteEditorWaypointDraggable: FC<CardProps> = memo(function Card({
   id,
   title,
+  index,
   moveCard,
   findCard,
+  removeWaypoint
 }) {
   const originalIndex = findCard(id).index
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -64,17 +73,8 @@ export const MotoRouteEditorWaypointDraggable: FC<CardProps> = memo(function Car
 
               <div className="d-flex w-100 justify-content-between">
                   <h5 className="waypoint-title">
-                      {/* { index === 0 && (
-                          <span>Start of the route</span>
-                      )}
-                      { index === route.length-1 && route.length > 1 && (
-                          <span>End of the route</span>
-                      )}
-                      { index !== 0 && index !== route.length-1 && (
-                          <span>Waypoint {index}</span>
-                      )} */}
                       { title }
-                      {/* <span className="remove-waypoint" onClick={() => removeWaypoint(index)}><TrashFill /></span> */}
+                      <span className="remove-waypoint" onClick={() => removeWaypoint(index)}><TrashFill /></span>
                   </h5>
               </div>
               <div className="description-collapsible">

@@ -5,7 +5,7 @@ import update from 'immutability-helper'
 import { useDrop } from 'react-dnd'
 
 import "./MotoRouteEditor.scss"
-import { MotoRouteEditorWaypointDraggable } from "./MotoRouteEditorWaypointDraggable";
+import { MotoRouteEditorWaypointDraggable, getWaypointDraggableId } from "./MotoRouteEditorWaypointDraggable";
 
 type MotoRouteEditorRouteTabProps = {
     route: {lat: number, lng: number}[];
@@ -13,31 +13,38 @@ type MotoRouteEditorRouteTabProps = {
 }
 const ITEMS = [
     {
-      id: 1,
+      lat: 10,
+      lng: 30,
       text: 'Write a cool JS library',
     },
     {
-      id: 2,
+      lat: 20,
+      lng: 30,
       text: 'Make it generic enough',
     },
     {
-      id: 3,
-      text: 'Write README',
+      lat: 40,
+      lng: 50,
+      text:'Write README',
     },
     {
-      id: 4,
+      lat: 50,
+      lng: 60,
       text: 'Create some examples',
     },
     {
-      id: 5,
+      lat: 60,
+      lng: 70,
       text: 'Spam in Twitter and IRC to promote it',
     },
     {
-      id: 6,
+      lat: 70,
+      lng: 80,
       text: '???',
     },
     {
-      id: 7,
+      lat: 90,
+      lng: 100,
       text: 'PROFIT',
     },
   ]
@@ -49,7 +56,7 @@ const MotoRouteEditorRouteTab = (props: MotoRouteEditorRouteTabProps) => {
     const [cards, setCards] = useState(ITEMS)
 
     const findCard = useCallback((id: string) => {
-      const card = cards.filter((c) => `${c.id}` === id)[0]
+      const card = cards.filter((c) => `${getWaypointDraggableId(c)}` === id)[0]
       return {
       card,
       index: cards.indexOf(card),
@@ -93,46 +100,15 @@ const MotoRouteEditorRouteTab = (props: MotoRouteEditorRouteTabProps) => {
 
                     {cards.map((card, index) => (
                         <MotoRouteEditorWaypointDraggable
-                            key={card.id}
-                            id={`${card.id}`}
+                            key={getWaypointDraggableId(card)}
+                            id={getWaypointDraggableId(card)}
+                            index={index}
                             title={generateCardTitle(index)}
                             moveCard={moveCard}
                             findCard={findCard}
+                            removeWaypoint={removeWaypoint}
                         />
                     ))}
-                    {/* {route.map((waypoint, index) => (
-                        <div
-                            {(node: any) => drag(drop(node))} // For drag and drop
-                            key={`waypoint_${index}`}
-                            id={`waypoint_${index}`}
-                            className={`list-group-item flex-column align-items-start`}
-                            >
-
-                            <div className="d-flex flex-row">
-                                <div className="description-container d-flex flex-column">
-
-                                    <div className="d-flex w-100 justify-content-between">
-                                        <h5 className="waypoint-title">
-                                            { index === 0 && (
-                                                <span>Start of the route</span>
-                                            )}
-                                            { index === route.length-1 && route.length > 1 && (
-                                                <span>End of the route</span>
-                                            )}
-                                            { index !== 0 && index !== route.length-1 && (
-                                                <span>Waypoint {index}</span>
-                                            )}
-
-                                            <span className="remove-waypoint" onClick={() => removeWaypoint(index)}><TrashFill /></span>
-                                        </h5>
-                                    </div>
-                                    <div className="description-collapsible">
-                                        <p>Latitude: {waypoint.lat.toFixed(2)} Longitude: {waypoint.lng.toFixed(2)}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ))} */}
                 </Fragment>
             )}
         </div>
