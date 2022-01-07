@@ -54,7 +54,7 @@ const MotoRouteEditorRouteTab = (props: MotoRouteEditorRouteTabProps) => {
             <h2>Route waypoints</h2>
 
             { route.length < 1 && (
-                <h4>Click on the map to route waypoints and create the route</h4>
+                <h4>Click on the map to add route waypoints and create the route</h4>
             )}
 
             { route.length >= 1 && (

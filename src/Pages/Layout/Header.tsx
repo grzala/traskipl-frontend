@@ -29,7 +29,7 @@ const Header = () => {
                                             <a className="nav-link active" href="/#">Home</a>
                                         </li>
                                         <li className="nav-item">
-                                            <a className="nav-link" href="/routes/creator/details">Creator</a>
+                                            <a className="nav-link" href="/routes/editor/details">Editor</a>
                                         </li>
                                         <li className="nav-item">
                                             <a className="nav-link disabled" href="/#">Messages</a>

@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { GeoAltFill, InfoCircleFill, MapFill } from "react-bootstrap-icons";
 import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 import MotoRouteEditorDetailsTab from "./MotoRouteEditorDetailsTab";
+import MotoRouteEditorPOITab from "./MotoRouteEditorPOITab";
 import MotoRouteEditorRouteTab from "./MotoRouteEditorRouteTab";
 
 
@@ -50,7 +51,7 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
                     <Routes>
                         <Route path="/details" element={<MotoRouteEditorDetailsTab />} />
                         <Route path="/route" element={<MotoRouteEditorRouteTab route={route} setRoute={setRoute} removeWaypoint={ removeWaypoint } />} />
-                        <Route path="/poi" element={<h1>pois</h1>} />
+                        <Route path="/poi" element={<MotoRouteEditorPOITab />} />
                     </Routes>
                 </div> 
                 </div>

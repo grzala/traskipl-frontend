@@ -1,10 +1,15 @@
 import React, { Fragment, useState } from "react";
-import MotoRouteCreatorMap from "../Components/MotoRoute/Editor/MotoRouteEditorMap";
+import MotoRouteEditorMap from "../Components/MotoRoute/Editor/MotoRouteEditorMap";
 import MotoRouteDetailsEditor from "../Components/MotoRoute/Editor/MotoRouteEditorDetails";
+import { useMatch } from "react-router-dom";
 
-const MotoRouteCreator = () => {
+const MotoRouteEditor = () => {
 
     const [route, setRoute] = useState<{lat: number, lng: number}[]>([])
+
+
+    const urlMatch = useMatch('/routes/editor/:')
+    console.log(urlMatch['*'])
 
     const handleMapClick = (e: any) => {
         var lat = e.latLng.lat()
@@ -34,7 +39,7 @@ const MotoRouteCreator = () => {
         <Fragment>
             <div className="row display-flex map-details-container">
                 <div className="col-md-8 moto-route-map-container">
-                    <MotoRouteCreatorMap
+                    <MotoRouteEditorMap
                         handleMapClick={ handleMapClick }
                         route={ route }
                     />
@@ -53,6 +58,6 @@ const MotoRouteCreator = () => {
     )
 }
 
-export default MotoRouteCreator;
+export default MotoRouteEditor;
 
 

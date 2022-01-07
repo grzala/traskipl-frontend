@@ -17,7 +17,7 @@ const DEFAULT_MAP_POSITION = {
 
 const DEFAULT_MAP_ZOOM = 7
 
-const MotoRouteCreatorMap = (props) => {
+const MotoRouteEditorMap = (props) => {
     const { handleMapClick, route } = props
 
     const [directionsResponse, setDirectionsResponse] = useState(null)
@@ -102,4 +102,4 @@ const MotoRouteCreatorMap = (props) => {
     )
 }
 
-export default MotoRouteCreatorMap;
+export default MotoRouteEditorMap;
