@@ -6,8 +6,8 @@ import Homepage from './Pages/Homepage';
 import MotoRoutePage from './Pages/MotoRoutePage';
 import Header from './Pages/Layout/Header';
 import { userContext } from './Contexts/UserContext';
-import { UserSignupType, UserType } from './Types/UserTypes';
-import { login, checkLoggedIn as checkedLoggedInAction, logout, register } from './Actions/AuthActions';
+import { UserType } from './Types/UserTypes';
+import { login, checkLoggedIn as checkedLoggedInAction, logout } from './Actions/AuthActions';
 
 import './App.scss';
 

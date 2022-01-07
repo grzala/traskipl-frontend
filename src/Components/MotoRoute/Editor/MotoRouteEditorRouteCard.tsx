@@ -2,9 +2,7 @@ import React, { Fragment, useCallback, useState } from "react"
 import { TrashFill } from "react-bootstrap-icons";
 import update from 'immutability-helper'
 
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { useDrag, useDrop } from 'react-dnd'
+import { useDrop } from 'react-dnd'
 
 import "./MotoRouteEditor.scss"
 import { Card } from "./Card";

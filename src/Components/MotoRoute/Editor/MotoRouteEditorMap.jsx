@@ -9,8 +9,6 @@ const mapContainerStyle = {
     height: '100%'
 };
 
-const defaultZoom = 6;
-
 // Default map vals
 const DEFAULT_MAP_POSITION = {
     lat: 52.0,
@@ -22,10 +20,7 @@ const DEFAULT_MAP_ZOOM = 7
 const MotoRouteCreatorMap = (props) => {
     const { handleMapClick, route } = props
 
-    const [mapPos, setMapPos] = useState(DEFAULT_MAP_POSITION)
-    const [mapZoom, setMapZoom] = useState(DEFAULT_MAP_ZOOM)
-
-    const [directionsResponse, setDirectionsResponse] = React.useState(null)
+    const [directionsResponse, setDirectionsResponse] = useState(null)
 
     // Re-get directions when route changes
     useEffect(() =>{
@@ -70,12 +65,12 @@ const MotoRouteCreatorMap = (props) => {
             googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} >
                 <GoogleMap
                     mapContainerStyle={ mapContainerStyle }
-                    center={ mapPos }
-                    zoom={ mapZoom }
+                    center={ DEFAULT_MAP_POSITION }
+                    zoom={ DEFAULT_MAP_ZOOM }
                     onClick={ handleMapClick }
                     >
 
-                    { route.length == 1 && (
+                    { route.length === 1 && (
                         <Marker 
                             position={ route[0] } 
                             />

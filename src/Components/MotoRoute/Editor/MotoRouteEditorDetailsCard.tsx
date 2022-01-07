@@ -1,15 +1,13 @@
-import React, { Fragment, useCallback, useMemo, useState } from "react"
+import React, { Fragment, useMemo, useState } from "react"
 
 // Datepicker Range
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-import { DateRangePicker,DateRangePickerProps } from 'react-date-range';
 
 import moment from "moment";
 import Select from 'react-select';
 
 import "./MotoRouteEditor.scss"
-import { BorderWidth } from "react-bootstrap-icons";
 
 // t.string "name"
 // t.string "description"
@@ -21,7 +19,7 @@ import { BorderWidth } from "react-bootstrap-icons";
 
 
 const range = (from: number, to: number, step: number = 1) => {
-    if (step == 0) {
+    if (step === 0) {
         throw new Error("Step cannot be 0")
     }
 

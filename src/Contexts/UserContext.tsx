@@ -1,5 +1,5 @@
 import React from 'react';
-import { userContextType, UserSignupType } from '../Types/UserTypes';
+import { userContextType } from '../Types/UserTypes';
 
 
 const userContext = React.createContext<userContextType>({
