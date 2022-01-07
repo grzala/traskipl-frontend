@@ -109,8 +109,8 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
         onMouseEnter={() => onPOIHover(true, poi)} 
         onMouseLeave={() => onPOIHover(false, poi)} 
         onClick={ onClick }
+        id={ id }
         >
-
 
 
         <div className="d-flex flex-row">

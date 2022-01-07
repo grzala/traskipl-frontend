@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback } from "react";
+import React, { Fragment, useCallback, useEffect } from "react";
 import { MotoRouteType, POIType } from "../../../Types/MotoRoutesTypes";
 import { mapIconCirclesUrls } from "../../MapConstants";
 
@@ -15,14 +15,25 @@ type MotoRoutePOITabProps = {
 const MotoRoutePOITab = (props: MotoRoutePOITabProps) => {
     const { route, onPOIHover, onPOISelect, selectedPOI} = props;
 
+    useEffect(() => {
+        // When selecting POI scroll so that it is visible
+        let poiHTMLElem = document.getElementById(`poi_${selectedPOI?.id}`)
+
+        if (poiHTMLElem) {
+            document.getElementById(`poi-list`)?.scroll({
+                top: poiHTMLElem.offsetTop - 10,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
+    }, [selectedPOI])
+
     const onClickListItem = (e: any, newPoi: POIType) => {
         e.preventDefault();
         
         // when changing selected POI, make sure the scroll is reset on previously chosen element
         if (selectedPOI) {
             var element = document.getElementById(`poi_${selectedPOI.id}`)
-            console.log("element");
-            console.log(element);
             document.getElementById(`poi_${selectedPOI.id}`)?.scroll(0, 0);
         }
         onPOISelect(newPoi)

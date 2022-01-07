@@ -10,13 +10,17 @@
         padding-bottom: 10px;
 
         color: black;
-        overflow-y: visible;
+        overflow: hidden !important;
 
         transition: max-height 0.5s linear;
+        max-height: 20em;
+        &-collapsed {
+            max-height: 6.5em;
+        }
 
         &-selected {
             background-color: #F8F9FA;
-            overflow-y: visible !important;
+            overflow-y: scroll !important;
         }
 
 

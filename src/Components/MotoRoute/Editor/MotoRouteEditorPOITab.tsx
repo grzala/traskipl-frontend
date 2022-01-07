@@ -20,7 +20,7 @@ const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
     const { pois, setPois, selectedPOI, onPOISelect, onPOIHover } = props
 
     const findCard = useCallback((id: string) => {
-      const card = pois.filter((c) => `${c.id}` === id)[0]
+      const card = pois.filter((c) => `poi_${c.id}` === id)[0]
       return {
       card,
       index: pois.indexOf(card),
@@ -41,8 +41,19 @@ const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
     const [, drop] = useDrop(() => ({ accept: 'card' }))
 
     useEffect(() => {
+      // When selecting POI scroll so that it is visible
+      let poiHTMLElem = document.getElementById(`poi_${selectedPOI?.id}`)
+      console.log(document.getElementById(`poi-list`))
+      console.log(poiHTMLElem)
 
-    }, [selectedPOI])
+      if (poiHTMLElem) {
+          document.getElementById(`poi-list`)?.scroll({
+              top: poiHTMLElem.offsetTop - 10,
+              left: 0,
+              behavior: 'smooth'
+          });
+      }
+  }, [selectedPOI])
 
     return (
         <div ref={drop} className="moto-route-editor-poi-list">
@@ -59,7 +70,7 @@ const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
                     {pois.map((poi, index) => (
                         <MotoRouteEditorPOIDraggable
                             key={ poi.id }
-                            id={ `${poi.id}` }
+                            id={ `poi_${poi.id}` }
                             poi={ poi }
                             isSelected={ selectedPOI?.id === poi.id }
                             moveCard={ moveCard }

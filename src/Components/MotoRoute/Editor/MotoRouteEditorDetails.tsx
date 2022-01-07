@@ -53,7 +53,7 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
                     </div>
 
 
-                    <div className="details-content">
+                    <div id="poi-list" className="details-content">
                     <Routes>
                         <Route path="/details" element={<MotoRouteEditorDetailsTab />} />
                         <Route path="/route" element={

@@ -137,7 +137,7 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                     </ul>
                 </div>
 
-                <div className="details-content">
+                <div id="poi-list" className="details-content">
                     { !isLoading && (
                         <Routes>
                             <Route path="/details" element={<MotoRouteDetailsTab route={route} poiMarkerFilter={poiMarkerFilter} poiMarkerFilterChange={poiMarkerFilterChange} />} />
