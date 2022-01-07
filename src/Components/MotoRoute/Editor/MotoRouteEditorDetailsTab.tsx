@@ -74,7 +74,7 @@ const selectNoBorderStyles = {
     control: (styles: any, state: any) => ({ 
         ...styles, 
         border: 'none',
-        boxShadow: 'none' // disable blue outline on focus
+        boxShadow: 'none', // disable blue outline on focus
     }),
 }
 
@@ -209,6 +209,7 @@ const MotoRouteEditorDetailsTab = () => {
                             <div className="input-group">
                                 <label className="input-group-text" htmlFor="date-open">Open from:</label>
                                 <Select
+                                    menuPlacement="top"
                                     className="form-control"
                                     styles={ selectNoBorderStyles }
                                     value={ openFrom.day }
@@ -218,6 +219,7 @@ const MotoRouteEditorDetailsTab = () => {
                                 />
 
                                 <Select
+                                    menuPlacement="top"
                                     className="form-control"
                                     styles={ selectNoBorderStyles }
                                     value={ openFrom.month }
@@ -229,6 +231,7 @@ const MotoRouteEditorDetailsTab = () => {
                             <div className="input-group">
                                 <label className="input-group-text" htmlFor="date-open">Open to:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                                 <Select
+                                    menuPlacement="top"
                                     className="form-control"
                                     styles={ selectNoBorderStyles }
                                     value={ openTo.day }
@@ -238,6 +241,7 @@ const MotoRouteEditorDetailsTab = () => {
                                 />
 
                                 <Select
+                                    menuPlacement="top"
                                     className="form-control"
                                     styles={ selectNoBorderStyles }
                                     value={ openTo.month }
@@ -253,6 +257,7 @@ const MotoRouteEditorDetailsTab = () => {
                 <div className="input-group">
                     <label className="input-group-text" htmlFor="date-open">Difficulty:&nbsp;&nbsp;&nbsp;</label>
                     <Select
+                        menuPlacement="top"
                         className="form-control"
                         styles={ selectNoBorderStyles }
                         value={ {value: difficulty, label: difficulty.toString() }  }
@@ -267,6 +272,7 @@ const MotoRouteEditorDetailsTab = () => {
                 <div className="input-group">
                     <label className="input-group-text" htmlFor="date-open">Time to complete:</label>
                     <Select
+                        menuPlacement="top"
                         components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
                         className="form-control"
                         styles={ selectNoBorderStyles }
@@ -278,6 +284,7 @@ const MotoRouteEditorDetailsTab = () => {
                     <label className="input-group-text" >hours</label>
 
                     <Select
+                        menuPlacement="top"
                         components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
                         className="form-control"
                         styles={ selectNoBorderStyles }
