@@ -5,7 +5,7 @@ import update from 'immutability-helper'
 import { useDrop } from 'react-dnd'
 
 import "./MotoRouteEditor.scss"
-import { Card } from "./Card";
+import { MotoRouteEditorWaypointDraggable } from "./MotoRouteEditorWaypointDraggable";
 
 type MotoRouteEditorRouteTabProps = {
     route: {lat: number, lng: number}[];
@@ -41,39 +41,44 @@ const ITEMS = [
       text: 'PROFIT',
     },
   ]
+  
 const MotoRouteEditorRouteTab = (props: MotoRouteEditorRouteTabProps) => {
     const { route, removeWaypoint } = props
 
 
     const [cards, setCards] = useState(ITEMS)
 
-    const findCard = useCallback(
-        (id: string) => {
-          const card = cards.filter((c) => `${c.id}` === id)[0]
-          return {
-            card,
-            index: cards.indexOf(card),
-          }
-        },
-        [cards],
-      )
+    const findCard = useCallback((id: string) => {
+      const card = cards.filter((c) => `${c.id}` === id)[0]
+      return {
+      card,
+      index: cards.indexOf(card),
+    }}, [cards],)
     
-      const moveCard = useCallback(
-        (id: string, atIndex: number) => {
-          const { card, index } = findCard(id)
-          setCards(
-            update(cards, {
-              $splice: [
-                [index, 1],
-                [atIndex, 0, card],
-              ],
-            }),
-          )
-        },
-        [findCard, cards, setCards],
+    const moveCard = useCallback((id: string, atIndex: number) => {
+      const { card, index } = findCard(id)
+      setCards(
+        update(cards, {
+          $splice: [
+            [index, 1],
+            [atIndex, 0, card],
+          ],
+        }),
       )
+    },[findCard, cards, setCards], )
     
-      const [, drop] = useDrop(() => ({ accept: 'card' }))
+    const [, drop] = useDrop(() => ({ accept: 'card' }))
+
+
+    const generateCardTitle = (index: number): string => {
+      if (index === 0) {
+        return "Start of the route"
+      } else if (index == ITEMS.length-1) {
+        return "End of the route"
+      } else {
+        return `Waypoint ${index}`
+      }
+    }
 
     return (
         <div ref={drop} className="moto-route-editor-waypoints">
@@ -87,10 +92,10 @@ const MotoRouteEditorRouteTab = (props: MotoRouteEditorRouteTabProps) => {
                 <Fragment>
 
                     {cards.map((card, index) => (
-                        <Card
+                        <MotoRouteEditorWaypointDraggable
                             key={card.id}
                             id={`${card.id}`}
-                            text={card.text}
+                            title={generateCardTitle(index)}
                             moveCard={moveCard}
                             findCard={findCard}
                         />
