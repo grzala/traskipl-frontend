@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
 import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
 
-type MotoRouteAccidentsCardProps = {
+type MotoRouteAccidentsTabProps = {
     route: MotoRouteType
 }
 
-const MotoRouteAccidentsCard = (props: MotoRouteAccidentsCardProps) => {
+const MotoRouteAccidentsTab = (props: MotoRouteAccidentsTabProps) => {
     //const { route } = props;
 
 
@@ -18,4 +18,4 @@ const MotoRouteAccidentsCard = (props: MotoRouteAccidentsCardProps) => {
     )
 }
 
-export default MotoRouteAccidentsCard;
+export default MotoRouteAccidentsTab;

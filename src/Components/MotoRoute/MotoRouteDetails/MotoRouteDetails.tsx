@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { MotoRouteType, POIType } from "../../../Types/MotoRoutesTypes";
-import MotoRouteAccidentsCard from "./MotoRouteAccidentsCard";
-import MotoRouteDetailsCard from "./MotoRouteDetailsCard";
-import MotoRoutePOIsCard from "./MotoRoutePOIsCard";
+import MotoRouteAccidentsTab from "./MotoRouteAccidentsTab";
+import MotoRouteDetailsTab from "./MotoRouteDetailsTab";
+import MotoRoutePOIsTab from "./MotoRoutePOIsTab";
 
 import "./MotoRouteDetails.scss"
 
@@ -140,11 +140,11 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                 <div className="details-content">
                     { !isLoading && (
                         <Routes>
-                            <Route path="/details" element={<MotoRouteDetailsCard route={route} poiMarkerFilter={poiMarkerFilter} poiMarkerFilterChange={poiMarkerFilterChange} />} />
+                            <Route path="/details" element={<MotoRouteDetailsTab route={route} poiMarkerFilter={poiMarkerFilter} poiMarkerFilterChange={poiMarkerFilterChange} />} />
                             <Route path="/poi" element={
-                                <MotoRoutePOIsCard route={route} onPOIHover={onPOIHover} onPOISelect={onPOISelect} selectedPOI={selectedPOI} />
+                                <MotoRoutePOIsTab route={route} onPOIHover={onPOIHover} onPOISelect={onPOISelect} selectedPOI={selectedPOI} />
                             } />
-                            <Route path="/accidents" element={<MotoRouteAccidentsCard route={route} />} />
+                            <Route path="/accidents" element={<MotoRouteAccidentsTab route={route} />} />
                         </Routes>
                     )}
                     { isLoading && (

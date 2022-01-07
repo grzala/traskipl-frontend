@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { GeoAltFill, InfoCircleFill, MapFill } from "react-bootstrap-icons";
 import { NavLink, Route, Routes, useMatch } from "react-router-dom";
-import MotoRouteEditorDetails from "./MotoRouteEditorDetailsCard";
-import MotoRouteEditorRouteCard from "./MotoRouteEditorRouteCard";
+import MotoRouteEditorDetailsTab from "./MotoRouteEditorDetailsTab";
+import MotoRouteEditorRouteTab from "./MotoRouteEditorRouteTab";
 
 
 type MotoRouteDetailsEditorProps = {
@@ -10,7 +10,7 @@ type MotoRouteDetailsEditorProps = {
     removeWaypoint: (index: number) => void;
 }
 
-const MotoRouteDetailsEditor = (props: MotoRouteDetailsEditorProps) => {
+const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
     const { route, removeWaypoint } = props
 
 
@@ -47,8 +47,8 @@ const MotoRouteDetailsEditor = (props: MotoRouteDetailsEditorProps) => {
 
                     <div className="details-content">
                     <Routes>
-                        <Route path="/details" element={<MotoRouteEditorDetails />} />
-                        <Route path="/route" element={<MotoRouteEditorRouteCard route={route} removeWaypoint={ removeWaypoint } />} />
+                        <Route path="/details" element={<MotoRouteEditorDetailsTab />} />
+                        <Route path="/route" element={<MotoRouteEditorRouteTab route={route} removeWaypoint={ removeWaypoint } />} />
                         <Route path="/poi" element={<h1>pois</h1>} />
                     </Routes>
                 </div> 
@@ -57,4 +57,4 @@ const MotoRouteDetailsEditor = (props: MotoRouteDetailsEditorProps) => {
     ) : (<></>)
 }
 
-export default MotoRouteDetailsEditor;
+export default MotoRouteEditorDetails;

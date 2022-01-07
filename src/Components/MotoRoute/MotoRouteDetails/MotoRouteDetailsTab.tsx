@@ -1,15 +1,15 @@
 import React, { Fragment } from "react";
 import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
 
-import "./MotoRouteDetailsCard.scss"
+import "./MotoRouteDetailsTab.scss"
 
-type MotoRouteDetailsCardProps = {
+type MotoRouteDetailsTabProps = {
     route: MotoRouteType;
     poiMarkerFilter: boolean;
     poiMarkerFilterChange: (newFilterVal: boolean) => void;
 }
 
-const MotoRouteDetailsCard = (props: MotoRouteDetailsCardProps) => {
+const MotoRouteDetailsTab = (props: MotoRouteDetailsTabProps) => {
     const { route, poiMarkerFilter, poiMarkerFilterChange} = props;
 
 
@@ -32,4 +32,4 @@ const MotoRouteDetailsCard = (props: MotoRouteDetailsCardProps) => {
     )
 }
 
-export default MotoRouteDetailsCard;
+export default MotoRouteDetailsTab;

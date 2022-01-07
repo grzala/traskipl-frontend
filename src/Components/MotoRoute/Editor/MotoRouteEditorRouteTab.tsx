@@ -7,7 +7,7 @@ import { useDrop } from 'react-dnd'
 import "./MotoRouteEditor.scss"
 import { Card } from "./Card";
 
-type MotoRouteEditorRouteCardProps = {
+type MotoRouteEditorRouteTabProps = {
     route: {lat: number, lng: number}[];
     removeWaypoint: (index: number) => void;
 }
@@ -41,7 +41,7 @@ const ITEMS = [
       text: 'PROFIT',
     },
   ]
-const MotoRouteEditorRouteCard = (props: MotoRouteEditorRouteCardProps) => {
+const MotoRouteEditorRouteTab = (props: MotoRouteEditorRouteTabProps) => {
     const { route, removeWaypoint } = props
 
 
@@ -134,4 +134,4 @@ const MotoRouteEditorRouteCard = (props: MotoRouteEditorRouteCardProps) => {
     )
 }
 
-export default MotoRouteEditorRouteCard;
+export default MotoRouteEditorRouteTab;

@@ -81,7 +81,7 @@ const selectNoBorderStyles = {
 const MAX_DESCRIPTION_LENGTH = 400;
 const DEFAULT_DESCRIPTION_ROWS = 4;
 
-const MotoRouteEditorDetails = () => {
+const MotoRouteEditorDetailsTab = () => {
 
     const [motoRouteDetailsData, setMotoRouteDetailsData] = useState<MotoRouteDetailsDataType>(initialData);
 
@@ -295,4 +295,4 @@ const MotoRouteEditorDetails = () => {
     )
 }
 
-export default MotoRouteEditorDetails;
+export default MotoRouteEditorDetailsTab;
