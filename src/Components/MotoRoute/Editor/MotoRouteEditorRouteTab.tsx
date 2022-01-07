@@ -62,14 +62,14 @@ const MotoRouteEditorRouteTab = (props: MotoRouteEditorRouteTabProps) => {
 
                     {route.map((waypoint, index) => (
                         <MotoRouteEditorWaypointDraggable
-                            key={getWaypointDraggableId(waypoint)}
-                            id={getWaypointDraggableId(waypoint)}
-                            index={index}
-                            title={generateCardTitle(index)}
-                            moveCard={moveCard}
-                            findCard={findCard}
-                            removeWaypoint={removeWaypoint}
-                            waypoint={waypoint}
+                            key={ getWaypointDraggableId(waypoint) }
+                            id={ getWaypointDraggableId(waypoint) }
+                            index={ index }
+                            title={ generateCardTitle(index) }
+                            moveCard={ moveCard }
+                            findCard={ findCard }
+                            removeWaypoint={ removeWaypoint }
+                            waypoint={ waypoint }
                         />
                     ))}
                 </Fragment>

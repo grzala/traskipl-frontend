@@ -2,9 +2,9 @@ import React, { Fragment, useCallback } from "react";
 import { MotoRouteType, POIType } from "../../../Types/MotoRoutesTypes";
 import { mapIconCirclesUrls } from "../../MapConstants";
 
-import "./MotoRoutePOIsTab.scss"
+import "./MotoRoutePOITab.scss"
 
-type MotoRoutePOIsTabProps = {
+type MotoRoutePOITabProps = {
     route: MotoRouteType;
     selectedPOI: POIType | null;
     onPOIHover: (enter: boolean, poi: POIType) => void;
@@ -12,7 +12,7 @@ type MotoRoutePOIsTabProps = {
 }
 
 
-const MotoRoutePOIsTab = (props: MotoRoutePOIsTabProps) => {
+const MotoRoutePOITab = (props: MotoRoutePOITabProps) => {
     const { route, onPOIHover, onPOISelect, selectedPOI} = props;
 
     const onClickListItem = (e: any, newPoi: POIType) => {
@@ -76,4 +76,4 @@ const MotoRoutePOIsTab = (props: MotoRoutePOIsTabProps) => {
     )
 }
 
-export default MotoRoutePOIsTab;
+export default MotoRoutePOITab;

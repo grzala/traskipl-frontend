@@ -1,18 +1,19 @@
 import { CSSProperties, FC, memo } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
+import { mapIconCirclesUrls } from 'src/Components/MapConstants'
+import { POIType } from 'src/Types/MotoRoutesTypes'
+
+import "./MotoRouteEditorPOITab.scss"
   
 
 const style: CSSProperties = {
-  border: '1px dashed gray',
-  padding: '0.5rem 1rem',
-  marginBottom: '.5rem',
-  backgroundColor: 'white',
   cursor: 'move',
 }
 
 export interface CardProps {
   id: string
-  text: string
+  poi: POIType
+  isSelected: boolean
   moveCard: (id: string, to: number) => void
   findCard: (id: string) => { index: number }
 }
@@ -23,11 +24,12 @@ interface Item {
 }
 
 export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
-  id,
-  text,
-  moveCard,
-  findCard,
-}) {
+    id,
+    poi,
+    isSelected,
+    moveCard,
+    findCard,
+    }) {
   const originalIndex = findCard(id).index
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'card',
@@ -56,8 +58,31 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
 
   const opacity = isDragging ? 0 : 1
   return (
-    <div ref={(node) => drag(drop(node))} style={{ ...style, opacity }}>
-      <span className="noselect">{id} {text}</span>
+    <div 
+        // onMouseEnter={() => onPOIHover(true, poi)} 
+        // onMouseLeave={() => onPOIHover(false, poi)} 
+        className={`list-group-item list-group-item-${isSelected ? "selected" : "collapsed"} flex-column align-items-start`}
+        // onClick={(e) => onClickListItem(e, poi)}
+        ref={(node) => drag(drop(node))} 
+        style={{ ...style, opacity }}
+        >
+
+
+
+        <div className="d-flex flex-row">
+            <div className="icon-container">
+                <img className="map-icon" alt="map-icon" src={ mapIconCirclesUrls[poi.variant] } />
+            </div>
+            <div className="description-container d-flex flex-column">
+
+                <div className="d-flex w-100 justify-content-between">
+                    <h5 className="">{poi.name}</h5>
+                </div>
+                <div className="description-collapsible">
+                    <p className={`description ${isSelected ? "" : "collapsed"}`}>{poi.description}</p>
+                </div>
+            </div>
+        </div>
     </div>
   )
 })

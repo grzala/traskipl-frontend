@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { MotoRouteType, POIType } from "../../../Types/MotoRoutesTypes";
 import MotoRouteAccidentsTab from "./MotoRouteAccidentsTab";
 import MotoRouteDetailsTab from "./MotoRouteDetailsTab";
-import MotoRoutePOIsTab from "./MotoRoutePOIsTab";
+import MotoRoutePOITab from "./MotoRoutePOITab";
 
 import "./MotoRouteDetails.scss"
 
@@ -142,7 +142,7 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                         <Routes>
                             <Route path="/details" element={<MotoRouteDetailsTab route={route} poiMarkerFilter={poiMarkerFilter} poiMarkerFilterChange={poiMarkerFilterChange} />} />
                             <Route path="/poi" element={
-                                <MotoRoutePOIsTab route={route} onPOIHover={onPOIHover} onPOISelect={onPOISelect} selectedPOI={selectedPOI} />
+                                <MotoRoutePOITab route={route} onPOIHover={onPOIHover} onPOISelect={onPOISelect} selectedPOI={selectedPOI} />
                             } />
                             <Route path="/accidents" element={<MotoRouteAccidentsTab route={route} />} />
                         </Routes>

@@ -6,85 +6,56 @@ import { useDrop } from 'react-dnd'
 
 import "./MotoRouteEditor.scss"
 import { MotoRouteEditorPOIDraggable } from "./MotoRouteEditorPOIDraggable";
+import { POIType, POIVariant } from "src/Types/MotoRoutesTypes";
 
 type MotoRouteEditorPOITabProps = {
-  
+  pois: POIType[]
+  setPois: (_: POIType[]) => void
 }
-const ITEMS = [
-    {
-      id: 1,
-      text: 'Write a cool JS library',
-    },
-    {
-      id: 2,
-      text: 'Make it generic enough',
-    },
-    {
-      id: 3,
-      text: 'Write README',
-    },
-    {
-      id: 4,
-      text: 'Create some examples',
-    },
-    {
-      id: 5,
-      text: 'Spam in Twitter and IRC to promote it',
-    },
-    {
-      id: 6,
-      text: '???',
-    },
-    {
-      id: 7,
-      text: 'PROFIT',
-    },
-  ]
+
 const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
-    const { } = props
-
-
-    const [cards, setCards] = useState(ITEMS)
+    const { pois, setPois } = props
 
     const findCard = useCallback((id: string) => {
-      const card = cards.filter((c) => `${c.id}` === id)[0]
+      const card = pois.filter((c) => `${c.id}` === id)[0]
       return {
       card,
-      index: cards.indexOf(card),
-    }}, [cards],)
+      index: pois.indexOf(card),
+    }}, [pois],)
     
     const moveCard = useCallback((id: string, atIndex: number) => {
       const { card, index } = findCard(id)
-      setCards(
-        update(cards, {
+      setPois(
+        update(pois, {
           $splice: [
             [index, 1],
             [atIndex, 0, card],
           ],
         }),
       )
-    },[findCard, cards, setCards], )
+    },[findCard, pois, setPois], )
     
     const [, drop] = useDrop(() => ({ accept: 'card' }))
 
     return (
-        <div ref={drop} className="moto-route-editor-waypoints">
+        <div ref={drop} className="moto-route-editor-poi-list">
             <h2>Route waypoints</h2>
 
-            { cards.length < 1 && (
+            { pois.length < 1 && (
                 <h4>Click on the map to add points of interest</h4>
             )}
 
-            { cards.length >= 1 && (
+            { pois.length >= 1 && (
                 <Fragment>
 
-                    {cards.map((card, index) => (
+                    {pois.map((poi, index) => (
                         <MotoRouteEditorPOIDraggable
-                            key={card.id}
-                            id={`${card.id}`}
-                            text={card.text}
-                            moveCard={moveCard}
-                            findCard={findCard}
+                            key={ poi.id }
+                            id={ `${poi.id}` }
+                            poi={ poi }
+                            isSelected={ false }
+                            moveCard={ moveCard }
+                            findCard={ findCard }
                         />
                     ))}
                 </Fragment>
