@@ -89,6 +89,7 @@ const MotoRouteEditor = () => {
                     variant: POIVariant.OTHER
                 }
                 setPois([...pois, newPoi])
+                setSelectedPOI(newPoi)
             } else {
                 console.log("Cannot add two POIS in the same location")
             }

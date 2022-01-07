@@ -119,7 +119,7 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
             </div>
             <div className="description-container d-flex flex-column">
 
-                {/* name */}
+                {/* Name */}
                 <div className="form-group">
                     <label htmlFor="name">Name:</label>
                     <input 
@@ -132,7 +132,7 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
                     />
                 </div>
 
-                {/* description*/}
+                {/* Description*/}
                 <div className="form-group">
                     <label htmlFor="name">Description:</label>
                     <textarea 
@@ -147,15 +147,19 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
                     <small>Characters left: {descriptionCharactersLeft}</small>
                 </div>
 
+                {/* Variant */} 
                 <div className="form-group">
-                  <Select
-                      menuPlacement="top"
-                      className="form-control"
-                      styles={ selectNoBorderStyles }
-                      value={ {value: poi.variant, label: poi.variant} }
-                      options={ availableVariants }
-                      // onChange={ (newOption) => handleMonthChange(newOption, openFrom, setOpenFrom) }
-                  />
+                  <div className="input-group">
+                      <label className="input-group-text" htmlFor="date-open">Type:&nbsp;&nbsp;&nbsp;</label>
+                      <Select
+                          menuPlacement="top"
+                          className="form-control"
+                          styles={ selectNoBorderStyles }
+                          value={ {value: poi.variant, label: poi.variant} }
+                          options={ availableVariants }
+                          // onChange={ (newOption) => handleMonthChange(newOption, openFrom, setOpenFrom) }
+                      />
+                    </div>
                 </div>
 
             </div>
