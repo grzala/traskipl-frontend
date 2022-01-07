@@ -3,7 +3,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Link, useMatch, useNavigate, useParams } from "react-router-dom";
 
 
-import { POIType} from "../Types/MotoRoutesTypes"
+import { POIType } from "../Types/MotoRoutesTypes"
 // import { getMotoRoute, getMotoRoutes } from "../Actions/MotoRoutesActions";
 
 

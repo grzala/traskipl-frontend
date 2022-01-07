@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import MotoRouteEditorMap from "../Components/MotoRoute/Editor/MotoRouteEditorMap";
 import MotoRouteDetailsEditor from "../Components/MotoRoute/Editor/MotoRouteEditorDetails";
-import { useMatch } from "react-router-dom";
+import { Navigate, useMatch, useNavigate } from "react-router-dom";
 import { POIType, POIVariant } from "src/Types/MotoRoutesTypes";
 
 enum addModes {
@@ -12,13 +12,37 @@ enum addModes {
 
 const MotoRouteEditor = () => {
 
+    const navigate = useNavigate()
+    const urlMatch = useMatch('/routes/editor/:tab')
+    const urlMatchForTabChange = useMatch('/routes/editor/*')
+
     const [route, setRoute] = useState<{lat: number, lng: number}[]>([])
     const [pois, setPois] = useState<POIType[]>([]);
+
+    const [selectedPOI, setSelectedPOI] = useState<POIType | null>(null)
+    const [hoverPOI, setHoverPOI] = useState<POIType | null>(null)
+
+    const onPOIHover = (enter: boolean, poi: POIType) => {
+        if (!enter && hoverPOI === poi) {
+            setHoverPOI(null);
+        } else if (enter) {
+            setHoverPOI(poi);
+        }
+    }
+
+    const selectPOI = (poi: POIType | null) => {
+        // Move to POI tabs when selected
+        if (urlMatch !== null && poi !== null) {
+            navigate(`${urlMatchForTabChange?.pathnameBase}/poi`)
+        } else {
+            console.log("This should not be here")
+        }
+        setSelectedPOI(poi);
+    }
 
     const [addMode, setAddMode] = useState<addModes>(addModes.NONE)
 
 
-    const urlMatch = useMatch('/routes/editor/:tab')
 
     useEffect(() => {
         switch(urlMatch?.params.tab) {
@@ -68,7 +92,6 @@ const MotoRouteEditor = () => {
             } else {
                 console.log("Cannot add two POIS in the same location")
             }
-            console.log("addding poi")
         } else {
             throw new Error("No add mode selected")
         }
@@ -92,6 +115,10 @@ const MotoRouteEditor = () => {
                     <MotoRouteEditorMap
                         handleMapClick={ handleMapClick }
                         route={ route }
+                        pois={ pois }
+                        selectedPOI={ selectedPOI }
+                        hoveredPOI={ hoverPOI }
+                        onPOISelect={ selectPOI }
                     />
                 </div>
 

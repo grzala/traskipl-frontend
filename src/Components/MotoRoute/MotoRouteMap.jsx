@@ -56,10 +56,10 @@ const MotoRouteMap = (props) => {
 
 
 
-    const isFocusedMarker = useCallback((poi_id) => {
-        if (selectedPOI?.id === poi_id)
+    const isFocusedMarker = useCallback((poi) => {
+        if (selectedPOI?.id === poi?.id)
             return true;
-        if (hoveredPOI !== null && hoveredPOI === poi_id)
+        if (hoveredPOI?.id === poi?.id)
             return true;
         return false;
     }, [hoveredPOI, selectedPOI])
@@ -80,10 +80,10 @@ const MotoRouteMap = (props) => {
                             return (<Marker 
                                         key={`marker_${poi.id}`} 
                                         position={ poi.coordinates } 
-                                        icon={ isFocusedMarker(poi.id) ? mapIconEnlargedDropsUrls[poi.variant] : mapIconDropsUrls[poi.variant] }
+                                        icon={ isFocusedMarker(poi) ? mapIconEnlargedDropsUrls[poi.variant] : mapIconDropsUrls[poi.variant] }
                                         clickable={ true }
                                         onClick={() => onPOISelect(poi)}
-                                        zIndex={ isFocusedMarker(poi.id) ? 100 : 1 } />)
+                                        zIndex={ isFocusedMarker(poi) ? 100 : 1 } />)
                         })
                     )}
 

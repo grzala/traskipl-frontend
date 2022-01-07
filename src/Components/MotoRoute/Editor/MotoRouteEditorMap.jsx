@@ -18,7 +18,7 @@ const DEFAULT_MAP_POSITION = {
 const DEFAULT_MAP_ZOOM = 7
 
 const MotoRouteEditorMap = (props) => {
-    const { handleMapClick, route } = props
+    const { handleMapClick, route, pois, selectedPOI, hoveredPOI, onPOISelect} = props
 
     const [directionsResponse, setDirectionsResponse] = useState(null)
 
@@ -60,6 +60,15 @@ const MotoRouteEditorMap = (props) => {
         return dirInfo;
     }, [route])
 
+
+    const isFocusedMarker = useCallback((poi) => {
+        if (selectedPOI?.id === poi?.id)
+            return true;
+        if (hoveredPOI?.id === poi?.id)
+            return true;
+        return false;
+    }, [hoveredPOI, selectedPOI])
+
     return (
         <LoadScript
             googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} >
@@ -70,6 +79,7 @@ const MotoRouteEditorMap = (props) => {
                     onClick={ handleMapClick }
                     >
 
+                    {/* ================ ROUTE ===============*/}
                     { route.length === 1 && (
                         <Marker 
                             position={ route[0] } 
@@ -96,6 +106,19 @@ const MotoRouteEditorMap = (props) => {
                             )}
                         </Fragment>
                     )}
+
+                    {/* ================ POIS ===============*/}
+
+                    {pois.map((poi, index) => (
+                            <Marker 
+                                key={`marker_${poi.id}`} 
+                                position={ poi.coordinates } 
+                                icon={ isFocusedMarker(poi) ? mapIconEnlargedDropsUrls[poi.variant] : mapIconDropsUrls[poi.variant] }
+                                clickable={ true }
+                                onClick={() => onPOISelect(poi)}
+                                zIndex={ isFocusedMarker(poi) ? 100 : 1 } 
+                                />
+                    ))}
                         
                 </GoogleMap>
         </LoadScript>
