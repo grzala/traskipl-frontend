@@ -103,7 +103,7 @@ const MotoRouteEditorDetailsTab = () => {
 
     // ================== Date start and end date ===============================
 
-    const [openAllYear, setOpenAllYear] = useState<boolean>(false)
+    const [openAllYear, setOpenAllYear] = useState<boolean>(true)
 
     const allMonths = moment.months().map((month, index) => (
         {
@@ -204,7 +204,7 @@ const MotoRouteEditorDetailsTab = () => {
                         <label htmlFor="is_open_full_year">&nbsp;&nbsp;Open all year</label>
                     </div>
 
-                    { openAllYear && (
+                    { !openAllYear && (
                         <Fragment>
                             <div className="input-group">
                                 <label className="input-group-text" htmlFor="date-open">Open from:</label>
