@@ -11,10 +11,13 @@ import { POIType, POIVariant } from "src/Types/MotoRoutesTypes";
 type MotoRouteEditorPOITabProps = {
   pois: POIType[]
   setPois: (_: POIType[]) => void
+  selectedPOI: POIType | null
+  onPOISelect: (poi: POIType | null) => void
+  onPOIHover: (mouseenter: boolean, poi: POIType) => void
 }
 
 const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
-    const { pois, setPois } = props
+    const { pois, setPois, selectedPOI, onPOISelect, onPOIHover } = props
 
     const findCard = useCallback((id: string) => {
       const card = pois.filter((c) => `${c.id}` === id)[0]
@@ -39,7 +42,7 @@ const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
 
     return (
         <div ref={drop} className="moto-route-editor-poi-list">
-            <h2>Route waypoints</h2>
+            <h2>Points of interest</h2>
 
             { pois.length < 1 && (
                 <h4>Click on the map to add points of interest</h4>
@@ -47,15 +50,18 @@ const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
 
             { pois.length >= 1 && (
                 <Fragment>
+                    <small>Click anywhere on the map to add points of interest</small>
 
                     {pois.map((poi, index) => (
                         <MotoRouteEditorPOIDraggable
                             key={ poi.id }
                             id={ `${poi.id}` }
                             poi={ poi }
-                            isSelected={ false }
+                            isSelected={ selectedPOI?.id === poi.id }
                             moveCard={ moveCard }
                             findCard={ findCard }
+                            onClick={ () => {console.log("yoyoyo");onPOISelect(poi)}}
+                            onPOIHover={ onPOIHover }
                         />
                     ))}
                 </Fragment>

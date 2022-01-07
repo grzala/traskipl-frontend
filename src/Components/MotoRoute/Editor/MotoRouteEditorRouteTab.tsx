@@ -59,7 +59,8 @@ const MotoRouteEditorRouteTab = (props: MotoRouteEditorRouteTabProps) => {
 
             { route.length >= 1 && (
                 <Fragment>
-
+                    <small>Click anywhere on the map to add waypoints</small>
+                    
                     {route.map((waypoint, index) => (
                         <MotoRouteEditorWaypointDraggable
                             key={ getWaypointDraggableId(waypoint) }

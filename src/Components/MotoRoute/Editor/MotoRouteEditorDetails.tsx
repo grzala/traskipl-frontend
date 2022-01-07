@@ -13,10 +13,13 @@ type MotoRouteDetailsEditorProps = {
     removeWaypoint: (index: number) => void;
     pois: POIType[]
     setPois: (_: POIType[]) => void
+    selectedPOI: POIType | null
+    onPOISelect: (poi: POIType | null) => void
+    onPOIHover: (mouseenter: boolean, poi: POIType) => void
 }
 
 const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
-    const { route, setRoute, removeWaypoint, pois, setPois } = props
+    const { route, setRoute, removeWaypoint, pois, setPois, selectedPOI, onPOISelect, onPOIHover } = props
 
 
     const urlMatch = useMatch('/routes/:id/*')
@@ -53,8 +56,22 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
                     <div className="details-content">
                     <Routes>
                         <Route path="/details" element={<MotoRouteEditorDetailsTab />} />
-                        <Route path="/route" element={<MotoRouteEditorRouteTab route={ route } setRoute={ setRoute } removeWaypoint={ removeWaypoint } />} />
-                        <Route path="/poi" element={<MotoRouteEditorPOITab pois={ pois } setPois={ setPois } />} />
+                        <Route path="/route" element={
+                            <MotoRouteEditorRouteTab 
+                                route={ route } 
+                                setRoute={ setRoute } 
+                                removeWaypoint={ removeWaypoint } 
+                            />} 
+                        />
+                        <Route path="/poi" element={
+                            <MotoRouteEditorPOITab 
+                                pois={ pois } 
+                                setPois={ setPois } 
+                                selectedPOI={ selectedPOI }
+                                onPOISelect={ onPOISelect }
+                                onPOIHover={ onPOIHover }
+                            />} 
+                        />
                     </Routes>
                 </div> 
                 </div>

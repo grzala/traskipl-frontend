@@ -16,6 +16,8 @@ export interface CardProps {
   isSelected: boolean
   moveCard: (id: string, to: number) => void
   findCard: (id: string) => { index: number }
+  onClick: () => void
+  onPOIHover: (mouseenter: boolean, poi: POIType) => void
 }
 
 interface Item {
@@ -29,6 +31,8 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
     isSelected,
     moveCard,
     findCard,
+    onClick,
+    onPOIHover
     }) {
   const originalIndex = findCard(id).index
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -59,12 +63,12 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
   const opacity = isDragging ? 0 : 1
   return (
     <div 
-        // onMouseEnter={() => onPOIHover(true, poi)} 
-        // onMouseLeave={() => onPOIHover(false, poi)} 
         className={`list-group-item list-group-item-${isSelected ? "selected" : "collapsed"} flex-column align-items-start`}
-        // onClick={(e) => onClickListItem(e, poi)}
         ref={(node) => drag(drop(node))} 
         style={{ ...style, opacity }}
+        onMouseEnter={() => onPOIHover(true, poi)} 
+        onMouseLeave={() => onPOIHover(false, poi)} 
+        onClick={ onClick }
         >
 
 

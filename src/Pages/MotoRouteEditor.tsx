@@ -129,7 +129,10 @@ const MotoRouteEditor = () => {
                         setRoute={ setRoute }
                         pois={ pois }
                         setPois={ setPois }
+                        selectedPOI={ selectedPOI }
+                        onPOISelect={ selectPOI }
                         removeWaypoint={ removeWaypoint }
+                        onPOIHover={ onPOIHover }
                     />
                 </div>
             </div>
