@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from "react"
+import React, { Fragment, useCallback, useEffect, useState } from "react"
 import { TrashFill } from "react-bootstrap-icons";
 import update from 'immutability-helper'
 
@@ -39,6 +39,10 @@ const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
     },[findCard, pois, setPois], )
     
     const [, drop] = useDrop(() => ({ accept: 'card' }))
+
+    useEffect(() => {
+
+    }, [selectedPOI])
 
     return (
         <div ref={drop} className="moto-route-editor-poi-list">

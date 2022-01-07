@@ -1,9 +1,5 @@
 import React, { Fragment, useMemo, useState } from "react"
 
-// Datepicker Range
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-
 import moment from "moment";
 import Select from 'react-select';
 

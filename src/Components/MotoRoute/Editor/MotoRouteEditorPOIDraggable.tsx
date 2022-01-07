@@ -1,13 +1,23 @@
-import { CSSProperties, FC, memo } from 'react'
+import { CSSProperties, FC, memo, useMemo, useState } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
+import Select from 'react-select';
 import { mapIconCirclesUrls } from 'src/Components/MapConstants'
-import { POIType } from 'src/Types/MotoRoutesTypes'
+import { POIType, POIVariant } from 'src/Types/MotoRoutesTypes'
 
 import "./MotoRouteEditorPOITab.scss"
   
 
 const style: CSSProperties = {
   cursor: 'move',
+}
+
+
+const selectNoBorderStyles = {
+  control: (styles: any, state: any) => ({ 
+      ...styles, 
+      border: 'none',
+      boxShadow: 'none', // disable blue outline on focus
+  }),
 }
 
 export interface CardProps {
@@ -25,6 +35,20 @@ interface Item {
   originalIndex: number
 }
 
+
+type FieldErrorType = {
+  name: string | null, 
+  description: string | null,
+}
+
+const blankError = {
+  name: null, 
+  description: null,
+};
+
+const MAX_DESCRIPTION_LENGTH = 250
+const DEFAULT_DESCRIPTION_ROWS = 3
+
 export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
     id,
     poi,
@@ -34,7 +58,10 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
     onClick,
     onPOIHover
     }) {
+
+  // ============================= DRAG AND DROP ==================
   const originalIndex = findCard(id).index
+
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'card',
     item: { id, originalIndex },
@@ -61,6 +88,19 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
   }), [findCard, moveCard], )
 
   const opacity = isDragging ? 0 : 1
+  // ===============================================
+
+  const [fieldErrs, setFieldErrs] = useState<FieldErrorType>(blankError)
+
+
+  const descriptionCharactersLeft = useMemo(() => {
+      return MAX_DESCRIPTION_LENGTH - poi.description.length
+  }, [poi.description])
+
+  const availableVariants = Object.values(POIVariant).map((item) => (
+    {value: item, label: item}
+  ))
+
   return (
     <div 
         className={`list-group-item list-group-item-${isSelected ? "selected" : "collapsed"} flex-column align-items-start`}
@@ -79,12 +119,45 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
             </div>
             <div className="description-container d-flex flex-column">
 
-                <div className="d-flex w-100 justify-content-between">
-                    <h5 className="">{poi.name}</h5>
+                {/* name */}
+                <div className="form-group">
+                    <label htmlFor="name">Name:</label>
+                    <input 
+                        className={ `loginbox-form-control form-control ${ fieldErrs.name ? "invalid" : "" }` }
+                        name={`${poi.id}_name`} 
+                        type="text" 
+                        placeholder="PoI name" 
+                        value={ poi.name } 
+                        // onChange={ handleChange } 
+                    />
                 </div>
-                <div className="description-collapsible">
-                    <p className={`description ${isSelected ? "" : "collapsed"}`}>{poi.description}</p>
+
+                {/* description*/}
+                <div className="form-group">
+                    <label htmlFor="name">Description:</label>
+                    <textarea 
+                        className={ `loginbox-form-control form-control ${ fieldErrs.description ? "invalid" : "" }` }
+                        name={`${poi.id}_description`} 
+                        placeholder="PoI description" 
+                        value={ poi.description } 
+                        // onChange={ handleChange } 
+                        maxLength={ MAX_DESCRIPTION_LENGTH }
+                        rows={ DEFAULT_DESCRIPTION_ROWS }
+                    />
+                    <small>Characters left: {descriptionCharactersLeft}</small>
                 </div>
+
+                <div className="form-group">
+                  <Select
+                      menuPlacement="top"
+                      className="form-control"
+                      styles={ selectNoBorderStyles }
+                      value={ {value: poi.variant, label: poi.variant} }
+                      options={ availableVariants }
+                      // onChange={ (newOption) => handleMonthChange(newOption, openFrom, setOpenFrom) }
+                  />
+                </div>
+
             </div>
         </div>
     </div>
