@@ -7,10 +7,14 @@ import './index.scss'; // must be like that in order to get bootstrap default th
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from './App';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 ReactDOM.render(
   <React.StrictMode>
+    <DndProvider backend={HTML5Backend}>
     <App />
+    </DndProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

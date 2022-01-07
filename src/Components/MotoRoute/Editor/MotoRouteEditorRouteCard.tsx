@@ -1,19 +1,84 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useCallback, useState } from "react"
 import { TrashFill } from "react-bootstrap-icons";
-import { Route } from "react-router-dom";
+import update from 'immutability-helper'
+
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { useDrag, useDrop } from 'react-dnd'
 
 import "./MotoRouteEditor.scss"
+import { Card } from "./Card";
 
 type MotoRouteEditorRouteCardProps = {
     route: {lat: number, lng: number}[];
     removeWaypoint: (index: number) => void;
 }
-
+const ITEMS = [
+    {
+      id: 1,
+      text: 'Write a cool JS library',
+    },
+    {
+      id: 2,
+      text: 'Make it generic enough',
+    },
+    {
+      id: 3,
+      text: 'Write README',
+    },
+    {
+      id: 4,
+      text: 'Create some examples',
+    },
+    {
+      id: 5,
+      text: 'Spam in Twitter and IRC to promote it',
+    },
+    {
+      id: 6,
+      text: '???',
+    },
+    {
+      id: 7,
+      text: 'PROFIT',
+    },
+  ]
 const MotoRouteEditorRouteCard = (props: MotoRouteEditorRouteCardProps) => {
     const { route, removeWaypoint } = props
 
+
+    const [cards, setCards] = useState(ITEMS)
+
+    const findCard = useCallback(
+        (id: string) => {
+          const card = cards.filter((c) => `${c.id}` === id)[0]
+          return {
+            card,
+            index: cards.indexOf(card),
+          }
+        },
+        [cards],
+      )
+    
+      const moveCard = useCallback(
+        (id: string, atIndex: number) => {
+          const { card, index } = findCard(id)
+          setCards(
+            update(cards, {
+              $splice: [
+                [index, 1],
+                [atIndex, 0, card],
+              ],
+            }),
+          )
+        },
+        [findCard, cards, setCards],
+      )
+    
+      const [, drop] = useDrop(() => ({ accept: 'card' }))
+
     return (
-        <div className="moto-route-editor-waypoints">
+        <div ref={drop} className="moto-route-editor-waypoints">
             <h2>Route waypoints</h2>
 
             { route.length < 1 && (
@@ -22,8 +87,19 @@ const MotoRouteEditorRouteCard = (props: MotoRouteEditorRouteCardProps) => {
 
             { route.length >= 1 && (
                 <Fragment>
-                    {route.map((waypoint, index) => (
+
+                    {cards.map((card, index) => (
+                        <Card
+                            key={card.id}
+                            id={`${card.id}`}
+                            text={card.text}
+                            moveCard={moveCard}
+                            findCard={findCard}
+                        />
+                    ))}
+                    {/* {route.map((waypoint, index) => (
                         <div
+                            {(node: any) => drag(drop(node))} // For drag and drop
                             key={`waypoint_${index}`}
                             id={`waypoint_${index}`}
                             className={`list-group-item flex-column align-items-start`}
@@ -53,7 +129,7 @@ const MotoRouteEditorRouteCard = (props: MotoRouteEditorRouteCardProps) => {
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    ))} */}
                 </Fragment>
             )}
         </div>
