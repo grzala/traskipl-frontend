@@ -14,10 +14,11 @@ type MotoRouteEditorPOITabProps = {
   selectedPOI: POIType | null
   onPOISelect: (poi: POIType | null) => void
   onPOIHover: (mouseenter: boolean, poi: POIType) => void
+  handlePOIDetailsChange: (id: number, field: string, value: any) => void
 }
 
 const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
-    const { pois, setPois, selectedPOI, onPOISelect, onPOIHover } = props
+    const { pois, setPois, selectedPOI, onPOISelect, onPOIHover, handlePOIDetailsChange } = props
 
     const findCard = useCallback((id: string) => {
       const card = pois.filter((c) => `poi_${c.id}` === id)[0]
@@ -43,8 +44,6 @@ const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
     useEffect(() => {
       // When selecting POI scroll so that it is visible
       let poiHTMLElem = document.getElementById(`poi_${selectedPOI?.id}`)
-      console.log(document.getElementById(`poi-list`))
-      console.log(poiHTMLElem)
 
       if (poiHTMLElem) {
           document.getElementById(`poi-list`)?.scroll({
@@ -75,8 +74,9 @@ const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
                             isSelected={ selectedPOI?.id === poi.id }
                             moveCard={ moveCard }
                             findCard={ findCard }
-                            onClick={ () => {console.log("yoyoyo");onPOISelect(poi)}}
+                            onClick={ () => onPOISelect(poi)}
                             onPOIHover={ onPOIHover }
+                            handlePOIDetailsChange={ handlePOIDetailsChange }
                         />
                     ))}
                 </Fragment>

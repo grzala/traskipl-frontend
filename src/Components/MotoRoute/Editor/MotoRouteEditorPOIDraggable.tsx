@@ -28,6 +28,7 @@ export interface CardProps {
   findCard: (id: string) => { index: number }
   onClick: () => void
   onPOIHover: (mouseenter: boolean, poi: POIType) => void
+  handlePOIDetailsChange: (id: number, field: string, value: any) => void
 }
 
 interface Item {
@@ -56,7 +57,8 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
     moveCard,
     findCard,
     onClick,
-    onPOIHover
+    onPOIHover,
+    handlePOIDetailsChange
     }) {
 
   // ============================= DRAG AND DROP ==================
@@ -124,11 +126,11 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
                     <label htmlFor="name">Name:</label>
                     <input 
                         className={ `loginbox-form-control form-control ${ fieldErrs.name ? "invalid" : "" }` }
-                        name={`${poi.id}_name`} 
+                        name={ `name` } 
                         type="text" 
                         placeholder="PoI name" 
                         value={ poi.name } 
-                        // onChange={ handleChange } 
+                        onChange={ (e: any) => handlePOIDetailsChange(poi.id, e.target.name, e.target.value) } 
                     />
                 </div>
 
@@ -137,12 +139,12 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
                     <label htmlFor="name">Description:</label>
                     <textarea 
                         className={ `loginbox-form-control form-control ${ fieldErrs.description ? "invalid" : "" }` }
-                        name={`${poi.id}_description`} 
+                        name={ `description` } 
                         placeholder="PoI description" 
                         value={ poi.description } 
-                        // onChange={ handleChange } 
                         maxLength={ MAX_DESCRIPTION_LENGTH }
                         rows={ DEFAULT_DESCRIPTION_ROWS }
+                        onChange={ (e: any) => handlePOIDetailsChange(poi.id, e.target.name, e.target.value) } 
                     />
                     <small>Characters left: {descriptionCharactersLeft}</small>
                 </div>
@@ -152,12 +154,13 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
                   <div className="input-group">
                       <label className="input-group-text" htmlFor="date-open">Type:&nbsp;&nbsp;&nbsp;</label>
                       <Select
+                          name={ "variant" } 
                           menuPlacement="top"
                           className="form-control"
                           styles={ selectNoBorderStyles }
                           value={ {value: poi.variant, label: poi.variant} }
                           options={ availableVariants }
-                          // onChange={ (newOption) => handleMonthChange(newOption, openFrom, setOpenFrom) }
+                          onChange={ (e: any) => handlePOIDetailsChange(poi.id, "variant", e.value) } 
                       />
                     </div>
                 </div>

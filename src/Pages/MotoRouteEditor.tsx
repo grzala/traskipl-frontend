@@ -108,6 +108,22 @@ const MotoRouteEditor = () => {
         setRoute(routeCopy);
     }
 
+    const handlePOIDetailsChange = (poi_id: number, field: string, value: any) => {
+        let poi_index = pois.findIndex(item => item.id === poi_id);
+        if (poi_index < 0) {
+            throw new Error("There is no poi with ID " + poi_id.toString())
+        }
+
+        let pois_copy = [...pois]
+
+        pois_copy[poi_index] = {
+            ...pois_copy[poi_index],
+            [field]: value
+        }
+
+        setPois(pois_copy)
+    }
+
 
     return (
         <Fragment>
@@ -134,6 +150,7 @@ const MotoRouteEditor = () => {
                         onPOISelect={ selectPOI }
                         removeWaypoint={ removeWaypoint }
                         onPOIHover={ onPOIHover }
+                        handlePOIDetailsChange={ handlePOIDetailsChange }
                     />
                 </div>
             </div>
