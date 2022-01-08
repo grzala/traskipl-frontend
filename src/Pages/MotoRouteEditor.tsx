@@ -108,6 +108,17 @@ const MotoRouteEditor = () => {
         setRoute(routeCopy);
     }
 
+    const removePOI = (poi_id: number) => {
+        let poi_index = pois.findIndex(item => item.id === poi_id);
+        if (poi_index < 0) {
+            throw new Error(`POI of index ${poi_id} not in poi array`)
+        }
+
+        var poisCopy = [...pois]
+        poisCopy.splice(poi_index, 1)
+        setPois(poisCopy);
+    }
+
     const handlePOIDetailsChange = (poi_id: number, field: string, value: any) => {
         let poi_index = pois.findIndex(item => item.id === poi_id);
         if (poi_index < 0) {
@@ -151,6 +162,7 @@ const MotoRouteEditor = () => {
                         removeWaypoint={ removeWaypoint }
                         onPOIHover={ onPOIHover }
                         handlePOIDetailsChange={ handlePOIDetailsChange }
+                        removePOI={ removePOI }
                     />
                 </div>
             </div>

@@ -1,6 +1,17 @@
 
 .moto-route-editor-poi-list {
 
+    .poi-name-label {
+        width: 100%;
+        margin-bottom: 4px;
+    }
+
+    .remove-poi {
+        color: red;
+        float: right;
+        cursor: pointer;
+    }
+
     .description {
         font-size: 0.85em;
     }

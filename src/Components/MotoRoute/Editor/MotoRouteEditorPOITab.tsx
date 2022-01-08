@@ -15,10 +15,11 @@ type MotoRouteEditorPOITabProps = {
   onPOISelect: (poi: POIType | null) => void
   onPOIHover: (mouseenter: boolean, poi: POIType) => void
   handlePOIDetailsChange: (id: number, field: string, value: any) => void
+  removePOI: (index: number) => void
 }
 
 const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
-    const { pois, setPois, selectedPOI, onPOISelect, onPOIHover, handlePOIDetailsChange } = props
+    const { pois, setPois, selectedPOI, onPOISelect, onPOIHover, handlePOIDetailsChange, removePOI } = props
 
     const findCard = useCallback((id: string) => {
       const card = pois.filter((c) => `poi_${c.id}` === id)[0]
@@ -77,6 +78,7 @@ const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
                             onClick={ () => onPOISelect(poi)}
                             onPOIHover={ onPOIHover }
                             handlePOIDetailsChange={ handlePOIDetailsChange }
+                            removePOI={ removePOI }
                         />
                     ))}
                 </Fragment>

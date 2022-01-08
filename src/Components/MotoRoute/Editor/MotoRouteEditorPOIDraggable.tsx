@@ -1,4 +1,5 @@
 import { CSSProperties, FC, memo, useMemo, useState } from 'react'
+import { TrashFill } from 'react-bootstrap-icons';
 import { useDrag, useDrop } from 'react-dnd'
 import Select from 'react-select';
 import { mapIconCirclesUrls } from 'src/Components/MapConstants'
@@ -29,6 +30,7 @@ export interface CardProps {
   onClick: () => void
   onPOIHover: (mouseenter: boolean, poi: POIType) => void
   handlePOIDetailsChange: (id: number, field: string, value: any) => void
+  removePOI: (index: number) => void
 }
 
 interface Item {
@@ -58,7 +60,8 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
     findCard,
     onClick,
     onPOIHover,
-    handlePOIDetailsChange
+    handlePOIDetailsChange,
+    removePOI
     }) {
 
   // ============================= DRAG AND DROP ==================
@@ -121,9 +124,10 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
             </div>
             <div className="description-container d-flex flex-column">
 
+
                 {/* Name */}
                 <div className="form-group">
-                    <label htmlFor="name">Name:</label>
+                    <label className="poi-name-label" htmlFor="name">Name: <span className="remove-poi" onClick={() => removePOI(poi.id)}><TrashFill /></span></label>
                     <input 
                         className={ `loginbox-form-control form-control ${ fieldErrs.name ? "invalid" : "" }` }
                         name={ `name` } 

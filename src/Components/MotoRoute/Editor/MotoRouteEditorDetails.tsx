@@ -17,10 +17,11 @@ type MotoRouteDetailsEditorProps = {
     onPOISelect: (poi: POIType | null) => void
     onPOIHover: (mouseenter: boolean, poi: POIType) => void
     handlePOIDetailsChange: (id: number, field: string, value: any) => void
+    removePOI: (index: number) => void
 }
 
 const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
-    const { route, setRoute, removeWaypoint, pois, setPois, selectedPOI, onPOISelect, onPOIHover, handlePOIDetailsChange } = props
+    const { route, setRoute, removeWaypoint, pois, setPois, selectedPOI, onPOISelect, onPOIHover, handlePOIDetailsChange, removePOI } = props
 
 
     const urlMatch = useMatch('/routes/:id/*')
@@ -72,6 +73,7 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
                                 onPOISelect={ onPOISelect }
                                 onPOIHover={ onPOIHover }
                                 handlePOIDetailsChange={ handlePOIDetailsChange }
+                                removePOI={ removePOI }
                             />} 
                         />
                     </Routes>
