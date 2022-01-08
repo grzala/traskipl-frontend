@@ -3,6 +3,7 @@ import MotoRouteEditorMap from "../Components/MotoRoute/Editor/MotoRouteEditorMa
 import MotoRouteDetailsEditor from "../Components/MotoRoute/Editor/MotoRouteEditorDetails";
 import { Navigate, useMatch, useNavigate } from "react-router-dom";
 import { POIType, POIVariant } from "src/Types/MotoRoutesTypes";
+import { initialRouteData, MotoRouteDetailsDataType } from "src/Components/MotoRoute/Editor/MotoRouteEditorDetailsTab";
 
 enum addModes {
     NONE,
@@ -15,6 +16,24 @@ const MotoRouteEditor = () => {
     const navigate = useNavigate()
     const urlMatch = useMatch('/routes/editor/:tab')
     const urlMatchForTabChange = useMatch('/routes/editor/*')
+
+    // ========================= ROUTE DATA ============================================
+
+    const [motoRouteDetailsData, setMotoRouteDetailsData] = useState<MotoRouteDetailsDataType>(initialRouteData);
+
+
+    const handleRouteDataChange = (field: string, newVal: any) => {
+        setMotoRouteDetailsData({ 
+            ...motoRouteDetailsData, 
+            [field]: newVal
+        })
+    }
+
+
+    // ==================================================================================
+
+
+    // ======================== WAYPOINTS AND ROUTES =====================================
 
     const [route, setRoute] = useState<{lat: number, lng: number}[]>([])
     const [pois, setPois] = useState<POIType[]>([]);
@@ -41,7 +60,6 @@ const MotoRouteEditor = () => {
     }
 
     const [addMode, setAddMode] = useState<addModes>(addModes.NONE)
-
 
 
     useEffect(() => {
@@ -136,10 +154,14 @@ const MotoRouteEditor = () => {
         setPois(pois_copy)
     }
 
+    // ========================================================================================
+
+    // ===================== SUBMIT HANDLING ================================================
 
     const resetRoute = () => {
-        setPois([])
+        setMotoRouteDetailsData(initialRouteData)
         setRoute([])
+        setPois([])
         navigate(`${urlMatchForTabChange?.pathnameBase}/details`)
     }
 
@@ -147,6 +169,7 @@ const MotoRouteEditor = () => {
         console.log("Submit Route")
     }
 
+    // =====================================================================================
 
     return (
         <Fragment>
@@ -177,6 +200,8 @@ const MotoRouteEditor = () => {
                         removePOI={ removePOI }
                         resetRoute={ resetRoute }
                         submitRoute={ submitRoute }
+                        motoRouteDetailsData={ motoRouteDetailsData }
+                        handleRouteDataChange= { handleRouteDataChange }
                     />
                 </div>
             </div>

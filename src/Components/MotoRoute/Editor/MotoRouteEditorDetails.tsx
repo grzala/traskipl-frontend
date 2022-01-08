@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { GeoAltFill, InfoCircleFill, MapFill } from "react-bootstrap-icons";
 import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 import { POIType } from "src/Types/MotoRoutesTypes";
-import MotoRouteEditorDetailsTab from "./MotoRouteEditorDetailsTab";
+import MotoRouteEditorDetailsTab, { MotoRouteDetailsDataType } from "./MotoRouteEditorDetailsTab";
 import MotoRouteEditorPOITab from "./MotoRouteEditorPOITab";
 import MotoRouteEditorRouteTab from "./MotoRouteEditorRouteTab";
 
@@ -22,6 +22,8 @@ type MotoRouteDetailsEditorProps = {
     removePOI: (index: number) => void,
     resetRoute: () => void,
     submitRoute: () => void,
+    motoRouteDetailsData: MotoRouteDetailsDataType,
+    handleRouteDataChange: (field: string, newVal: any) => void,
 }
 
 const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
@@ -37,7 +39,9 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
         handlePOIDetailsChange, 
         removePOI,
         resetRoute,
-        submitRoute
+        submitRoute,
+        motoRouteDetailsData,
+        handleRouteDataChange,
     } = props
 
 
@@ -74,7 +78,12 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
 
                     <div id="poi-list" className="details-content">
                     <Routes>
-                        <Route path="/details" element={<MotoRouteEditorDetailsTab />} />
+                        <Route path="/details" element={
+                            <MotoRouteEditorDetailsTab 
+                                motoRouteDetailsData={ motoRouteDetailsData }
+                                handleChange={ handleRouteDataChange }
+                            />} 
+                        />
                         <Route path="/route" element={
                             <MotoRouteEditorRouteTab 
                                 route={ route } 

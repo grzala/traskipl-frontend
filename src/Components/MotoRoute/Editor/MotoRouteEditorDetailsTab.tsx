@@ -52,7 +52,7 @@ type dateSelectFieldType = {
     day: number
 }
 
-type MotoRouteDetailsDataType = {
+export type MotoRouteDetailsDataType = {
     name: string,
     description: string,
     date_open: dateSelectFieldType,
@@ -63,7 +63,7 @@ type MotoRouteDetailsDataType = {
     time_to_complete_m: number,
 }
 
-const initialData: MotoRouteDetailsDataType = {
+export const initialRouteData: MotoRouteDetailsDataType = {
     name: "",
     description: "",
     date_open: {month: 1, day: 1},
@@ -86,16 +86,14 @@ const selectNoBorderStyles = {
 const MAX_DESCRIPTION_LENGTH = 400;
 const DEFAULT_DESCRIPTION_ROWS = 4;
 
-const MotoRouteEditorDetailsTab = () => {
+type MotoRouteEditorDetailsTabProps = {
+    motoRouteDetailsData: MotoRouteDetailsDataType,
+    handleChange: (field: string, newVal: any) => void,
+}
 
-    const [motoRouteDetailsData, setMotoRouteDetailsData] = useState<MotoRouteDetailsDataType>(initialData);
-
-    const handleChange = (field: string, newVal: any) => {
-        setMotoRouteDetailsData({ 
-            ...motoRouteDetailsData, 
-            [field]: newVal
-        })
-    }
+const MotoRouteEditorDetailsTab = (props: MotoRouteEditorDetailsTabProps) => {
+ 
+    const { motoRouteDetailsData, handleChange } = props
 
     const [fieldErrs, setFieldErrs] = useState<FieldErrorType>(blankError)
 
