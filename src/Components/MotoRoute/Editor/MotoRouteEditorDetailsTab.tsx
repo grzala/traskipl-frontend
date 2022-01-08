@@ -131,19 +131,15 @@ const MotoRouteEditorDetailsTab = () => {
         ))
     }
 
-    const [openFrom, setOpenFrom] = useState<dateSelectFieldType>({month: 1, day: 1})
-    const [openTo, setOpenTo] = useState<dateSelectFieldType>({month: 1, day: 1})
-
-
-    const handleMonthChange = (newOption: any, stateVar: dateSelectFieldType, changeStateVar: (arg: dateSelectFieldType) => void) => {
-        var newDay = stateVar.day
-        var maxDay = getMaxDayInMonth(newOption.value)
+    const handleMonthChange = (field: string, currentDay: number, newMonth: number) => {
+        var newDay = currentDay
+        var maxDay = getMaxDayInMonth(newMonth)
 
         if (newDay > maxDay) {
             newDay = maxDay
         }
 
-        changeStateVar({day: newDay, month: newOption})
+        handleChange("field", {day: newDay, months: newMonth})
     }
 
     // =======================================================================================
@@ -205,19 +201,19 @@ const MotoRouteEditorDetailsTab = () => {
                                     menuPlacement="top"
                                     className="form-control"
                                     styles={ selectNoBorderStyles }
-                                    value={ {value: openFrom.day, label: openFrom.day.toString()} }
-                                    options={ getDaysInMonth(openFrom.month) }
+                                    value={ {value: motoRouteDetailsData.date_open.day, label: motoRouteDetailsData.date_open.day.toString()} }
+                                    options={ getDaysInMonth(motoRouteDetailsData.date_open.month) }
                                     onChange={ (newOption: any) => 
-                                        setOpenFrom({...openFrom, day: newOption.value})}
+                                        handleChange("date_open", {...motoRouteDetailsData.date_open, day: newOption.value}) }
                                 />
 
                                 <Select
                                     menuPlacement="top"
                                     className="form-control"
                                     styles={ selectNoBorderStyles }
-                                    value={ {value: openFrom.month, label: moment.months()[openFrom.month-1]} }
+                                    value={ {value: motoRouteDetailsData.date_open.month, label: moment.months()[motoRouteDetailsData.date_open.month-1]} }
                                     options={ allMonths }
-                                    onChange={ (newOption) => handleMonthChange(newOption, openFrom, setOpenFrom) }
+                                    onChange={ (newOption: any) => handleMonthChange("date_open", motoRouteDetailsData.date_open.day, newOption.value) }
                                 />
                             </div>
 
@@ -227,19 +223,19 @@ const MotoRouteEditorDetailsTab = () => {
                                     menuPlacement="top"
                                     className="form-control"
                                     styles={ selectNoBorderStyles }
-                                    value={ { value: openTo.day, label: openTo.day.toString()} }
-                                    options={ getDaysInMonth(openTo.month) }
+                                    value={ {value: motoRouteDetailsData.date_closed.day, label: motoRouteDetailsData.date_closed.day.toString()} }
+                                    options={ getDaysInMonth(motoRouteDetailsData.date_closed.month) }
                                     onChange={ (newOption: any) => 
-                                        setOpenTo({...openTo, day: newOption.value})}
+                                        handleChange("date_closed", {...motoRouteDetailsData.date_closed, day: newOption.value}) }
                                 />
 
                                 <Select
                                     menuPlacement="top"
                                     className="form-control"
                                     styles={ selectNoBorderStyles }
-                                    value={ {value: openTo.month, label: moment.months()[openTo.month-1]} }
+                                    value={ {value: motoRouteDetailsData.date_closed.month, label: moment.months()[motoRouteDetailsData.date_closed.month-1]} }
                                     options={ allMonths }
-                                    onChange={ (newOption) => handleMonthChange(newOption, openTo, setOpenTo) }
+                                    onChange={ (newOption: any) => handleMonthChange("date_closed", motoRouteDetailsData.date_closed.day, newOption.value) }
                                 />
                             </div>
                         </Fragment>
