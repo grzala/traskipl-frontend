@@ -68,6 +68,7 @@ const MotoRouteEditor = () => {
         let newCoords = {lat: lat, lng: lng}
 
         if (addMode === addModes.ADD_WAYPOINT) {
+            navigate(`${urlMatchForTabChange?.pathnameBase}/route`)
             if (!route.includes(newCoords)) {
                 setRoute([...route, newCoords])
             } else {
@@ -136,6 +137,17 @@ const MotoRouteEditor = () => {
     }
 
 
+    const resetRoute = () => {
+        setPois([])
+        setRoute([])
+        navigate(`${urlMatchForTabChange?.pathnameBase}/details`)
+    }
+
+    const submitRoute = () => {
+        console.log("Submit Route")
+    }
+
+
     return (
         <Fragment>
             <div className="row display-flex map-details-container">
@@ -163,6 +175,8 @@ const MotoRouteEditor = () => {
                         onPOIHover={ onPOIHover }
                         handlePOIDetailsChange={ handlePOIDetailsChange }
                         removePOI={ removePOI }
+                        resetRoute={ resetRoute }
+                        submitRoute={ submitRoute }
                     />
                 </div>
             </div>

@@ -19,11 +19,26 @@ type MotoRouteDetailsEditorProps = {
     onPOISelect: (poi: POIType | null) => void
     onPOIHover: (mouseenter: boolean, poi: POIType) => void
     handlePOIDetailsChange: (id: number, field: string, value: any) => void
-    removePOI: (index: number) => void
+    removePOI: (index: number) => void,
+    resetRoute: () => void,
+    submitRoute: () => void,
 }
 
 const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
-    const { route, setRoute, removeWaypoint, pois, setPois, selectedPOI, onPOISelect, onPOIHover, handlePOIDetailsChange, removePOI } = props
+    const { 
+        route,
+        setRoute, 
+        removeWaypoint, 
+        pois, 
+        setPois, 
+        selectedPOI, 
+        onPOISelect, 
+        onPOIHover, 
+        handlePOIDetailsChange, 
+        removePOI,
+        resetRoute,
+        submitRoute
+    } = props
 
 
     const urlMatch = useMatch('/routes/:id/*')
@@ -82,8 +97,8 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
                 </div> 
                 
                 <div className="editor-details-footer d-flex justify-content-end">
-                    <button className="btn btn-primary">Reset</button>
-                    <button className="btn btn-default">Submit</button>
+                    <button className="btn btn-primary" onClick={ resetRoute }>Reset</button>
+                    <button className="btn btn-default" onClick={ submitRoute }>Submit</button>
                 </div>
             </div>
         </Fragment>
