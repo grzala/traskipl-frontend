@@ -4,6 +4,9 @@ import MotoRouteDetailsEditor from "../Components/MotoRoute/Editor/MotoRouteEdit
 import { Navigate, useMatch, useNavigate } from "react-router-dom";
 import { POIType, POIVariant } from "src/Types/MotoRoutesTypes";
 import { initialRouteData, MotoRouteDetailsDataType } from "src/Components/MotoRoute/Editor/MotoRouteEditorDetailsTab";
+import { createNewMotoRoute } from "src/Actions/MotoRoutesActions";
+import { toast } from "react-toastify";
+import ToasterStyles from "../ToasterStyles/ToasterStyles"
 
 enum addModes {
     NONE,
@@ -165,8 +168,14 @@ const MotoRouteEditor = () => {
         navigate(`${urlMatchForTabChange?.pathnameBase}/details`)
     }
 
-    const submitRoute = () => {
-        console.log("Submit Route")
+    const submitRoute = async () => {
+        const res = await createNewMotoRoute(motoRouteDetailsData, route, pois)
+
+        if (res .status !== 200) {
+        } else {
+            toast.success(res.data.messages[0], ToasterStyles)
+            navigate(`/routes/${res.data.new_id}/details`)
+        }
     }
 
     // =====================================================================================

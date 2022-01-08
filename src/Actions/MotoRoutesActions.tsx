@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useCallback, useEffect, useState } from "react";
-import { MotoRouteType } from "../Types/MotoRoutesTypes";
+import { MotoRouteDetailsDataType } from "src/Components/MotoRoute/Editor/MotoRouteEditorDetailsTab";
+import { MotoRouteType, POIType } from "../Types/MotoRoutesTypes";
 import { currentUserType } from "../Types/UserTypes";
 import { handleAxiosErrors } from "./ErrorHandling";
 
@@ -218,3 +219,29 @@ export function useGetMotoRouteVoteAndFav(id: number | null, currentUser: curren
 
     return [ userVote, isFavourite, setUserVote, setIsFavourite ]
 }
+
+
+export function createNewMotoRoute(data: MotoRouteDetailsDataType, waypoints: {lat:number, lng: number}[], pois: POIType[]) {
+    return axios.post(
+        `${process.env.REACT_APP_API_SERVER}/moto_routes`,
+        {
+            data: data,
+            waypoints: waypoints,
+            pois: pois,
+        },
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}
+
+
+
