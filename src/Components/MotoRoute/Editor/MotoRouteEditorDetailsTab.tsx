@@ -5,14 +5,6 @@ import Select from 'react-select';
 
 import "./MotoRouteEditor.scss"
 
-// t.string "name"
-// t.string "description"
-// t.date "open_start"
-// t.date "open_end"
-// t.integer "time_to_complete_h"
-// t.integer "time_to_complete_m"
-// t.integer "difficulty"
-
 
 const range = (from: number, to: number, step: number = 1) => {
     if (step === 0) {
@@ -47,24 +39,41 @@ const blankError = {
     difficulty: null,
 };
 
+
+const allMonths = moment.months().map((month, index) => (
+    {
+        /* +1 because January is the 1st month, not the 0 month */
+        value: index + 1, label: month
+    }
+))
+
+type dateSelectFieldType = {
+    month: {value: number, label: string},
+    day: number
+}
+
 type MotoRouteDetailsDataType = {
     name: string,
     description: string,
-    date_open: string | null,
-    date_closed: Date | null,
+    date_open: dateSelectFieldType,
+    date_closed: dateSelectFieldType,
+    open_all_year: boolean,
+    difficulty: number,
+    time_to_complete_h: number,
+    time_to_complete_m: number,
 }
 
 const initialData: MotoRouteDetailsDataType = {
     name: "",
     description: "",
-    date_open: null,
-    date_closed: null,
+    date_open: {month: allMonths[0], day: 1},
+    date_closed: {month: allMonths[0], day: 1},
+    open_all_year: true,
+    difficulty: 1,
+    time_to_complete_h: 0,
+    time_to_complete_m: 10,
 }
 
-type dateSelectFieldType = {
-    month: {value: number, label: string},
-    day: {value: number, label: string}
-}
 
 const selectNoBorderStyles = {
     control: (styles: any, state: any) => ({ 
@@ -81,10 +90,10 @@ const MotoRouteEditorDetailsTab = () => {
 
     const [motoRouteDetailsData, setMotoRouteDetailsData] = useState<MotoRouteDetailsDataType>(initialData);
 
-    const handleChange = (e: any) => {
+    const handleChange = (field: string, newVal: any) => {
         setMotoRouteDetailsData({ 
             ...motoRouteDetailsData, 
-            [e.target.name]: e.target.value 
+            [field]: newVal
         })
     }
 
@@ -99,14 +108,6 @@ const MotoRouteEditorDetailsTab = () => {
 
     // ================== Date start and end date ===============================
 
-    const [openAllYear, setOpenAllYear] = useState<boolean>(true)
-
-    const allMonths = moment.months().map((month, index) => (
-        {
-            /* +1 because January is the 1st month, not the 0 month */
-            value: index + 1, label: month
-        }
-    ))
 
     const getMaxDayInMonth = (month: number): number => {
         if (month < 1 || month > 12) {
@@ -130,26 +131,22 @@ const MotoRouteEditorDetailsTab = () => {
         ))
     }
 
-    const [openFrom, setOpenFrom] = useState<dateSelectFieldType>({month: allMonths[0], day: {value: 1, label: "1"}})
-    const [openTo, setOpenTo] = useState<dateSelectFieldType>({month: allMonths[0], day: {value: 1, label: "1"}})
+    const [openFrom, setOpenFrom] = useState<dateSelectFieldType>({month: allMonths[0], day: 1})
+    const [openTo, setOpenTo] = useState<dateSelectFieldType>({month: allMonths[0], day: 1})
+
 
     const handleMonthChange = (newOption: any, stateVar: dateSelectFieldType, changeStateVar: (arg: dateSelectFieldType) => void) => {
         var newDay = stateVar.day
         var maxDay = getMaxDayInMonth(newOption.value)
 
-        if (newDay.value > maxDay) {
-            newDay = {value: maxDay, label: maxDay.toString()}
+        if (newDay > maxDay) {
+            newDay = maxDay
         }
 
         changeStateVar({day: newDay, month: newOption})
     }
 
     // =======================================================================================
-
-
-    const [difficulty, setDifficulty] = useState<number>(1)
-    const [timeToComplete_h, setTimeToComplete_h] = useState<number>(0)
-    const [timeToComplete_m, setTimeToComplete_m] = useState<number>(10)
 
     const MAX_DIFFICULTY = 10
     const MAX_HOURS_TO_COMPLETE = 23
@@ -170,7 +167,7 @@ const MotoRouteEditorDetailsTab = () => {
                         type="text" 
                         placeholder="Route name" 
                         value={ motoRouteDetailsData.name } 
-                        onChange={ handleChange } 
+                        onChange={ (e: any) => handleChange(e.target.name, e.target.value) } 
                     />
                 </div>
 
@@ -182,7 +179,7 @@ const MotoRouteEditorDetailsTab = () => {
                         name="description" 
                         placeholder="Route description" 
                         value={ motoRouteDetailsData.description } 
-                        onChange={ handleChange } 
+                        onChange={ (e: any) => handleChange(e.target.name, e.target.value) } 
                         maxLength={ MAX_DESCRIPTION_LENGTH }
                         rows={ DEFAULT_DESCRIPTION_ROWS }
                     />
@@ -195,12 +192,12 @@ const MotoRouteEditorDetailsTab = () => {
                         <input 
                             type="checkbox" 
                             name="is_open_full_year"
-                            checked={ openAllYear }
-                            onChange={() => setOpenAllYear(!openAllYear)} />
+                            checked={ motoRouteDetailsData.open_all_year }
+                            onChange={() => handleChange("open_all_year", !motoRouteDetailsData.open_all_year)} />
                         <label htmlFor="is_open_full_year">&nbsp;&nbsp;Open all year</label>
                     </div>
 
-                    { !openAllYear && (
+                    { !motoRouteDetailsData.open_all_year && (
                         <Fragment>
                             <div className="input-group">
                                 <label className="input-group-text" htmlFor="date-open">Open from:</label>
@@ -208,10 +205,10 @@ const MotoRouteEditorDetailsTab = () => {
                                     menuPlacement="top"
                                     className="form-control"
                                     styles={ selectNoBorderStyles }
-                                    value={ openFrom.day }
+                                    value={ { value: openFrom.day, label: openFrom.day.toString()} }
                                     options={ getDaysInMonth(openFrom.month.value) }
                                     onChange={ (newOption: any) => 
-                                        setOpenFrom({...openFrom, day: newOption})}
+                                        setOpenFrom({...openFrom, day: newOption.value})}
                                 />
 
                                 <Select
@@ -230,10 +227,10 @@ const MotoRouteEditorDetailsTab = () => {
                                     menuPlacement="top"
                                     className="form-control"
                                     styles={ selectNoBorderStyles }
-                                    value={ openTo.day }
+                                    value={ { value: openTo.day, label: openTo.day.toString()} }
                                     options={ getDaysInMonth(openTo.month.value) }
                                     onChange={ (newOption: any) => 
-                                        setOpenTo({...openTo, day: newOption})}
+                                        setOpenTo({...openTo, day: newOption.value})}
                                 />
 
                                 <Select
@@ -256,10 +253,9 @@ const MotoRouteEditorDetailsTab = () => {
                         menuPlacement="top"
                         className="form-control"
                         styles={ selectNoBorderStyles }
-                        value={ {value: difficulty, label: difficulty.toString() }  }
+                        value={ {value: motoRouteDetailsData.difficulty, label: motoRouteDetailsData.difficulty.toString() }  }
                         options={ range(1, MAX_DIFFICULTY+1).map((i) => ({value: i, label: (i).toString()})) }
-                        onChange={ (newOption: any) => 
-                            setDifficulty(newOption.value)}
+                        onChange={ (newOption: any) => handleChange('difficulty', newOption.value) }
                     />
                     <label className="input-group-text" >out of 10</label>
                 </div>
@@ -272,10 +268,9 @@ const MotoRouteEditorDetailsTab = () => {
                         components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
                         className="form-control"
                         styles={ selectNoBorderStyles }
-                        value={ {value: timeToComplete_h, label: timeToComplete_h.toString() }  }
+                        value={ {value: motoRouteDetailsData.time_to_complete_h, label: motoRouteDetailsData.time_to_complete_h.toString() }  }
                         options={ range(0, MAX_HOURS_TO_COMPLETE+1).map((i) => ({value: i, label: (i).toString()})) }
-                        onChange={ (newOption: any) => 
-                            setTimeToComplete_h(newOption.value)}
+                        onChange={ (newOption: any) => handleChange('time_to_complete_h', newOption.value) }
                     />
                     <label className="input-group-text" >hours</label>
 
@@ -284,10 +279,9 @@ const MotoRouteEditorDetailsTab = () => {
                         components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
                         className="form-control"
                         styles={ selectNoBorderStyles }
-                        value={ {value: timeToComplete_m, label: timeToComplete_m.toString() }  }
+                        value={ {value: motoRouteDetailsData.time_to_complete_m, label: motoRouteDetailsData.time_to_complete_m.toString() }  }
                         options={ range(0, MAX_MINUTES_TO_COMPLETE+1, 10).map((i) => ({value: i, label: (i).toString()})) }
-                        onChange={ (newOption: any) => 
-                            setTimeToComplete_m(newOption.value)}
+                        onChange={ (newOption: any) => handleChange('time_to_complete_m', newOption.value) }
                     />
                     <label className="input-group-text" >minutes</label>
                 </div>
