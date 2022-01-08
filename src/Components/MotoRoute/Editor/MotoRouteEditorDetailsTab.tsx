@@ -48,7 +48,7 @@ const allMonths = moment.months().map((month, index) => (
 ))
 
 type dateSelectFieldType = {
-    month: {value: number, label: string},
+    month: number,
     day: number
 }
 
@@ -66,8 +66,8 @@ type MotoRouteDetailsDataType = {
 const initialData: MotoRouteDetailsDataType = {
     name: "",
     description: "",
-    date_open: {month: allMonths[0], day: 1},
-    date_closed: {month: allMonths[0], day: 1},
+    date_open: {month: 1, day: 1},
+    date_closed: {month: 1, day: 1},
     open_all_year: true,
     difficulty: 1,
     time_to_complete_h: 0,
@@ -131,8 +131,8 @@ const MotoRouteEditorDetailsTab = () => {
         ))
     }
 
-    const [openFrom, setOpenFrom] = useState<dateSelectFieldType>({month: allMonths[0], day: 1})
-    const [openTo, setOpenTo] = useState<dateSelectFieldType>({month: allMonths[0], day: 1})
+    const [openFrom, setOpenFrom] = useState<dateSelectFieldType>({month: 1, day: 1})
+    const [openTo, setOpenTo] = useState<dateSelectFieldType>({month: 1, day: 1})
 
 
     const handleMonthChange = (newOption: any, stateVar: dateSelectFieldType, changeStateVar: (arg: dateSelectFieldType) => void) => {
@@ -205,8 +205,8 @@ const MotoRouteEditorDetailsTab = () => {
                                     menuPlacement="top"
                                     className="form-control"
                                     styles={ selectNoBorderStyles }
-                                    value={ { value: openFrom.day, label: openFrom.day.toString()} }
-                                    options={ getDaysInMonth(openFrom.month.value) }
+                                    value={ {value: openFrom.day, label: openFrom.day.toString()} }
+                                    options={ getDaysInMonth(openFrom.month) }
                                     onChange={ (newOption: any) => 
                                         setOpenFrom({...openFrom, day: newOption.value})}
                                 />
@@ -215,7 +215,7 @@ const MotoRouteEditorDetailsTab = () => {
                                     menuPlacement="top"
                                     className="form-control"
                                     styles={ selectNoBorderStyles }
-                                    value={ openFrom.month }
+                                    value={ {value: openFrom.month, label: moment.months()[openFrom.month-1]} }
                                     options={ allMonths }
                                     onChange={ (newOption) => handleMonthChange(newOption, openFrom, setOpenFrom) }
                                 />
@@ -228,7 +228,7 @@ const MotoRouteEditorDetailsTab = () => {
                                     className="form-control"
                                     styles={ selectNoBorderStyles }
                                     value={ { value: openTo.day, label: openTo.day.toString()} }
-                                    options={ getDaysInMonth(openTo.month.value) }
+                                    options={ getDaysInMonth(openTo.month) }
                                     onChange={ (newOption: any) => 
                                         setOpenTo({...openTo, day: newOption.value})}
                                 />
@@ -237,7 +237,7 @@ const MotoRouteEditorDetailsTab = () => {
                                     menuPlacement="top"
                                     className="form-control"
                                     styles={ selectNoBorderStyles }
-                                    value={ openTo.month }
+                                    value={ {value: openTo.month, label: moment.months()[openTo.month-1]} }
                                     options={ allMonths }
                                     onChange={ (newOption) => handleMonthChange(newOption, openTo, setOpenTo) }
                                 />
