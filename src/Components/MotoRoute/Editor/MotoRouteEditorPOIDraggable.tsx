@@ -49,6 +49,7 @@ const blankError = {
   description: null,
 };
 
+const MAX_NAME_LENGTH = 100
 const MAX_DESCRIPTION_LENGTH = 250
 const DEFAULT_DESCRIPTION_ROWS = 3
 
@@ -132,6 +133,7 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
                         className={ `loginbox-form-control form-control ${ fieldErrs.name ? "invalid" : "" }` }
                         name={ `name` } 
                         type="text" 
+                        maxLength={ MAX_NAME_LENGTH }
                         placeholder="PoI name" 
                         value={ poi.name } 
                         onChange={ (e: any) => handlePOIDetailsChange(poi.id, e.target.name, e.target.value) } 

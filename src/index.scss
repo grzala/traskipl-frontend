@@ -44,7 +44,9 @@ code {
 
 /* override bootstrap styles */
 $theme-colors: (
+  "default": #bd3327,
   "primary": #54bac1,
 );
+
 
 @import '~bootstrap/scss/bootstrap.scss';

@@ -6,6 +6,8 @@ import MotoRouteEditorDetailsTab from "./MotoRouteEditorDetailsTab";
 import MotoRouteEditorPOITab from "./MotoRouteEditorPOITab";
 import MotoRouteEditorRouteTab from "./MotoRouteEditorRouteTab";
 
+import "./MotoRouteEditor.scss"
+
 
 type MotoRouteDetailsEditorProps = {
     route: {lat: number, lng: number}[];
@@ -78,7 +80,12 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
                         />
                     </Routes>
                 </div> 
+                
+                <div className="editor-details-footer d-flex justify-content-end">
+                    <button className="btn btn-primary">Reset</button>
+                    <button className="btn btn-default">Submit</button>
                 </div>
+            </div>
         </Fragment>
     ) : (<></>)
 }
