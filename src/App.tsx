@@ -22,12 +22,16 @@ axios.defaults.withCredentials = true;
 function App() {
 
   const [currentUser, setCurrentUser] = useState<UserType | null>(
-    null
+    JSON.parse(window.localStorage.getItem('current_user') || 'null')
   );
 
   useEffect(() => { 
     document.body.className = 'default-body'; // apply css to body
 
+    // Keep this value for quicker access, but checked logged in anyway
+    let storedUser = window.localStorage.getItem('current_user')
+    if (storedUser)
+      setCurrentUser(JSON.parse(storedUser));
 
     // Login, Logout and CheckIsLoggedIn 
     const fetchLoggedIn = async () => {
@@ -43,6 +47,7 @@ function App() {
   
       const user = data.user
       setCurrentUser(user);
+      window.localStorage.setItem('current_user', JSON.stringify(user));
     }
 
     fetchLoggedIn();
@@ -65,7 +70,7 @@ function App() {
 
     const user = data.user
     setCurrentUser(user);
-    console.log(user)
+    window.localStorage.setItem('current_user', JSON.stringify(user));
     toast.success(data.messages.join(", "), ToasterStyles);
     return true
   }
@@ -83,6 +88,7 @@ function App() {
     
     // set user to null if successful logout
     setCurrentUser(null);
+    window.localStorage.setItem('current_user', JSON.stringify(null));
     toast.success(data.messages.join(", "), ToasterStyles);
   }
 

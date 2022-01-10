@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import MotoRouteEditorMap from "../Components/MotoRoute/Editor/MotoRouteEditorMap";
 import MotoRouteDetailsEditor from "../Components/MotoRoute/Editor/MotoRouteEditorDetails";
 import { useMatch, useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import { createNewMotoRoute } from "src/Actions/MotoRoutesActions";
 import { toast } from "react-toastify";
 import ToasterStyles from "../ToasterStyles/ToasterStyles"
 import { CompositePOIFieldErrorType } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOITab";
+import { userContext } from "src/Contexts/UserContext";
 
 
 enum addModes {
@@ -22,6 +23,19 @@ const MotoRouteEditor = () => {
     const navigate = useNavigate()
     const urlMatch = useMatch('/routes/editor/:tab')
     const urlMatchForTabChange = useMatch('/routes/editor/*')
+
+
+    // ========================== URL and redirects ====================================
+
+    const user = useContext(userContext);
+    useEffect(() => {
+        if (!user.user) {
+            toast.error("You must be logged in to use the editor.", ToasterStyles)
+            navigate(`/`)
+        }
+    }, [user])
+
+    // =================================================================================
 
     // ========================= ROUTE DATA ============================================
 
@@ -60,7 +74,7 @@ const MotoRouteEditor = () => {
         if (urlMatch !== null && poi !== null) {
             navigate(`${urlMatchForTabChange?.pathnameBase}/poi`)
         } else {
-            console.log("This should not be here")
+            console.log("This should not happen")
         }
         setSelectedPOI(poi);
     }
@@ -301,6 +315,7 @@ const MotoRouteEditor = () => {
 
     return (
         <Fragment>
+
             <div className="row display-flex map-details-container">
                 <div className="col-md-8 moto-route-map-container">
                     <MotoRouteEditorMap
