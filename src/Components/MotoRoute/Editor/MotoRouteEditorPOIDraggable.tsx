@@ -30,7 +30,8 @@ export interface CardProps {
   onClick: () => void
   onPOIHover: (mouseenter: boolean, poi: POIType) => void
   handlePOIDetailsChange: (id: number, field: string, value: any) => void
-  removePOI: (index: number) => void
+  removePOI: (index: number) => void,
+  fieldErrs: FieldErrorType
 }
 
 interface Item {
@@ -39,18 +40,23 @@ interface Item {
 }
 
 
-type FieldErrorType = {
+export type FieldErrorType = {
   name: string | null, 
   description: string | null,
 }
 
-const blankError = {
+export const blankError = {
   name: null, 
   description: null,
 };
 
-const MAX_NAME_LENGTH = 100
+const MIN_NAME_LENGTH = 5
+const MAX_NAME_LENGTH = 35
+const MIN_DESCRIPTION_LENGTH = 20
 const MAX_DESCRIPTION_LENGTH = 250
+export const POI_NAME_LENGTH_BOUNDS = {min: MIN_NAME_LENGTH, max: MAX_NAME_LENGTH}
+export const POI_DESCRIPTION_LENGTH_BOUNDS = {min: MIN_DESCRIPTION_LENGTH, max: MAX_DESCRIPTION_LENGTH}
+
 const DEFAULT_DESCRIPTION_ROWS = 3
 
 export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
@@ -62,7 +68,8 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
     onClick,
     onPOIHover,
     handlePOIDetailsChange,
-    removePOI
+    removePOI,
+    fieldErrs
     }) {
 
   // ============================= DRAG AND DROP ==================
@@ -96,9 +103,6 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
   const opacity = isDragging ? 0 : 1
   // ===============================================
 
-  const [fieldErrs, setFieldErrs] = useState<FieldErrorType>(blankError)
-
-
   const descriptionCharactersLeft = useMemo(() => {
       return MAX_DESCRIPTION_LENGTH - poi.description.length
   }, [poi.description])
@@ -130,7 +134,7 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
                 <div className="form-group">
                     <label className="poi-name-label" htmlFor="name">Name: <span className="remove-poi" onClick={() => removePOI(poi.id)}><TrashFill /></span></label>
                     <input 
-                        className={ `loginbox-form-control form-control ${ fieldErrs.name ? "invalid" : "" }` }
+                        className={ `loginbox-form-control form-control ${ fieldErrs?.name ? "invalid" : "" }` }
                         name={ `name` } 
                         type="text" 
                         maxLength={ MAX_NAME_LENGTH }
@@ -138,13 +142,18 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
                         value={ poi.name } 
                         onChange={ (e: any) => handlePOIDetailsChange(poi.id, e.target.name, e.target.value) } 
                     />
+                    { fieldErrs?.name && (
+                        <div className="invalid-prompt">
+                            { fieldErrs?.name }
+                        </div>
+                    )}
                 </div>
 
                 {/* Description*/}
                 <div className="form-group">
                     <label htmlFor="name">Description:</label>
                     <textarea 
-                        className={ `loginbox-form-control form-control ${ fieldErrs.description ? "invalid" : "" }` }
+                        className={ `loginbox-form-control form-control ${ fieldErrs?.description ? "invalid" : "" }` }
                         name={ `description` } 
                         placeholder="PoI description" 
                         value={ poi.description } 
@@ -153,6 +162,11 @@ export const MotoRouteEditorPOIDraggable: FC<CardProps> = memo(function Card({
                         onChange={ (e: any) => handlePOIDetailsChange(poi.id, e.target.name, e.target.value) } 
                     />
                     <small>Characters left: {descriptionCharactersLeft}</small>
+                    { fieldErrs?.description && (
+                        <div className="invalid-prompt">
+                            { fieldErrs?.description }
+                        </div>
+                    )}
                 </div>
 
                 {/* Variant */} 

@@ -3,7 +3,7 @@ import { GeoAltFill, InfoCircleFill, MapFill } from "react-bootstrap-icons";
 import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 import { POIType } from "src/Types/MotoRoutesTypes";
 import MotoRouteEditorDetailsTab, { MotoRouteDetailsDataType, FieldErrorType as MotoRouteFieldErrorType } from "./MotoRouteEditorDetailsTab";
-import MotoRouteEditorPOITab from "./MotoRouteEditorPOITab";
+import MotoRouteEditorPOITab, { CompositePOIFieldErrorType } from "./MotoRouteEditorPOITab";
 import MotoRouteEditorRouteTab from "./MotoRouteEditorRouteTab";
 
 
@@ -26,6 +26,7 @@ type MotoRouteDetailsEditorProps = {
     motoRouteDetailsData: MotoRouteDetailsDataType,
     handleRouteDataChange: (field: string, newVal: any) => void,
     motoRouteFieldErrors: MotoRouteFieldErrorType,
+    poiFieldErrs: CompositePOIFieldErrorType
 }
 
 const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
@@ -45,6 +46,7 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
         motoRouteDetailsData,
         handleRouteDataChange,
         motoRouteFieldErrors,
+        poiFieldErrs
     } = props
 
 
@@ -104,6 +106,7 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
                                 onPOIHover={ onPOIHover }
                                 handlePOIDetailsChange={ handlePOIDetailsChange }
                                 removePOI={ removePOI }
+                                poiFieldErrs={ poiFieldErrs }
                             />} 
                         />
                     </Routes>

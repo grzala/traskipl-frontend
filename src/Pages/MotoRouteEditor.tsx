@@ -4,9 +4,12 @@ import MotoRouteDetailsEditor from "../Components/MotoRoute/Editor/MotoRouteEdit
 import { Navigate, useMatch, useNavigate } from "react-router-dom";
 import { POIType, POIVariant } from "src/Types/MotoRoutesTypes";
 import { initialRouteData, MotoRouteDetailsDataType, MOTO_ROUTE_NAME_LENGTH_BOUNDS, FieldErrorType as MotoRouteFieldErrorType, blankError as motoRouteBlankError, MOTO_ROUTE_DESCRIPTION_LENGTH_BOUNDS } from "src/Components/MotoRoute/Editor/MotoRouteEditorDetailsTab";
+import { FieldErrorType as POIFieldErrorType, blankError as POIBlankError, POI_NAME_LENGTH_BOUNDS, POI_DESCRIPTION_LENGTH_BOUNDS } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOIDraggable";
 import { createNewMotoRoute } from "src/Actions/MotoRoutesActions";
 import { toast } from "react-toastify";
 import ToasterStyles from "../ToasterStyles/ToasterStyles"
+import { CompositePOIFieldErrorType } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOITab";
+
 
 enum addModes {
     NONE,
@@ -165,13 +168,15 @@ const MotoRouteEditor = () => {
         setMotoRouteDetailsData(initialRouteData)
         setRoute([])
         setPois([])
-        
+
         setMotoRouteFieldErrors(motoRouteBlankError)
+        setPOIFieldErrs({})
 
         navigate(`${urlMatchForTabChange?.pathnameBase}/details`)
     }
 
     const [motoRouteFieldErrors, setMotoRouteFieldErrors] = useState<MotoRouteFieldErrorType>(motoRouteBlankError)
+    const [poiFieldErrs, setPOIFieldErrs] = useState<CompositePOIFieldErrorType>({})
 
     const validate_moto_route_data = (motoRouteDetailsData: MotoRouteDetailsDataType): boolean => {
         let input_valid = true
@@ -203,29 +208,70 @@ const MotoRouteEditor = () => {
         return input_valid
     }
 
-    const submitRoute = () => {
+    const validate_pois_data = (poiData: POIType[]): boolean => {
+        let input_valid = true
+        let newErrors: CompositePOIFieldErrorType = {}
+
+        poiData.forEach((poi) => {
+            newErrors[poi.id] = {...POIBlankError}
+            console.log("poi")
+            console.log(poi)
+            console.log(poi.name.length )
+            console.log(POI_NAME_LENGTH_BOUNDS.min)
+
+            if (poi.name.length < POI_NAME_LENGTH_BOUNDS.min) {
+                newErrors[poi.id].name = `Name must be at least ${POI_NAME_LENGTH_BOUNDS.min} characters in length`
+                input_valid = false
+            }
+
+            if (poi.name.length > POI_NAME_LENGTH_BOUNDS.max) {
+                newErrors[poi.id].name = `Name must be at most ${POI_NAME_LENGTH_BOUNDS.max} characters in length`
+                input_valid = false
+            }
+
+            if (poi.description.length < POI_DESCRIPTION_LENGTH_BOUNDS.min) {
+                newErrors[poi.id].description = `Description must be at least ${POI_DESCRIPTION_LENGTH_BOUNDS.min} characters in length`
+                input_valid = false
+            }
+
+            if (poi.description.length > POI_DESCRIPTION_LENGTH_BOUNDS.max) {
+                newErrors[poi.id].description = `Description must be at most ${POI_DESCRIPTION_LENGTH_BOUNDS.max} characters in length`
+                input_valid = false
+            }
+        })
+
+
+        setPOIFieldErrs(newErrors)
+        console.log("new error")
+        console.log(newErrors)
+
+        return input_valid
+    }
+
+    const submitRoute = async () => {
         let input_valid = true
 
         input_valid = validate_moto_route_data(motoRouteDetailsData)
-        // if (!input_valid) {
-        //     toast.error("Route not added. There is a problem with the route details.", ToasterStyles)
-        // }
+        input_valid = validate_pois_data(pois) && input_valid
 
-        if (input_valid && route.length < 2) {
+        if (route.length < 2) {
             toast.error("A route must have at least two waypoints.", ToasterStyles)
             input_valid = false
         }
 
-        if (!input_valid) return
+        if (!input_valid) {
+            toast.error("Route not added. There is a problem with the route details.", ToasterStyles)
+            return
+        } 
 
-        // const res = await createNewMotoRoute(motoRouteDetailsData, route, pois)
+        const res = await createNewMotoRoute(motoRouteDetailsData, route, pois)
 
-        // if (res .status !== 200) {
-        //     toast.error("Adding route not successful. Please check your inputs and try again later.", ToasterStyles)
-        // } else {
-        //     toast.success(res.data.messages[0], ToasterStyles)
-        //     navigate(`/routes/${res.data.new_id}/details`)
-        // }
+        if (res .status !== 200) {
+            toast.error("Adding route not successful. Please check your inputs and try again later.", ToasterStyles)
+        } else {
+            toast.success(res.data.messages[0], ToasterStyles)
+            navigate(`/routes/${res.data.new_id}/details`)
+        }
     }
 
     // =====================================================================================
@@ -262,6 +308,7 @@ const MotoRouteEditor = () => {
                         motoRouteDetailsData={ motoRouteDetailsData }
                         handleRouteDataChange= { handleRouteDataChange }
                         motoRouteFieldErrors= { motoRouteFieldErrors }
+                        poiFieldErrs={ poiFieldErrs }
                     />
                 </div>
             </div>

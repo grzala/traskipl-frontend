@@ -8,6 +8,12 @@ import "./MotoRouteEditor.scss"
 import { MotoRouteEditorPOIDraggable } from "./MotoRouteEditorPOIDraggable";
 import { POIType, POIVariant } from "src/Types/MotoRoutesTypes";
 
+import { FieldErrorType as POIFieldErrorType } from "./MotoRouteEditorPOIDraggable";
+
+export type CompositePOIFieldErrorType = {
+  [key: number]: POIFieldErrorType
+}
+
 type MotoRouteEditorPOITabProps = {
   pois: POIType[]
   setPois: (_: POIType[]) => void
@@ -16,10 +22,11 @@ type MotoRouteEditorPOITabProps = {
   onPOIHover: (mouseenter: boolean, poi: POIType) => void
   handlePOIDetailsChange: (id: number, field: string, value: any) => void
   removePOI: (index: number) => void
+  poiFieldErrs: CompositePOIFieldErrorType
 }
 
 const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
-    const { pois, setPois, selectedPOI, onPOISelect, onPOIHover, handlePOIDetailsChange, removePOI } = props
+    const { pois, setPois, selectedPOI, onPOISelect, onPOIHover, handlePOIDetailsChange, removePOI, poiFieldErrs } = props
 
     const findCard = useCallback((id: string) => {
       const card = pois.filter((c) => `poi_${c.id}` === id)[0]
@@ -79,6 +86,7 @@ const MotoRouteEditorPOITab = (props: MotoRouteEditorPOITabProps) => {
                             onPOIHover={ onPOIHover }
                             handlePOIDetailsChange={ handlePOIDetailsChange }
                             removePOI={ removePOI }
+                            fieldErrs={ poiFieldErrs[poi.id] }
                         />
                     ))}
                 </Fragment>
