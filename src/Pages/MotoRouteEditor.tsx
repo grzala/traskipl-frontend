@@ -3,7 +3,7 @@ import MotoRouteEditorMap from "../Components/MotoRoute/Editor/MotoRouteEditorMa
 import MotoRouteDetailsEditor from "../Components/MotoRoute/Editor/MotoRouteEditorDetails";
 import { Navigate, useMatch, useNavigate } from "react-router-dom";
 import { POIType, POIVariant } from "src/Types/MotoRoutesTypes";
-import { initialRouteData, MotoRouteDetailsDataType } from "src/Components/MotoRoute/Editor/MotoRouteEditorDetailsTab";
+import { initialRouteData, MotoRouteDetailsDataType, MOTO_ROUTE_NAME_LENGTH_BOUNDS, FieldErrorType as MotoRouteFieldErrorType, blankError as motoRouteBlankError, MOTO_ROUTE_DESCRIPTION_LENGTH_BOUNDS } from "src/Components/MotoRoute/Editor/MotoRouteEditorDetailsTab";
 import { createNewMotoRoute } from "src/Actions/MotoRoutesActions";
 import { toast } from "react-toastify";
 import ToasterStyles from "../ToasterStyles/ToasterStyles"
@@ -165,17 +165,67 @@ const MotoRouteEditor = () => {
         setMotoRouteDetailsData(initialRouteData)
         setRoute([])
         setPois([])
+        
+        setMotoRouteFieldErrors(motoRouteBlankError)
+
         navigate(`${urlMatchForTabChange?.pathnameBase}/details`)
     }
 
-    const submitRoute = async () => {
-        const res = await createNewMotoRoute(motoRouteDetailsData, route, pois)
+    const [motoRouteFieldErrors, setMotoRouteFieldErrors] = useState<MotoRouteFieldErrorType>(motoRouteBlankError)
 
-        if (res .status !== 200) {
-        } else {
-            toast.success(res.data.messages[0], ToasterStyles)
-            navigate(`/routes/${res.data.new_id}/details`)
+    const validate_moto_route_data = (motoRouteDetailsData: MotoRouteDetailsDataType): boolean => {
+        let input_valid = true
+        let newErrors: MotoRouteFieldErrorType = {...motoRouteBlankError}
+
+
+        if (motoRouteDetailsData.name.length < MOTO_ROUTE_NAME_LENGTH_BOUNDS.min) {
+            newErrors.name = `Name must be at least ${MOTO_ROUTE_NAME_LENGTH_BOUNDS.min} characters in length`
+            input_valid = false
         }
+
+        if (motoRouteDetailsData.name.length > MOTO_ROUTE_NAME_LENGTH_BOUNDS.max) {
+            newErrors.name = `Name must be at most ${MOTO_ROUTE_NAME_LENGTH_BOUNDS.max} characters in length`
+            input_valid = false
+        }
+
+        if (motoRouteDetailsData.description.length < MOTO_ROUTE_DESCRIPTION_LENGTH_BOUNDS.min) {
+            newErrors.description = `Description must be at least ${MOTO_ROUTE_DESCRIPTION_LENGTH_BOUNDS.min} characters in length`
+            input_valid = false
+        }
+
+        if (motoRouteDetailsData.description.length > MOTO_ROUTE_DESCRIPTION_LENGTH_BOUNDS.max) {
+            newErrors.description = `Description must be at most ${MOTO_ROUTE_DESCRIPTION_LENGTH_BOUNDS.max} characters in length`
+            input_valid = false
+        }
+
+        setMotoRouteFieldErrors(newErrors)
+
+        return input_valid
+    }
+
+    const submitRoute = () => {
+        let input_valid = true
+
+        input_valid = validate_moto_route_data(motoRouteDetailsData)
+        // if (!input_valid) {
+        //     toast.error("Route not added. There is a problem with the route details.", ToasterStyles)
+        // }
+
+        if (input_valid && route.length < 2) {
+            toast.error("A route must have at least two waypoints.", ToasterStyles)
+            input_valid = false
+        }
+
+        if (!input_valid) return
+
+        // const res = await createNewMotoRoute(motoRouteDetailsData, route, pois)
+
+        // if (res .status !== 200) {
+        //     toast.error("Adding route not successful. Please check your inputs and try again later.", ToasterStyles)
+        // } else {
+        //     toast.success(res.data.messages[0], ToasterStyles)
+        //     navigate(`/routes/${res.data.new_id}/details`)
+        // }
     }
 
     // =====================================================================================
@@ -211,6 +261,7 @@ const MotoRouteEditor = () => {
                         submitRoute={ submitRoute }
                         motoRouteDetailsData={ motoRouteDetailsData }
                         handleRouteDataChange= { handleRouteDataChange }
+                        motoRouteFieldErrors= { motoRouteFieldErrors }
                     />
                 </div>
             </div>

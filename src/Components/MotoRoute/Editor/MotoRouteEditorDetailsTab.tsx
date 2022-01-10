@@ -1,9 +1,10 @@
-import React, { Fragment, useMemo, useState } from "react"
+import React, { Fragment, useEffect, useMemo, useState } from "react"
 
 import moment from "moment";
 import Select from 'react-select';
 
 import "./MotoRouteEditor.scss"
+import { watch } from "fs";
 
 
 const range = (from: number, to: number, step: number = 1) => {
@@ -23,20 +24,14 @@ const range = (from: number, to: number, step: number = 1) => {
     return result;
 }
 
-type FieldErrorType = {
+export type FieldErrorType = {
     name: string | null, 
     description: string | null,
-    open_date: string | null,
-    time_to_complete: string | null,
-    difficulty: string | null,
 }
 
-const blankError = {
+export const blankError = {
     name: null, 
     description: null,
-    open_date: null,
-    time_to_complete: null,
-    difficulty: null,
 };
 
 
@@ -83,23 +78,31 @@ const selectNoBorderStyles = {
     }),
 }
 
+const MIN_NAME_LENGTH = 5;
+const MAX_NAME_LENGTH = 35;
+const MIN_DESCRIPTION_LENGTH = 20;
 const MAX_DESCRIPTION_LENGTH = 400;
+
+export const MOTO_ROUTE_NAME_LENGTH_BOUNDS = {min: MIN_NAME_LENGTH, max: MAX_NAME_LENGTH}
+export const MOTO_ROUTE_DESCRIPTION_LENGTH_BOUNDS = {min: MIN_DESCRIPTION_LENGTH, max: MAX_DESCRIPTION_LENGTH}
+
 const DEFAULT_DESCRIPTION_ROWS = 4;
 
 type MotoRouteEditorDetailsTabProps = {
     motoRouteDetailsData: MotoRouteDetailsDataType,
     handleChange: (field: string, newVal: any) => void,
+    fieldErrors: FieldErrorType,
 }
 
 const MotoRouteEditorDetailsTab = (props: MotoRouteEditorDetailsTabProps) => {
  
-    const { motoRouteDetailsData, handleChange } = props
+    const { motoRouteDetailsData, handleChange, fieldErrors } = props
 
-    const [fieldErrs, setFieldErrs] = useState<FieldErrorType>(blankError)
 
     const descriptionCharactersLeft = useMemo(() => {
         return MAX_DESCRIPTION_LENGTH - motoRouteDetailsData.description.length
     }, [motoRouteDetailsData.description])
+
 
 
 
@@ -156,20 +159,25 @@ const MotoRouteEditorDetailsTab = (props: MotoRouteEditorDetailsTabProps) => {
                 <div className="form-group">
                     <label htmlFor="name">Name:</label>
                     <input 
-                        className={ `loginbox-form-control form-control ${ fieldErrs.name ? "invalid" : "" }` }
+                        className={ `loginbox-form-control form-control ${ fieldErrors.name ? "invalid" : "" }` }
                         name="name" 
                         type="text" 
                         placeholder="Route name" 
                         value={ motoRouteDetailsData.name } 
                         onChange={ (e: any) => handleChange(e.target.name, e.target.value) } 
                     />
+                    { fieldErrors.name && (
+                        <div className="invalid-prompt">
+                            { fieldErrors.name }
+                        </div>
+                    )}
                 </div>
 
                 {/* description*/}
                 <div className="form-group">
                     <label htmlFor="name">Description:</label>
                     <textarea 
-                        className={ `loginbox-form-control form-control ${ fieldErrs.description ? "invalid" : "" }` }
+                        className={ `loginbox-form-control form-control ${ fieldErrors.description ? "invalid" : "" }` }
                         name="description" 
                         placeholder="Route description" 
                         value={ motoRouteDetailsData.description } 
@@ -178,6 +186,11 @@ const MotoRouteEditorDetailsTab = (props: MotoRouteEditorDetailsTabProps) => {
                         rows={ DEFAULT_DESCRIPTION_ROWS }
                     />
                     <small>Characters left: {descriptionCharactersLeft}</small>
+                    { fieldErrors.description && (
+                        <div className="invalid-prompt">
+                            { fieldErrors.description }
+                        </div>
+                    )}
                 </div>
 
                 {/* date open / closed */}

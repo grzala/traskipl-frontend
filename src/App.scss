@@ -105,3 +105,22 @@
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
+input.invalid, textarea.invalid {
+  border-color: red;
+}
+
+.invalid-prompt {
+  // display: none;
+  text-align: left;
+  max-width: 96%;
+  word-wrap: break-word;
+  font-size: 0.8em;
+  margin: 0.0em 0.5em -1.5em 0.5em;
+  padding: 0.5em;
+
+  border-radius: 0.25rem;
+
+  // background-color: rgba(0, 0, 0, 0.575);
+  color: red;
+}

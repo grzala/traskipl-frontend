@@ -2,9 +2,10 @@ import React, { Fragment } from "react";
 import { GeoAltFill, InfoCircleFill, MapFill } from "react-bootstrap-icons";
 import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 import { POIType } from "src/Types/MotoRoutesTypes";
-import MotoRouteEditorDetailsTab, { MotoRouteDetailsDataType } from "./MotoRouteEditorDetailsTab";
+import MotoRouteEditorDetailsTab, { MotoRouteDetailsDataType, FieldErrorType as MotoRouteFieldErrorType } from "./MotoRouteEditorDetailsTab";
 import MotoRouteEditorPOITab from "./MotoRouteEditorPOITab";
 import MotoRouteEditorRouteTab from "./MotoRouteEditorRouteTab";
+
 
 import "./MotoRouteEditor.scss"
 
@@ -24,6 +25,7 @@ type MotoRouteDetailsEditorProps = {
     submitRoute: () => void,
     motoRouteDetailsData: MotoRouteDetailsDataType,
     handleRouteDataChange: (field: string, newVal: any) => void,
+    motoRouteFieldErrors: MotoRouteFieldErrorType,
 }
 
 const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
@@ -42,6 +44,7 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
         submitRoute,
         motoRouteDetailsData,
         handleRouteDataChange,
+        motoRouteFieldErrors,
     } = props
 
 
@@ -82,6 +85,7 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
                             <MotoRouteEditorDetailsTab 
                                 motoRouteDetailsData={ motoRouteDetailsData }
                                 handleChange={ handleRouteDataChange }
+                                fieldErrors={ motoRouteFieldErrors }
                             />} 
                         />
                         <Route path="/route" element={
