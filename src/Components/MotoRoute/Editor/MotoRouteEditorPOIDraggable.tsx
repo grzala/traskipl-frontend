@@ -1,4 +1,4 @@
-import { CSSProperties, FC, memo, useMemo, useState } from 'react'
+import { CSSProperties, FC, memo, useMemo } from 'react'
 import { TrashFill } from 'react-bootstrap-icons';
 import { useDrag, useDrop } from 'react-dnd'
 import Select from 'react-select';

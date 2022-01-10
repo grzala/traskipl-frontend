@@ -1,5 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react"
-import { TrashFill } from "react-bootstrap-icons";
+import React, { Fragment, useCallback } from "react"
 import update from 'immutability-helper'
 
 import { useDrop } from 'react-dnd'
@@ -42,7 +41,7 @@ const MotoRouteEditorRouteTab = (props: MotoRouteEditorRouteTabProps) => {
     const generateCardTitle = (index: number): string => {
       if (index === 0) {
         return "Start of the route"
-      } else if (index == route.length-1) {
+      } else if (index === route.length-1) {
         return "End of the route"
       } else {
         return `Waypoint ${index}`

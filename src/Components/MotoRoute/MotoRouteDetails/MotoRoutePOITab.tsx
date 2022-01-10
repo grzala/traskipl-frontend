@@ -34,7 +34,7 @@ const MotoRoutePOITab = (props: MotoRoutePOITabProps) => {
         // when changing selected POI, make sure the scroll is reset on previously chosen element
         if (selectedPOI) {
             var element = document.getElementById(`poi_${selectedPOI.id}`)
-            document.getElementById(`poi_${selectedPOI.id}`)?.scroll(0, 0);
+            element?.scroll(0, 0);
         }
         onPOISelect(newPoi)
     }

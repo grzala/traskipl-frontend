@@ -1,12 +1,11 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react"
-import { TrashFill } from "react-bootstrap-icons";
+import React, { Fragment, useCallback, useEffect } from "react"
 import update from 'immutability-helper'
 
 import { useDrop } from 'react-dnd'
 
 import "./MotoRouteEditor.scss"
 import { MotoRouteEditorPOIDraggable } from "./MotoRouteEditorPOIDraggable";
-import { POIType, POIVariant } from "src/Types/MotoRoutesTypes";
+import { POIType } from "src/Types/MotoRoutesTypes";
 
 import { FieldErrorType as POIFieldErrorType } from "./MotoRouteEditorPOIDraggable";
 
