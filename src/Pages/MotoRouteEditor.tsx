@@ -214,10 +214,6 @@ const MotoRouteEditor = () => {
 
         poiData.forEach((poi) => {
             newErrors[poi.id] = {...POIBlankError}
-            console.log("poi")
-            console.log(poi)
-            console.log(poi.name.length )
-            console.log(POI_NAME_LENGTH_BOUNDS.min)
 
             if (poi.name.length < POI_NAME_LENGTH_BOUNDS.min) {
                 newErrors[poi.id].name = `Name must be at least ${POI_NAME_LENGTH_BOUNDS.min} characters in length`
@@ -240,10 +236,7 @@ const MotoRouteEditor = () => {
             }
         })
 
-
         setPOIFieldErrs(newErrors)
-        console.log("new error")
-        console.log(newErrors)
 
         return input_valid
     }
