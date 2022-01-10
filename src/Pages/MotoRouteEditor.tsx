@@ -5,7 +5,7 @@ import { useMatch, useNavigate } from "react-router-dom";
 import { MotoRouteType, POIType, POIVariant } from "src/Types/MotoRoutesTypes";
 import { initialRouteData, MotoRouteDetailsDataType, MOTO_ROUTE_NAME_LENGTH_BOUNDS, FieldErrorType as MotoRouteFieldErrorType, blankError as motoRouteBlankError, MOTO_ROUTE_DESCRIPTION_LENGTH_BOUNDS } from "src/Components/MotoRoute/Editor/MotoRouteEditorDetailsTab";
 import { blankError as POIBlankError, POI_NAME_LENGTH_BOUNDS, POI_DESCRIPTION_LENGTH_BOUNDS } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOIDraggable";
-import { createNewMotoRoute, getMotoRoute } from "src/Actions/MotoRoutesActions";
+import { createNewMotoRoute, getMotoRoute, updateMotoRoute } from "src/Actions/MotoRoutesActions";
 import { toast } from "react-toastify";
 import ToasterStyles from "../ToasterStyles/ToasterStyles"
 import { CompositePOIFieldErrorType } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOITab";
@@ -337,14 +337,20 @@ const MotoRouteEditor = () => {
             return
         } 
 
-        const res = await createNewMotoRoute(motoRouteDetailsData, route, pois)
+        let res = null
+        if (currentRouteID === null) {
+            res = await createNewMotoRoute(motoRouteDetailsData, route, pois)
+        } else {
+            res = await updateMotoRoute(currentRouteID, motoRouteDetailsData, route, pois)
+        }
 
         if (res.status !== 200) {
-            toast.error("Adding route not successful. Please check your inputs and try again later.", ToasterStyles)
+            toast.error(res.data.messages[0], ToasterStyles)
         } else {
             toast.success(res.data.messages[0], ToasterStyles)
-            navigate(`/routes/${res.data.new_id}/details`)
+            navigate(`/routes/${res.data.id}/details`)
         }
+
     }
 
     // =====================================================================================

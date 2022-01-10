@@ -243,4 +243,26 @@ export function createNewMotoRoute(data: MotoRouteDetailsDataType, waypoints: {l
 }
 
 
+export function updateMotoRoute(route_id: number, data: MotoRouteDetailsDataType, waypoints: {lat:number, lng: number}[], pois: POIType[]) {
+    return axios.patch(
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/${route_id}`,
+        {
+            data: data,
+            waypoints: waypoints,
+            pois: pois,
+        },
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}
+
 
