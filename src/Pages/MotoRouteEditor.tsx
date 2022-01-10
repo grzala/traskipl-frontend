@@ -268,6 +268,36 @@ const MotoRouteEditor = () => {
     }
 
     // =====================================================================================
+    
+
+    // ====================== Persist data beteween refreshes ==========================
+
+    useEffect(() => {
+        let storedRoute = window.localStorage.getItem('route')
+        if (storedRoute) 
+            setRoute(JSON.parse(storedRoute));
+
+        let storedPOIs = window.localStorage.getItem('pois')
+        if (storedPOIs) 
+            setPois(JSON.parse(storedPOIs));
+
+        let storedMotoRouteData = window.localStorage.getItem('motoRouteDetailsData')
+        if (storedMotoRouteData) 
+            setMotoRouteDetailsData(JSON.parse(storedMotoRouteData));
+    }, []);
+
+    useEffect(() => {
+        window.localStorage.setItem('route', JSON.stringify(route));
+    }, [route]);
+
+    useEffect(() => {
+        window.localStorage.setItem('pois', JSON.stringify(pois));
+    }, [pois]);
+
+    useEffect(() => {
+        window.localStorage.setItem('motoRouteDetailsData', JSON.stringify(motoRouteDetailsData));
+    }, [motoRouteDetailsData]);
+    // =====================================================================================
 
     return (
         <Fragment>
