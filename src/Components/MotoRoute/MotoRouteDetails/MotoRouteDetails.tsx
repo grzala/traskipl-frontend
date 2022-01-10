@@ -6,9 +6,9 @@ import MotoRoutePOITab from "./MotoRoutePOITab";
 
 import "./MotoRouteDetails.scss"
 
-import { NavLink, Route, Routes, useMatch } from "react-router-dom";
+import { Link, NavLink, Route, Routes, useMatch } from "react-router-dom";
 
-import { GeoAltFill, ExclamationSquareFill, Star, StarFill, InfoCircleFill } from 'react-bootstrap-icons';
+import { GeoAltFill, ExclamationSquareFill, Star, StarFill, InfoCircleFill, PencilFill } from 'react-bootstrap-icons';
 import { currentUserType } from "../../../Types/UserTypes";
 import { castVote, check_is_favourite, switchFavourite, useGetMotoRouteVoteAndFav } from "../../../Actions/MotoRoutesActions";
 import { toast } from "react-toastify";
@@ -36,6 +36,8 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
     
     // User needed for hook when user changes
     const [ yourRouteScore, isRouteFav, setYourRouteScore, setIsRouteFav ] = useGetMotoRouteVoteAndFav(route.id, currentUser) 
+
+    const userOwnsRoute = useState<boolean>(true)
 
     useEffect(() => {
         check_is_favourite(route.id)
@@ -126,6 +128,17 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                                         
                                 </a>
                             </li>
+                            { userOwnsRoute && (
+                                <li className="nav-item">
+                                    <Link 
+                                        className="nav-link"
+                                        title="Edit"
+                                        to={ `/routes/editor/${route.id}/details` }
+                                        >
+                                        <PencilFill />                  
+                                    </Link>
+                                </li>
+                            )}
                             {/* <li className="nav-item">
                                 <a className="nav-link"
                                     title="Report"
@@ -136,7 +149,6 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                         </ul>
                     </ul>
                 </div>
-
                 <div id="poi-list" className="details-content">
                     { !isLoading && (
                         <Routes>

@@ -53,7 +53,7 @@ export function useGetMotoRoutes(): [ MotoRouteType[], boolean /*, (resource: Mo
 }
 
 
-function getMotoRoute(id: number) {
+export function getMotoRoute(id: number) {
     return axios.get(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/${id}`,
         {'withCredentials': true}
@@ -219,7 +219,6 @@ export function useGetMotoRouteVoteAndFav(id: number | null, currentUser: curren
 
     return [ userVote, isFavourite, setUserVote, setIsFavourite ]
 }
-
 
 export function createNewMotoRoute(data: MotoRouteDetailsDataType, waypoints: {lat:number, lng: number}[], pois: POIType[]) {
     return axios.post(

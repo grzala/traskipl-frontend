@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { GeoAltFill, InfoCircleFill, MapFill } from "react-bootstrap-icons";
 import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 import { POIType } from "src/Types/MotoRoutesTypes";
@@ -51,10 +51,6 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
 
 
     const urlMatch = useMatch('/routes/editor/:id/*')
-
-    useEffect(() => {
-        console.log(urlMatch)
-    },[])
 
 
     return urlMatch !== null ? (

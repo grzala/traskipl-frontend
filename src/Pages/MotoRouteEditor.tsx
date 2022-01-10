@@ -2,10 +2,10 @@ import React, { Fragment, useContext, useEffect, useState } from "react";
 import MotoRouteEditorMap from "../Components/MotoRoute/Editor/MotoRouteEditorMap";
 import MotoRouteDetailsEditor from "../Components/MotoRoute/Editor/MotoRouteEditorDetails";
 import { useMatch, useNavigate } from "react-router-dom";
-import { POIType, POIVariant } from "src/Types/MotoRoutesTypes";
+import { MotoRouteType, POIType, POIVariant } from "src/Types/MotoRoutesTypes";
 import { initialRouteData, MotoRouteDetailsDataType, MOTO_ROUTE_NAME_LENGTH_BOUNDS, FieldErrorType as MotoRouteFieldErrorType, blankError as motoRouteBlankError, MOTO_ROUTE_DESCRIPTION_LENGTH_BOUNDS } from "src/Components/MotoRoute/Editor/MotoRouteEditorDetailsTab";
 import { blankError as POIBlankError, POI_NAME_LENGTH_BOUNDS, POI_DESCRIPTION_LENGTH_BOUNDS } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOIDraggable";
-import { createNewMotoRoute } from "src/Actions/MotoRoutesActions";
+import { createNewMotoRoute, getMotoRoute } from "src/Actions/MotoRoutesActions";
 import { toast } from "react-toastify";
 import ToasterStyles from "../ToasterStyles/ToasterStyles"
 import { CompositePOIFieldErrorType } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOITab";
@@ -20,6 +20,9 @@ enum addModes {
 
 const MotoRouteEditor = () => {
 
+    const [currentRouteID, setCurrentRouteID] = useState<number | null>(JSON.parse(window.localStorage.getItem('editorMotoRouteID') || 'null'))
+    const [currentIDChanged, setCurrentIDChanged] = useState<boolean>(false)
+
     const navigate = useNavigate()
     const urlMatch = useMatch('/routes/editor/:id/:tab')
     const urlMatchForTabChange = useMatch('/routes/editor/:id/*')
@@ -33,7 +36,7 @@ const MotoRouteEditor = () => {
             toast.error("You must be logged in to use the editor.", ToasterStyles)
             navigate(`/`)
         }
-    }, [user])
+    }, [user, navigate])
 
     // =================================================================================
 
@@ -51,6 +54,45 @@ const MotoRouteEditor = () => {
 
 
     // ==================================================================================
+
+
+    // ======================== Fetching data for editing =================================
+    const changeRouteID = (id: number | null) => {
+        if (id !== currentRouteID) {
+            setCurrentRouteID(id) // Do this only if id was changed to prevent re-loading route data
+            setCurrentIDChanged(true)
+            window.localStorage.setItem('editorMotoRouteID', JSON.stringify(id));
+        }
+    }
+
+    useEffect(() => {
+        if (currentIDChanged) {
+            resetRoute()
+        }
+    }, [currentIDChanged, currentRouteID])
+
+    const setMotoRouteData = (fetchedData: MotoRouteType) => {
+        let newData: MotoRouteDetailsDataType = {
+            name: fetchedData.name,
+            description: fetchedData.description,
+            time_to_complete_h: fetchedData.time_to_complete_h,
+            time_to_complete_m: fetchedData.time_to_complete_m,
+            date_open: {day: fetchedData.date_open_day, month:fetchedData.date_open_month},
+            date_closed: {day: fetchedData.date_closed_day, month:fetchedData.date_closed_month},
+            difficulty: fetchedData.difficulty,
+            open_all_year: fetchedData.open_all_year,
+        }
+
+        setRoute(fetchedData.coordinates)
+        setMotoRouteDetailsData(newData)
+
+        if (fetchedData.point_of_interests)
+            setPois(fetchedData.point_of_interests)
+        else 
+            console.log("API returned null for POIs. This should not happen")
+    }
+
+    // ===================================================================================
 
 
     // ======================== WAYPOINTS AND ROUTES =====================================
@@ -94,6 +136,15 @@ const MotoRouteEditor = () => {
             default: 
                 setAddMode(addModes.NONE)
                 break
+        }
+
+        let routeID = urlMatch?.params["id"]
+        if (routeID === "new") {
+            changeRouteID(null)
+        } else if (routeID) {
+            changeRouteID(+routeID)
+        } else {
+            console.log("This should never happen")
         }
     }, [urlMatch])
 
@@ -178,13 +229,28 @@ const MotoRouteEditor = () => {
 
     // ===================== SUBMIT HANDLING ================================================
 
-    const resetRoute = () => {
-        setMotoRouteDetailsData(initialRouteData)
-        setRoute([])
-        setPois([])
-
+    const resetRoute = async () => {
         setMotoRouteFieldErrors(motoRouteBlankError)
         setPOIFieldErrs({})
+
+        if (currentRouteID === null) { // Preapare to create new route
+            setMotoRouteDetailsData(initialRouteData)
+            setRoute([])
+            setPois([])
+        } else { // Get data from api
+            let res = await getMotoRoute(currentRouteID)
+
+            if (res.status !== 200) {
+                if (res.data?.messages) {
+                    toast.error(`Error: ${res.data.messages.join(", ")}`, ToasterStyles);
+                }
+                return
+            } 
+
+            let motoRoute = res.data.moto_route as MotoRouteType
+
+            setMotoRouteData(motoRoute)
+        }
 
         navigate(`${urlMatchForTabChange?.pathnameBase}/details`)
     }
