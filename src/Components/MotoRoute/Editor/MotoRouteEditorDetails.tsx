@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { GeoAltFill, InfoCircleFill, MapFill } from "react-bootstrap-icons";
 import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 import { POIType } from "src/Types/MotoRoutesTypes";
@@ -50,8 +50,11 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
     } = props
 
 
-    const urlMatch = useMatch('/routes/:id/*')
+    const urlMatch = useMatch('/routes/editor/:id/*')
 
+    useEffect(() => {
+        console.log(urlMatch)
+    },[])
 
 
     return urlMatch !== null ? (
@@ -83,21 +86,21 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
 
                     <div id="poi-list" className="details-content">
                     <Routes>
-                        <Route path="/details" element={
+                        <Route path="/:id/details" element={
                             <MotoRouteEditorDetailsTab 
                                 motoRouteDetailsData={ motoRouteDetailsData }
                                 handleChange={ handleRouteDataChange }
                                 fieldErrors={ motoRouteFieldErrors }
                             />} 
                         />
-                        <Route path="/route" element={
+                        <Route path="/:id/route" element={
                             <MotoRouteEditorRouteTab 
                                 route={ route } 
                                 setRoute={ setRoute } 
                                 removeWaypoint={ removeWaypoint } 
                             />} 
                         />
-                        <Route path="/poi" element={
+                        <Route path="/:id/poi" element={
                             <MotoRouteEditorPOITab 
                                 pois={ pois } 
                                 setPois={ setPois } 

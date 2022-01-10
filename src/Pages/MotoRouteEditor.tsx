@@ -21,8 +21,8 @@ enum addModes {
 const MotoRouteEditor = () => {
 
     const navigate = useNavigate()
-    const urlMatch = useMatch('/routes/editor/:tab')
-    const urlMatchForTabChange = useMatch('/routes/editor/*')
+    const urlMatch = useMatch('/routes/editor/:id/:tab')
+    const urlMatchForTabChange = useMatch('/routes/editor/:id/*')
 
 
     // ========================== URL and redirects ====================================
