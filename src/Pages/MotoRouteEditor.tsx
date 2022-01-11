@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useEffect, useState } from "react";
 import MotoRouteEditorMap from "../Components/MotoRoute/Editor/MotoRouteEditorMap";
 import MotoRouteDetailsEditor from "../Components/MotoRoute/Editor/MotoRouteEditorDetails";
 import { useMatch, useNavigate } from "react-router-dom";
-import { MotoRouteType, POIType, POIVariant } from "src/Types/MotoRoutesTypes";
+import { MotoRouteType, POIColors, POIType, POIVariant } from "src/Types/MotoRoutesTypes";
 import { initialRouteData, MotoRouteDetailsDataType, MOTO_ROUTE_NAME_LENGTH_BOUNDS, FieldErrorType as MotoRouteFieldErrorType, blankError as motoRouteBlankError, MOTO_ROUTE_DESCRIPTION_LENGTH_BOUNDS } from "src/Components/MotoRoute/Editor/MotoRouteEditorDetailsTab";
 import { blankError as POIBlankError, POI_NAME_LENGTH_BOUNDS, POI_DESCRIPTION_LENGTH_BOUNDS } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOIDraggable";
 import { checkCanEditMotoRoute, createNewMotoRoute, deleteMotoRoute, getMotoRoute, updateMotoRoute } from "src/Actions/MotoRoutesActions";
@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import ToasterStyles from "../ToasterStyles/ToasterStyles"
 import { CompositePOIFieldErrorType } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOITab";
 import { userContext } from "src/Contexts/UserContext";
+import html2canvas from "html2canvas"
 
 
 enum addModes {
@@ -18,7 +19,15 @@ enum addModes {
     ADD_POI
 }
 
+const googleMapsSnapshotBounds = {
+    x: 500,
+    y: 350
+}
+
 const MotoRouteEditor = () => {
+
+    // For generating directions on screenshot
+    const [pathPolyLine, setPathPolyline] = useState<string>("")
 
     const [currentRouteID, setCurrentRouteID] = useState<number | null>(JSON.parse(window.localStorage.getItem('editorMotoRouteID') || 'null'))
     const [currentIDChanged, setCurrentIDChanged] = useState<boolean>(false)
@@ -249,6 +258,22 @@ const MotoRouteEditor = () => {
 
     // ===================== SUBMIT HANDLING ================================================
 
+    const createStaticMapsApiLink = (): string => {
+        let apiUrl = "https://maps.googleapis.com/maps/api/staticmap?"
+        apiUrl += "key=" + process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+        apiUrl += `&size=${googleMapsSnapshotBounds.x}x${googleMapsSnapshotBounds.y}`
+        pois.forEach((poi) => {
+            let color = POIColors[poi.variant]
+            apiUrl += "&markers=size:mid%7Ccolor:0x" + color + "%7C" + poi.coordinates.lat.toFixed(2) + "," + poi.coordinates.lng.toFixed(2)
+        })
+        console.log(apiUrl)
+        console.log(pathPolyLine)
+
+        apiUrl +="&path=weight:4%7Ccolor:blue%7Cenc:" + pathPolyLine
+
+        return apiUrl
+    }
+
     const resetRoute = async () => {
         setMotoRouteFieldErrors(motoRouteBlankError)
         setPOIFieldErrs({})
@@ -359,9 +384,9 @@ const MotoRouteEditor = () => {
 
         let res = null
         if (currentRouteID === null) {
-            res = await createNewMotoRoute(motoRouteDetailsData, route, pois)
+            res = await createNewMotoRoute(motoRouteDetailsData, route, pois, createStaticMapsApiLink())
         } else {
-            res = await updateMotoRoute(currentRouteID, motoRouteDetailsData, route, pois)
+            res = await updateMotoRoute(currentRouteID, motoRouteDetailsData, route, pois, createStaticMapsApiLink())
         }
 
         if (res.status !== 200) {
@@ -425,7 +450,7 @@ const MotoRouteEditor = () => {
         <Fragment>
 
             <div className="row display-flex map-details-container">
-                <div className="col-md-8 moto-route-map-container">
+                <div id="editor-map"className="col-md-8 moto-route-map-container">
                     <MotoRouteEditorMap
                         handleMapClick={ handleMapClick }
                         route={ route }
@@ -434,6 +459,7 @@ const MotoRouteEditor = () => {
                         hoveredPOI={ hoverPOI }
                         onPOISelect={ selectPOI }
                         handleRouteDataChange= { handleRouteDataChange }
+                        setPathPolyline={ setPathPolyline }
                     />
                 </div>
 

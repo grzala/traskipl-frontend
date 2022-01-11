@@ -220,13 +220,20 @@ export function useGetMotoRouteVoteAndFav(id: number | null): [ number | null, b
     return [ userVote, isFavourite, setUserVote, setIsFavourite ]
 }
 
-export function createNewMotoRoute(data: MotoRouteDetailsDataType, waypoints: {lat:number, lng: number}[], pois: POIType[]) {
+export function createNewMotoRoute(
+    data: MotoRouteDetailsDataType, 
+    waypoints: {lat:number, lng: number}[], 
+    pois: POIType[],
+    googleMapsStaticApiUrl: string
+    ) {
+
     return axios.post(
         `${process.env.REACT_APP_API_SERVER}/moto_routes`,
         {
             data: data,
             waypoints: waypoints,
             pois: pois,
+            google_maps_static_api_url: googleMapsStaticApiUrl
         },
         {'withCredentials': true}
     ).then((response) => {
@@ -243,13 +250,21 @@ export function createNewMotoRoute(data: MotoRouteDetailsDataType, waypoints: {l
 }
 
 
-export function updateMotoRoute(route_id: number, data: MotoRouteDetailsDataType, waypoints: {lat:number, lng: number}[], pois: POIType[]) {
+export function updateMotoRoute(
+    route_id: number, 
+    data: MotoRouteDetailsDataType, 
+    waypoints: {lat:number, lng: number}[], 
+    pois: POIType[],
+    googleMapsStaticApiUrl: string
+    ) {
+
     return axios.patch(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/${route_id}`,
         {
             data: data,
             waypoints: waypoints,
             pois: pois,
+            google_maps_static_api_url: googleMapsStaticApiUrl
         },
         {'withCredentials': true}
     ).then((response) => {

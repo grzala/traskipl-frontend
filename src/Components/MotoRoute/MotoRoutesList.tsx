@@ -67,7 +67,7 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
                                     <Link key={`moto-list-item-${route.id}`} to={`/routes/${route.id}/details`} className="moto-routes-list-item list-group-item list-group-item-action">
                                         <div className="d-flex flex-row">
                                             <div className="map-thumbnail-rating-col">
-                                                <img src={ process.env.PUBLIC_URL + '/samples/map1.png' } alt="map of the route" />
+                                                <img src={ process.env.REACT_APP_THUMBNAIL_SOURCE + `/route_thumbnails/${route.id}.png` } alt="map of the route" />
 
                                                 <div className="helmet-rating-container">
                                                     <HelmetRating

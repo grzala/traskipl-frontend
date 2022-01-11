@@ -18,7 +18,7 @@ const DEFAULT_MAP_POSITION = {
 const DEFAULT_MAP_ZOOM = 7
 
 const MotoRouteEditorMap = (props) => {
-    const { handleMapClick, route, pois, selectedPOI, hoveredPOI, onPOISelect, handleRouteDataChange} = props
+    const { handleMapClick, route, pois, selectedPOI, hoveredPOI, onPOISelect, handleRouteDataChange, setPathPolyline} = props
 
     const [directionsResponse, setDirectionsResponse] = useState(null)
 
@@ -39,6 +39,7 @@ const MotoRouteEditorMap = (props) => {
                     totalDistance += legs[i].distance.value;
                 }
                 handleRouteDataChange("distance", totalDistance / 1000.0)
+                setPathPolyline(res.routes[0].overview_polyline)
             } else {
                 handleRouteDataChange("distance", 0)
             }
@@ -81,8 +82,9 @@ const MotoRouteEditorMap = (props) => {
     }, [hoveredPOI, selectedPOI])
 
     return (
-        <LoadScript
-            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} >
+        <LoadScript 
+            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} 
+            >
                 <GoogleMap
                     mapContainerStyle={ mapContainerStyle }
                     center={ DEFAULT_MAP_POSITION }

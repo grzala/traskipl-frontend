@@ -9,6 +9,15 @@ export enum POIVariant {
     OTHER = "OTHER"
 }
 
+export const POIColors = {
+    FOOD: "0039f4",
+    VISTA: "4e8828", 
+    URBEX: "aaaaaa",
+    DANGER: "f6ab48",
+    FUEL: "308ee4",
+    OTHER: "595959"
+}
+
 export type POIType = {
     id: number,
     name: string,
