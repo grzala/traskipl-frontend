@@ -265,4 +265,21 @@ export function updateMotoRoute(route_id: number, data: MotoRouteDetailsDataType
     })
 }
 
+export function deleteMotoRoute(route_id: number) {
+
+    return axios.delete(
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/${route_id}`,
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}
 

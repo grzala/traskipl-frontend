@@ -5,7 +5,7 @@ import { useMatch, useNavigate } from "react-router-dom";
 import { MotoRouteType, POIType, POIVariant } from "src/Types/MotoRoutesTypes";
 import { initialRouteData, MotoRouteDetailsDataType, MOTO_ROUTE_NAME_LENGTH_BOUNDS, FieldErrorType as MotoRouteFieldErrorType, blankError as motoRouteBlankError, MOTO_ROUTE_DESCRIPTION_LENGTH_BOUNDS } from "src/Components/MotoRoute/Editor/MotoRouteEditorDetailsTab";
 import { blankError as POIBlankError, POI_NAME_LENGTH_BOUNDS, POI_DESCRIPTION_LENGTH_BOUNDS } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOIDraggable";
-import { createNewMotoRoute, getMotoRoute, updateMotoRoute } from "src/Actions/MotoRoutesActions";
+import { createNewMotoRoute, deleteMotoRoute, getMotoRoute, updateMotoRoute } from "src/Actions/MotoRoutesActions";
 import { toast } from "react-toastify";
 import ToasterStyles from "../ToasterStyles/ToasterStyles"
 import { CompositePOIFieldErrorType } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOITab";
@@ -385,6 +385,22 @@ const MotoRouteEditor = () => {
     }, [motoRouteDetailsData]);
     // =====================================================================================
 
+    const removeRoute = async () => {
+        if (currentRouteID === null) {
+            throw new Error("Cannot remove route, this shouldn't be available to user")
+        }
+
+
+        let res = await deleteMotoRoute(currentRouteID)
+
+        if (res.status !== 200) {
+            toast.error(res.data.messages[0], ToasterStyles)
+        } else {
+            toast.success(res.data.messages[0], ToasterStyles)
+            navigate(`/`)
+        }
+    }
+
     return (
         <Fragment>
 
@@ -419,6 +435,8 @@ const MotoRouteEditor = () => {
                         handleRouteDataChange= { handleRouteDataChange }
                         motoRouteFieldErrors= { motoRouteFieldErrors }
                         poiFieldErrs={ poiFieldErrs }
+                        removeBtnAvailable={ currentRouteID !== null }
+                        removeRoute={ removeRoute }
                     />
                 </div>
             </div>

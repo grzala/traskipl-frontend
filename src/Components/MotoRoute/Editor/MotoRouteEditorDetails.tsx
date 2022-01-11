@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { GeoAltFill, InfoCircleFill, MapFill } from "react-bootstrap-icons";
+import { GeoAltFill, InfoCircleFill, MapFill, TrashFill } from "react-bootstrap-icons";
 import { NavLink, Route, Routes, useMatch } from "react-router-dom";
 import { POIType } from "src/Types/MotoRoutesTypes";
 import MotoRouteEditorDetailsTab, { MotoRouteDetailsDataType, FieldErrorType as MotoRouteFieldErrorType } from "./MotoRouteEditorDetailsTab";
@@ -26,7 +26,9 @@ type MotoRouteDetailsEditorProps = {
     motoRouteDetailsData: MotoRouteDetailsDataType,
     handleRouteDataChange: (field: string, newVal: any) => void,
     motoRouteFieldErrors: MotoRouteFieldErrorType,
-    poiFieldErrs: CompositePOIFieldErrorType
+    poiFieldErrs: CompositePOIFieldErrorType,
+    removeBtnAvailable: boolean,
+    removeRoute: () => void,
 }
 
 const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
@@ -46,7 +48,9 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
         motoRouteDetailsData,
         handleRouteDataChange,
         motoRouteFieldErrors,
-        poiFieldErrs
+        poiFieldErrs,
+        removeBtnAvailable,
+        removeRoute,
     } = props
 
 
@@ -76,11 +80,23 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
                             title="Points of interest">
                                 <GeoAltFill />
                         </NavLink>
+
+                        <ul className="nav justify-content-end options-bar">
+                            { removeBtnAvailable && (
+                                <li className="nav-link star-rating-container" 
+                                    title={'Delete route'}
+                                    style={ {cursor: 'pointer'} }
+                                    onClick={ removeRoute }
+                                    >
+                                        <TrashFill />
+                                </li>
+                            )}
                         </ul>
-                    </div>
+                    </ul>
+                </div>
 
 
-                    <div id="poi-list" className="details-content">
+                <div id="poi-list" className="details-content">
                     <Routes>
                         <Route path="/:id/details" element={
                             <MotoRouteEditorDetailsTab 
@@ -110,7 +126,7 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
                         />
                     </Routes>
                 </div> 
-                
+            
                 <div className="editor-details-footer d-flex justify-content-end">
                     <button className="btn btn-primary" onClick={ resetRoute }>Reset</button>
                     <button className="btn btn-default" onClick={ submitRoute }>Submit</button>
