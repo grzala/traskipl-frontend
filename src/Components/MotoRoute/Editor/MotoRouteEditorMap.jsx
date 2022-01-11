@@ -39,6 +39,8 @@ const MotoRouteEditorMap = (props) => {
                     totalDistance += legs[i].distance.value;
                 }
                 handleRouteDataChange("distance", totalDistance / 1000.0)
+            } else {
+                handleRouteDataChange("distance", 0)
             }
           } else {
             console.log('Directions response error: ', res)
