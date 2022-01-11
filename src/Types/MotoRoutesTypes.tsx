@@ -43,5 +43,6 @@ export type MotoRouteType = {
     point_of_interests?: POIType[],
     poi_count?: {[variant in POIVariant]: number}
     score: number,
+    distance: number,
     comments?: CommentType[]
 }

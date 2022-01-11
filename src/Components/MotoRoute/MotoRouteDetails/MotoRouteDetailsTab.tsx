@@ -28,6 +28,17 @@ const MotoRouteDetailsTab = (props: MotoRouteDetailsTabProps) => {
             <h2>{route.name}</h2>
             <p>{route.description}</p>
 
+            {route.open_all_year && (
+                <p><b>Open all year</b></p>
+            )}
+            {!route.open_all_year && (
+                <p>
+                    <b>Open from</b> {route.date_open_day}/{route.date_open_month}
+                    <b>Open from</b> {route.date_closed_day}/{route.date_closed_month}
+                </p>
+            )}
+            <p><b>Route length:</b> {route.distance.toFixed(2)} km</p>
+
         </Fragment>
     )
 }

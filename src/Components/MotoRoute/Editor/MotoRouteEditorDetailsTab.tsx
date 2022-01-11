@@ -55,6 +55,7 @@ export type MotoRouteDetailsDataType = {
     difficulty: number,
     time_to_complete_h: number,
     time_to_complete_m: number,
+    distance: number,
 }
 
 export const initialRouteData: MotoRouteDetailsDataType = {
@@ -66,6 +67,7 @@ export const initialRouteData: MotoRouteDetailsDataType = {
     difficulty: 1,
     time_to_complete_h: 0,
     time_to_complete_m: 10,
+    distance: 0,
 }
 
 
@@ -292,6 +294,10 @@ const MotoRouteEditorDetailsTab = (props: MotoRouteEditorDetailsTabProps) => {
                     <label className="input-group-text" >minutes</label>
                 </div>
 
+                {/* distance */}
+                <div>   
+                    <p>Distance: { motoRouteDetailsData.distance.toFixed(2) } km</p>
+                </div>
 
             </div>
         </Fragment>

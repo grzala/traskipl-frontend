@@ -81,6 +81,7 @@ const MotoRouteEditor = () => {
             date_closed: {day: fetchedData.date_closed_day, month:fetchedData.date_closed_month},
             difficulty: fetchedData.difficulty,
             open_all_year: fetchedData.open_all_year,
+            distance: fetchedData.distance,
         }
 
         setRoute(fetchedData.coordinates)
@@ -90,6 +91,15 @@ const MotoRouteEditor = () => {
             setPois(fetchedData.point_of_interests)
         else 
             console.log("API returned null for POIs. This should not happen")
+    }
+
+    const setRouteLength = (distance: number) => {
+        setMotoRouteDetailsData(
+            {
+                ...motoRouteDetailsData,
+                distance: distance
+            }
+        )
     }
 
     // ===================================================================================
@@ -432,6 +442,7 @@ const MotoRouteEditor = () => {
                         selectedPOI={ selectedPOI }
                         hoveredPOI={ hoverPOI }
                         onPOISelect={ selectPOI }
+                        setRouteLength= { setRouteLength }
                     />
                 </div>
 

@@ -18,7 +18,7 @@ const DEFAULT_MAP_POSITION = {
 const DEFAULT_MAP_ZOOM = 7
 
 const MotoRouteEditorMap = (props) => {
-    const { handleMapClick, route, pois, selectedPOI, hoveredPOI, onPOISelect} = props
+    const { handleMapClick, route, pois, selectedPOI, hoveredPOI, onPOISelect, setRouteLength} = props
 
     const [directionsResponse, setDirectionsResponse] = useState(null)
 
@@ -31,6 +31,15 @@ const MotoRouteEditorMap = (props) => {
         if (res !== null) {
           if (res.status === 'OK') {
             setDirectionsResponse({directions: res})
+
+            if (res.routes?.length > 0) {
+                var totalDistance = 0;
+                var legs = res.routes[0].legs;
+                for(var i=0; i<legs.length; ++i) {
+                    totalDistance += legs[i].distance.value;
+                }
+                setRouteLength(totalDistance / 1000.0)
+            }
           } else {
             console.log('Directions response error: ', res)
           }
