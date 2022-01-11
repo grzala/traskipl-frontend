@@ -46,11 +46,10 @@ const MotoRouteEditor = () => {
 
 
     const handleRouteDataChange = (field: string, newVal: any) => {
-        console.log("handle change in data " + field + " " + newVal)
-        setMotoRouteDetailsData({ 
-            ...motoRouteDetailsData, 
+        setMotoRouteDetailsData((prevData) => ({ 
+            ...prevData, 
             [field]: newVal
-        })
+        }))
     }
 
 
@@ -92,15 +91,6 @@ const MotoRouteEditor = () => {
             setPois(fetchedData.point_of_interests)
         else 
             console.log("API returned null for POIs. This should not happen")
-    }
-
-    const setRouteLength = (distance: number) => {
-        setMotoRouteDetailsData(
-            {
-                ...motoRouteDetailsData,
-                distance: distance
-            }
-        )
     }
 
     // ===================================================================================
@@ -443,7 +433,7 @@ const MotoRouteEditor = () => {
                         selectedPOI={ selectedPOI }
                         hoveredPOI={ hoverPOI }
                         onPOISelect={ selectPOI }
-                        setRouteLength= { setRouteLength }
+                        handleRouteDataChange= { handleRouteDataChange }
                     />
                 </div>
 
