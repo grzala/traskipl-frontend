@@ -35,8 +35,8 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
     const [routeScore, setRouteScore] = useState<number>(route.score);
     
     // User needed for hook when user changes
-    const [ yourRouteScore, isRouteFav, setYourRouteScore, setIsRouteFav ] = useGetMotoRouteVoteAndFav(route.id, currentUser) 
-    const [ can_edit ] = useCheckCanEditMotoRoute(route.id, currentUser)
+    const [ yourRouteScore, isRouteFav, setYourRouteScore, setIsRouteFav ] = useGetMotoRouteVoteAndFav(route.id) 
+    const [ can_edit ] = useCheckCanEditMotoRoute(route.id)
 
     useEffect(() => {
         check_is_favourite(route.id)

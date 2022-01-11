@@ -181,7 +181,7 @@ export function check_is_favourite(route_id: number) {
     })
 }
 
-export function useGetMotoRouteVoteAndFav(id: number | null, currentUser: currentUserType): [ number | null, boolean, any, any ]  {
+export function useGetMotoRouteVoteAndFav(id: number | null): [ number | null, boolean, any, any ]  {
     const [userVote, setUserVote] = useState<number | null>(null);
     const [isFavourite, setIsFavourite] = useState<boolean>(false);
 
@@ -302,7 +302,7 @@ export function checkCanEditMotoRoute(route_id: number) {
 }
 
 
-export function useCheckCanEditMotoRoute(route_id: number, currentUser: UserType | null): [boolean] {
+export function useCheckCanEditMotoRoute(route_id: number): [boolean] {
     const [canEdit, setCanEdit] = useState<boolean>(false)
 
     const _checkCanEdit = useCallback(async () => {
@@ -315,7 +315,7 @@ export function useCheckCanEditMotoRoute(route_id: number, currentUser: UserType
 
         setCanEdit(res.data.can_edit)
             
-    }, [route_id, currentUser])
+    }, [route_id])
 
     useEffect(() => { _checkCanEdit() }, [_checkCanEdit])
 
