@@ -2,7 +2,7 @@ import axios from "axios"
 import { useCallback, useEffect, useState } from "react";
 import { MotoRouteDetailsDataType } from "src/Components/MotoRoute/Editor/MotoRouteEditorDetailsTab";
 import { MotoRouteType, POIType } from "../Types/MotoRoutesTypes";
-import { currentUserType } from "../Types/UserTypes";
+import { currentUserType, UserType } from "../Types/UserTypes";
 import { handleAxiosErrors } from "./ErrorHandling";
 
 
@@ -299,5 +299,26 @@ export function checkCanEditMotoRoute(route_id: number) {
     }).catch((error) => {
         return handleAxiosErrors(error)
     })
+}
+
+
+export function useCheckCanEditMotoRoute(route_id: number, currentUser: UserType | null): [boolean] {
+    const [canEdit, setCanEdit] = useState<boolean>(false)
+
+    const _checkCanEdit = useCallback(async () => {
+        let res = await checkCanEditMotoRoute(route_id)
+        
+        if (res.status !== 200) {
+            setCanEdit(false)
+            return 
+        }
+
+        setCanEdit(res.data.can_edit)
+            
+    }, [route_id, currentUser])
+
+    useEffect(() => { _checkCanEdit() }, [_checkCanEdit])
+
+    return [canEdit]
 }
 

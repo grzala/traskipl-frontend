@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { MotoRouteType, POIType } from "../../../Types/MotoRoutesTypes";
 import MotoRouteAccidentsTab from "./MotoRouteAccidentsTab";
 import MotoRouteDetailsTab from "./MotoRouteDetailsTab";
@@ -10,7 +10,7 @@ import { Link, NavLink, Route, Routes, useMatch } from "react-router-dom";
 
 import { GeoAltFill, ExclamationSquareFill, Star, StarFill, InfoCircleFill, PencilFill } from 'react-bootstrap-icons';
 import { currentUserType } from "../../../Types/UserTypes";
-import { castVote, check_is_favourite, switchFavourite, useGetMotoRouteVoteAndFav } from "../../../Actions/MotoRoutesActions";
+import { castVote, checkCanEditMotoRoute, check_is_favourite, switchFavourite, useCheckCanEditMotoRoute, useGetMotoRouteVoteAndFav } from "../../../Actions/MotoRoutesActions";
 import { toast } from "react-toastify";
 import ToasterStyles from "../../../ToasterStyles/ToasterStyles"
 import HelmetRating from "./HelmetRating";
@@ -36,8 +36,7 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
     
     // User needed for hook when user changes
     const [ yourRouteScore, isRouteFav, setYourRouteScore, setIsRouteFav ] = useGetMotoRouteVoteAndFav(route.id, currentUser) 
-
-    const userOwnsRoute = useState<boolean>(true)
+    const [ can_edit ] = useCheckCanEditMotoRoute(route.id, currentUser)
 
     useEffect(() => {
         check_is_favourite(route.id)
@@ -128,7 +127,7 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                                         
                                 </a>
                             </li>
-                            { userOwnsRoute && (
+                            { can_edit && (
                                 <li className="nav-item">
                                     <Link 
                                         className="nav-link"
