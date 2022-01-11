@@ -46,6 +46,7 @@ const MotoRouteEditor = () => {
 
 
     const handleRouteDataChange = (field: string, newVal: any) => {
+        console.log("handle change in data " + field + " " + newVal)
         setMotoRouteDetailsData({ 
             ...motoRouteDetailsData, 
             [field]: newVal

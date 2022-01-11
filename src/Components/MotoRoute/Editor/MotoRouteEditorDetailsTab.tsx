@@ -141,7 +141,7 @@ const MotoRouteEditorDetailsTab = (props: MotoRouteEditorDetailsTabProps) => {
             newDay = maxDay
         }
 
-        handleChange("field", {day: newDay, months: newMonth})
+        handleChange(field, {day: newDay, month: newMonth})
     }
 
     // =======================================================================================
