@@ -5,7 +5,7 @@ import { useMatch, useNavigate } from "react-router-dom";
 import { MotoRouteType, POIType, POIVariant } from "src/Types/MotoRoutesTypes";
 import { initialRouteData, MotoRouteDetailsDataType, MOTO_ROUTE_NAME_LENGTH_BOUNDS, FieldErrorType as MotoRouteFieldErrorType, blankError as motoRouteBlankError, MOTO_ROUTE_DESCRIPTION_LENGTH_BOUNDS } from "src/Components/MotoRoute/Editor/MotoRouteEditorDetailsTab";
 import { blankError as POIBlankError, POI_NAME_LENGTH_BOUNDS, POI_DESCRIPTION_LENGTH_BOUNDS } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOIDraggable";
-import { createNewMotoRoute, deleteMotoRoute, getMotoRoute, updateMotoRoute } from "src/Actions/MotoRoutesActions";
+import { checkCanEditMotoRoute, createNewMotoRoute, deleteMotoRoute, getMotoRoute, updateMotoRoute } from "src/Actions/MotoRoutesActions";
 import { toast } from "react-toastify";
 import ToasterStyles from "../ToasterStyles/ToasterStyles"
 import { CompositePOIFieldErrorType } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOITab";
@@ -138,14 +138,33 @@ const MotoRouteEditor = () => {
                 break
         }
 
-        let routeID = urlMatch?.params["id"]
-        if (routeID === "new") {
-            changeRouteID(null)
-        } else if (routeID) {
-            changeRouteID(+routeID)
-        } else {
-            console.log("This should never happen")
+        const handleRouteIDChange = async () => {
+            let routeID = urlMatch?.params["id"]
+
+            if (routeID != null && routeID != 'new') {
+                let res = await checkCanEditMotoRoute(+routeID)
+                
+                // if (res.status === 200) {
+                //     toast.error("Cannot edit route at this time. Try again later.", ToasterStyles)
+                // }
+
+                if (!res.data.can_edit) {
+                    toast.error("You have no permissions to edit this route.", ToasterStyles)
+                    navigate('/')
+                }
+
+            }
+
+
+            if (routeID === "new") {
+                changeRouteID(null)
+            } else if (routeID) {
+                changeRouteID(+routeID)
+            } else {
+                console.log("This should never happen")
+            }
         }
+        handleRouteIDChange()
     }, [urlMatch])
 
     const handleMapClick = (e: any) => {

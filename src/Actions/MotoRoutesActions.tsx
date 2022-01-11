@@ -283,3 +283,21 @@ export function deleteMotoRoute(route_id: number) {
     })
 }
 
+export function checkCanEditMotoRoute(route_id: number) {
+
+    return axios.get(
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/${route_id}/can_edit`,
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}
+
