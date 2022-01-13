@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { XCircleFill } from "react-bootstrap-icons";
 import ReactModal from "react-modal";
 import { Link } from "react-router-dom";
@@ -6,9 +6,12 @@ import { toast } from "react-toastify";
 import ToasterStyles from '../ToasterStyles/ToasterStyles'
 import { register } from "../Actions/AuthActions";
 import { UserSignupType } from "../Types/UserTypes";
+import AvatarEditor from 'react-avatar-editor'
 
 import './UserBox.scss'
 import { validateEmail } from "./Validations";
+
+const avatarPlaceholderName = "placeholder.png"
 
 type SignUpBoxModalProps = {
     show: boolean,
@@ -41,6 +44,8 @@ const blankError = {
     last_name: null
 };
 
+const MAX_ZOOM = 3
+
 const SignUpBoxModal = (props: SignUpBoxModalProps) => {
     const { show, setShow, swapModals } = props;
 
@@ -51,6 +56,23 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
             ...userSignUpData, 
             [e.target.name]: e.target.value 
         })
+    }
+
+    const [uploadedImg, setUploadedImg] = useState<{url: string, zoom: string}>({
+        url: process.env.REACT_APP_THUMBNAIL_SOURCE + `/avatars/${avatarPlaceholderName}`,
+        zoom: '1'
+    })
+    
+    const handleProfilePicChange = (key: string, value: any) => {
+        console.log("yyoyo")
+        console.log(key)
+        console.log(value)
+        setUploadedImg((prevState) => (
+            {
+                ...prevState,
+                [key]: value
+            }
+        ))
     }
 
 
@@ -239,6 +261,49 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                                     </div>
                                 )}
                             </div>
+
+
+
+                            <div className="profile-pic-form-group">
+                                <label htmlFor="profile_pic">Profile picture:</label><br/>
+                                <div className="avatar-wrapper">
+                                    <AvatarEditor 
+                                        width={250} 
+                                        height={250} 
+                                        image={uploadedImg.url} 
+                                        scale={parseFloat(uploadedImg.zoom)}
+                                        border={10}
+                                        borderRadius={10000}
+                                    />
+                                </div>
+
+                                <div className="profile-pic-controls">
+                                    <small>Click and drag on the image to move the image around</small>
+                                    <br />
+                                    
+                                    New File:&nbsp;
+                                    <input name="url" type="file" onChange={(e: any) => handleProfilePicChange(e.target.name, e.target.files[0])} />
+                                    
+                                    <br />
+
+                                    <div className="zoom-group">
+                                        <label id="zoom-label" className="d-inline">
+                                        Zoom:&nbsp;</label>
+                                        <input
+                                            id="zoom-slider"
+                                            name="zoom"
+                                            type="range"
+                                            onChange={(e: any) => handleProfilePicChange(e.target.name, e.target.value)}
+                                            min={1}
+                                            max={MAX_ZOOM}
+                                            step="0.01"
+                                            defaultValue="1"
+                                        />
+                                    </div>
+                                </div>
+        
+                            </div>
+
 
                             <div className="d-grid">
                                 <button type="submit" className="btn btn-block btn-primary">Sign Up</button>

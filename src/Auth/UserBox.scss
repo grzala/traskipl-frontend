@@ -39,6 +39,7 @@
                 margin-right: 0.5em;
             }
 
+
             .loginbox-form-control {
                 flex-grow: 1;
                 font-size: 1em;
@@ -54,6 +55,34 @@
 
             .invalid-prompt {
                 color: rgb(255, 166, 0);
+            }
+
+        }
+
+        .profile-pic-form-group {
+
+            .avatar-wrapper {
+                width: 100%;
+                text-align: center;
+            }
+
+            label {
+                text-align: left;
+                width: 100%;
+                margin-bottom: 1.5em;
+            }
+
+            .profile-pic-controls {
+                margin-top: 1em;
+                margin-bottom: 1em;
+            }
+
+
+            .zoom-group {
+                
+                #zoom-label, #zoom-slider {
+                    vertical-align: middle;
+                }
             }
         }
 
