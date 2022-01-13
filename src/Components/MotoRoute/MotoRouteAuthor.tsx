@@ -31,7 +31,7 @@ const MotoRouteAuthor = (props: MotoRouteAuthorProps) => {
                                         <div className="profile-pic-col">
                                             <div className="profile-pic-wrapper">
                                                 <ProfilePicture 
-                                                    imgPath="https://thumbs.mugshots.com/gallery/images/b4/86/LAWRENCE-SULLIVAN-mugshot-46777547-hidden-c2fa0003.jpeg.400x800.jpg"
+                                                    imgPath={ process.env.REACT_APP_THUMBNAIL_SOURCE + `/avatars/${author.id}.png` }
                                                 />
                                             </div>
                                         </div>

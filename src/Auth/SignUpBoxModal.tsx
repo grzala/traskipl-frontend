@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { XCircleFill } from "react-bootstrap-icons";
 import ReactModal from "react-modal";
 import { Link } from "react-router-dom";
@@ -11,7 +11,7 @@ import AvatarEditor from 'react-avatar-editor'
 import './UserBox.scss'
 import { validateEmail } from "./Validations";
 
-const avatarPlaceholderName = "placeholder.png"
+const avatarPlaceholderName = "avatar_placeholder.png"
 
 type SignUpBoxModalProps = {
     show: boolean,
@@ -58,15 +58,15 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
         })
     }
 
+    const editorRef = useRef<AvatarEditor>(null)
+    
+
     const [uploadedImg, setUploadedImg] = useState<{url: string, zoom: string}>({
-        url: process.env.REACT_APP_THUMBNAIL_SOURCE + `/avatars/${avatarPlaceholderName}`,
+        url: process.env.PUBLIC_URL + '/' + avatarPlaceholderName,
         zoom: '1'
     })
     
     const handleProfilePicChange = (key: string, value: any) => {
-        console.log("yyoyo")
-        console.log(key)
-        console.log(value)
         setUploadedImg((prevState) => (
             {
                 ...prevState,
@@ -131,9 +131,18 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
         if (!valid)
             return;
 
+        // image to blob
+        const canvas = editorRef.current?.getImage()
+        if (canvas === undefined) {
+            toast.error("Something went wrong with uploading your profile image. Try again later or use another image.", ToasterStyles);
+            return
+        }
+
+        const profilePicData = canvas.toDataURL()
+        
         // API request
         var result = true;
-        const response = await register(userSignUpData)
+        const response = await register(userSignUpData, profilePicData)
         const { data } = response
 
         if (response.status !== 200) {
@@ -145,6 +154,7 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
             toast.success("user" + userSignUpData.email + " has been created. You can now login", ToasterStyles);
             setShow(false)
         }
+
         
     }
 
@@ -268,6 +278,7 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                                 <label htmlFor="profile_pic">Profile picture:</label><br/>
                                 <div className="avatar-wrapper">
                                     <AvatarEditor 
+                                        ref={editorRef}
                                         width={250} 
                                         height={250} 
                                         image={uploadedImg.url} 
@@ -280,9 +291,14 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
                                 <div className="profile-pic-controls">
                                     <small>Click and drag on the image to move the image around</small>
                                     <br />
-                                    
+
                                     New File:&nbsp;
-                                    <input name="url" type="file" onChange={(e: any) => handleProfilePicChange(e.target.name, e.target.files[0])} />
+                                    <input 
+                                        name="url" 
+                                        type="file" 
+                                        accept="image/png, image/jpeg"
+                                        onChange={(e: any) => handleProfilePicChange(e.target.name, e.target.files[0])} 
+                                        />
                                     
                                     <br />
 

@@ -17,9 +17,9 @@ const ProfileBox = (props: ProfileBoxProps) => {
     return (
         <div className="profilebox d-flex flex-row">
             <div className="profile-pic-wrapper">
-                <ProfilePicture imgPath={ "https://thumbs.mugshots.com/gallery/images/47/82/Nicole-Marty-mugshot-11381227.400x800.jpg" }/>
+                <ProfilePicture imgPath={ process.env.REACT_APP_THUMBNAIL_SOURCE + `/avatars/${user.id}.png` }/>
             </div>
-            
+
             <div className="profile-info-container d-flex flex-column flex-align-items-baseline">
                 <div className="profile-name">
                     <h4>{user.full_name}</h4>

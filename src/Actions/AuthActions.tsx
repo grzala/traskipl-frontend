@@ -58,10 +58,18 @@ export function logout() {
 }
 
 
-export function register(newUserData: UserSignupType) {
+export function register(newUserData: UserSignupType, profilePicData: string) {
+
+
     return axios.post(`${process.env.REACT_APP_API_SERVER}/users`,
-        {user: newUserData},
-        {'withCredentials': true}
+        {
+            user: newUserData,
+            profile_pic_data: profilePicData,
+            kurwachuj: profilePicData
+        },
+        {
+            withCredentials: true
+        }
     ).then((response) => {
 
         if (response.status !== 200) {

@@ -83,7 +83,7 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
                                     <div key={ `comment_${comment.id}` }className="list-group-item align-items-start comment">
                                         <div className="profile-pic-wrapper">
                                             <ProfilePicture 
-                                                imgPath="https://thumbs.mugshots.com/gallery/images/84/5c/NOEL-DAWSON-JR-mugshot-43097934.jpeg.400x800.jpg"
+                                                imgPath={ process.env.REACT_APP_THUMBNAIL_SOURCE + `/avatars/${comment.user_id}.png` }
                                             />
                                         </div>
                                         <div className="d-flex flex-column comment-content-wrapper">
@@ -128,7 +128,7 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
                     <div className="comments-reply-wrapper">
                         <div className="profile-pic-wrapper">
                             <ProfilePicture 
-                                imgPath="https://thumbs.mugshots.com/gallery/images/84/5c/NOEL-DAWSON-JR-mugshot-43097934.jpeg.400x800.jpg"
+                                imgPath={ process.env.REACT_APP_THUMBNAIL_SOURCE + `/avatars/${current_user.id}.png` }
                             />
                         </div>
                         
