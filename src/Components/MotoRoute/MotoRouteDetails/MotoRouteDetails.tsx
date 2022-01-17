@@ -28,10 +28,27 @@ type MotoRouteProps = {
     isLoading: boolean;
     accidents: AccidentType[];
     loadingAccidents: boolean;
+    onAccidentHover: (hover: boolean, accident: AccidentType) => void,
+    accidentMarkerFilter: boolean,
+    setAccidentMarkerFilter: (_: boolean) => void
 }
 
 const MotoRouteDetails = (props: MotoRouteProps) => {
-    const { route, onPOIHover, onPOISelect, selectedPOI, poiMarkerFilter, poiMarkerFilterChange, currentUser, isLoading, accidents, loadingAccidents } = props;
+    const { 
+        route, 
+        onPOIHover, 
+        onPOISelect, 
+        selectedPOI, 
+        poiMarkerFilter, 
+        poiMarkerFilterChange, 
+        currentUser, 
+        isLoading, 
+        accidents, 
+        loadingAccidents, 
+        onAccidentHover,
+        accidentMarkerFilter,
+        setAccidentMarkerFilter
+    } = props;
 
     const urlMatch = useMatch('/routes/:id/*')
 
@@ -97,7 +114,7 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                                 <GeoAltFill />
                         </NavLink>
                         <NavLink
-                            className="nav-link"
+                            className={`nav-link ${accidentMarkerFilter ? "" : "disabled"}`}
                             to={`${urlMatch.pathnameBase}/accidents`}
                             title="Accidents">
                                 <ExclamationSquareFill />
@@ -154,14 +171,30 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                 <div id="poi-list" className="details-content">
                     { !isLoading && (
                         <Routes>
-                            <Route path="/details" element={<MotoRouteDetailsTab route={route} poiMarkerFilter={poiMarkerFilter} poiMarkerFilterChange={poiMarkerFilterChange} />} />
-                            <Route path="/poi" element={
-                                <MotoRoutePOITab route={route} onPOIHover={onPOIHover} onPOISelect={onPOISelect} selectedPOI={selectedPOI} />
+                            <Route path="/details" element={
+                                <MotoRouteDetailsTab 
+                                    route={route} 
+                                    poiMarkerFilter={poiMarkerFilter} 
+                                    poiMarkerFilterChange={poiMarkerFilterChange} 
+                                    accidentMarkerFilter={accidentMarkerFilter}
+                                    setAccidentMarkerFilter={setAccidentMarkerFilter}
+                                />
                             } />
-                            <Route path="/accidents" element={<MotoRouteAccidentsTab 
-                                accidents={accidents} 
-                                loadingAccidents={loadingAccidents}
-                            />} />
+                            <Route path="/poi" element={
+                                <MotoRoutePOITab 
+                                    route={route} 
+                                    onPOIHover={onPOIHover} 
+                                    onPOISelect={onPOISelect} 
+                                    selectedPOI={selectedPOI} 
+                                />
+                            } />
+                            <Route path="/accidents" element={
+                                <MotoRouteAccidentsTab 
+                                    accidents={accidents} 
+                                    loadingAccidents={loadingAccidents}
+                                    onAccidentHover={onAccidentHover}
+                                />} 
+                            />
                         </Routes>
                     )}
                     { isLoading && (

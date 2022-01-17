@@ -7,22 +7,36 @@ type MotoRouteDetailsTabProps = {
     route: MotoRouteType;
     poiMarkerFilter: boolean;
     poiMarkerFilterChange: (newFilterVal: boolean) => void;
+    accidentMarkerFilter: boolean;
+    setAccidentMarkerFilter: (_: boolean) => void
 }
 
 const MotoRouteDetailsTab = (props: MotoRouteDetailsTabProps) => {
-    const { route, poiMarkerFilter, poiMarkerFilterChange} = props;
+    const { route, poiMarkerFilter, poiMarkerFilterChange, accidentMarkerFilter, setAccidentMarkerFilter} = props;
 
 
     return (
         <Fragment>
-            Markers: <input 
+            <ul style={{listStyleType: "none", paddingLeft: "0"}}>
+                <li>
+                Display points of interests: <input 
                             key="PoIFilterCheck" 
                             type="checkbox" 
                             onChange={() => poiMarkerFilterChange(!poiMarkerFilter)} 
                             checked={poiMarkerFilter} 
                             className="filter-checkbox" 
                         />
-            {/* Accidents: <input key="PoIFilterCheck" type="checkbox" onChange={onChange} checked={poiMarkerFilter} className="" /> */}
+            </li>
+            <li>
+                Display accidents: <input 
+                            key="AccidentsFilterCheck" 
+                            type="checkbox" 
+                            onChange={() => setAccidentMarkerFilter(!accidentMarkerFilter)} 
+                            checked={accidentMarkerFilter} 
+                            className="filter-checkbox" 
+                        />
+            </li>
+            </ul>
             
 
             <h2>{route.name}</h2>

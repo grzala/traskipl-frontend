@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useEffect } from "react";
 
 import { DirectionsRenderer, DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
-import { mapIconDropsUrls, mapIconEnlargedDropsUrls } from "../MapConstants";
+import { mapIconDropsUrls, mapIconEnlargedDropsUrls, mapIconInjuryUrls, mapIconEnlargedInjuryUrls } from "../MapConstants";
 
 
 
@@ -15,7 +15,7 @@ const MotoRouteMap = (props) => {
 
     const defaultZoom = 10;
     
-    const { route, hoveredPOI, selectedPOI, onPOISelect, poiMarkerFilter, setBounds } = props;
+    const { route, hoveredPOI, selectedPOI, onPOISelect, poiMarkerFilter, setBounds, accidents, hoverAccident, accidentMarkerFilter } = props;
     const origin = route.coordinates[0];
     var mapPosition = origin;
     const destination = route.coordinates[route.coordinates.length-1]
@@ -67,13 +67,19 @@ const MotoRouteMap = (props) => {
 
 
 
-    const isFocusedMarker = useCallback((poi) => {
+    const isFocusedPOI = useCallback((poi) => {
         if (selectedPOI?.id === poi?.id)
             return true;
         if (hoveredPOI?.id === poi?.id)
             return true;
         return false;
     }, [hoveredPOI, selectedPOI])
+
+    const isFocusedAccident = useCallback((accident) => {
+        if (hoverAccident?.id === accident?.id)
+            return true;
+        return false;
+    }, [hoverAccident])
 
     
     
@@ -89,12 +95,26 @@ const MotoRouteMap = (props) => {
                     {poiMarkerFilter && route.point_of_interests && (
                         route.point_of_interests.map((poi, index) => {
                             return (<Marker 
-                                        key={`marker_${poi.id}`} 
+                                        key={`marker_poi_${poi.id}`} 
                                         position={ poi.coordinates } 
-                                        icon={ isFocusedMarker(poi) ? mapIconEnlargedDropsUrls[poi.variant] : mapIconDropsUrls[poi.variant] }
+                                        icon={ isFocusedPOI(poi) ? mapIconEnlargedDropsUrls[poi.variant] : mapIconDropsUrls[poi.variant] }
                                         clickable={ true }
                                         onClick={() => onPOISelect(poi)}
-                                        zIndex={ isFocusedMarker(poi) ? 100 : 1 } />)
+                                        zIndex={ isFocusedPOI(poi) ? 100 : 1 } />)
+                        })
+                    )}
+
+                    { accidentMarkerFilter && accidents && accidents.length > 0 && (
+                        accidents.map((accident, index) => {
+                            return (<Marker 
+                                        key={`marker_accident_${accident.id}`} 
+                                        position={ accident.coordinates } 
+                                        icon={ isFocusedAccident(accident) ? mapIconEnlargedInjuryUrls[accident.injury] : mapIconInjuryUrls[accident.injury] }
+                                        clickable={ true }
+                                        onClick={() => {
+                                            window.open(`http://sewik.pl/accident/${accident.original_id}`, '_blank'); 
+                                        }}
+                                        zIndex={ isFocusedAccident(accident) ? 100 : 1 } />)
                         })
                     )}
 

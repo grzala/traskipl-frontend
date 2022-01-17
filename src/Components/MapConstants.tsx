@@ -25,3 +25,18 @@ export const mapIconCirclesUrls: {[key:string]: string} = {
     "FUEL": process.env.PUBLIC_URL + '/maps_icons/circles/fuel.png',
     "OTHER": process.env.PUBLIC_URL + '/maps_icons/circles/other.png',
 }
+
+
+export const mapIconInjuryUrls: {[key:string]: string} = {
+    "NONE": process.env.PUBLIC_URL + '/maps_icons/injury/regular/none.png',
+    "LIGHT": process.env.PUBLIC_URL + '/maps_icons/injury/regular/light.png',
+    "HEAVY": process.env.PUBLIC_URL + '/maps_icons/injury/regular/heavy.png',
+    "DEATH": process.env.PUBLIC_URL + '/maps_icons/injury/regular/death.png',
+}
+
+export const mapIconEnlargedInjuryUrls: {[key:string]: string} = {
+    "NONE": process.env.PUBLIC_URL + '/maps_icons/injury/enlarged/none.png',
+    "LIGHT": process.env.PUBLIC_URL + '/maps_icons/injury/enlarged/light.png',
+    "HEAVY": process.env.PUBLIC_URL + '/maps_icons/injury/enlarged/heavy.png',
+    "DEATH": process.env.PUBLIC_URL + '/maps_icons/injury/enlarged/death.png',
+}

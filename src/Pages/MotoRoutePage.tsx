@@ -20,6 +20,7 @@ import { userContext } from "../Contexts/UserContext";
 import ReactLoading from "react-loading";
 import axios from "axios";
 import { AccidentBoudns, useGetAccidentsByBounds } from "src/Actions/AccidentsActions";
+import { AccidentType } from "src/Types/AccidentTypes";
   
 const MotoRoutePage = () => {
     const { id } = useParams()
@@ -55,6 +56,16 @@ const MotoRoutePage = () => {
         }
         setSelectedPOI(poi);
     }
+
+    const [hoverAccident, sethoverAccident] = useState<AccidentType | null>(null);
+    const onAccidentHover = (enter: boolean, accident: AccidentType) => {
+        if (!enter && hoverAccident === accident) {
+            sethoverAccident(null);
+        } else if (enter) {
+            sethoverAccident(accident);
+        }
+    }
+    const [accidentMarkerFilter, setAccidentMarkerFilter] = useState<boolean>(false);
 
     const [poiMarkerFilter, setpoiMarkerFilter] = useState<boolean>(true);
     const poiMarkerFilterChange = (newVal: boolean) => {
@@ -100,6 +111,10 @@ const MotoRoutePage = () => {
                                                 onPOISelect={selectPOI}
                                                 poiMarkerFilter={poiMarkerFilter}
                                                 setBounds={setBounds}
+                                                accidents={accidents}
+                                                hoverAccident={hoverAccident}
+                                                accidentMarkerFilter={accidentMarkerFilter}
+
                                             />   
                                         )}
                                         
@@ -117,6 +132,9 @@ const MotoRoutePage = () => {
                                                 isLoading={routeLoading}
                                                 accidents={accidents}
                                                 loadingAccidents={loadingAccidents}
+                                                onAccidentHover={onAccidentHover}
+                                                accidentMarkerFilter={accidentMarkerFilter}
+                                                setAccidentMarkerFilter={setAccidentMarkerFilter}
                                             />
                                         )}
                                     </div>
