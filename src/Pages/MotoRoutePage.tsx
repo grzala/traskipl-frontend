@@ -18,6 +18,8 @@ import { useGetMotoRoute, useGetMotoRoutes } from "../Actions/MotoRoutesActions"
 import { userContext } from "../Contexts/UserContext";
 
 import ReactLoading from "react-loading";
+import axios from "axios";
+import { AccidentBoudns, useGetAccidentsByBounds } from "src/Actions/AccidentsActions";
   
 const MotoRoutePage = () => {
     const { id } = useParams()
@@ -63,6 +65,10 @@ const MotoRoutePage = () => {
         setpoiMarkerFilter(newVal)
     }
 
+    const [bounds, setBounds] = useState<AccidentBoudns | null>(null)
+
+    const [accidents, loadingAccidents] = useGetAccidentsByBounds(bounds);
+
     return (
         <userContext.Consumer>
             {({user}) => (
@@ -93,6 +99,7 @@ const MotoRoutePage = () => {
                                                 selectedPOI={selectedPOI}
                                                 onPOISelect={selectPOI}
                                                 poiMarkerFilter={poiMarkerFilter}
+                                                setBounds={setBounds}
                                             />   
                                         )}
                                         
@@ -108,6 +115,8 @@ const MotoRoutePage = () => {
                                                 poiMarkerFilter={poiMarkerFilter}
                                                 poiMarkerFilterChange={poiMarkerFilterChange}
                                                 isLoading={routeLoading}
+                                                accidents={accidents}
+                                                loadingAccidents={loadingAccidents}
                                             />
                                         )}
                                     </div>

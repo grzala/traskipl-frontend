@@ -15,7 +15,7 @@ const MotoRouteMap = (props) => {
 
     const defaultZoom = 10;
     
-    const { route, hoveredPOI, selectedPOI, onPOISelect, poiMarkerFilter } = props;
+    const { route, hoveredPOI, selectedPOI, onPOISelect, poiMarkerFilter, setBounds } = props;
     const origin = route.coordinates[0];
     var mapPosition = origin;
     const destination = route.coordinates[route.coordinates.length-1]
@@ -28,9 +28,20 @@ const MotoRouteMap = (props) => {
         setDirectionsResponse(null)
     }, [route])
 
-    const directionsCallback = useCallback((res) => {    
+    const directionsCallback = useCallback((res) => {  
         if (res !== null) {
           if (res.status === 'OK') {
+            let bounds = {
+                northEast: {
+                    lng: res.routes[0].bounds.getNorthEast().lng(),
+                    lat: res.routes[0].bounds.getNorthEast().lat(),
+                },
+                southWest: {
+                    lng: res.routes[0].bounds.getSouthWest().lng(),
+                    lat: res.routes[0].bounds.getSouthWest().lat(),
+                },
+            }
+            setBounds(bounds)
             setDirectionsResponse({directions: res})
           } else {
             console.log('Directions response error: ', res)

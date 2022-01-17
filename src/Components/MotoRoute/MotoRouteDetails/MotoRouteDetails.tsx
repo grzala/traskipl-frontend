@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import ToasterStyles from "../../../ToasterStyles/ToasterStyles"
 import HelmetRating from "./HelmetRating";
 import ReactLoading from "react-loading";
+import { AccidentType } from "src/Types/AccidentTypes";
 
 type MotoRouteProps = {
     route: MotoRouteType;
@@ -25,10 +26,12 @@ type MotoRouteProps = {
     poiMarkerFilterChange: (newFilterVal: boolean) => void;
     currentUser: currentUserType;
     isLoading: boolean;
+    accidents: AccidentType[];
+    loadingAccidents: boolean;
 }
 
 const MotoRouteDetails = (props: MotoRouteProps) => {
-    const { route, onPOIHover, onPOISelect, selectedPOI, poiMarkerFilter, poiMarkerFilterChange, currentUser, isLoading} = props;
+    const { route, onPOIHover, onPOISelect, selectedPOI, poiMarkerFilter, poiMarkerFilterChange, currentUser, isLoading, accidents, loadingAccidents } = props;
 
     const urlMatch = useMatch('/routes/:id/*')
 
@@ -155,7 +158,10 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
                             <Route path="/poi" element={
                                 <MotoRoutePOITab route={route} onPOIHover={onPOIHover} onPOISelect={onPOISelect} selectedPOI={selectedPOI} />
                             } />
-                            <Route path="/accidents" element={<MotoRouteAccidentsTab route={route} />} />
+                            <Route path="/accidents" element={<MotoRouteAccidentsTab 
+                                accidents={accidents} 
+                                loadingAccidents={loadingAccidents}
+                            />} />
                         </Routes>
                     )}
                     { isLoading && (

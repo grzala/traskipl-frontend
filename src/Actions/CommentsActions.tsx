@@ -68,23 +68,24 @@ export function useGetComments(moto_route_id: number | null): [
     const [comments, setComments] = useState<CommentType[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
-    const _getComments = useCallback(async () => {
+    const _getComments = useCallback(() => {
         if (moto_route_id !== null) {
             setLoading(true);
-            var response = await getComments(moto_route_id)
+            getComments(moto_route_id).then((response) => {
 
 
-            if (response.status !== 200) {
-                console.log("Something went wrong when getting moto Routes")
-                setComments([])
+                if (response.status !== 200) {
+                    console.log("Something went wrong when getting moto Routes")
+                    setComments([])
+                    setLoading(false);
+                    return
+                }
+                
+                const _comments = response.data as CommentType[]
+                
+                setComments(_comments)
                 setLoading(false);
-                return
-            }
-            
-            const _comments = response.data as CommentType[]
-            
-            setComments(_comments)
-            setLoading(false);
+            })
         } else {
             setComments([])
         }

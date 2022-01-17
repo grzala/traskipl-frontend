@@ -30,21 +30,20 @@ export function useGetMotoRoutes(): [ MotoRouteType[], boolean /*, (resource: Mo
 
     const _getMotoRoutes = useCallback(async () => {
         setLoading(true);
-        var response = await getMotoRoutes()
-
-
-        if (response.status !== 200) {
-            console.log("Something went wrong when getting moto Routes")
-            console.log(response)
-            setMotoRoutes([])
+        getMotoRoutes().then((response) => {
+            if (response.status !== 200) {
+                console.log("Something went wrong when getting moto Routes")
+                console.log(response)
+                setMotoRoutes([])
+                setLoading(false);
+                return
+            }
+            
+            const _motoRoutes = response.data.moto_routes as MotoRouteType[]
+            
+            setMotoRoutes(_motoRoutes)
             setLoading(false);
-            return
-        }
-        
-        const _motoRoutes = response.data.moto_routes as MotoRouteType[]
-        
-        setMotoRoutes(_motoRoutes)
-        setLoading(false);
+        })
     }, [])
 
     useEffect(() => { _getMotoRoutes() }, [_getMotoRoutes])
@@ -83,20 +82,21 @@ export function useGetMotoRoute(id: number | null): [ MotoRouteType | null, bool
         }
 
         setLoading(true);
-        var response = await getMotoRoute(id)
 
-        if (response.status !== 200) {
-            console.log("Something went wrong when getting moto Routes")
-            console.log(response)
-            setMotoRoute(null)
+        getMotoRoute(id).then((response) => {
+            if (response.status !== 200) {
+                console.log("Something went wrong when getting moto Routes")
+                console.log(response)
+                setMotoRoute(null)
+                setLoading(false);
+                return
+            }
+            
+            const _motoRoutes = response.data.moto_route as MotoRouteType
+            
+            setMotoRoute(_motoRoutes)
             setLoading(false);
-            return
-        }
-        
-        const _motoRoutes = response.data.moto_route as MotoRouteType
-        
-        setMotoRoute(_motoRoutes)
-        setLoading(false);
+        })
     }, [id])
 
     useEffect(() => { _getMotoRoute() }, [_getMotoRoute])
@@ -185,7 +185,7 @@ export function useGetMotoRouteVoteAndFav(id: number | null): [ number | null, b
     const [userVote, setUserVote] = useState<number | null>(null);
     const [isFavourite, setIsFavourite] = useState<boolean>(false);
 
-    const _getVoteAndFav = useCallback(async () => {
+    const _getVoteAndFav = useCallback(() => {
         if (id === null) {
             console.log("Requested moto route id is null")
             return;
@@ -320,15 +320,16 @@ export function checkCanEditMotoRoute(route_id: number) {
 export function useCheckCanEditMotoRoute(route_id: number): [boolean] {
     const [canEdit, setCanEdit] = useState<boolean>(false)
 
-    const _checkCanEdit = useCallback(async () => {
-        let res = await checkCanEditMotoRoute(route_id)
+    const _checkCanEdit = useCallback(() => {
+        checkCanEditMotoRoute(route_id).then((res) => {
         
-        if (res.status !== 200) {
-            setCanEdit(false)
-            return 
-        }
+            if (res.status !== 200) {
+                setCanEdit(false)
+                return 
+            }
 
-        setCanEdit(res.data.can_edit)
+            setCanEdit(res.data.can_edit)
+        })
             
     }, [route_id])
 
