@@ -19,6 +19,9 @@ export function handleAxiosErrors (error: any) {
         case 500: // Server error
             msgs.push(`Problem with backend services.`)
             break;
+        case 400: // invalid input
+            msgs.push(`Invalid api request`)
+            break;
         case 401: // No access
             if (error.response.data.messages) {
                 msgs  = error.response.data.messages

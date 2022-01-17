@@ -5,11 +5,21 @@ import { handleAxiosErrors } from "./ErrorHandling";
 
 export type AccidentBoudns = {northEast: {lng: number, lat:number}, southWest: {lng: number, lat:number}}
 
+export type AccidentInjuryFilters = {
+    NONE: boolean,
+    LIGHT: boolean,
+    HEAVY: boolean,
+    DEATH: boolean
+}
 
-
-export function getAllAccidents() {
-    return axios.get(
-        `${process.env.REACT_APP_API_SERVER}/accidents`,
+export function getAccidentsWithFilters(date_from: Date, date_to: Date, filters: AccidentInjuryFilters) {
+    return axios.post(
+        `${process.env.REACT_APP_API_SERVER}/accidents/filters`,
+        {
+            date_to: date_to,
+            date_from: date_from,
+            filters: filters
+        },
         {'withCredentials': true}
     ).then((response) => {
 
