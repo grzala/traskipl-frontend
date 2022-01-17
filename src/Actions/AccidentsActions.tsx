@@ -6,6 +6,25 @@ import { handleAxiosErrors } from "./ErrorHandling";
 export type AccidentBoudns = {northEast: {lng: number, lat:number}, southWest: {lng: number, lat:number}}
 
 
+
+export function getAllAccidents() {
+    return axios.get(
+        `${process.env.REACT_APP_API_SERVER}/accidents`,
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}
+
+
 export function getAccidentsByBounds(bounds: AccidentBoudns) {
     return axios.post(
         `${process.env.REACT_APP_API_SERVER}/accidents`,

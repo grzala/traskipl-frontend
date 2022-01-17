@@ -9,7 +9,7 @@ import { POIType } from "../Types/MotoRoutesTypes"
 
 import MotoRouteMap from "../Components/MotoRoute/MotoRouteMap";
 
-import "./MotoRoutePage.scss"
+import "./MainPage.scss"
 import MotoRouteDetails from "../Components/MotoRoute/MotoRouteDetails/MotoRouteDetails";
 import MotoRouteComments from "../Components/MotoRoute/MotoRouteComments";
 import MotoRouteAuthor from "../Components/MotoRoute/MotoRouteAuthor";

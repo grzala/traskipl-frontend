@@ -17,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
 import MotoRouteEditor from './Pages/MotoRouteEditor';
+import AccidentMap from './Pages/AccidentMap';
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -114,6 +115,7 @@ function App() {
                 <Route path="/routes/:id" element={ <MotoRoutePage /> } />
                 <Route path="/routes/editor/*" element={ <MotoRouteEditor /> } />
                 <Route path="/routes/editor" element={ <MotoRouteEditor /> } />
+                <Route path="/accidentsmap" element={ <AccidentMap /> } />
                 <Route path="/" element={ <Homepage /> } />
               </Routes>
             </div>

@@ -32,16 +32,16 @@ const Header = () => {
                                             <a className="nav-link" href="/routes/editor/new/details">Editor</a>
                                         </li>
                                         <li className="nav-item">
-                                            <a className="nav-link disabled" href="/#">Messages</a>
+                                            <a className="nav-link" href="/accidentsmap">Accidents map</a>
                                         </li>
-                                        <li className="nav-item dropdown ml-md-auto">
+                                        {/* <li className="nav-item dropdown ml-md-auto">
                                             <a className="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Dropdown link</a>
                                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                                 <a className="dropdown-item" href="/#">Action</a> <a className="dropdown-item" href="/#">Another action</a> <a className="dropdown-item" href="/#">Something else here</a>
                                                 <div className="dropdown-divider">
                                                 </div> <a className="dropdown-item" href="/#">Separated link</a>
                                             </div>
-                                        </li>
+                                        </li> */}
                                     </ul>
                                 </div>
                                 <div className="userbox-col col-md-3 d-flex align-items-end justify-content-end">
