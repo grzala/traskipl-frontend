@@ -50,7 +50,7 @@ export function useGetAccidentsByBounds(bounds: AccidentBoudns | null): [ Accide
             }
             
             const _accidents = response.data.accidents as AccidentType[]
-            console.log(response)
+            console.log(_accidents)
             
             setAccidents(_accidents)
             setLoading(false);

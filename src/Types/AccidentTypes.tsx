@@ -12,7 +12,7 @@ export type AccidentType = {
     created_at: Date,
     
     original_id: string,
-    coords: {lat: number, lng: number},
+    coordinates: {lat: number, lng: number},
     date: Date,
     injury: Injury
 }
