@@ -97,6 +97,57 @@ export function useGetRecentMotoRoutes(): [ MotoRouteType[], boolean ]  {
     return [ motoRoutes, loading ]
 }
 
+// ================ GET IN AREA MOTO ROUTES ===============================
+
+function getInAreaMotoRoutes(point: {lat: number, lng: number}) {
+    return axios.post(
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/in_area`,
+        {
+            point: point
+        },
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}
+
+export function useGetInAreaRecentMotoRoutes(point: {lat: number, lng: number} | null): [ MotoRouteType[], boolean ]  {
+    const [motoRoutes, setMotoRoutes] = useState<MotoRouteType[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const _getMotoRoutes = useCallback(async () => {
+        if (point === null) return
+        
+        setLoading(true);
+        getInAreaMotoRoutes(point).then((response) => {
+            if (response.status !== 200) {
+                console.log("Something went wrong when getting moto Routes")
+                console.log(response)
+                setMotoRoutes([])
+                setLoading(false);
+                return
+            }
+            
+            const _motoRoutes = response.data.moto_routes as MotoRouteType[]
+            
+            setMotoRoutes(_motoRoutes)
+            setLoading(false);
+        })
+    }, [point])
+
+    useEffect(() => { _getMotoRoutes() }, [_getMotoRoutes])
+
+    return [ motoRoutes, loading ]
+}
+
 // ================ GET TOP MOTO ROUTES with page number ===============================
 
 export enum MotoRouteListAPITypes {

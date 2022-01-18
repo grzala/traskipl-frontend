@@ -67,7 +67,7 @@ const MotoRouteBigListPage = () => {
         }
         
 
-    }, [urlMatch, navigate])
+    }, [urlMatch, navigate, user.user])
 
     const [motoRoutesList, motoRoutesListLoading, totalRoutes] = useGetTopMotoRoutes(currentPage, listType);
 

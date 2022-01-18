@@ -1,7 +1,6 @@
-import React, { Fragment, useState, useEffect, useCallback, useMemo } from "react";
+import React, { Fragment, useEffect, useCallback, useMemo } from "react";
 
 import { DirectionsService, DirectionsRenderer, GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { mapIconInjuryUrls } from "./MapConstants";
 
 
 const mapWrapperStyle = {
@@ -27,7 +26,7 @@ const HomepageMapComponent = (props) => {
     const { route, pointOfSearch, handleMapClick } = props;
 
     // const { isLoaded } = useJsApiLoader({ id: "google-map-script", googleMapsApiKey: 'google-api-key', });
-    const [scriptLoaded, setScriptLoaded] = useState(false)
+    // const [scriptLoaded, setScriptLoaded] = useState(false)
     const origin = route?.coordinates[0];
     const destination = route?.coordinates[route.coordinates.length-1]
     const waypoints = route?.coordinates.slice(1, route?.coordinates.length-1).map((coord) => ({location: coord, stopover: false}))
@@ -72,7 +71,7 @@ const HomepageMapComponent = (props) => {
             <LoadScript
                 // libraries={["visualization"]} 
                 googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} 
-                onLoad={() => setScriptLoaded(true)}
+                // onLoad={() => setScriptLoaded(true)}
                 >
                     <GoogleMap
                         mapContainerStyle={ mapContainerStyle }

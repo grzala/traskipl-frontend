@@ -1,17 +1,37 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 
 import "./Homepage.scss"
 import MotoRoutesList from "../Components/MotoRoute/MotoRoutesList";
-import { useGetMotoRoutes, useGetRecentMotoRoutes } from "../Actions/MotoRoutesActions";
+import { useGetInAreaRecentMotoRoutes, useGetRecentMotoRoutes } from "../Actions/MotoRoutesActions";
 import { MotoRouteType } from "../Types/MotoRoutesTypes";
 import HomepageMapComponent from "src/Components/HomepageMapComponent";
 
 const Homepage = () => {
 
-    const [motoRoutesList, motoRoutesListLoading] = useGetRecentMotoRoutes();
     const [currentlyDisplayedRoute, setCurrentlyDisplayedRoute] = useState<MotoRouteType | null>(null)
     const [pointOfSearch, setPointOfSearch] = useState<{lat: number, lng: number} | null>(null)
+
+    const [recentMotoRoutes, recentMotoRoutesIsLoading] = useGetRecentMotoRoutes();
+    const [inAreaMotoRoutes, inAreaMotoRoutesIsLoading] = useGetInAreaRecentMotoRoutes(pointOfSearch);
+    const [motoRoutesList, setMotoRoutesList] = useState<MotoRouteType[]>([])
+    const [motoRoutesListLoading, setMotoRoutesListLoading] = useState<boolean>(true)
+
+    useEffect(() => {
+        if (pointOfSearch === null) {
+            setMotoRoutesList(recentMotoRoutes)
+            setMotoRoutesListLoading(recentMotoRoutesIsLoading)
+        } else {
+            setMotoRoutesList(inAreaMotoRoutes)
+            setMotoRoutesListLoading(inAreaMotoRoutesIsLoading)
+        }
+    }, [
+        recentMotoRoutes, 
+        recentMotoRoutesIsLoading, 
+        inAreaMotoRoutes,
+        inAreaMotoRoutesIsLoading,
+        pointOfSearch
+    ])
 
 
 
@@ -20,7 +40,7 @@ const Homepage = () => {
             return
         }
         
-        let routeToDisplay = motoRoutesList.find((route) => route.id == routeToDisplayId)
+        let routeToDisplay = motoRoutesList.find((route) => route.id === routeToDisplayId)
 
         if (routeToDisplay === undefined) {
             console.log("Error: route of id" + routeToDisplayId + " not in route array")
@@ -61,6 +81,11 @@ const Homepage = () => {
                     </div>
                 </div>
             </div>
+            <h5 style={{ marginTop: "1em" }}>
+                Click on the map to show routes in the area of the click.
+                Hover on a route in the list on the right to display the route on the map.
+                Click on the route in the list to see more details.
+            </h5>
         </Fragment>
     )
 }
