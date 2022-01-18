@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import ProfilePicture from "../Components/ProfilePicture";
 import { UserType } from "../Types/UserTypes";
 
@@ -30,9 +31,8 @@ const ProfileBox = (props: ProfileBoxProps) => {
                         More
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="profile-other-dropdown">
-                        <li><a className="dropdown-item" href="/#">My routes</a></li>
-                        <li><a className="dropdown-item" href="/#">My favourites</a></li>
-                        <li><a className="dropdown-item" href="/#">Edit profile</a></li>
+                        <li><NavLink className="dropdown-item" to="/moto_route_list/user_routes/1">My routes</NavLink></li>
+                        <li><NavLink className="dropdown-item" to="/moto_route_list/user_favourites/1">My favourites</NavLink></li>
                         <li><a className="dropdown-item" href="/#"
                                 onClick={(e) => {
                                     e.preventDefault()

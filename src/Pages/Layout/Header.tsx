@@ -28,7 +28,7 @@ const Header = () => {
                     <div className="col-md-3 d-flex align-items-end">
                         <ul className="nav nav-tabs">
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/top">Top rated</NavLink>
+                                <NavLink className="nav-link" to="/moto_route_list/top/1">Top rated</NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/search">Search</NavLink>

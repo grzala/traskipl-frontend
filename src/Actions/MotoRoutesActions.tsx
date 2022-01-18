@@ -54,9 +54,16 @@ export function useGetMotoRoutes(): [ MotoRouteType[], boolean /*, (resource: Mo
 
 // ================ GET TOP MOTO ROUTES with page number ===============================
 
-function getTopMotoRoutes(page: number) {
+export enum MotoRouteListAPITypes {
+    NONE = "none",
+    TOP = "top",
+    USER_ROUTES = "user_routes",
+    USER_FAVOURITES = "user_favourites"
+}
+
+function getTopMotoRoutes(page: number, type: MotoRouteListAPITypes) {
     return axios.get(
-        `${process.env.REACT_APP_API_SERVER}/moto_routes/top/${page}`,
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/${type}/${page}`,
         {'withCredentials': true}
     ).then((response) => {
 
@@ -71,12 +78,16 @@ function getTopMotoRoutes(page: number) {
     })
 }
 
-export function useGetTopMotoRoutes(page: number): [ MotoRouteType[], boolean , number]  {
+export function useGetTopMotoRoutes(page: number, type: MotoRouteListAPITypes): [ MotoRouteType[], boolean , number]  {
     const [motoRoutes, setMotoRoutes] = useState<MotoRouteType[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [totalRoutes, setTotalRoutes] = useState<number>(-1);
 
     const _getMotoRoutes = useCallback(async () => {
+        if (type == MotoRouteListAPITypes.NONE) { // This should not happen. If if happens just abort API calling
+            return;
+        }
+
         // don't bother the API if wrong page number is provided. the Page will handle this and renew request with proper page number
         if (page <= 0) { 
             setLoading(false)
@@ -86,7 +97,7 @@ export function useGetTopMotoRoutes(page: number): [ MotoRouteType[], boolean , 
         }
 
         setLoading(true);
-        getTopMotoRoutes(page).then((response) => {
+        getTopMotoRoutes(page, type).then((response) => {
             if (response.status !== 200) {
                 console.log("Something went wrong when getting moto Routes")
                 console.log(response)
@@ -102,7 +113,7 @@ export function useGetTopMotoRoutes(page: number): [ MotoRouteType[], boolean , 
             setTotalRoutes(response.data.total_routes)
             setLoading(false);
         })
-    }, [page])
+    }, [page, type])
 
     useEffect(() => { _getMotoRoutes() }, [_getMotoRoutes])
 
