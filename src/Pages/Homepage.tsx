@@ -3,13 +3,13 @@ import React, { Fragment, useState } from "react";
 
 import "./Homepage.scss"
 import MotoRoutesList from "../Components/MotoRoute/MotoRoutesList";
-import { useGetMotoRoutes } from "../Actions/MotoRoutesActions";
+import { useGetMotoRoutes, useGetRecentMotoRoutes } from "../Actions/MotoRoutesActions";
 import { MotoRouteType } from "../Types/MotoRoutesTypes";
 import HomepageMapComponent from "src/Components/HomepageMapComponent";
 
 const Homepage = () => {
 
-    const [motoRoutesList, motoRoutesListLoading] = useGetMotoRoutes();
+    const [motoRoutesList, motoRoutesListLoading] = useGetRecentMotoRoutes();
     const [currentlyDisplayedRoute, setCurrentlyDisplayedRoute] = useState<MotoRouteType | null>(null)
     const [pointOfSearch, setPointOfSearch] = useState<{lat: number, lng: number} | null>(null)
 
@@ -51,12 +51,14 @@ const Homepage = () => {
                     />
                 </div>
                 <div className="col-md-5">
-                    <MotoRoutesList 
-                        title={"Recently added routes"} 
-                        routes={ motoRoutesList } 
-                        isLoading={motoRoutesListLoading}
-                        onHover={onRouteHover}
-                    />
+                    <div style={{ maxHeight: "40em" }}>
+                        <MotoRoutesList 
+                            title={"Recently added routes"} 
+                            routes={ motoRoutesList } 
+                            isLoading={motoRoutesListLoading}
+                            onHover={onRouteHover}
+                        />
+                    </div>
                 </div>
             </div>
         </Fragment>

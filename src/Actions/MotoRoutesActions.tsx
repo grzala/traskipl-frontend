@@ -51,6 +51,51 @@ export function useGetMotoRoutes(): [ MotoRouteType[], boolean /*, (resource: Mo
     return [ motoRoutes, loading ]
 }
 
+// ================ GET RECENT MOTO ROUTES ===============================
+
+function getRecentMotoRoutes() {
+    return axios.get(
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/recent`,
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}
+
+export function useGetRecentMotoRoutes(): [ MotoRouteType[], boolean ]  {
+    const [motoRoutes, setMotoRoutes] = useState<MotoRouteType[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const _getMotoRoutes = useCallback(async () => {
+        setLoading(true);
+        getRecentMotoRoutes().then((response) => {
+            if (response.status !== 200) {
+                console.log("Something went wrong when getting moto Routes")
+                console.log(response)
+                setMotoRoutes([])
+                setLoading(false);
+                return
+            }
+            
+            const _motoRoutes = response.data.moto_routes as MotoRouteType[]
+            
+            setMotoRoutes(_motoRoutes)
+            setLoading(false);
+        })
+    }, [])
+
+    useEffect(() => { _getMotoRoutes() }, [_getMotoRoutes])
+
+    return [ motoRoutes, loading ]
+}
 
 // ================ GET TOP MOTO ROUTES with page number ===============================
 
