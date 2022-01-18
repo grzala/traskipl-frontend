@@ -6,6 +6,7 @@ import { currentUserType, UserType } from "../Types/UserTypes";
 import { handleAxiosErrors } from "./ErrorHandling";
 
 
+// ================ GET ALL MOTO ROUTES ===============================
 
 function getMotoRoutes() {
     return axios.get(
@@ -51,6 +52,62 @@ export function useGetMotoRoutes(): [ MotoRouteType[], boolean /*, (resource: Mo
     return [ motoRoutes, loading ]
 }
 
+
+// ================ GET TOP MOTO ROUTES with page number ===============================
+
+function getTopMotoRoutes(page: number) {
+    return axios.get(
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/top/${page}`,
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}
+
+export function useGetTopMotoRoutes(page: number): [ MotoRouteType[], boolean /*, (resource: MotoRouteType[]) => void*/ ]  {
+    const [motoRoutes, setMotoRoutes] = useState<MotoRouteType[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const _getMotoRoutes = useCallback(async () => {
+        // don't bother the API if wrong page number is provided. the Page will handle this and renew request with proper page number
+        if (page <= 0) { 
+            setLoading(false)
+            setMotoRoutes([])
+            return;
+        }
+
+        setLoading(true);
+        getTopMotoRoutes(page).then((response) => {
+            if (response.status !== 200) {
+                console.log("Something went wrong when getting moto Routes")
+                console.log(response)
+                setMotoRoutes([])
+                setLoading(false);
+                return
+            }
+            
+            const _motoRoutes = response.data.moto_routes as MotoRouteType[]
+            
+            setMotoRoutes(_motoRoutes)
+            setLoading(false);
+        })
+    }, [page])
+
+    useEffect(() => { _getMotoRoutes() }, [_getMotoRoutes])
+
+    return [ motoRoutes, loading ]
+}
+
+
+// ================ GET MOTO ROUTE BY ID ===============================
 
 export function getMotoRoute(id: number) {
     return axios.get(
@@ -104,6 +161,9 @@ export function useGetMotoRoute(id: number | null): [ MotoRouteType | null, bool
     return [ motoRoute, loading ]
 }
 
+
+// ================ Switch Fav ===============================
+
 export function switchFavourite(route_id: number) {
     return axios.post(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/switch_favourite`,
@@ -125,6 +185,7 @@ export function switchFavourite(route_id: number) {
 }
 
 
+// ================ Vote ===============================
 export function castVote(route_id: number, vote_score: number) {
     return axios.post(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/cast_rating_vote`,
@@ -146,6 +207,7 @@ export function castVote(route_id: number, vote_score: number) {
     })
 }
 
+// ================ Get current vote for user ===============================
 export function get_users_vote(route_id: number) {
     return axios.get(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/${route_id}/get_user_vote`,
@@ -164,6 +226,7 @@ export function get_users_vote(route_id: number) {
 }
 
 
+// ================ Check is fav for user ===============================
 export function check_is_favourite(route_id: number) {
     return axios.get(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/${route_id}/is_favourite`,
@@ -181,6 +244,7 @@ export function check_is_favourite(route_id: number) {
     })
 }
 
+// ================ Hook to get vote and fav? at the same time ===============================
 export function useGetMotoRouteVoteAndFav(id: number | null): [ number | null, boolean, any, any ]  {
     const [userVote, setUserVote] = useState<number | null>(null);
     const [isFavourite, setIsFavourite] = useState<boolean>(false);
@@ -220,6 +284,7 @@ export function useGetMotoRouteVoteAndFav(id: number | null): [ number | null, b
     return [ userVote, isFavourite, setUserVote, setIsFavourite ]
 }
 
+// ================ Create new route ===============================
 export function createNewMotoRoute(
     data: MotoRouteDetailsDataType, 
     waypoints: {lat:number, lng: number}[], 
@@ -250,6 +315,7 @@ export function createNewMotoRoute(
 }
 
 
+// ================ Edit existing route ===============================
 export function updateMotoRoute(
     route_id: number, 
     data: MotoRouteDetailsDataType, 
@@ -280,6 +346,8 @@ export function updateMotoRoute(
     })
 }
 
+
+// ================ delete route ===============================
 export function deleteMotoRoute(route_id: number) {
 
     return axios.delete(
@@ -298,6 +366,7 @@ export function deleteMotoRoute(route_id: number) {
     })
 }
 
+// ================ Check if route can be edited by user ===============================
 export function checkCanEditMotoRoute(route_id: number) {
 
     return axios.get(
@@ -317,6 +386,7 @@ export function checkCanEditMotoRoute(route_id: number) {
 }
 
 
+// ================ Hook: Check if route can be edited by use ===============================
 export function useCheckCanEditMotoRoute(route_id: number): [boolean] {
     const [canEdit, setCanEdit] = useState<boolean>(false)
 

@@ -116,7 +116,10 @@ function App() {
                 <Route path="/routes/:id" element={ <MotoRoutePage /> } />
                 <Route path="/routes/editor/*" element={ <MotoRouteEditor /> } />
                 <Route path="/routes/editor" element={ <MotoRouteEditor /> } />
+
                 <Route path="/accidentsmap" element={ <AccidentMap /> } />
+
+                <Route path="/top/:page" element={ <TopRatedPage /> } />
                 <Route path="/top" element={ <TopRatedPage /> } />
                 <Route path="/" element={ <Homepage /> } />
               </Routes>
