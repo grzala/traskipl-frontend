@@ -47,7 +47,7 @@ const MotoRouteEditorMap = (props) => {
             console.log('Directions response error: ', res)
           }
         }
-      }, [])
+      }, [handleRouteDataChange, setPathPolyline])
 
     const directionsServiceOptions = useMemo(() => {
         if (route.length < 2)

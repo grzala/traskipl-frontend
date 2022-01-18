@@ -18,7 +18,6 @@ import { useGetMotoRoute, useGetMotoRoutes } from "../Actions/MotoRoutesActions"
 import { userContext } from "../Contexts/UserContext";
 
 import ReactLoading from "react-loading";
-import axios from "axios";
 import { AccidentBoudns, useGetAccidentsByBounds } from "src/Actions/AccidentsActions";
 import { AccidentType } from "src/Types/AccidentTypes";
   

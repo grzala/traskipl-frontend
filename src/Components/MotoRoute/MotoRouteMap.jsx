@@ -47,7 +47,7 @@ const MotoRouteMap = (props) => {
             console.log('Directions response error: ', res)
           }
         }
-      }, [])
+      }, [setBounds])
 
     const directionsServiceOptions = useMemo(() => {
         var dirInfo = {

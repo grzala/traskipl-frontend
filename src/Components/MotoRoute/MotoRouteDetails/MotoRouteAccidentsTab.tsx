@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { AccidentType } from "src/Types/AccidentTypes";
-import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
 import ReactLoading from "react-loading";
 
 
@@ -29,6 +28,7 @@ const MotoRouteAccidentsTab = (props: MotoRouteAccidentsTabProps) => {
 
                 {accidents.map((accident) => (
                     <div 
+                        key={`accident_${accident.id}`}
                         className={`list-group-item flex-column align-items-start`}
                         onMouseEnter={() => onAccidentHover(true, accident)} 
                         onMouseLeave={() => onAccidentHover(false, accident)} 
@@ -45,7 +45,7 @@ const MotoRouteAccidentsTab = (props: MotoRouteAccidentsTabProps) => {
                                 <div className="description-collapsible">
                                     <p>Injuries to motorcyclist: { accident.injury.toLowerCase() }</p>
                                     <p>Latitude: {accident.coordinates.lat.toFixed(2)} Longitude: {accident.coordinates.lng.toFixed(2)}</p>
-                                    <p><a target="_blank" href={`http://sewik.pl/accident/${accident.original_id}`}>Click for more information</a></p>
+                                    <p><a target="_blank" rel="noreferrer" href={`http://sewik.pl/accident/${accident.original_id}`}>Click for more information</a></p>
                                 </div>
                             </div>
                         </div>

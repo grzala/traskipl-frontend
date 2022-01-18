@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMatch, useNavigate } from "react-router-dom";
-import { useGetMotoRoutes, useGetTopMotoRoutes } from "src/Actions/MotoRoutesActions";
+import { useGetTopMotoRoutes } from "src/Actions/MotoRoutesActions";
 import MotoRoutesList from "src/Components/MotoRoute/MotoRoutesList";
 
 

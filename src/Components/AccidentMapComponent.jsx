@@ -1,7 +1,6 @@
-/* global google */
 import React, { Fragment, useState } from "react";
 
-import { GoogleMap, LoadScript, mapLayer, Marker } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { mapIconInjuryUrls } from "./MapConstants";
 
 

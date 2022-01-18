@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 import ToasterStyles from "../ToasterStyles/ToasterStyles"
 import { CompositePOIFieldErrorType } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOITab";
 import { userContext } from "src/Contexts/UserContext";
-import html2canvas from "html2canvas"
 
 
 enum addModes {
@@ -78,7 +77,7 @@ const MotoRouteEditor = () => {
         if (currentIDChanged) {
             resetRoute()
         }
-    }, [currentIDChanged, currentRouteID])
+    }, [currentIDChanged, currentRouteID]) // ignoring those warnings as something was causing an infinite loop here. Might take care of this if I find time
 
     const setMotoRouteData = (fetchedData: MotoRouteType) => {
         let newData: MotoRouteDetailsDataType = {
@@ -151,7 +150,7 @@ const MotoRouteEditor = () => {
         const handleRouteIDChange = async () => {
             let routeID = urlMatch?.params["id"]
 
-            if (routeID != null && routeID != 'new') {
+            if (routeID !== undefined && routeID !== 'new') {
                 let res = await checkCanEditMotoRoute(+routeID)
                 
                 // if (res.status === 200) {
@@ -175,7 +174,7 @@ const MotoRouteEditor = () => {
             }
         }
         handleRouteIDChange()
-    }, [urlMatch])
+    }, [urlMatch]) // ignoring those warnings as something was causing an infinite loop here. Might take care of this if I find time
 
     const handleMapClick = (e: any) => {
         var lat = e.latLng.lat()

@@ -2,7 +2,6 @@ import axios from "axios"
 import { useCallback, useEffect, useState } from "react";
 import { MotoRouteDetailsDataType } from "src/Components/MotoRoute/Editor/MotoRouteEditorDetailsTab";
 import { MotoRouteType, POIType } from "../Types/MotoRoutesTypes";
-import { currentUserType, UserType } from "../Types/UserTypes";
 import { handleAxiosErrors } from "./ErrorHandling";
 
 

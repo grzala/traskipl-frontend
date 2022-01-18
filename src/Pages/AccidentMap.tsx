@@ -10,20 +10,11 @@ import ReactLoading from "react-loading";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { registerLocale, setDefaultLocale } from  "react-datepicker";
-import enGB from 'date-fns/locale/en-GB';
 
 import "./MainPage.scss"
 import "../Components/MotoRoute/MotoRouteDetails/MotoRouteDetails.scss"
 import moment from "moment";
 
-
-// for datepicker
-registerLocale('enGB', enGB)
-
-const dateToString = (date: Date) => {
-    return date.getDate()  + "-" + (date.getMonth()+1) + "-" + date.getFullYear()
-}
 
 const wrapperStyle: CSSProperties = {
     minHeight: "20em",
@@ -81,12 +72,12 @@ const AccidentMap = () => {
         if (key !== "to" && key !== "from") throw new Error("Only available dates are 'from' and 'to'. Invalid key: " + key)
         if (value === null) return;
 
-        if (key == "from" && value > dateRange.to) {
+        if (key === "from" && value > dateRange.to) {
             toast.error("Date from must be smaller than date to", ToasterStyles)
             return
         }
 
-        if (key == "to" && value < dateRange.from) {
+        if (key === "to" && value < dateRange.from) {
             toast.error("Date to must be bigger than date from", ToasterStyles)
             return
         }
