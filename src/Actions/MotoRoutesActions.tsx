@@ -71,14 +71,16 @@ function getTopMotoRoutes(page: number) {
     })
 }
 
-export function useGetTopMotoRoutes(page: number): [ MotoRouteType[], boolean /*, (resource: MotoRouteType[]) => void*/ ]  {
+export function useGetTopMotoRoutes(page: number): [ MotoRouteType[], boolean , number]  {
     const [motoRoutes, setMotoRoutes] = useState<MotoRouteType[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const [totalRoutes, setTotalRoutes] = useState<number>(-1);
 
     const _getMotoRoutes = useCallback(async () => {
         // don't bother the API if wrong page number is provided. the Page will handle this and renew request with proper page number
         if (page <= 0) { 
             setLoading(false)
+            setTotalRoutes(-1)
             setMotoRoutes([])
             return;
         }
@@ -89,6 +91,7 @@ export function useGetTopMotoRoutes(page: number): [ MotoRouteType[], boolean /*
                 console.log("Something went wrong when getting moto Routes")
                 console.log(response)
                 setMotoRoutes([])
+                setTotalRoutes(-1)
                 setLoading(false);
                 return
             }
@@ -96,13 +99,14 @@ export function useGetTopMotoRoutes(page: number): [ MotoRouteType[], boolean /*
             const _motoRoutes = response.data.moto_routes as MotoRouteType[]
             
             setMotoRoutes(_motoRoutes)
+            setTotalRoutes(response.data.total_routes)
             setLoading(false);
         })
     }, [page])
 
     useEffect(() => { _getMotoRoutes() }, [_getMotoRoutes])
 
-    return [ motoRoutes, loading ]
+    return [ motoRoutes, loading, totalRoutes ]
 }
 
 
