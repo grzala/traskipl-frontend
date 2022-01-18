@@ -19,7 +19,8 @@ const TopRatedPage = () => {
         let new_page = Number(urlMatch.params.page)
 
         if (new_page === undefined || isNaN(new_page)) {
-            throw new Error("Page not defined")
+            navigate("/top/1")
+            return
         }
 
         setPage(new_page)
@@ -27,7 +28,7 @@ const TopRatedPage = () => {
 
     }, [urlMatch])
 
-    const [motoRoutesList, motoRoutesListLoading] = useGetTopMotoRoutes(0);
+    const [motoRoutesList, motoRoutesListLoading] = useGetTopMotoRoutes(page);
 
     return (
         <MotoRoutesList title={"Top rated routes"} routes={motoRoutesList} isLoading={motoRoutesListLoading} />
