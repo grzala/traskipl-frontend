@@ -9,12 +9,13 @@ import HelmetRating from "./MotoRouteDetails/HelmetRating";
 import "./MotoRoutesList.scss"
 
 type MotoRoutesListProps = {
-    motoRoutesList: MotoRouteType[];
+    routes: MotoRouteType[];
     isLoading: boolean;
+    title: string;
 }
 
 const MotoRoutesList = (props: MotoRoutesListProps) => {
-    const { motoRoutesList, isLoading } = props
+    const { routes, isLoading, title } = props
 
     const poi_count_build_tsx = (poi_count: {[variant in POIVariant]: number}) => {
         let toReturn = [];
@@ -51,57 +52,57 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
 
     return (
         <Fragment>
-                <div className="list-group moto-routes-list">
-                    <div className="list-group-item active">
-                        Other routes in the area
-                    </div>
-                    
-                    <div className="moto-routes-list-main">
-                        { isLoading && (
-                            <ReactLoading type={ 'spokes' } className="loading-placeholder" />
-                        )}
+            <div className="list-group moto-routes-list">
+                <div className="list-group-item active">
+                    { title }
+                </div>
+                
+                <div className="moto-routes-list-main">
+                    { isLoading && (
+                        <ReactLoading type={ 'spokes' } className="loading-placeholder" />
+                    )}
 
-                        { !isLoading && motoRoutesList && motoRoutesList.length > 0 &&  (
-                                <Fragment>
-                                { motoRoutesList.map((route) => 
-                                    <Link key={`moto-list-item-${route.id}`} to={`/routes/${route.id}/details`} className="moto-routes-list-item list-group-item list-group-item-action">
-                                        <div className="d-flex flex-row">
-                                            <div className="map-thumbnail-rating-col">
-                                                <img src={ process.env.REACT_APP_THUMBNAIL_SOURCE + `/route_thumbnails/${route.id}.png` } alt="map of the route" />
+                    { !isLoading && routes && routes.length > 0 &&  (
+                            <Fragment>
+                            { routes.map((route) => 
+                                <Link key={`moto-list-item-${route.id}`} to={`/routes/${route.id}/details`} className="moto-routes-list-item list-group-item list-group-item-action">
+                                    <div className="d-flex flex-row">
+                                        <div className="map-thumbnail-rating-col">
+                                            <img src={ process.env.REACT_APP_THUMBNAIL_SOURCE + `/route_thumbnails/${route.id}.png` } alt="map of the route" />
 
-                                                <div className="helmet-rating-container">
-                                                    <HelmetRating
-                                                        score={ route.score }
-                                                        size={ 1.5 }
-                                                        spacing={ 0.3 }
-                                                        overrideMainColor={ "#bd3327" }
-                                                    />
-                                                </div>
-
-                                                <div className="poi-count-container">
-                                                    { route.poi_count !== undefined && (
-                                                        poi_count_build_tsx(route.poi_count)
-                                                    )}
-                                                </div>
+                                            <div className="helmet-rating-container">
+                                                <HelmetRating
+                                                    score={ route.score }
+                                                    size={ 1.5 }
+                                                    spacing={ 0.3 }
+                                                    overrideMainColor={ "#bd3327" }
+                                                />
                                             </div>
 
-                                            <div className="info-col">
-                                                <h5>{ route.name }</h5>
-                                                <hr />
-                                                <p className="info">{ route.description }</p>
+                                            <div className="poi-count-container">
+                                                { route.poi_count !== undefined && (
+                                                    poi_count_build_tsx(route.poi_count)
+                                                )}
                                             </div>
                                         </div>
-                                    </Link>
-                                )}
-                                </Fragment>
-                        )}
-                        { !isLoading && (!motoRoutesList || motoRoutesList.length <= 0) && (
-                            <div className="moto-routes-list-item list-group-item text-center">
-                                <h3>No routes to show</h3>
-                            </div>
-                        )}
-                    </div>
+
+                                        <div className="info-col">
+                                            <h5>{ route.name }</h5>
+                                            <hr />
+                                            <p className="info">{ route.description }</p>
+                                        </div>
+                                    </div>
+                                </Link>
+                            )}
+                            </Fragment>
+                    )}
+                    { !isLoading && (!routes || routes.length <= 0) && (
+                        <div className="moto-routes-list-item list-group-item text-center">
+                            <h3>No routes to show</h3>
+                        </div>
+                    )}
                 </div>
+            </div>
         </Fragment>
     )
 }

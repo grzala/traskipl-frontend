@@ -151,7 +151,7 @@ const MotoRoutePage = () => {
                                         <MotoRouteAuthor author={route?.user || null} isLoading={routeLoading} />
 
                                         <div className="moto-route-page-list-container">
-                                            <MotoRoutesList motoRoutesList={ motoRoutesList } isLoading={ motoRoutesListLoading } />
+                                            <MotoRoutesList title={"Other routes in the area"} routes={ motoRoutesList } isLoading={ motoRoutesListLoading } />
                                         </div>
                                     </div>
                                 </div>

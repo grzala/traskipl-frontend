@@ -24,7 +24,7 @@ const Homepage = () => {
                     </p>
                 </div>
                 <div className="col-md-5">
-                    <MotoRoutesList motoRoutesList={ motoRoutesList } isLoading={motoRoutesListLoading} />
+                    <MotoRoutesList title={"Recently added routes"} routes={ motoRoutesList } isLoading={motoRoutesListLoading} />
                 </div>
             </div>
         </Fragment>

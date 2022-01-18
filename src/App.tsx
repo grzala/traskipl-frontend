@@ -18,6 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import MotoRouteEditor from './Pages/MotoRouteEditor';
 import AccidentMap from './Pages/AccidentMap';
+import TopRatedPage from './Pages/TopRatedPage';
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -116,6 +117,7 @@ function App() {
                 <Route path="/routes/editor/*" element={ <MotoRouteEditor /> } />
                 <Route path="/routes/editor" element={ <MotoRouteEditor /> } />
                 <Route path="/accidentsmap" element={ <AccidentMap /> } />
+                <Route path="/top" element={ <TopRatedPage /> } />
                 <Route path="/" element={ <Homepage /> } />
               </Routes>
             </div>
