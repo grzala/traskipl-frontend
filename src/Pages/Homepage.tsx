@@ -1,30 +1,62 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 
 import "./Homepage.scss"
 import MotoRoutesList from "../Components/MotoRoute/MotoRoutesList";
 import { useGetMotoRoutes } from "../Actions/MotoRoutesActions";
+import { MotoRouteType } from "../Types/MotoRoutesTypes";
+import HomepageMapComponent from "src/Components/HomepageMapComponent";
 
 const Homepage = () => {
 
     const [motoRoutesList, motoRoutesListLoading] = useGetMotoRoutes();
+    const [currentlyDisplayedRoute, setCurrentlyDisplayedRoute] = useState<MotoRouteType | null>(null)
+    const [pointOfSearch, setPointOfSearch] = useState<{lat: number, lng: number} | null>(null)
+
+
+
+    const onRouteHover = (enter: boolean, routeToDisplayId: number) => {
+        if (!enter) {
+            return
+        }
+        
+        let routeToDisplay = motoRoutesList.find((route) => route.id == routeToDisplayId)
+
+        if (routeToDisplay === undefined) {
+            console.log("Error: route of id" + routeToDisplayId + " not in route array")
+            return
+        }
+
+        setCurrentlyDisplayedRoute(routeToDisplay)
+    }
+
+
+    const handleMapClick = (e: any) => {
+        var lat = e.latLng.lat()
+        var lng = e.latLng.lng()
+
+        setCurrentlyDisplayedRoute(null)
+        setPointOfSearch({lat: lat, lng: lng})
+    }
 
     return (
         <Fragment>
             
             <div className="row">
                 <div className="col-md-7">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Faucibus purus in massa tempor nec feugiat nisl pretium. Eget mauris pharetra et ultrices neque ornare. 
-                        Risus feugiat in ante metus dictum at tempor commodo. Adipiscing enim eu turpis egestas pretium aenean. 
-                        Malesuada pellentesque elit eget gravida cum. Non consectetur a erat nam. Tristique senectus et netus et malesuada. 
-                        Mi sit amet mauris commodo quis imperdiet massa tincidunt nunc. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. 
-                        Euismod lacinia at quis risus sed vulputate odio ut. Donec pretium vulputate sapien nec sagittis aliquam. 
-                    </p>
+                    <HomepageMapComponent 
+                        route={currentlyDisplayedRoute} 
+                        handleMapClick={handleMapClick}
+                        pointOfSearch={pointOfSearch}
+                    />
                 </div>
                 <div className="col-md-5">
-                    <MotoRoutesList title={"Recently added routes"} routes={ motoRoutesList } isLoading={motoRoutesListLoading} />
+                    <MotoRoutesList 
+                        title={"Recently added routes"} 
+                        routes={ motoRoutesList } 
+                        isLoading={motoRoutesListLoading}
+                        onHover={onRouteHover}
+                    />
                 </div>
             </div>
         </Fragment>

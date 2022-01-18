@@ -84,7 +84,7 @@ export function useGetTopMotoRoutes(page: number, type: MotoRouteListAPITypes): 
     const [totalRoutes, setTotalRoutes] = useState<number>(-1);
 
     const _getMotoRoutes = useCallback(async () => {
-        if (type == MotoRouteListAPITypes.NONE) { // This should not happen. If if happens just abort API calling
+        if (type === MotoRouteListAPITypes.NONE) { // This should not happen. If if happens just abort API calling
             return;
         }
 

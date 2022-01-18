@@ -12,10 +12,11 @@ type MotoRoutesListProps = {
     routes: MotoRouteType[];
     isLoading: boolean;
     title: string;
+    onHover?: (enter: boolean, route_id: number) => void
 }
 
 const MotoRoutesList = (props: MotoRoutesListProps) => {
-    const { routes, isLoading, title } = props
+    const { routes, isLoading, title, onHover } = props
 
     const poi_count_build_tsx = (poi_count: {[variant in POIVariant]: number}) => {
         let toReturn = [];
@@ -65,7 +66,25 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
                     { !isLoading && routes && routes.length > 0 &&  (
                             <Fragment>
                             { routes.map((route) => 
-                                <Link key={`moto-list-item-${route.id}`} to={`/routes/${route.id}/details`} className="moto-routes-list-item list-group-item list-group-item-action">
+                                <Link
+                                    key={`moto-list-item-${route.id}`} 
+                                    to={`/routes/${route.id}/details`} 
+                                    className="moto-routes-list-item list-group-item list-group-item-action"
+                                    onMouseEnter={
+                                        () => {
+                                            if (onHover !== undefined) {
+                                                onHover(true, route.id)
+                                            }
+                                        }
+                                    }
+                                    onMouseLeave={
+                                        () => {
+                                            if (onHover !== undefined) {
+                                                onHover(false, route.id)
+                                            }
+                                        }
+                                    }
+                                    >
                                     <div className="d-flex flex-row">
                                         <div className="map-thumbnail-rating-col">
                                             <img src={ process.env.REACT_APP_THUMBNAIL_SOURCE + `/route_thumbnails/${route.id}.png` } alt="map of the route" />

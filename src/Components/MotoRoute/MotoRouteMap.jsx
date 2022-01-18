@@ -118,8 +118,7 @@ const MotoRouteMap = (props) => {
                         })
                     )}
 
-                    {/* This code gets directions from API
-                        This is stupid to do this in rendering, but this is how the library wanted it done */}
+                    {/* This code gets directions from API */}
                     
                     {/* REACT_APP_SKIP_MAP_RENDERING allows to save on requests when not working on directions feature */}
                     {process.env.REACT_APP_SKIP_MAP_RENDERING !== "TRUE" && destination !== '' && origin !== '' && directionsResponse === null && (
