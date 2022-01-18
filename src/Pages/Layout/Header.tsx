@@ -1,11 +1,16 @@
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment, useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
 import UserBox from "../../Auth/UserBox";
 import { userContext } from "../../Contexts/UserContext";
 
 import "./Header.scss"
 
 const Header = () => {
+
+
+    const user = useContext(userContext);
+
+
     return (
         <div className="row">
             <div className="header-container container-fluid">
@@ -23,14 +28,19 @@ const Header = () => {
                     <div className="col-md-3 d-flex align-items-end">
                         <ul className="nav nav-tabs">
                             <li className="nav-item">
-                                <a className="nav-link active" href="/#">Home</a>
+                                <NavLink className="nav-link" to="/top">Top rated</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/routes/editor/new/details">Editor</a>
+                                <NavLink className="nav-link" to="/search">Search</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/accidentsmap">Accidents map</a>
+                                <NavLink className="nav-link" to="/accidentsmap">Accidents map</NavLink>
                             </li>
+                            { user.user && (
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/routes/editor/new/details">Editor</NavLink>
+                                </li>
+                            )}
                             {/* <li className="nav-item dropdown ml-md-auto">
                                 <a className="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Dropdown link</a>
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
