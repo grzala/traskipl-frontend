@@ -20,36 +20,30 @@ const Header = () => {
 
                     </div>
 
-                    <userContext.Consumer>
-                        {({user}) => (
-                            <Fragment>
-                                <div className="col-md-3 d-flex align-items-end">
-                                    <ul className="nav nav-tabs">
-                                        <li className="nav-item">
-                                            <a className="nav-link active" href="/#">Home</a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="/routes/editor/new/details">Editor</a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="/accidentsmap">Accidents map</a>
-                                        </li>
-                                        {/* <li className="nav-item dropdown ml-md-auto">
-                                            <a className="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Dropdown link</a>
-                                            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                <a className="dropdown-item" href="/#">Action</a> <a className="dropdown-item" href="/#">Another action</a> <a className="dropdown-item" href="/#">Something else here</a>
-                                                <div className="dropdown-divider">
-                                                </div> <a className="dropdown-item" href="/#">Separated link</a>
-                                            </div>
-                                        </li> */}
-                                    </ul>
+                    <div className="col-md-3 d-flex align-items-end">
+                        <ul className="nav nav-tabs">
+                            <li className="nav-item">
+                                <a className="nav-link active" href="/#">Home</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/routes/editor/new/details">Editor</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/accidentsmap">Accidents map</a>
+                            </li>
+                            {/* <li className="nav-item dropdown ml-md-auto">
+                                <a className="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Dropdown link</a>
+                                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                    <a className="dropdown-item" href="/#">Action</a> <a className="dropdown-item" href="/#">Another action</a> <a className="dropdown-item" href="/#">Something else here</a>
+                                    <div className="dropdown-divider">
+                                    </div> <a className="dropdown-item" href="/#">Separated link</a>
                                 </div>
-                                <div className="userbox-col col-md-3 d-flex align-items-end justify-content-end">
-                                    <UserBox />
-                                </div>
-                            </Fragment>
-                        )}
-                    </userContext.Consumer>
+                            </li> */}
+                        </ul>
+                    </div>
+                    <div className="userbox-col col-md-3 d-flex align-items-end justify-content-end">
+                        <UserBox />
+                    </div>
 
                     <div className="col-md-2"></div>
                 </div>
