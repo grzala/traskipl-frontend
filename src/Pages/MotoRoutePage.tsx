@@ -14,7 +14,7 @@ import MotoRouteDetails from "../Components/MotoRoute/MotoRouteDetails/MotoRoute
 import MotoRouteComments from "../Components/MotoRoute/MotoRouteComments";
 import MotoRouteAuthor from "../Components/MotoRoute/MotoRouteAuthor";
 import MotoRoutesList from "../Components/MotoRoute/MotoRoutesList";
-import { useGetMotoRoute, useGetMotoRoutes } from "../Actions/MotoRoutesActions";
+import { useGetInAreaRecentMotoRoutes, useGetMotoRoute, useGetMotoRoutes } from "../Actions/MotoRoutesActions";
 import { userContext } from "../Contexts/UserContext";
 
 import ReactLoading from "react-loading";
@@ -24,12 +24,12 @@ import { AccidentType } from "src/Types/AccidentTypes";
 const MotoRoutePage = () => {
     const { id } = useParams()
 
-    const [motoRoutesList, motoRoutesListLoading] = useGetMotoRoutes();
 
     const navigate = useNavigate()
     const urlMatch = useMatch('/routes/:id/*')
 
     const [route, routeLoading] = useGetMotoRoute(id ? +id : null);
+    const [motoRoutesList, motoRoutesListLoading] = useGetInAreaRecentMotoRoutes(route === null ? null : route.average_point);
 
     useEffect(() => {
         
