@@ -130,6 +130,16 @@ const MotoRouteEditor = () => {
         setSelectedPOI(poi);
     }
 
+    const [hoverWaypoint, setHoverWaypoint] = useState<{lat: number, lng: number} | null>(null)
+
+    const onWaypointHover = (enter: boolean, index: number) => {
+        if (!enter) {
+            setHoverWaypoint(null)
+        } else {
+            setHoverWaypoint(route[index])
+        }
+    }
+
     const [addMode, setAddMode] = useState<addModes>(addModes.NONE)
 
 
@@ -445,6 +455,7 @@ const MotoRouteEditor = () => {
         }
     }
 
+
     return (
         <Fragment>
 
@@ -459,6 +470,7 @@ const MotoRouteEditor = () => {
                         onPOISelect={ selectPOI }
                         handleRouteDataChange= { handleRouteDataChange }
                         setPathPolyline={ setPathPolyline }
+                        hoveredWaypoint={ hoverWaypoint }
                     />
                 </div>
 
@@ -483,6 +495,7 @@ const MotoRouteEditor = () => {
                         poiFieldErrs={ poiFieldErrs }
                         removeBtnAvailable={ currentRouteID !== null }
                         removeRoute={ removeRoute }
+                        onWaypointHover={ onWaypointHover }
                     />
                 </div>
             </div>

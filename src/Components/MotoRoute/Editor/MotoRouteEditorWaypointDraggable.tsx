@@ -16,6 +16,7 @@ export interface CardProps {
   findCard: (id: string) => { index: number }
   removeWaypoint: (id: number) => void;
   waypoint: {lat: number, lng: number}
+  onHover: (enter: boolean, index: number) => void
 }
 
 interface Item {
@@ -34,7 +35,8 @@ export const MotoRouteEditorWaypointDraggable: FC<CardProps> = memo(function Car
   moveCard,
   findCard,
   removeWaypoint,
-  waypoint
+  waypoint,
+  onHover
 }) {
   const originalIndex = findCard(id).index
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -68,6 +70,8 @@ export const MotoRouteEditorWaypointDraggable: FC<CardProps> = memo(function Car
       className={`list-group-item flex-column align-items-start`}
       ref={(node) => drag(drop(node))} 
       style={{ ...style, opacity }}
+      onMouseEnter={() => onHover(true, index)}
+      onMouseLeave={() => onHover(false, index)}
     >
 
       <div className="d-flex flex-row">

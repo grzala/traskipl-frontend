@@ -18,7 +18,7 @@ const DEFAULT_MAP_POSITION = {
 const DEFAULT_MAP_ZOOM = 7
 
 const MotoRouteEditorMap = (props) => {
-    const { handleMapClick, route, pois, selectedPOI, hoveredPOI, onPOISelect, handleRouteDataChange, setPathPolyline} = props
+    const { handleMapClick, route, pois, selectedPOI, hoveredPOI, onPOISelect, handleRouteDataChange, setPathPolyline, hoveredWaypoint } = props
 
     const [directionsResponse, setDirectionsResponse] = useState(null)
 
@@ -118,6 +118,13 @@ const MotoRouteEditorMap = (props) => {
                                 <DirectionsRenderer options={directionsResponse} />
                             )}
                         </Fragment>
+                    )}
+
+                    {hoveredWaypoint && (
+                        <Marker 
+                            position={ hoveredWaypoint } 
+                            zIndex={ 1000 } 
+                        />
                     )}
 
                     {/* ================ POIS ===============*/}

@@ -10,10 +10,11 @@ type MotoRouteEditorRouteTabProps = {
     route: {lat: number, lng: number}[];
     setRoute: (_: {lat: number, lng: number}[]) => void;
     removeWaypoint: (index: number) => void;
+    onWaypointHover: (enter: boolean, index: number) => void
 }
   
 const MotoRouteEditorRouteTab = (props: MotoRouteEditorRouteTabProps) => {
-    const { route, setRoute, removeWaypoint } = props
+    const { route, setRoute, removeWaypoint, onWaypointHover } = props
 
 
     const findCard = useCallback((id: string) => {
@@ -70,6 +71,7 @@ const MotoRouteEditorRouteTab = (props: MotoRouteEditorRouteTabProps) => {
                             findCard={ findCard }
                             removeWaypoint={ removeWaypoint }
                             waypoint={ waypoint }
+                            onHover={ onWaypointHover }
                         />
                     ))}
                 </Fragment>

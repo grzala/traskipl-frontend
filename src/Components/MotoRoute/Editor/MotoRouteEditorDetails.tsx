@@ -29,6 +29,7 @@ type MotoRouteDetailsEditorProps = {
     poiFieldErrs: CompositePOIFieldErrorType,
     removeBtnAvailable: boolean,
     removeRoute: () => void,
+    onWaypointHover: (enter: boolean, index: number) => void
 }
 
 const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
@@ -51,6 +52,7 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
         poiFieldErrs,
         removeBtnAvailable,
         removeRoute,
+        onWaypointHover
     } = props
 
 
@@ -110,6 +112,7 @@ const MotoRouteEditorDetails = (props: MotoRouteDetailsEditorProps) => {
                                 route={ route } 
                                 setRoute={ setRoute } 
                                 removeWaypoint={ removeWaypoint } 
+                                onWaypointHover={ onWaypointHover }
                             />} 
                         />
                         <Route path="/:id/poi" element={
