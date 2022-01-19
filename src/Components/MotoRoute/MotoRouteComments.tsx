@@ -134,6 +134,7 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
                         
                             <textarea 
                                 className="form-control-inline comments-reply" 
+                                value={newCommentMessage}
                                 onChange={handleChange}
                                 maxLength={400}>
                                 </textarea>
