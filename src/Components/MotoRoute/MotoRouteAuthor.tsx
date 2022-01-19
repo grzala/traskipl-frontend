@@ -5,6 +5,7 @@ import moment from 'moment';
 import ReactLoading from "react-loading";
 
 import "./MotoRouteAuthor.scss"
+import { Link } from "react-router-dom";
 
 type MotoRouteAuthorProps = {
     author: UserType | null;
@@ -16,6 +17,7 @@ const MotoRouteAuthor = (props: MotoRouteAuthorProps) => {
 
     return (
         <Fragment>
+            <Link style={{ textDecoration: "none" }} to={`/moto_route_list/user_routes/1/${author?.id}`}>
                 <div className="moto-route-author">
                     <div
                         className="list-group-item flex-column align-items-start active author-header">
@@ -54,6 +56,7 @@ const MotoRouteAuthor = (props: MotoRouteAuthorProps) => {
                         )}
                     </div>
                 </div>
+            </Link>
         </Fragment>
     )
 }

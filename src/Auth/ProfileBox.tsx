@@ -31,7 +31,7 @@ const ProfileBox = (props: ProfileBoxProps) => {
                         More
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="profile-other-dropdown">
-                        <li><NavLink className="dropdown-item" to="/moto_route_list/user_routes/1">My routes</NavLink></li>
+                        <li><NavLink className="dropdown-item" to={`/moto_route_list/user_routes/1/${user.id}`}>My routes</NavLink></li>
                         <li><NavLink className="dropdown-item" to="/moto_route_list/user_favourites/1">My favourites</NavLink></li>
                         <li><a className="dropdown-item" href="/#"
                                 onClick={(e) => {

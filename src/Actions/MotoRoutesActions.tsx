@@ -157,9 +157,13 @@ export enum MotoRouteListAPITypes {
     USER_FAVOURITES = "user_favourites"
 }
 
-function getTopMotoRoutes(page: number, type: MotoRouteListAPITypes) {
+function getTopMotoRoutes(page: number, type: MotoRouteListAPITypes, user_id: number | null) {
+    let url = `${process.env.REACT_APP_API_SERVER}/moto_routes/${type}/${page}`
+    if (user_id !== null) {
+        url += `/${user_id}`
+    }
     return axios.get(
-        `${process.env.REACT_APP_API_SERVER}/moto_routes/${type}/${page}`,
+        url,
         {'withCredentials': true}
     ).then((response) => {
 
@@ -174,10 +178,11 @@ function getTopMotoRoutes(page: number, type: MotoRouteListAPITypes) {
     })
 }
 
-export function useGetTopMotoRoutes(page: number, type: MotoRouteListAPITypes): [ MotoRouteType[], boolean , number]  {
+export function useGetTopMotoRoutes(page: number, type: MotoRouteListAPITypes, user_id: number | null): [ MotoRouteType[], boolean , number, string]  {
     const [motoRoutes, setMotoRoutes] = useState<MotoRouteType[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [totalRoutes, setTotalRoutes] = useState<number>(-1);
+    const [userFullName, setUserFullname] = useState<string>("")
 
     const _getMotoRoutes = useCallback(async () => {
         if (type === MotoRouteListAPITypes.NONE) { // This should not happen. If if happens just abort API calling
@@ -189,17 +194,19 @@ export function useGetTopMotoRoutes(page: number, type: MotoRouteListAPITypes): 
             setLoading(false)
             setTotalRoutes(-1)
             setMotoRoutes([])
+            setUserFullname("")
             return;
         }
 
         setLoading(true);
-        getTopMotoRoutes(page, type).then((response) => {
+        getTopMotoRoutes(page, type, user_id).then((response) => {
             if (response.status !== 200) {
                 console.log("Something went wrong when getting moto Routes")
                 console.log(response)
                 setMotoRoutes([])
                 setTotalRoutes(-1)
                 setLoading(false);
+                setUserFullname("")
                 return
             }
             
@@ -207,13 +214,16 @@ export function useGetTopMotoRoutes(page: number, type: MotoRouteListAPITypes): 
             
             setMotoRoutes(_motoRoutes)
             setTotalRoutes(response.data.total_routes)
+            if (type === MotoRouteListAPITypes.USER_ROUTES) {
+                setUserFullname(response.data.user_full_name)
+            }
             setLoading(false);
         })
-    }, [page, type])
+    }, [page, type, user_id])
 
     useEffect(() => { _getMotoRoutes() }, [_getMotoRoutes])
 
-    return [ motoRoutes, loading, totalRoutes ]
+    return [ motoRoutes, loading, totalRoutes, userFullName ]
 }
 
 

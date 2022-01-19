@@ -119,6 +119,7 @@ function App() {
 
                 <Route path="/accidentsmap" element={ <AccidentMap /> } />
 
+                <Route path="/moto_route_list/:type/:page/:user_id" element={ <MotoRouteBigListPage /> } />
                 <Route path="/moto_route_list/:type/:page" element={ <MotoRouteBigListPage /> } />
                 <Route path="/moto_route_list/:type" element={ <MotoRouteBigListPage /> } />
 

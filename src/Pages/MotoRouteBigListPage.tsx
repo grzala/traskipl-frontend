@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useMemo, useState } from "react";
 import { useMatch, useNavigate } from "react-router-dom";
 import { MotoRouteListAPITypes, useGetTopMotoRoutes } from "src/Actions/MotoRoutesActions";
 import MotoRoutesList from "src/Components/MotoRoute/MotoRoutesList";
@@ -17,10 +17,10 @@ const MotoRouteBigListPage = () => {
 
     const [currentPage, setCurrentPage] = useState<number>(0)
     const [listType, setListType] = useState<MotoRouteListAPITypes>(MotoRouteListAPITypes.NONE)
-    const [listTitle, setListTitle] = useState<string>("")
+    const [requestedUserId, setRequestedUserId] = useState<number | null>(null)
 
     const navigate = useNavigate()
-    const urlMatch = useMatch('/moto_route_list/:type/:page')
+    const urlMatch = useMatch('/moto_route_list/:type/:page/*')
 
 
     const user = useContext(userContext);
@@ -45,19 +45,20 @@ const MotoRouteBigListPage = () => {
         switch(new_list_type) {
             case "top":
                 setListType(MotoRouteListAPITypes.TOP)
-                setListTitle("Top ranked routes")
+                setRequestedUserId(null)
                 break
             case "user_routes":
                 setListType(MotoRouteListAPITypes.USER_ROUTES)
-                setListTitle("Routes added by: " + user.user?.full_name)
-                if (user.user === null) {
-                    toast.error("You must be logged in to see this page", ToasterStyles)
-                    navigate("/")
+                let new_reqUser = Number(urlMatch.params["*"])
+                if (new_reqUser !== undefined || isNaN(new_reqUser)) {
+                    setRequestedUserId(new_reqUser)
+                } else {
+                    throw new Error("You must specify which user's routes you request")
                 }
                 break
             case "user_favourites":
                 setListType(MotoRouteListAPITypes.USER_FAVOURITES)
-                setListTitle("Your favourite routes")
+                setRequestedUserId(null)
                 if (user.user === null) {
                     toast.error("You must be logged in to see this page", ToasterStyles)
                     navigate("/")
@@ -66,6 +67,7 @@ const MotoRouteBigListPage = () => {
             default:
                 console.log("EROR: no list type specified")
                 setListType(MotoRouteListAPITypes.NONE)
+                setRequestedUserId(null)
                 navigate("/")
                 break
         }
@@ -73,7 +75,7 @@ const MotoRouteBigListPage = () => {
 
     }, [urlMatch, navigate, user.user])
 
-    const [motoRoutesList, motoRoutesListLoading, totalRoutes] = useGetTopMotoRoutes(currentPage, listType);
+    const [motoRoutesList, motoRoutesListLoading, totalRoutes, userFullName] = useGetTopMotoRoutes(currentPage, listType, requestedUserId);
 
     useEffect(() => {
         if (!motoRoutesListLoading && motoRoutesList.length > 0) {
@@ -85,9 +87,27 @@ const MotoRouteBigListPage = () => {
         navigate(`/moto_route_list/${urlMatch?.params.type}/${new_page}`)
     }
 
+    const _getListTitle = (type: MotoRouteListAPITypes, userFullName: string): string => {
+
+        switch(type) {
+            case MotoRouteListAPITypes.TOP:
+                return "Top ranked routes"
+            case MotoRouteListAPITypes.USER_ROUTES:
+                return "Routes added by: " + userFullName
+            case MotoRouteListAPITypes.USER_FAVOURITES:
+                return "Your favourite routes"
+            default:
+                return ""
+        }
+    }
+
+    const getListTitle = useMemo((): string => {
+        return _getListTitle(listType, userFullName)
+    }, [listType, userFullName])
+
     return (
         <Fragment>
-            <MotoRoutesList title={listTitle} routes={motoRoutesList} isLoading={!loadedOnce && motoRoutesListLoading} />
+            <MotoRoutesList title={getListTitle} routes={motoRoutesList} isLoading={!loadedOnce && motoRoutesListLoading} />
 
             <div style={{
                 margin: "0.8em 0",
