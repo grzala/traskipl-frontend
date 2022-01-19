@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useEffect } from "react";
 
-import { DirectionsRenderer, DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
+import { DirectionsRenderer, DirectionsService, GoogleMap, Marker} from '@react-google-maps/api';
 import { mapIconDropsUrls, mapIconEnlargedDropsUrls, mapIconInjuryUrls, mapIconEnlargedInjuryUrls } from "../MapConstants";
 
 
@@ -84,57 +84,54 @@ const MotoRouteMap = (props) => {
     
     
     return (
-        <LoadScript
-            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} >
-                <GoogleMap
-                    mapContainerStyle={ mapContainerStyle }
-                    center={ mapPosition }
-                    zoom={ defaultZoom }
-                    >
+        <GoogleMap
+            mapContainerStyle={ mapContainerStyle }
+            center={ mapPosition }
+            zoom={ defaultZoom }
+            >
 
-                    {poiMarkerFilter && route.point_of_interests && (
-                        route.point_of_interests.map((poi, index) => {
-                            return (<Marker 
-                                        key={`marker_poi_${poi.id}`} 
-                                        position={ poi.coordinates } 
-                                        icon={ isFocusedPOI(poi) ? mapIconEnlargedDropsUrls[poi.variant] : mapIconDropsUrls[poi.variant] }
-                                        clickable={ true }
-                                        onClick={() => onPOISelect(poi)}
-                                        zIndex={ isFocusedPOI(poi) ? 100 : 1 } />)
-                        })
-                    )}
+            {poiMarkerFilter && route.point_of_interests && (
+                route.point_of_interests.map((poi, index) => {
+                    return (<Marker 
+                                key={`marker_poi_${poi.id}`} 
+                                position={ poi.coordinates } 
+                                icon={ isFocusedPOI(poi) ? mapIconEnlargedDropsUrls[poi.variant] : mapIconDropsUrls[poi.variant] }
+                                clickable={ true }
+                                onClick={() => onPOISelect(poi)}
+                                zIndex={ isFocusedPOI(poi) ? 100 : 1 } />)
+                })
+            )}
 
-                    { accidentMarkerFilter && accidents && accidents.length > 0 && (
-                        accidents.map((accident, index) => {
-                            return (<Marker 
-                                        key={`marker_accident_${accident.id}`} 
-                                        position={ accident.coordinates } 
-                                        icon={ isFocusedAccident(accident) ? mapIconEnlargedInjuryUrls[accident.injury] : mapIconInjuryUrls[accident.injury] }
-                                        clickable={ true }
-                                        onClick={() => {
-                                            window.open(`http://sewik.pl/accident/${accident.original_id}`, '_blank'); 
-                                        }}
-                                        zIndex={ isFocusedAccident(accident) ? 100 : 1 } />)
-                        })
-                    )}
+            { accidentMarkerFilter && accidents && accidents.length > 0 && (
+                accidents.map((accident, index) => {
+                    return (<Marker 
+                                key={`marker_accident_${accident.id}`} 
+                                position={ accident.coordinates } 
+                                icon={ isFocusedAccident(accident) ? mapIconEnlargedInjuryUrls[accident.injury] : mapIconInjuryUrls[accident.injury] }
+                                clickable={ true }
+                                onClick={() => {
+                                    window.open(`http://sewik.pl/accident/${accident.original_id}`, '_blank'); 
+                                }}
+                                zIndex={ isFocusedAccident(accident) ? 100 : 1 } />)
+                })
+            )}
 
-                    {/* This code gets directions from API */}
-                    
-                    {/* REACT_APP_SKIP_MAP_RENDERING allows to save on requests when not working on directions feature */}
-                    {process.env.REACT_APP_SKIP_MAP_RENDERING !== "TRUE" && destination !== '' && origin !== '' && directionsResponse === null && (
-                        <DirectionsService
-                            options={{...directionsServiceOptions, 
-                                travelMode: 'DRIVING'}}
-                            callback={directionsCallback}
-                        />
-                    )}
+            {/* This code gets directions from API */}
+            
+            {/* REACT_APP_SKIP_MAP_RENDERING allows to save on requests when not working on directions feature */}
+            {process.env.REACT_APP_SKIP_MAP_RENDERING !== "TRUE" && destination !== '' && origin !== '' && directionsResponse === null && (
+                <DirectionsService
+                    options={{...directionsServiceOptions, 
+                        travelMode: 'DRIVING'}}
+                    callback={directionsCallback}
+                />
+            )}
 
-                    {/* This code renders the directions after they were received from API */}
-                    {directionsResponse !== null && (
-                        <DirectionsRenderer options={directionsResponse} />
-                    )}
-                </GoogleMap>
-        </LoadScript>
+            {/* This code renders the directions after they were received from API */}
+            {directionsResponse !== null && (
+                <DirectionsRenderer options={directionsResponse} />
+            )}
+        </GoogleMap>
     )
 }
 

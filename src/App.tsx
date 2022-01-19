@@ -15,6 +15,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import ToasterStyles from "./ToasterStyles/ToasterStyles"
 import 'react-toastify/dist/ReactToastify.css';
 
+import { LoadScript } from '@react-google-maps/api';
+
 import axios from 'axios';
 import MotoRouteEditor from './Pages/MotoRouteEditor';
 import AccidentMap from './Pages/AccidentMap';
@@ -103,6 +105,11 @@ function App() {
           onLogin: onLogin,
           onLogout: onLogout
         }}>
+            
+        <LoadScript
+            // libraries={["visualization"]} 
+            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} 
+            >
 
         <div className="container-fluid" >
           <Router>
@@ -133,6 +140,7 @@ function App() {
 
       <ToastContainer />
     
+      </LoadScript>
       </userContext.Provider>
 
     </div>

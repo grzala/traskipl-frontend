@@ -1,6 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 
-import { DirectionsRenderer, DirectionsService, GoogleMap, LoadScript, Marker} from '@react-google-maps/api';
+import { DirectionsRenderer, DirectionsService, GoogleMap, Marker} from '@react-google-maps/api';
 import { mapIconDropsUrls, mapIconEnlargedDropsUrls } from "../../MapConstants";
 
 const mapContainerStyle = {
@@ -82,66 +82,62 @@ const MotoRouteEditorMap = (props) => {
     }, [hoveredPOI, selectedPOI])
 
     return (
-        <LoadScript 
-            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} 
+        <GoogleMap
+            mapContainerStyle={ mapContainerStyle }
+            center={ DEFAULT_MAP_POSITION }
+            zoom={ DEFAULT_MAP_ZOOM }
+            onClick={ handleMapClick }
             >
-                <GoogleMap
-                    mapContainerStyle={ mapContainerStyle }
-                    center={ DEFAULT_MAP_POSITION }
-                    zoom={ DEFAULT_MAP_ZOOM }
-                    onClick={ handleMapClick }
-                    >
 
-                    {/* ================ ROUTE ===============*/}
-                    { route.length === 1 && (
-                        <Marker 
-                            position={ route[0] } 
-                            />
-                    )}
+            {/* ================ ROUTE ===============*/}
+            { route.length === 1 && (
+                <Marker 
+                    position={ route[0] } 
+                    />
+            )}
 
-                    { route.length > 1 && (
-                        <Fragment>
-                            {/* This code gets directions from API
-                                This is stupid to do this in rendering, but this is how the library wanted it done */}
-                            
-                            {/* REACT_APP_SKIP_MAP_RENDERING allows to save on requests when not working on directions feature */}
-                            {process.env.REACT_APP_SKIP_MAP_RENDERING !== "TRUE" && directionsResponse === null && (
-                                <DirectionsService
-                                    options={{...directionsServiceOptions, 
-                                        travelMode: 'DRIVING'}}
-                                    callback={directionsCallback}
-                                />
-                            )}
-
-                            {/* This code renders the directions after they were received from API */}
-                            {directionsResponse !== null && (
-                                <DirectionsRenderer options={directionsResponse} />
-                            )}
-                        </Fragment>
-                    )}
-
-                    {hoveredWaypoint && (
-                        <Marker 
-                            position={ hoveredWaypoint } 
-                            zIndex={ 1000 } 
+            { route.length > 1 && (
+                <Fragment>
+                    {/* This code gets directions from API
+                        This is stupid to do this in rendering, but this is how the library wanted it done */}
+                    
+                    {/* REACT_APP_SKIP_MAP_RENDERING allows to save on requests when not working on directions feature */}
+                    {process.env.REACT_APP_SKIP_MAP_RENDERING !== "TRUE" && directionsResponse === null && (
+                        <DirectionsService
+                            options={{...directionsServiceOptions, 
+                                travelMode: 'DRIVING'}}
+                            callback={directionsCallback}
                         />
                     )}
 
-                    {/* ================ POIS ===============*/}
+                    {/* This code renders the directions after they were received from API */}
+                    {directionsResponse !== null && (
+                        <DirectionsRenderer options={directionsResponse} />
+                    )}
+                </Fragment>
+            )}
 
-                    {pois.map((poi, index) => (
-                            <Marker 
-                                key={`marker_${poi.id}`} 
-                                position={ poi.coordinates } 
-                                icon={ isFocusedMarker(poi) ? mapIconEnlargedDropsUrls[poi.variant] : mapIconDropsUrls[poi.variant] }
-                                clickable={ true }
-                                onClick={() => onPOISelect(poi)}
-                                zIndex={ isFocusedMarker(poi) ? 100 : 1 } 
-                                />
-                    ))}
-                        
-                </GoogleMap>
-        </LoadScript>
+            {hoveredWaypoint && (
+                <Marker 
+                    position={ hoveredWaypoint } 
+                    zIndex={ 1000 } 
+                />
+            )}
+
+            {/* ================ POIS ===============*/}
+
+            {pois.map((poi, index) => (
+                    <Marker 
+                        key={`marker_${poi.id}`} 
+                        position={ poi.coordinates } 
+                        icon={ isFocusedMarker(poi) ? mapIconEnlargedDropsUrls[poi.variant] : mapIconDropsUrls[poi.variant] }
+                        clickable={ true }
+                        onClick={() => onPOISelect(poi)}
+                        zIndex={ isFocusedMarker(poi) ? 100 : 1 } 
+                        />
+            ))}
+                
+        </GoogleMap>
     )
 }
 

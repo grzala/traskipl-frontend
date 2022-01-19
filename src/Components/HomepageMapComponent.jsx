@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useCallback, useMemo } from "react";
 
-import { DirectionsService, DirectionsRenderer, GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { DirectionsService, DirectionsRenderer, GoogleMap, Marker } from '@react-google-maps/api';
 
 
 const mapWrapperStyle = {
@@ -67,49 +67,41 @@ const HomepageMapComponent = (props) => {
     
     return (
         <div style={mapWrapperStyle}>
-            
-            <LoadScript
-                // libraries={["visualization"]} 
-                googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} 
-                // onLoad={() => setScriptLoaded(true)}
+            <GoogleMap
+                mapContainerStyle={ mapContainerStyle }
+                center={ DEFAULT_MAP_POSITION }
+                zoom={ defaultZoom }
+                onClick={ handleMapClick }
                 >
-                    <GoogleMap
-                        mapContainerStyle={ mapContainerStyle }
-                        center={ DEFAULT_MAP_POSITION }
-                        zoom={ defaultZoom }
-                        onClick={ handleMapClick }
-                        >
-                        
-                        {pointOfSearch !== null && (
-                            <Marker 
-                                position={ pointOfSearch } 
-                                zIndex={ 100 } 
+                
+                {pointOfSearch !== null && (
+                    <Marker 
+                        position={ pointOfSearch } 
+                        zIndex={ 100 } 
+                    />
+                )}
+
+                {/* This code gets directions from API */}
+        
+                {route !== null && (
+                    <Fragment>
+                        {/* REACT_APP_SKIP_MAP_RENDERING allows to save on requests when not working on directions feature */}
+                        {process.env.REACT_APP_SKIP_MAP_RENDERING !== "TRUE" && destination !== '' && origin !== '' && directionsResponse === null && (
+                            <DirectionsService
+                                options={{...directionsServiceOptions, 
+                                    travelMode: 'DRIVING'}}
+                                callback={directionsCallback}
                             />
                         )}
 
-                        {/* This code gets directions from API */}
-                
-                        {route !== null && (
-                            <Fragment>
-                                {/* REACT_APP_SKIP_MAP_RENDERING allows to save on requests when not working on directions feature */}
-                                {process.env.REACT_APP_SKIP_MAP_RENDERING !== "TRUE" && destination !== '' && origin !== '' && directionsResponse === null && (
-                                    <DirectionsService
-                                        options={{...directionsServiceOptions, 
-                                            travelMode: 'DRIVING'}}
-                                        callback={directionsCallback}
-                                    />
-                                )}
-
-                                {/* This code renders the directions after they were received from API */}
-                                {directionsResponse !== null && (
-                                    <DirectionsRenderer options={directionsResponse} />
-                                )}
-                            </Fragment>
+                        {/* This code renders the directions after they were received from API */}
+                        {directionsResponse !== null && (
+                            <DirectionsRenderer options={directionsResponse} />
                         )}
+                    </Fragment>
+                )}
 
-                    </GoogleMap>
-            </LoadScript>
-
+            </GoogleMap>
         </div>
     )
 }

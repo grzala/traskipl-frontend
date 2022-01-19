@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, { } from "react";
 
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 import { mapIconInjuryUrls } from "./MapConstants";
 
 
@@ -25,51 +25,35 @@ const defaultZoom = 6.5;
 
 const AccidentMapComponent = (props) => {    
     const { accidents } = props;
-
-    // const { isLoaded } = useJsApiLoader({ id: "google-map-script", googleMapsApiKey: 'google-api-key', });
-    const [scriptLoaded, setScriptLoaded] = useState(false)
-
     
     return (
         <div style={mapWrapperStyle}>
-            
-            <LoadScript
-                // libraries={["visualization"]} 
-                googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY || ""} 
-                onLoad={() => setScriptLoaded(true)}
+            <GoogleMap
+                mapContainerStyle={ mapContainerStyle }
+                center={ DEFAULT_MAP_POSITION }
+                zoom={ defaultZoom }
                 >
-                    <GoogleMap
-                        mapContainerStyle={ mapContainerStyle }
-                        center={ DEFAULT_MAP_POSITION }
-                        zoom={ defaultZoom }
-                        >
-                        
-                        {scriptLoaded && (
-                            <Fragment>
-                                {/* <mapLayer
-                                    // required
-                                    data={accidents.map((accident) => {
-                                        return new google.maps.LatLng(accident.latitude, accident.longitude)
-                                    })}
-                                /> */}
+                
+                {/* <mapLayer
+                    // required
+                    data={accidents.map((accident) => {
+                        return new google.maps.LatLng(accident.latitude, accident.longitude)
+                    })}
+                /> */}
 
-                                {accidents.map((accident, index) => {
-                                    return (<Marker 
-                                                key={`marker_accident_${accident.id}`} 
-                                                position={ accident.coordinates } 
-                                                icon={ mapIconInjuryUrls[accident.injury] }
-                                                clickable={ true }
-                                                onClick={() => {
-                                                    window.open(`http://sewik.pl/accident/${accident.original_id}`, '_blank'); 
-                                                }}
-                                            />)
-                                })}
-                            </Fragment>
-                        )}
+                {accidents.map((accident, index) => {
+                    return (<Marker 
+                                key={`marker_accident_${accident.id}`} 
+                                position={ accident.coordinates } 
+                                icon={ mapIconInjuryUrls[accident.injury] }
+                                clickable={ true }
+                                onClick={() => {
+                                    window.open(`http://sewik.pl/accident/${accident.original_id}`, '_blank'); 
+                                }}
+                            />)
+                })}
 
-                    </GoogleMap>
-            </LoadScript>
-
+            </GoogleMap>
         </div>
     )
 }
