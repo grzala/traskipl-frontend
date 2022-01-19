@@ -113,12 +113,12 @@ const MotoRouteBigListPage = () => {
                 margin: "0.8em 0",
                 width: "100%"
             }}>
-                {(loadedOnce || !motoRoutesListLoading) && (
+                {(loadedOnce || !motoRoutesListLoading) && motoRoutesList.length > 0 && (
                     <Pagination
                         innerClass="pagination pagination-center"
                         itemClass="page-item"
                         linkClass="page-link"            
-                        activePage={currentPage}
+                        activePage={Math.min(currentPage, Math.ceil(totalRoutes / ROUTES_PER_PAGE))}
                         itemsCountPerPage={ROUTES_PER_PAGE}
                         totalItemsCount={totalRoutes}
                         pageRangeDisplayed={5}

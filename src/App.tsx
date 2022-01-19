@@ -19,6 +19,7 @@ import axios from 'axios';
 import MotoRouteEditor from './Pages/MotoRouteEditor';
 import AccidentMap from './Pages/AccidentMap';
 import MotoRouteBigListPage from './Pages/MotoRouteBigListPage';
+import SearchPage from './Pages/SearchPage';
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -123,6 +124,7 @@ function App() {
                 <Route path="/moto_route_list/:type/:page" element={ <MotoRouteBigListPage /> } />
                 <Route path="/moto_route_list/:type" element={ <MotoRouteBigListPage /> } />
 
+                <Route path="/search/:page_no" element={ <SearchPage /> } />
                 <Route path="/" element={ <Homepage /> } />
               </Routes>
             </div>

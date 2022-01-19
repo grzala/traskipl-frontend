@@ -281,6 +281,66 @@ export function useGetMotoRoute(id: number | null): [ MotoRouteType | null, bool
     return [ motoRoute, loading ]
 }
 
+// ================ SEARCH MOTO ROUTES ===============================
+
+export function searchMotoRoute(searchString: string, page_no: number) {
+    return axios.post(
+        `${process.env.REACT_APP_API_SERVER}/moto_routes/search/${page_no}`,
+        {
+            search_string: searchString
+        },
+        {'withCredentials': true}
+    ).then((response) => {
+
+        if (response.status !== 200) {
+            console.log("Api error");
+            console.log(response)
+        }
+
+        return response
+    }).catch((error) => {
+        return handleAxiosErrors(error)
+    })
+}
+
+const MINIMUM_SEARCH_STRING_LENGTH = 2
+export function useSearchMotoRoute(searchString: string, page_no: number): [ MotoRouteType[], boolean, number /*, (resource: MotoRouteType[]) => void*/ ]  {
+    const [motoRoute, setMotoRoute] = useState<MotoRouteType[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [totalRotues, setTotalRotues] = useState<number>(0);
+
+    const _getMotoRoute = useCallback(async () => {
+        
+        if (searchString.length < MINIMUM_SEARCH_STRING_LENGTH) {
+            return;
+        }
+
+        setLoading(true);
+
+        searchMotoRoute(searchString, page_no).then((response) => {
+            if (response.status !== 200) {
+                console.log("Something went wrong when getting moto Routes")
+                console.log(response)
+                setMotoRoute([])
+                setLoading(false);
+                setTotalRotues(0);
+                return
+            }
+            
+            const _motoRoutes = response.data.moto_routes as MotoRouteType[]
+            console.log("RESPONSE")
+            console.log(response)
+            
+            setMotoRoute(_motoRoutes)
+            setLoading(false);
+            setTotalRotues(response.data.total_routes)
+        })
+    }, [searchString,page_no])
+
+    useEffect(() => { _getMotoRoute() }, [_getMotoRoute])
+
+    return [ motoRoute, loading, totalRotues ]
+}
 
 // ================ Switch Fav ===============================
 
