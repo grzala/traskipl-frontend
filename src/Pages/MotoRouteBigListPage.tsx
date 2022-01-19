@@ -17,6 +17,7 @@ const MotoRouteBigListPage = () => {
 
     const [currentPage, setCurrentPage] = useState<number>(0)
     const [listType, setListType] = useState<MotoRouteListAPITypes>(MotoRouteListAPITypes.NONE)
+    const [listTitle, setListTitle] = useState<string>("")
 
     const navigate = useNavigate()
     const urlMatch = useMatch('/moto_route_list/:type/:page')
@@ -44,9 +45,11 @@ const MotoRouteBigListPage = () => {
         switch(new_list_type) {
             case "top":
                 setListType(MotoRouteListAPITypes.TOP)
+                setListTitle("Top ranked routes")
                 break
             case "user_routes":
                 setListType(MotoRouteListAPITypes.USER_ROUTES)
+                setListTitle("Routes added by: " + user.user?.full_name)
                 if (user.user === null) {
                     toast.error("You must be logged in to see this page", ToasterStyles)
                     navigate("/")
@@ -54,6 +57,7 @@ const MotoRouteBigListPage = () => {
                 break
             case "user_favourites":
                 setListType(MotoRouteListAPITypes.USER_FAVOURITES)
+                setListTitle("Your favourite routes")
                 if (user.user === null) {
                     toast.error("You must be logged in to see this page", ToasterStyles)
                     navigate("/")
@@ -83,7 +87,7 @@ const MotoRouteBigListPage = () => {
 
     return (
         <Fragment>
-            <MotoRoutesList title={"Top rated routes"} routes={motoRoutesList} isLoading={!loadedOnce && motoRoutesListLoading} />
+            <MotoRoutesList title={listTitle} routes={motoRoutesList} isLoading={!loadedOnce && motoRoutesListLoading} />
 
             <div style={{
                 margin: "0.8em 0",
