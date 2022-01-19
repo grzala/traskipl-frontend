@@ -67,8 +67,12 @@ export function useGetComments(moto_route_id: number | null): [
 
     const [comments, setComments] = useState<CommentType[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [triggerGetComments, setTriggerGetComments] = useState<boolean>(true);
 
     const _getComments = useCallback(() => {
+        if (!triggerGetComments) return
+        setTriggerGetComments(false)
+
         if (moto_route_id !== null) {
             setLoading(true);
             getComments(moto_route_id).then((response) => {
@@ -89,7 +93,7 @@ export function useGetComments(moto_route_id: number | null): [
         } else {
             setComments([])
         }
-    }, [moto_route_id])
+    }, [moto_route_id, triggerGetComments])
 
     const _insertComment = async (moto_route_id: number | null, message: string) => {
         if (moto_route_id) {
@@ -127,7 +131,15 @@ export function useGetComments(moto_route_id: number | null): [
         return true
     }
 
-    useEffect(() => { _getComments() }, [_getComments])
+    useEffect(() => {
+         _getComments() 
+
+        const timer = setInterval(() => {
+            setTriggerGetComments(true)
+        }, 1500);
+      
+        return () => clearInterval(timer);
+    }, [_getComments])
 
     return [ comments, loading, _insertComment, _deleteComment ]
 }

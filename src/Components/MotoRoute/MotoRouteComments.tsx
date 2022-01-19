@@ -1,5 +1,5 @@
 import moment from "moment";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { ReplyFill, TrashFill } from "react-bootstrap-icons";
 import { toast } from "react-toastify";
 import { useGetComments } from "../../Actions/CommentsActions";
@@ -22,6 +22,12 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
     const { moto_route_id, current_user } = props;
 
     const [comments, loadingComments, insertComment, removeComment] = useGetComments(moto_route_id);
+    const [commentsLoadedOnce, setCommentsLoadedOnce] = useState<boolean>(false)
+    useEffect(() => {
+        if (!loadingComments && comments.length > 0) {
+            setCommentsLoadedOnce(true)
+        }
+    }, [comments, loadingComments])
 
     const [newCommentMessage, setNewCommentMessage] = useState<string>("")
 
@@ -69,13 +75,13 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
             </div>
 
             <div id="comments-list-main" className="comments-list-main">
-                { loadingComments && (
+                { (!commentsLoadedOnce && loadingComments) && (
                     <div className="vertical-align-placeholder">
                         <ReactLoading type={ 'spokes' } className="loading-placeholder" />
                     </div>
                 )}
 
-                { !loadingComments && (
+                { (commentsLoadedOnce || !loadingComments) && (
                     <Fragment>
                         { moto_route_id !== null && comments && comments.length > 0 ? (
                             <Fragment>
