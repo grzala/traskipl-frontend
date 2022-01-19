@@ -47,7 +47,7 @@ const MotoRouteDetailsTab = (props: MotoRouteDetailsTabProps) => {
             )}
             {!route.open_all_year && (
                 <p>
-                    <b>Open from: </b> {route.date_open_day}/{route.date_open_month}
+                    <b>Open between: </b> {route.date_open_day}/{route.date_open_month}
                     &nbsp;&#45;&nbsp;{route.date_closed_day}/{route.date_closed_month}
                 </p>
             )}
