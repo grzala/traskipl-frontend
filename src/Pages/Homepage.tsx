@@ -16,6 +16,13 @@ const Homepage = () => {
     const [inAreaMotoRoutes, inAreaMotoRoutesIsLoading] = useGetInAreaRecentMotoRoutes(pointOfSearch);
     const [motoRoutesList, setMotoRoutesList] = useState<MotoRouteType[]>([])
     const [motoRoutesListLoading, setMotoRoutesListLoading] = useState<boolean>(true)
+    const [recentMotoRoutesListLoadedOnce, setRecentMotoRoutesListLoadedOnce] = useState<boolean>(false)
+
+    useEffect(() => {
+        if (!recentMotoRoutesIsLoading && recentMotoRoutes.length > 0) {
+            setRecentMotoRoutesListLoadedOnce(true)
+        }
+    }, [recentMotoRoutes, recentMotoRoutesIsLoading])
 
     useEffect(() => {
         if (pointOfSearch === null) {
@@ -75,7 +82,10 @@ const Homepage = () => {
                         <MotoRoutesList 
                             title={"Recently added routes"} 
                             routes={ motoRoutesList } 
-                            isLoading={motoRoutesListLoading}
+                            isLoading={
+                                (pointOfSearch !== null && motoRoutesListLoading) ||
+                                (pointOfSearch === null && (motoRoutesListLoading && !recentMotoRoutesListLoadedOnce))
+                            }
                             onHover={onRouteHover}
                         />
                     </div>

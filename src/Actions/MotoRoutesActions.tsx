@@ -73,8 +73,12 @@ function getRecentMotoRoutes() {
 export function useGetRecentMotoRoutes(): [ MotoRouteType[], boolean ]  {
     const [motoRoutes, setMotoRoutes] = useState<MotoRouteType[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const [triggetGet, setTriggerGet] = useState<boolean>(true);
 
     const _getMotoRoutes = useCallback(async () => {
+        if (!triggetGet) return
+        setTriggerGet(false)
+
         setLoading(true);
         getRecentMotoRoutes().then((response) => {
             if (response.status !== 200) {
@@ -90,9 +94,17 @@ export function useGetRecentMotoRoutes(): [ MotoRouteType[], boolean ]  {
             setMotoRoutes(_motoRoutes)
             setLoading(false);
         })
-    }, [])
+    }, [triggetGet])
 
-    useEffect(() => { _getMotoRoutes() }, [_getMotoRoutes])
+    useEffect(() => {
+        _getMotoRoutes() 
+
+       const timer = setInterval(() => {
+            setTriggerGet(true)
+       }, 1500);
+     
+       return () => clearInterval(timer);
+   }, [_getMotoRoutes])
 
     return [ motoRoutes, loading ]
 }
