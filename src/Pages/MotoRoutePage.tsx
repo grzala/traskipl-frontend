@@ -145,7 +145,7 @@ const MotoRoutePage = () => {
                                     <div className="col-md-8 moto-route-page-comments-container">
                                         <MotoRouteComments moto_route_id={route?.id || null} current_user={user} />
                                     </div>
-                                    <div className="col-md-4" style={{height: "100px"}}>
+                                    <div className="col-md-4">
 
                                         <MotoRouteAuthor author={route?.user || null} isLoading={routeLoading} />
 

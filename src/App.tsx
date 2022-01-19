@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Homepage from './Pages/Homepage';
 import MotoRoutePage from './Pages/MotoRoutePage';
 import Header from './Pages/Layout/Header';
+import Footer from './Pages/Layout/Footer';
 import { userContext } from './Contexts/UserContext';
 import { UserType } from './Types/UserTypes';
 import { login, checkLoggedIn as checkedLoggedInAction, logout } from './Actions/AuthActions';
@@ -135,6 +136,8 @@ function App() {
                 <Route path="/" element={ <Homepage /> } />
               </Routes>
             </div>
+
+            <Footer />
           </Router>
         </div>
 
