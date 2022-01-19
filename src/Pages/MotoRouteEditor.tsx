@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import ToasterStyles from "../ToasterStyles/ToasterStyles"
 import { CompositePOIFieldErrorType } from "src/Components/MotoRoute/Editor/MotoRouteEditorPOITab";
 import { userContext } from "src/Contexts/UserContext";
+import { confirmAlert } from "react-confirm-alert";
 
 
 enum addModes {
@@ -439,20 +440,37 @@ const MotoRouteEditor = () => {
     }, [motoRouteDetailsData]);
     // =====================================================================================
 
-    const removeRoute = async () => {
+    const removeRoute = () => {
         if (currentRouteID === null) {
             throw new Error("Cannot remove route, this shouldn't be available to user")
         }
 
+        const _removeRoute = async () => {
+            
+            let res = await deleteMotoRoute(currentRouteID)
 
-        let res = await deleteMotoRoute(currentRouteID)
-
-        if (res.status !== 200) {
-            toast.error(res.data.messages[0], ToasterStyles)
-        } else {
-            toast.success(res.data.messages[0], ToasterStyles)
-            navigate(`/`)
+            if (res.status !== 200) {
+                toast.error(res.data.messages[0], ToasterStyles)
+            } else {
+                toast.success(res.data.messages[0], ToasterStyles)
+                navigate(`/`)
+            }
         }
+
+        confirmAlert({
+            title: 'Delete route',
+            message: 'Are you sure you want to delete this route?',
+            buttons: [
+              {
+                label: 'Yes',
+                onClick: () => _removeRoute()
+              },
+              {
+                label: 'No',
+                onClick: () => {}
+              }
+            ]
+          });
     }
 
 
