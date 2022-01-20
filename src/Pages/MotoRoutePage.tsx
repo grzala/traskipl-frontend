@@ -29,7 +29,7 @@ const MotoRoutePage = () => {
     const urlMatch = useMatch('/routes/:id/*')
 
     const [route, routeLoading] = useGetMotoRoute(id ? +id : null);
-    const [motoRoutesList, motoRoutesListLoading] = useGetInAreaRecentMotoRoutes(route === null ? null : route.average_point);
+    const [motoRoutesList, motoRoutesListLoading] = useGetInAreaRecentMotoRoutes(route === null ? null : route.average_point, route === null ? null : route.id);
 
     useEffect(() => {
         

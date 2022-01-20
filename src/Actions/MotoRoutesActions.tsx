@@ -111,11 +111,12 @@ export function useGetRecentMotoRoutes(): [ MotoRouteType[], boolean ]  {
 
 // ================ GET IN AREA MOTO ROUTES ===============================
 
-function getInAreaMotoRoutes(point: {lat: number, lng: number}) {
+function getInAreaMotoRoutes(point: {lat: number, lng: number}, current_route_id: number | null = null) {
     return axios.post(
         `${process.env.REACT_APP_API_SERVER}/moto_routes/in_area`,
         {
-            point: point
+            point: point,
+            current_route_id: current_route_id
         },
         {'withCredentials': true}
     ).then((response) => {
@@ -131,7 +132,7 @@ function getInAreaMotoRoutes(point: {lat: number, lng: number}) {
     })
 }
 
-export function useGetInAreaRecentMotoRoutes(point: {lat: number, lng: number} | null): [ MotoRouteType[], boolean ]  {
+export function useGetInAreaRecentMotoRoutes(point: {lat: number, lng: number} | null, current_route_id: number | null = null): [ MotoRouteType[], boolean ]  {
     const [motoRoutes, setMotoRoutes] = useState<MotoRouteType[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -139,7 +140,7 @@ export function useGetInAreaRecentMotoRoutes(point: {lat: number, lng: number} |
         if (point === null) return
         
         setLoading(true);
-        getInAreaMotoRoutes(point).then((response) => {
+        getInAreaMotoRoutes(point, current_route_id).then((response) => {
             if (response.status !== 200) {
                 console.log("Something went wrong when getting moto Routes")
                 console.log(response)
