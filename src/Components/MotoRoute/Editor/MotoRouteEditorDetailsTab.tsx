@@ -288,7 +288,7 @@ const MotoRouteEditorDetailsTab = (props: MotoRouteEditorDetailsTabProps) => {
                         className="form-control"
                         styles={ selectNoBorderStyles }
                         value={ {value: motoRouteDetailsData.time_to_complete_m, label: motoRouteDetailsData.time_to_complete_m.toString() }  }
-                        options={ range(0, MAX_MINUTES_TO_COMPLETE+1, 10).map((i) => ({value: i, label: (i).toString()})) }
+                        options={ range(0, MAX_MINUTES_TO_COMPLETE, 10).map((i) => ({value: i, label: (i).toString()})) }
                         onChange={ (newOption: any) => handleChange('time_to_complete_m', newOption.value) }
                     />
                     <label className="input-group-text" >minutes</label>
