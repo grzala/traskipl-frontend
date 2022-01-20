@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useCallback, useEffect, useState } from "react";
 import { MotoRouteDetailsDataType } from "src/Components/MotoRoute/Editor/MotoRouteEditorDetailsTab";
+import { currentUserType } from "src/Types/UserTypes";
 import { MotoRouteType, POIType } from "../Types/MotoRoutesTypes";
 import { handleAxiosErrors } from "./ErrorHandling";
 
@@ -154,7 +155,7 @@ export function useGetInAreaRecentMotoRoutes(point: {lat: number, lng: number} |
             setMotoRoutes(_motoRoutes)
             setLoading(false);
         })
-    }, [point])
+    }, [point, current_route_id])
 
     useEffect(() => { _getMotoRoutes() }, [_getMotoRoutes])
 
@@ -438,7 +439,8 @@ export function check_is_favourite(route_id: number) {
 }
 
 // ================ Hook to get vote and fav? at the same time ===============================
-export function useGetMotoRouteVoteAndFav(id: number | null): [ number | null, boolean, any, any ]  {
+// user as parameter only to rerun if user changes
+export function useGetMotoRouteVoteAndFav(id: number | null, user: currentUserType): [ number | null, boolean, any, any ]  {
     const [userVote, setUserVote] = useState<number | null>(null);
     const [isFavourite, setIsFavourite] = useState<boolean>(false);
 
@@ -470,7 +472,7 @@ export function useGetMotoRouteVoteAndFav(id: number | null): [ number | null, b
             setIsFavourite(response.data.is_favourite)
         })
         
-    }, [id])
+    }, [id, user])
 
     useEffect(() => { _getVoteAndFav() }, [_getVoteAndFav])
 
@@ -580,7 +582,8 @@ export function checkCanEditMotoRoute(route_id: number) {
 
 
 // ================ Hook: Check if route can be edited by use ===============================
-export function useCheckCanEditMotoRoute(route_id: number): [boolean] {
+// user as parameter only to rerun if user changes
+export function useCheckCanEditMotoRoute(route_id: number, user: currentUserType): [boolean] {
     const [canEdit, setCanEdit] = useState<boolean>(false)
 
     const _checkCanEdit = useCallback(() => {
@@ -594,7 +597,7 @@ export function useCheckCanEditMotoRoute(route_id: number): [boolean] {
             setCanEdit(res.data.can_edit)
         })
             
-    }, [route_id])
+    }, [route_id, user])
 
     useEffect(() => { _checkCanEdit() }, [_checkCanEdit])
 

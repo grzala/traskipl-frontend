@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { MotoRouteType, POIType } from "../../../Types/MotoRoutesTypes";
 import MotoRouteAccidentsTab from "./MotoRouteAccidentsTab";
 import MotoRouteDetailsTab from "./MotoRouteDetailsTab";
@@ -16,6 +16,7 @@ import ToasterStyles from "../../../ToasterStyles/ToasterStyles"
 import HelmetRating from "./HelmetRating";
 import ReactLoading from "react-loading";
 import { AccidentType } from "src/Types/AccidentTypes";
+import { userContext } from "src/Contexts/UserContext";
 
 type MotoRouteProps = {
     route: MotoRouteType;
@@ -52,11 +53,14 @@ const MotoRouteDetails = (props: MotoRouteProps) => {
 
     const urlMatch = useMatch('/routes/:id/*')
 
+    // used to update UI if userchanges
+    const user = useContext(userContext);
+
     const [routeScore, setRouteScore] = useState<number>(route.score);
     
     // User needed for hook when user changes
-    const [ yourRouteScore, isRouteFav, setYourRouteScore, setIsRouteFav ] = useGetMotoRouteVoteAndFav(route.id) 
-    const [ can_edit ] = useCheckCanEditMotoRoute(route.id)
+    const [ yourRouteScore, isRouteFav, setYourRouteScore, setIsRouteFav ] = useGetMotoRouteVoteAndFav(route.id, user.user) 
+    const [ can_edit ] = useCheckCanEditMotoRoute(route.id, user.user)
 
     useEffect(() => {
         check_is_favourite(route.id)
