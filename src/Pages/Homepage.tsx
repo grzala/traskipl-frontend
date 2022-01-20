@@ -80,7 +80,7 @@ const Homepage = () => {
                 <div className="col-md-5">
                     <div style={{ maxHeight: "40em" }}>
                         <MotoRoutesList 
-                            title={"Recently added routes"} 
+                            title={pointOfSearch === null ? "Recently added routes" : "Routes in area"} 
                             routes={ motoRoutesList } 
                             isLoading={
                                 (pointOfSearch !== null && motoRoutesListLoading) ||
