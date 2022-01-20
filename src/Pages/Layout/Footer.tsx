@@ -30,6 +30,7 @@ const Footer = () => {
                     <li>Icon - danger: <a href="https://www.flaticon.com/premium-icon/dangerous_2012485">https://www.flaticon.com/premium-icon/dangerous_2012485</a></li>
                     <li>Icon - fuel: <a href="https://www.flaticon.com/free-icon/gas-station_483497">https://www.flaticon.com/free-icon/gas-station_483497</a></li>
                     <li>Icon - other: <a href="https://www.flaticon.com/premium-icon/more-information_2740648">https://www.flaticon.com/premium-icon/more-information_2740648</a></li>
+                    <li>Avatars from <a href="https://getavataaars.com/">https://getavataaars.com/</a></li>
                 </ul>
             </div>
         </div>
