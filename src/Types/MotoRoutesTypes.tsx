@@ -31,7 +31,8 @@ export type CommentType = {
     user_id: number,
     created_at: Date,
     author: string,
-    message: string
+    message: string,
+    author_avatar_url: string
 }
 
 export type MotoRouteType = {

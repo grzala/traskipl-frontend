@@ -9,6 +9,7 @@ type UserType = {
 
     created_at: Date;
     total_routes_added?: number
+    avatar_url: string
 }
 
 type UserSignupType = {

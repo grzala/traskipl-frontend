@@ -83,7 +83,7 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
                                     <div key={ `comment_${comment.id}` }className="list-group-item align-items-start comment">
                                         <div className="profile-pic-wrapper">
                                             <ProfilePicture 
-                                                imgPath={ process.env.REACT_APP_THUMBNAIL_SOURCE + `/avatars/${comment.user_id}.png` }
+                                                imgPath={ comment.author_avatar_url }
                                             />
                                         </div>
                                         <div className="d-flex flex-column comment-content-wrapper">
@@ -128,7 +128,7 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
                     <div className="comments-reply-wrapper">
                         <div className="profile-pic-wrapper">
                             <ProfilePicture 
-                                imgPath={ process.env.REACT_APP_THUMBNAIL_SOURCE + `/avatars/${current_user.id}.png` }
+                                imgPath={ current_user.avatar_url }
                             />
                         </div>
                         
