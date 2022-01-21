@@ -72,9 +72,9 @@ const SearchPage = () => {
 
             <div className="SearchResults">
 
-                {(loadedOnce || !isLoadingMotoRoutes) && motoRouteList.length > 0 && (
+                {loadedOnce && (
                     <Fragment>
-                        <MotoRoutesList title={"Seach results"} routes={motoRouteList} isLoading={!loadedOnce && isLoadingMotoRoutes} />
+                        <MotoRoutesList title={"Seach results"} routes={motoRouteList} isLoading={!loadedOnce} />
                         
                         <div style={{
                             margin: "0.8em 0",

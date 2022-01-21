@@ -69,13 +69,13 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
             </div>
 
             <div id="comments-list-main" className="comments-list-main">
-                { (!commentsLoadedOnce && loadingComments) && (
+                { (!commentsLoadedOnce) && (
                     <div className="vertical-align-placeholder">
                         <ReactLoading type={ 'spokes' } className="loading-placeholder" />
                     </div>
                 )}
 
-                { (commentsLoadedOnce || !loadingComments) && (
+                { (commentsLoadedOnce) && (
                     <Fragment>
                         { moto_route_id !== null && comments && comments.length > 0 ? (
                             <Fragment>

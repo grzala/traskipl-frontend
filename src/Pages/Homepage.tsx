@@ -81,7 +81,7 @@ const Homepage = () => {
                             routes={ motoRoutesList } 
                             isLoading={
                                 (pointOfSearch !== null && motoRoutesListLoading) ||
-                                (pointOfSearch === null && (motoRoutesListLoading && !recentMotoRoutesListLoadedOnce))
+                                (pointOfSearch === null && (!recentMotoRoutesListLoadedOnce))
                             }
                             onHover={onRouteHover}
                         />

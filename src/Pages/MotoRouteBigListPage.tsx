@@ -99,13 +99,13 @@ const MotoRouteBigListPage = () => {
 
     return (
         <Fragment>
-            <MotoRoutesList title={getListTitle} routes={motoRoutesList} isLoading={!loadedOnce && motoRoutesListLoading} />
+            <MotoRoutesList title={getListTitle} routes={motoRoutesList} isLoading={!loadedOnce} />
 
             <div style={{
                 margin: "0.8em 0",
                 width: "100%"
             }}>
-                {(loadedOnce || !motoRoutesListLoading) && motoRoutesList.length > 0 && (
+                {(loadedOnce) && motoRoutesList.length > 0 && (
                     <Pagination
                         innerClass="pagination pagination-center"
                         itemClass="page-item"
