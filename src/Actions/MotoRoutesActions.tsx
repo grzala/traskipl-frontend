@@ -71,9 +71,10 @@ function getRecentMotoRoutes() {
     })
 }
 
-export function useGetRecentMotoRoutes(): [ MotoRouteType[], boolean ]  {
+export function useGetRecentMotoRoutes(): [ MotoRouteType[], boolean, boolean ]  {
     const [motoRoutes, setMotoRoutes] = useState<MotoRouteType[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const [loadedOnce, setLoadedOnce] = useState<boolean>(false);
     const [triggetGet, setTriggerGet] = useState<boolean>(true);
 
     const _getMotoRoutes = useCallback(async () => {
@@ -94,6 +95,7 @@ export function useGetRecentMotoRoutes(): [ MotoRouteType[], boolean ]  {
             
             setMotoRoutes(_motoRoutes)
             setLoading(false);
+            setLoadedOnce(true);
         })
     }, [triggetGet])
 
@@ -107,7 +109,7 @@ export function useGetRecentMotoRoutes(): [ MotoRouteType[], boolean ]  {
        return () => clearInterval(timer);
    }, [_getMotoRoutes])
 
-    return [ motoRoutes, loading ]
+    return [ motoRoutes, loading, loadedOnce ]
 }
 
 // ================ GET IN AREA MOTO ROUTES ===============================
@@ -171,7 +173,7 @@ export enum MotoRouteListAPITypes {
     USER_FAVOURITES = "user_favourites"
 }
 
-function getTopMotoRoutes(page: number, type: MotoRouteListAPITypes, user_id: number | null) {
+function getBigListMotoRoutes(page: number, type: MotoRouteListAPITypes, user_id: number | null) {
     let url = `${process.env.REACT_APP_API_SERVER}/moto_routes/${type}/${page}`
     if (user_id !== null) {
         url += `/${user_id}`
@@ -192,9 +194,10 @@ function getTopMotoRoutes(page: number, type: MotoRouteListAPITypes, user_id: nu
     })
 }
 
-export function useGetTopMotoRoutes(page: number, type: MotoRouteListAPITypes, user_id: number | null): [ MotoRouteType[], boolean , number, string]  {
+export function useGetBigListTopMotoRoutes(page: number, type: MotoRouteListAPITypes, user_id: number | null): [ MotoRouteType[], boolean, boolean, number, string]  {
     const [motoRoutes, setMotoRoutes] = useState<MotoRouteType[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const [loadedOnce, setLoadedOnce] = useState<boolean>(false);
     const [totalRoutes, setTotalRoutes] = useState<number>(-1);
     const [userFullName, setUserFullname] = useState<string>("")
 
@@ -213,7 +216,7 @@ export function useGetTopMotoRoutes(page: number, type: MotoRouteListAPITypes, u
         }
 
         setLoading(true);
-        getTopMotoRoutes(page, type, user_id).then((response) => {
+        getBigListMotoRoutes(page, type, user_id).then((response) => {
             if (response.status !== 200) {
                 console.log("Something went wrong when getting moto Routes")
                 console.log(response)
@@ -232,12 +235,13 @@ export function useGetTopMotoRoutes(page: number, type: MotoRouteListAPITypes, u
                 setUserFullname(response.data.user_full_name)
             }
             setLoading(false);
+            setLoadedOnce(true)
         })
     }, [page, type, user_id])
 
     useEffect(() => { _getMotoRoutes() }, [_getMotoRoutes])
 
-    return [ motoRoutes, loading, totalRoutes, userFullName ]
+    return [ motoRoutes, loading, loadedOnce, totalRoutes, userFullName ]
 }
 
 
@@ -318,9 +322,10 @@ export function searchMotoRoute(searchString: string, page_no: number) {
 }
 
 const MINIMUM_SEARCH_STRING_LENGTH = 2
-export function useSearchMotoRoute(searchString: string, page_no: number): [ MotoRouteType[], boolean, number /*, (resource: MotoRouteType[]) => void*/ ]  {
+export function useSearchMotoRoute(searchString: string, page_no: number): [ MotoRouteType[], boolean, boolean, number /*, (resource: MotoRouteType[]) => void*/ ]  {
     const [motoRoute, setMotoRoute] = useState<MotoRouteType[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [loadedOnce, setLoadedOnce] = useState<boolean>(false)
     const [totalRotues, setTotalRotues] = useState<number>(0);
 
     const _getMotoRoute = useCallback(async () => {
@@ -347,13 +352,14 @@ export function useSearchMotoRoute(searchString: string, page_no: number): [ Mot
             
             setMotoRoute(_motoRoutes)
             setLoading(false);
+            setLoadedOnce(true)
             setTotalRotues(response.data.total_routes)
         })
     }, [searchString,page_no])
 
     useEffect(() => { _getMotoRoute() }, [_getMotoRoute])
 
-    return [ motoRoute, loading, totalRotues ]
+    return [ motoRoute, loading, loadedOnce, totalRotues ]
 }
 
 // ================ Switch Fav ===============================

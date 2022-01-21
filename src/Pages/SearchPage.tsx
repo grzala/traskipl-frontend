@@ -12,16 +12,9 @@ const SearchPage = () => {
     const [searchString, setSearchString] = useState<string>("")
     const [inputString, setInputString] = useState<string>("")
     const [currentPage, setCurrentPage] = useState<number>(0)
-    const [motoRouteList, isLoadingMotoRoutes, totalRoutes] = useSearchMotoRoute(searchString, currentPage)
-    const [loadedOnce, setLoadedOnce] = useState<boolean>(false)
+    const [motoRouteList, isLoadingMotoRoutes, loadedOnce, totalRoutes] = useSearchMotoRoute(searchString, currentPage)
     const urlMatch = useMatch('/search/:page')
     const navigate = useNavigate()
-
-    useEffect(() => {
-        if (!isLoadingMotoRoutes && motoRouteList.length > 0) {
-            setLoadedOnce(true)
-        }
-    }, [motoRouteList, isLoadingMotoRoutes])
 
     useEffect(() => {
         if (urlMatch === null) {

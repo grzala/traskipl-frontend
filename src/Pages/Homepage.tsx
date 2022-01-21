@@ -12,17 +12,10 @@ const Homepage = () => {
     const [currentlyDisplayedRoute, setCurrentlyDisplayedRoute] = useState<MotoRouteType | null>(null)
     const [pointOfSearch, setPointOfSearch] = useState<{lat: number, lng: number} | null>(null)
 
-    const [recentMotoRoutes, recentMotoRoutesIsLoading] = useGetRecentMotoRoutes();
+    const [recentMotoRoutes, recentMotoRoutesIsLoading, recentMotoRoutesListLoadedOnce] = useGetRecentMotoRoutes();
     const [inAreaMotoRoutes, inAreaMotoRoutesIsLoading] = useGetInAreaRecentMotoRoutes(pointOfSearch);
     const [motoRoutesList, setMotoRoutesList] = useState<MotoRouteType[]>([])
     const [motoRoutesListLoading, setMotoRoutesListLoading] = useState<boolean>(true)
-    const [recentMotoRoutesListLoadedOnce, setRecentMotoRoutesListLoadedOnce] = useState<boolean>(false)
-
-    useEffect(() => {
-        if (!recentMotoRoutesIsLoading && recentMotoRoutes.length > 0) {
-            setRecentMotoRoutesListLoadedOnce(true)
-        }
-    }, [recentMotoRoutes, recentMotoRoutesIsLoading])
 
     useEffect(() => {
         if (pointOfSearch === null) {

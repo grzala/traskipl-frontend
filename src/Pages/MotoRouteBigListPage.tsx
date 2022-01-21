@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useEffect, useMemo, useState } from "react";
 import { useMatch, useNavigate } from "react-router-dom";
-import { MotoRouteListAPITypes, useGetTopMotoRoutes } from "src/Actions/MotoRoutesActions";
+import { MotoRouteListAPITypes, useGetBigListTopMotoRoutes } from "src/Actions/MotoRoutesActions";
 import MotoRoutesList from "src/Components/MotoRoute/MotoRoutesList";
 
 import Pagination from "react-js-pagination";
@@ -13,8 +13,6 @@ import { userContext } from "src/Contexts/UserContext";
 const ROUTES_PER_PAGE: number = 10
 
 const MotoRouteBigListPage = () => {
-    const [loadedOnce, setLoadedOnce] = useState<boolean>(false)
-
     const [currentPage, setCurrentPage] = useState<number>(0)
     const [listType, setListType] = useState<MotoRouteListAPITypes>(MotoRouteListAPITypes.NONE)
     const [requestedUserId, setRequestedUserId] = useState<number | null>(null)
@@ -75,13 +73,7 @@ const MotoRouteBigListPage = () => {
 
     }, [urlMatch, navigate, user.user])
 
-    const [motoRoutesList, motoRoutesListLoading, totalRoutes, userFullName] = useGetTopMotoRoutes(currentPage, listType, requestedUserId);
-
-    useEffect(() => {
-        if (!motoRoutesListLoading && motoRoutesList.length > 0) {
-            setLoadedOnce(true)
-        }
-    }, [motoRoutesListLoading, motoRoutesList])
+    const [motoRoutesList, motoRoutesListLoading, loadedOnce, totalRoutes, userFullName] = useGetBigListTopMotoRoutes(currentPage, listType, requestedUserId);
 
     const onChangePage = (new_page: number) => {
         navigate(`/moto_route_list/${urlMatch?.params.type}/${new_page}`)
