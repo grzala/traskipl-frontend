@@ -35,8 +35,8 @@ const AccidentMap = () => {
     })
 
     const [dateRange, setDateRange] = useState<{from: Date, to: Date}>({
-        from: moment().subtract(90, "days").toDate(),
-        to: moment().subtract(60, "days").toDate()
+        from: moment().subtract(200, "days").toDate(),
+        to: moment().subtract(170, "days").toDate()
     })
 
     useEffect(() => {
@@ -44,9 +44,6 @@ const AccidentMap = () => {
 
         const _getAccidents = async () => {
             const response = await getAccidentsWithFilters(dateRange.from, dateRange.to, filters)
-
-            console.log("respo")
-            console.log(response)
 
             if (response.status !== 200) {
               if (response.data?.messages) {
@@ -114,6 +111,11 @@ const AccidentMap = () => {
                         </ul>
 
                     <div className="details-content">
+                        <small>
+                            The accidents data was downloaded between 01/01/2016 - 01/01/2021. It takes time 
+                            for accident data to be released by police, so there might be no data on accidents that happened
+                            between today and a couple months ago
+                        </small>
                         <h5>Choose dates</h5>
                         From:  
                         <DatePicker dateFormat="dd/MM/yyyy" selected={dateRange.from}  onChange={(date) => setDates("from", date)} />
