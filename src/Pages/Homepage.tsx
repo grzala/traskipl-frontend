@@ -46,6 +46,10 @@ const Homepage = () => {
         if (!enter) {
             return
         }
+
+        if (currentlyDisplayedRoute !== null && currentlyDisplayedRoute.id === routeToDisplayId) {
+            return // Do not change state if the state would be changed to what it already is
+        }
         
         let routeToDisplay = motoRoutesList.find((route) => route.id === routeToDisplayId)
 
