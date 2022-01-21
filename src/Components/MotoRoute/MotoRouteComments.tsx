@@ -24,6 +24,8 @@ const MotoRouteComments = (props: MotoRouteCommentsProps) => {
     const [comments, loadingComments, insertComment, removeComment] = useGetComments(moto_route_id);
     const [commentsLoadedOnce, setCommentsLoadedOnce] = useState<boolean>(false)
     useEffect(() => {
+        console.log("LOADED ONCE: " + commentsLoadedOnce)
+        console.log("LOADEDING: " + loadingComments)
         if (!loadingComments && comments.length > 0) {
             setCommentsLoadedOnce(true)
         }
