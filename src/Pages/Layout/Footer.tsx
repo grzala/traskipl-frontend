@@ -24,13 +24,14 @@ const Footer = () => {
             <div className="sources">
                 <h6>Sources:</h6>
                 <ul>
+                    <li>Accident data from <a href="http://sewik.pl/">http://sewik.pl/</a></li>
+                    <li>Avatars from <a href="https://getavataaars.com/">https://getavataaars.com/</a></li>
                     <li>Icon - food: <a href="https://www.flaticon.com/premium-icon/restaurant_685301">https://www.flaticon.com/premium-icon/restaurant_685301</a></li>
                     <li>Icon - vista: <a href="ttps://www.flaticon.com/premium-icon/mountain_2404113">https://www.flaticon.com/premium-icon/mountain_2404113</a></li>
                     <li>Icon - urbex: <a href="https://www.flaticon.com/free-icon/bank_2780776">https://www.flaticon.com/free-icon/bank_2780776</a></li>
                     <li>Icon - danger: <a href="https://www.flaticon.com/premium-icon/dangerous_2012485">https://www.flaticon.com/premium-icon/dangerous_2012485</a></li>
                     <li>Icon - fuel: <a href="https://www.flaticon.com/free-icon/gas-station_483497">https://www.flaticon.com/free-icon/gas-station_483497</a></li>
                     <li>Icon - other: <a href="https://www.flaticon.com/premium-icon/more-information_2740648">https://www.flaticon.com/premium-icon/more-information_2740648</a></li>
-                    <li>Avatars from <a href="https://getavataaars.com/">https://getavataaars.com/</a></li>
                 </ul>
             </div>
         </div>
