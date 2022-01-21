@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { Fragment } from "react";
 import { MotoRouteType } from "../../../Types/MotoRoutesTypes";
 
@@ -54,6 +55,7 @@ const MotoRouteDetailsTab = (props: MotoRouteDetailsTabProps) => {
             <p><b>Difficulty:</b> {route.difficulty}/10</p>
             <p><b>Time to complete:</b> {route.time_to_complete_h > 0 ? route.time_to_complete_h.toString() + "h" : ""} {route.time_to_complete_m}m </p>
             <p><b>Route length:</b> {route.distance.toFixed(2)} km</p>
+            <p><b>Date added:</b> {moment(route.created_at).format("D/M/YYYY")}</p>
 
         </Fragment>
     )
