@@ -21,16 +21,7 @@ type MotoRouteCommentsProps = {
 const MotoRouteComments = (props: MotoRouteCommentsProps) => {
     const { moto_route_id, current_user } = props;
 
-    const [comments, loadingComments, insertComment, removeComment] = useGetComments(moto_route_id);
-    const [commentsLoadedOnce, setCommentsLoadedOnce] = useState<boolean>(false)
-    useEffect(() => {
-        console.log("LOADED ONCE: " + commentsLoadedOnce)
-        console.log("LOADEDING: " + loadingComments)
-        console.log("comments len: " + comments.length)
-        if (!loadingComments && comments.length > 0) {
-            setCommentsLoadedOnce(true)
-        }
-    }, [comments, loadingComments])
+    const [comments, loadingComments, commentsLoadedOnce, insertComment, removeComment] = useGetComments(moto_route_id);
 
     const [newCommentMessage, setNewCommentMessage] = useState<string>("")
 

@@ -61,12 +61,14 @@ function deleteComment(id: number) {
 
 export function useGetComments(moto_route_id: number | null): [ 
     CommentType[], 
+    boolean,
     boolean, 
     (moto_route_id: number | null, message: string) => Promise<boolean>,
     (comment_id: number) => Promise<boolean> ] {
 
     const [comments, setComments] = useState<CommentType[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [loadedOnce, setLoadedOnce] = useState<boolean>(false);
     const [triggerGetComments, setTriggerGetComments] = useState<boolean>(true);
 
     const _getComments = useCallback(() => {
@@ -89,6 +91,7 @@ export function useGetComments(moto_route_id: number | null): [
                 
                 setComments(_comments)
                 setLoading(false);
+                setLoadedOnce(true)
             })
         } else {
             setComments([])
@@ -141,5 +144,5 @@ export function useGetComments(moto_route_id: number | null): [
         return () => clearInterval(timer);
     }, [_getComments])
 
-    return [ comments, loading, _insertComment, _deleteComment ]
+    return [ comments, loading, loadedOnce, _insertComment, _deleteComment ]
 }
