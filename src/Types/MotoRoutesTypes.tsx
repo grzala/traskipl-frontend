@@ -55,4 +55,5 @@ export type MotoRouteType = {
     distance: number,
     comments?: CommentType[]
     average_point: {lat: number, lng: number}
+    thumbnail_url: string
 }

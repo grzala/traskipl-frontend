@@ -87,7 +87,7 @@ const MotoRoutesList = (props: MotoRoutesListProps) => {
                                     >
                                     <div className="d-flex flex-row">
                                         <div className="map-thumbnail-rating-col">
-                                            <img src={ process.env.REACT_APP_THUMBNAIL_SOURCE + `/route_thumbnails/${route.id}.png` } alt="map of the route" />
+                                            <img src={ route.thumbnail_url } alt="map of the route" />
 
                                             <div className="helmet-rating-container">
                                                 <HelmetRating
