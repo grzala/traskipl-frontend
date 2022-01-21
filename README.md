@@ -14,7 +14,7 @@ This project is a frontend to the web application called Traski.pl - a platform 
 
 1. Clone the project
 2. Run `npm install`
-3. In the root of the project, open `.env.development` and paste the following line into the file `REACT_APP_GOOGLE_MAPS_API_KEY=YOUR_API_KEY` and replace "YOUR_API_KEY" with your Google maps API key
+3. In the root of the project, create and open file `.env.development.local` and paste the following line into the file `REACT_APP_GOOGLE_MAPS_API_KEY=YOUR_API_KEY` and replace "YOUR_API_KEY" with your Google maps API key
 4. If you havent done it yet,  [Set up the backend project](https://github.com/grzala/traski-backend)
 5. Run `npm start`. The react app will run on localhost:3000 and API request will be forwarded to the backend which by default runs on localhost:3001
 
