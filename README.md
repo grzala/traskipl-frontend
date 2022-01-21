@@ -7,7 +7,7 @@ This project is a frontend to the web application called Traski.pl - a platform 
 - React: this project is based on React.js and requires React >= 16
 - Npm: this project uses npm >= 8
 - This project uses Google maps. You need your own Google maps API key if you wish to run the project yourself.
-- This project requires backend API to work correctly. [You can find the backend project under this link]()https://github.com/grzala/traski-backend
+- This project requires backend API to work correctly. [You can find the backend project under this link](https://github.com/grzala/traski-backend)
 
 
 ## Installation
