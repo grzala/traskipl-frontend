@@ -8,12 +8,14 @@ import ToasterStyles from "../ToasterStyles/ToasterStyles"
 import ReactLoading from "react-loading";
 
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { DatePicker } from 'react-rainbow-components';
 
 import "./MainPage.scss"
 import "../Components/MotoRoute/MotoRouteDetails/MotoRouteDetails.scss"
 import moment from "moment";
+
+
+const dateLocale = 'en-UK'
 
 
 const wrapperStyle: CSSProperties = {
@@ -35,8 +37,8 @@ const AccidentMap = () => {
     })
 
     const [dateRange, setDateRange] = useState<{from: Date, to: Date}>({
-        from: moment().subtract(200, "days").toDate(),
-        to: moment().subtract(170, "days").toDate()
+        from: moment().subtract(120, "days").toDate(),
+        to: moment().subtract(70, "days").toDate()
     })
 
     useEffect(() => {
@@ -118,9 +120,9 @@ const AccidentMap = () => {
                         </small>
                         <h5>Choose dates</h5>
                         From:  
-                        <DatePicker dateFormat="dd/MM/yyyy" selected={dateRange.from}  onChange={(date) => setDates("from", date)} />
+                        <DatePicker value={dateRange.from} locale={dateLocale} maxDate={dateRange.to} onChange={(date) => setDates("from", date)} />
                         To: 
-                        <DatePicker dateFormat="dd/MM/yyyy" selected={dateRange.to}  onChange={(date) => setDates("to", date)} />
+                        <DatePicker value={dateRange.to} locale={dateLocale} maxDate={new Date()} onChange={(date) => setDates("to", date)} />
                         <br />
                         <br />
                         Injuries:
