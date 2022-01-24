@@ -112,7 +112,7 @@ const AccidentMap = () => {
 
                     <div className="details-content">
                         <small>
-                            The accidents data was downloaded between 01/01/2016 - 01/01/2021. It takes time 
+                            The accidents data was downloaded for 01/01/2016 - 01/01/2021. It takes time 
                             for accident data to be released by police, so there might be no data on accidents that happened
                             between today and a couple months ago
                         </small>

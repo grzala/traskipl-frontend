@@ -151,7 +151,7 @@ const SignUpBoxModal = (props: SignUpBoxModalProps) => {
         } 
 
         if (result) {
-            toast.success("user" + userSignUpData.email + " has been created. You can now login", ToasterStyles);
+            toast.success("user " + userSignUpData.email + " has been created. You can now login", ToasterStyles);
             setShow(false)
         }
 
